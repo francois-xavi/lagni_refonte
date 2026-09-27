@@ -1,0 +1,80 @@
+---
+/**
+ * Self-hosted Lordicon player wrapper.
+ * Icons live in /public/assets/icons/lordicon/*.json — no CDN at runtime.
+ */
+export type LordIconName =
+  | 'experience'
+  | 'server'
+  | 'network'
+  | 'medal'
+  | 'calendar'
+  | 'monitor'
+  | 'tools'
+  | 'mentor'
+  | 'search'
+  | 'clock'
+  | 'book'
+  | 'cap'
+  | 'school'
+  | 'refresh'
+  | 'briefcase'
+  | 'design'
+  | 'document'
+  | 'checklist'
+  | 'conversation'
+  | 'shield'
+  | 'play'
+  | 'mail'
+  | 'phone'
+  | 'location'
+  | 'globe'
+  | 'target';
+
+interface Props {
+  name: LordIconName;
+  size?: number;
+  trigger?: 'in' | 'hover' | 'loop' | 'loop-on-hover' | 'click' | 'boomerang' | 'morph';
+  /** CSS selector of an ancestor whose hover plays the animation. */
+  target?: string;
+  /** `light` renders a white stroke for dark surfaces. */
+  tone?: 'brand' | 'light';
+  class?: string;
+}
+
+const {
+  name,
+  size = 36,
+  trigger = 'hover',
+  target,
+  tone = 'brand',
+  class: className = '',
+} = Astro.props;
+const src = `/assets/icons/lordicon/${name}.json`;
+const colors =
+  tone === 'light' ? 'primary:#FFFFFF,secondary:#FF914D' : 'primary:#004AAD,secondary:#FF914D';
+---
+
+<lord-icon
+  class:list={['lord', className]}
+  src={src}
+  trigger={trigger}
+  target={target}
+  colors={colors}
+  loading="lazy"
+  style={`width:${size}px;height:${size}px`}
+  aria-hidden="true"
+></lord-icon>
+
+<style>
+  .lord {
+    display: block;
+    flex-shrink: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lord {
+      /* Freeze on first frame — player still mounts, trigger disabled via script */
+    }
+  }
+</style>

@@ -1,0 +1,374 @@
+---
+/**
+ * Recruitment page — composed from the same section components as the
+ * homepage, Formations and ERP. Only the forms band header and the
+ * international split keep page-level markup.
+ */
+import ArtHero from '../sections/ArtHero.astro';
+import ProofBand from '../sections/ProofBand.astro';
+import IconTiles from '../sections/IconTiles.astro';
+import NumberedCards from '../sections/NumberedCards.astro';
+import StepTimeline from '../sections/StepTimeline.astro';
+import RowsBand from '../sections/RowsBand.astro';
+import FormCard from '../sections/FormCard.astro';
+import NoticeCard from '../sections/NoticeCard.astro';
+import CtaBand from '../CtaBand.astro';
+import Button from '../Button.astro';
+import Icon from '../Icon.astro';
+import FormShell from '../forms/FormShell.astro';
+import FormField from '../forms/FormField.astro';
+import type { LordIconName } from '../LordIcon.astro';
+import { href, type Lang } from '../../i18n/routes';
+import { useTranslations, usePages } from '../../i18n/utils';
+import { publicImage } from '../../lib/assets';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const p = usePages(lang).recruitment;
+const f = t.forms;
+
+const whyLords: Record<string, LordIconName> = {
+  gear: 'tools',
+  network: 'network',
+  chart: 'experience',
+  people: 'mentor',
+};
+
+const profileLords: Record<string, LordIconName> = {
+  people: 'server',
+  clipboard: 'checklist',
+  chart: 'experience',
+  factory: 'tools',
+};
+
+const processLords: Record<string, LordIconName> = {
+  search: 'search',
+  people: 'mentor',
+  doc: 'checklist',
+  link: 'document',
+  handshake: 'conversation',
+};
+
+const linkLords: Record<string, LordIconName> = {
+  cap: 'cap',
+  globe: 'network',
+  school: 'school',
+};
+---
+
+<ArtHero
+  id="rec-hero-title"
+  eyebrow={p.hero.eyebrow}
+  title={p.hero.title}
+  lead={p.hero.lead}
+  trustItems={p.hero.trustItems}
+  image={{ src: '/assets/images/hero-recruitment.webp', alt: p.hero.imageAlt, width: 900, height: 1100 }}
+  matchCard={{ label: p.hero.matchLabel, title: p.hero.matchTitle, pills: p.hero.matchPills }}
+  profileCard={{
+    badge: p.hero.profileBadge,
+    label: p.hero.profileLabel,
+    title: p.hero.profileTitle,
+    status: p.hero.profileStatus,
+  }}
+  valueCard={{ text: p.hero.script, variant: 'script' }}
+>
+  <Button href="#employer" variant="primary" size="lg">{p.hero.ctaPrimary}</Button>
+  <Button href="#candidate" variant="ghost" size="lg">{p.hero.ctaSecondary}</Button>
+</ArtHero>
+
+<ProofBand
+  label={p.proof.label}
+  items={p.proof.items.map((item) => ({ ...item, lord: item.lord as LordIconName }))}
+/>
+
+<IconTiles
+  id="why-title"
+  eyebrow={p.why.eyebrow}
+  title={p.why.title}
+  lead={p.why.body}
+  tiles={p.why.items.map((i) => ({
+    label: i.title,
+    body: i.body,
+    lord: whyLords[i.icon] ?? 'tools',
+  }))}
+  image={{
+    src: publicImage('recruitment-why.webp'),
+    alt: p.why.imageAlt,
+    slot: 'recruitment-why',
+    width: 1000,
+    height: 800,
+    fallbackIcon: 'people',
+  }}
+  tint={false}
+/>
+
+<NumberedCards
+  id="prof-title"
+  eyebrow={p.profiles.eyebrow}
+  title={p.profiles.title}
+  lead={p.profiles.lead}
+  items={p.profiles.groups.map((g) => ({
+    title: g.title,
+    points: g.items,
+    lord: profileLords[g.icon] ?? 'server',
+  }))}
+  reveal
+>
+  <div slot="note" class="eco">
+    <div class="eco__head">
+      <h3>{t.ecosystems.title}</h3>
+      <p>{t.ecosystems.subtitle}</p>
+    </div>
+    <ul class="eco__list">
+      {t.ecosystems.items.map((e) => <li>{e}</li>)}
+    </ul>
+    <p class="eco__note">{t.common.ecosystemNote}</p>
+  </div>
+</NumberedCards>
+
+<StepTimeline
+  id="proc-title"
+  eyebrow={p.process.eyebrow}
+  title={p.process.title}
+  lead={p.process.lead}
+  steps={p.process.steps.map((s) => ({
+    title: s.title,
+    body: s.body,
+    lord: processLords[s.icon] ?? 'search',
+  }))}
+/>
+
+<section class="section section--tint forms" aria-labelledby="forms-title">
+  <div class="container">
+    <header class="forms__head" data-reveal="fade-up">
+      <p class="eyebrow forms__eyebrow">{p.forms.eyebrow}</p>
+      <h2 id="forms-title">{p.forms.title}</h2>
+    </header>
+
+    <div class="forms__grid">
+      <FormCard id="employer" eyebrow={p.employer.eyebrow} title={p.employer.title} body={p.employer.body} lord="briefcase">
+        <FormShell
+          lang={lang}
+          id="employerForm"
+          formName="recruitment-employer"
+          submitLabel={f.submitMandate}
+          consentLabel={f.consent}
+        >
+          <FormField name="organisation" label={f.organisation} required placeholder={f.organisationPlaceholder} autocomplete="organization" />
+          <FormField name="name" label={f.name} required placeholder={f.lastNamePlaceholder} autocomplete="name" />
+          <FormField name="email" label={f.email} type="email" required placeholder={f.emailPlaceholder} autocomplete="email" />
+          <FormField name="role_sought" label={f.roleSought} required placeholder={f.roleSoughtPlaceholder} />
+          <FormField name="domain" label={f.domain} type="select" required options={f.domainOptions} optionsPlaceholder={f.select} />
+          <FormField name="contract_type" label={f.contractType} type="select" required options={f.contractOptions} optionsPlaceholder={f.select} />
+          <FormField name="message" label={f.needDescription} type="textarea" required placeholder={f.needDescriptionPlaceholder} wide />
+        </FormShell>
+        <p class="formNote">
+          <Icon name="lock" size={15} />
+          <span>{f.confidentialNote}</span>
+        </p>
+      </FormCard>
+
+      <FormCard
+        id="candidate"
+        eyebrow={p.candidate.eyebrow}
+        title={p.candidate.title}
+        body={p.candidate.body}
+        lord="cap"
+        tone="warm"
+      >
+        <FormShell
+          lang={lang}
+          id="candidateForm"
+          formName="recruitment-candidate"
+          submitLabel={f.submitApplication}
+          consentLabel={f.consentCandidate}
+        >
+          <FormField name="name" idPrefix="cand" label={f.name} required placeholder={f.lastNamePlaceholder} autocomplete="name" />
+          <FormField name="email" idPrefix="cand" label={f.email} type="email" required placeholder={f.emailPlaceholder} autocomplete="email" />
+          <FormField name="expertise_area" label={f.expertiseArea} type="select" required options={f.domainOptions} optionsPlaceholder={f.select} />
+          <FormField name="years_experience" label={f.yearsExperience} type="select" required options={f.yearsOptions} optionsPlaceholder={f.select} />
+          <FormField name="cv" label={f.cv} type="file" required accept=".pdf,.doc,.docx" help={f.cvHelp} wide />
+        </FormShell>
+        <p class="formNote">
+          <Icon name="lock" size={15} />
+          <span>{f.candidateNote}</span>
+        </p>
+        <p class="formNote formNote--warn">
+          <Icon name="shield" size={15} />
+          <span>{p.candidate.noPromise}</span>
+        </p>
+      </FormCard>
+    </div>
+  </div>
+</section>
+
+<RowsBand
+  id="links-title"
+  eyebrow={p.links.eyebrow}
+  title={p.links.title}
+  body={p.links.body}
+  rows={p.links.items.map((l) => ({
+    title: l.title,
+    desc: l.body,
+    href: href(l.route, lang),
+    lord: linkLords[l.icon] ?? 'network',
+    pills: 'items' in l ? l.items : undefined,
+  }))}
+/>
+
+<section class="section intl" aria-labelledby="intl-title">
+  <div class="container intl__grid">
+    <div data-reveal="fade-up">
+      <p class="eyebrow intl__eyebrow">{p.international.eyebrow}</p>
+      <h2 id="intl-title">{p.international.title}</h2>
+      <p class="lead">{p.international.body}</p>
+    </div>
+    <NoticeCard lord="shield" title={p.international.disclaimerTitle} body={p.international.disclaimer}>
+      <p class="notice__aside">{p.international.note}</p>
+    </NoticeCard>
+  </div>
+</section>
+
+<CtaBand
+  title={p.finalCta.title}
+  body={p.finalCta.body}
+  script={p.finalCta.script}
+  imageSlot="cta-recruitment"
+>
+  <Button href="#employer" variant="primary" size="lg">{p.finalCta.ctaPrimary}</Button>
+  <Button href="#candidate" variant="outlineLight" size="lg">{p.finalCta.ctaSecondary}</Button>
+</CtaBand>
+
+<script>
+  import '../../scripts/reveal';
+  import '../../scripts/lordicon';
+</script>
+
+<style>
+  /* ── Ecosystems (NumberedCards note slot) ── */
+
+  .eco {
+    display: grid;
+    gap: var(--s-4);
+    margin-top: var(--s-4);
+    padding: var(--s-6);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+  }
+
+  .eco__head h3 {
+    font-size: var(--fs-md);
+    color: var(--blue-900);
+  }
+
+  .eco__head p {
+    margin-top: var(--s-1);
+    font-size: var(--fs-sm);
+    color: var(--muted);
+  }
+
+  .eco__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+  }
+
+  .eco__list li {
+    padding: 0.45rem 0.9rem;
+    font-size: var(--fs-sm);
+    font-weight: 700;
+    color: var(--blue-800);
+    background: var(--blue-050);
+    border: 1px solid var(--blue-100);
+    border-radius: var(--radius-pill);
+  }
+
+  .eco__note {
+    font-size: var(--fs-xs);
+    font-style: italic;
+    color: var(--muted);
+    max-width: 80ch;
+  }
+
+  @media (min-width: 900px) {
+    .eco {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+      align-items: center;
+      column-gap: var(--s-10);
+    }
+
+    .eco__note {
+      grid-column: 1 / -1;
+    }
+  }
+
+  /* ── Forms ── */
+
+  .forms__head {
+    max-width: 46rem;
+    margin-bottom: var(--s-10);
+  }
+
+  .forms__eyebrow,
+  .intl__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-3);
+    margin-bottom: var(--s-4);
+  }
+
+  .forms__eyebrow::before,
+  .intl__eyebrow::before {
+    content: '';
+    width: 1.75rem;
+    height: 2px;
+    background: var(--orange-500);
+    border-radius: 2px;
+  }
+
+  .forms h2,
+  .intl h2 {
+    font-size: var(--fs-3xl);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--blue-900);
+  }
+
+  .forms__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-6);
+    align-items: start;
+  }
+
+  @media (min-width: 1000px) {
+    .forms__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  /* ── International ── */
+
+  .intl__grid {
+    display: grid;
+    gap: var(--s-8);
+    align-items: start;
+  }
+
+  .intl .lead {
+    margin-top: var(--s-4);
+  }
+
+  @media (min-width: 900px) {
+    .intl__grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--s-12);
+    }
+  }
+</style>

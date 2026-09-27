@@ -1,0 +1,131 @@
+---
+/**
+ * FAQ section. Default: intro (plus the optional `aside` slot) on the left,
+ * accordion on the right. `wideAside`: intro + accordion on the left, the
+ * aside (e.g. a form) gets the right column.
+ */
+import FaqAccordion from '../FaqAccordion.astro';
+
+interface Props {
+  id: string;
+  anchor?: string;
+  eyebrow: string;
+  title: string;
+  lead?: string;
+  items: readonly { q: string; a: string }[];
+  tint?: boolean;
+  wideAside?: boolean;
+}
+
+const { id, anchor, eyebrow, title, lead, items, tint = true, wideAside = false } = Astro.props;
+const hasAside = Astro.slots.has('aside');
+---
+
+<section
+  id={anchor}
+  class:list={['section', 'faqs', tint && 'section--tint', wideAside && 'faqs--wide']}
+  aria-labelledby={id}
+>
+  <div class="container faqs__grid">
+    <div class="faqs__main">
+      <header class="faqs__intro" data-reveal="fade-up">
+        <p class="eyebrow faqs__eyebrow">{eyebrow}</p>
+        <h2 id={id}>{title}</h2>
+        {lead && <p class="lead">{lead}</p>}
+      </header>
+      {
+        !wideAside && hasAside && (
+          <div class="faqs__aside" data-reveal="fade-up">
+            <slot name="aside" />
+          </div>
+        )
+      }
+      {
+        wideAside && (
+          <div class="faqs__list" data-reveal="fade-up">
+            <FaqAccordion items={items} />
+          </div>
+        )
+      }
+    </div>
+    {
+      wideAside ? (
+        hasAside && (
+          <div class="faqs__side" data-reveal="fade-up">
+            <slot name="aside" />
+          </div>
+        )
+      ) : (
+        <div class="faqs__list" data-reveal="fade-up">
+          <FaqAccordion items={items} />
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<script>
+  import '../../scripts/reveal';
+</script>
+
+<style>
+  .faqs {
+    scroll-margin-top: var(--header-h);
+  }
+
+  .faqs__grid {
+    display: grid;
+    gap: var(--s-10);
+    align-items: start;
+  }
+
+  .faqs__main {
+    display: grid;
+    gap: var(--s-8);
+    align-content: start;
+  }
+
+  .faqs__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-3);
+    margin-bottom: var(--s-4);
+  }
+
+  .faqs__eyebrow::before {
+    content: '';
+    width: 1.75rem;
+    height: 2px;
+    background: var(--orange-500);
+    border-radius: 2px;
+  }
+
+  .faqs h2 {
+    font-size: var(--fs-3xl);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--blue-900);
+  }
+
+  .faqs .lead {
+    margin-top: var(--s-4);
+  }
+
+  @media (min-width: 1000px) {
+    .faqs__grid {
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      gap: var(--s-16);
+    }
+
+    .faqs:not(.faqs--wide) .faqs__main {
+      position: sticky;
+      top: calc(var(--header-h) + var(--s-6));
+    }
+
+    .faqs--wide .faqs__grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--s-12);
+    }
+  }
+</style>

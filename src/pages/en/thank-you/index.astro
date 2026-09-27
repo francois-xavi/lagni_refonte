@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SimplePage from '../../../components/pages/SimplePage.astro';
+import Button from '../../../components/Button.astro';
+import { usePages } from '../../../i18n/utils';
+import { href } from '../../../i18n/routes';
+
+const lang = 'en' as const;
+const p = usePages(lang).thanks;
+---
+
+<BaseLayout
+  lang={lang}
+  routeKey="thanks"
+  title={p.seo.title}
+  description={p.seo.description}
+  noindex
+>
+  <SimplePage
+    lang={lang}
+    icon="check"
+    title={p.title}
+    lead={p.lead}
+    listTitle={p.nextTitle}
+    list={p.next}
+    linksTitle={p.exploreTitle}
+    links={p.explore}
+  >
+    <Button href={href('home', lang)} variant="primary" size="lg">{p.backHome}</Button>
+  </SimplePage>
+</BaseLayout>

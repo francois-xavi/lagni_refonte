@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HomeSections from '../components/home/HomeSections.astro';
+import { usePages } from '../i18n/utils';
+import { organizationSchema, websiteSchema } from '../lib/schema';
+
+const lang = 'fr' as const;
+const p = usePages(lang).home;
+---
+
+<BaseLayout
+  lang={lang}
+  routeKey="home"
+  title={p.seo.title}
+  description={p.seo.description}
+  schema={[organizationSchema(lang), websiteSchema(lang)]}
+>
+  <HomeSections lang={lang} />
+</BaseLayout>

@@ -1,0 +1,71 @@
+# .cursorrules - lagniconsulting.ca homepage redesign
+
+## Project
+- Site: lagniconsulting.ca (business consulting firm based in Cotonou, Benin)
+- Page: Homepage only (3 design variants in 1 HTML file)
+- Stack: HTML5 + vanilla CSS (NO frameworks, NO Tailwind, NO Bootstrap)
+- Output: Single HTML file with 3 distinct variants, clearly separated
+
+## ⚠️ CRITICAL: LOGO MUST NOT CHANGE
+- **Logo file**: Use EXACT same logo in all 3 variants
+- **Logo path**: `/assets/images/logo.png` (or .svg if available)
+- **Logo dimensions**: Do NOT resize, recolor, or modify the logo
+- **Logo placement**: Top-left in header/navigation (consistent across variants)
+- **Logo alt text**: "Lagni Consulting"
+- **If logo has transparent background**: Keep it (do not add white box behind)
+- **If logo has specific colors**: Do NOT apply CSS filters or color changes
+- **NEVER generate a new logo or suggest logo changes**
+
+## Design Principles
+- **Style**: Premium consulting, minimal, sophisticated
+- **Color palette**:
+  - Primary: Navy (#0A192F)
+  - Accent: Gold (#D4AF37)
+  - Neutrals: White (#FFFFFF), Light Gray (#F5F5F5), Dark Gray (#333333)
+- **Typography**:
+  - Max 2 fonts total
+  - Headings: Playfair Display (serif, elegant)
+  - Body: Inter (sans-serif, clean, readable)
+  - Import from Google Fonts
+- **Spacing**: Generous whitespace (2x-3x default margins/padding)
+- **Layout**: Clean grid, clear hierarchy, mobile-first responsive
+- **Imagery**: Professional, business-oriented (use Unsplash placeholders)
+
+## Technical Requirements
+- Semantic HTML5 (header, nav, main, section, footer)
+- CSS custom properties (variables) for colors, fonts, spacing
+- Each variant uses unique class prefix: `.design1-`, `.design2-`, `.design3-`
+- Mobile responsive (media queries for <768px)
+- Accessibility: proper contrast ratios, focus states, semantic structure
+- Performance: minimal CSS, no external dependencies except Google Fonts
+
+## Output Format
+- Single HTML file only
+- 3 variants separated by comments: `<!-- DESIGN 1 -->`, `<!-- DESIGN 2 -->`, `<!-- DESIGN 3 -->`
+- Each variant is a complete, standalone homepage with:
+  - Header with logo (SAME logo in all variants)
+  - Hero section (headline, subheadline, CTA)
+  - Services section (3-4 cards)
+  - About section (brief intro + photo placeholder)
+  - Testimonials (2-3 quotes)
+  - Contact section (form + contact info)
+  - Footer (logo repeated, links, copyright)
+- No explanations in output, just the HTML code
+
+## Design Variant Specifications
+- **Design 1**: Dark theme (navy background hero, gold accents, bold typography)
+- **Design 2**: Light theme (white background, soft shadows, elegant serif headings)
+- **Design 3**: Minimalist (lots of white space, accent color gold, ultra-clean layout)
+
+## Logo Implementation Example
+```html
+<!-- CORRECT: Logo stays identical -->
+<header class="design1-header">
+  <img src="/assets/images/logo.png" alt="Lagni Consulting" class="logo">
+</header>
+
+<!-- WRONG: Do NOT do this -->
+<header class="design1-header">
+  <img src="/assets/images/logo.png" alt="Lagni Consulting" class="logo" style="filter: brightness(0) invert(1);">
+</header>
+```

@@ -1,0 +1,347 @@
+---
+/**
+ * Editorial solution grid: the first solution is a dark lead card spanning two
+ * rows, the others sit beside it in a 2×2 (ERP portfolio).
+ * Slot `note`: fine print under the grid.
+ */
+import Icon from '../Icon.astro';
+
+interface Props {
+  id: string;
+  anchor?: string;
+  eyebrow: string;
+  title: string;
+  lead: string;
+  items: readonly {
+    name: string;
+    family: string;
+    title: string;
+    body: string;
+    tags: readonly string[];
+    href: string;
+    cta: string;
+  }[];
+}
+
+const { id, anchor, eyebrow, title, lead, items } = Astro.props;
+const hasNote = Astro.slots.has('note');
+---
+
+<section class="section section--tint sol" id={anchor} aria-labelledby={id}>
+  <div class="container">
+    <header class="sol__head" data-reveal="fade-up">
+      <p class="eyebrow sol__eyebrow">{eyebrow}</p>
+      <h2 id={id}>{title}</h2>
+      <p class="lead">{lead}</p>
+    </header>
+
+    <ul class="sol__grid" data-reveal="stagger">
+      {
+        items.map((item, i) => (
+          <li class:list={['sol__item', i === 0 && 'sol__item--lead']} style={`--i:${i + 1}`}>
+            <article class:list={['solCard', i === 0 && 'solCard--lead']}>
+              <p class="solCard__family">{item.family}</p>
+              <h3 class="solCard__name">{item.name}</h3>
+              <p class="solCard__title">{item.title}</p>
+              <p class="solCard__body">{item.body}</p>
+              <ul class="solCard__tags">
+                {item.tags.map((tag) => (
+                  <li>{tag}</li>
+                ))}
+              </ul>
+              <a class="solCard__link" href={item.href}>
+                <span>{item.cta}</span>
+                <span class="solCard__arrow" aria-hidden="true">
+                  <Icon name="arrow-right" size={16} />
+                </span>
+              </a>
+            </article>
+          </li>
+        ))
+      }
+    </ul>
+
+    {
+      hasNote && (
+        <div class="sol__note">
+          <slot name="note" />
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<script>
+  import '../../scripts/reveal';
+</script>
+
+<style>
+  .sol {
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    scroll-margin-top: var(--header-h, 72px);
+  }
+
+  .sol__head {
+    max-width: 44rem;
+    margin-bottom: var(--s-10);
+  }
+
+  .sol__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-3);
+    margin-bottom: var(--s-4);
+  }
+
+  .sol__eyebrow::before {
+    content: '';
+    width: 1.75rem;
+    height: 2px;
+    background: var(--orange-500);
+    border-radius: 2px;
+  }
+
+  .sol__head h2 {
+    font-size: var(--fs-4xl);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    color: var(--blue-900);
+  }
+
+  .sol__head .lead {
+    margin-top: var(--s-4);
+  }
+
+  .sol__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-5);
+  }
+
+  .solCard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: var(--s-6);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    transition:
+      transform 0.4s var(--ease-out),
+      box-shadow 0.4s var(--ease-out),
+      border-color 0.4s var(--ease-out);
+  }
+
+  .solCard:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 74, 173, 0.22);
+    box-shadow: 0 24px 48px -22px rgba(0, 46, 107, 0.3);
+  }
+
+  .solCard__family {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange-700);
+  }
+
+  .solCard__family::before {
+    content: '';
+    width: 1rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--orange-500);
+  }
+
+  .solCard__name {
+    margin-top: var(--s-4);
+    font-size: var(--fs-2xl);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--blue-900);
+  }
+
+  .solCard__title {
+    margin-top: var(--s-2);
+    font-family: var(--font-heading);
+    font-size: var(--fs-md);
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--blue-700);
+  }
+
+  .solCard__body {
+    margin-top: var(--s-3);
+    font-size: var(--fs-base);
+    line-height: 1.65;
+    color: var(--muted);
+  }
+
+  .solCard__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    margin-top: var(--s-5);
+    margin-bottom: var(--s-6);
+  }
+
+  .solCard__tags li {
+    padding: 0.25rem 0.65rem;
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    color: var(--blue-700);
+    background: var(--blue-050);
+    border: 1px solid rgba(0, 74, 173, 0.1);
+    border-radius: var(--radius-pill);
+  }
+
+  .solCard__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-3);
+    margin-top: auto;
+    padding-top: var(--s-4);
+    border-top: 1px solid var(--line);
+    font-size: var(--fs-sm);
+    font-weight: 700;
+    color: var(--blue-700);
+    text-decoration: none;
+  }
+
+  .solCard__arrow {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    color: var(--blue-700);
+    border: 1px solid var(--line);
+    transition:
+      background-color 0.3s var(--ease-out),
+      border-color 0.3s var(--ease-out),
+      color 0.3s var(--ease-out),
+      transform 0.3s var(--ease-out);
+  }
+
+  .solCard:hover .solCard__arrow,
+  .solCard__link:focus-visible .solCard__arrow {
+    background: var(--orange-650);
+    border-color: var(--orange-650);
+    color: var(--white);
+    transform: translateX(3px);
+  }
+
+  /* Lead card: dark, like the Companies band. */
+  .solCard--lead {
+    isolation: isolate;
+    overflow: hidden;
+    color: var(--white);
+    border-color: transparent;
+    background:
+      radial-gradient(ellipse 70% 60% at 100% 0%, rgba(255, 145, 77, 0.2), transparent 60%),
+      radial-gradient(ellipse 70% 70% at 0% 100%, rgba(0, 74, 173, 0.6), transparent 65%),
+      var(--blue-900);
+  }
+
+  .solCard--lead::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 40px),
+      repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 40px);
+  }
+
+  .solCard--lead:hover {
+    border-color: transparent;
+    box-shadow: 0 28px 56px -22px rgba(0, 46, 107, 0.55);
+  }
+
+  .solCard--lead .solCard__family {
+    color: var(--orange-500);
+  }
+
+  .solCard--lead .solCard__name {
+    font-size: var(--fs-3xl);
+    color: var(--white);
+  }
+
+  .solCard--lead .solCard__title {
+    color: rgba(255, 255, 255, 0.92);
+  }
+
+  .solCard--lead .solCard__body {
+    color: rgba(255, 255, 255, 0.76);
+  }
+
+  .solCard--lead .solCard__tags li {
+    color: rgba(255, 255, 255, 0.92);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.16);
+  }
+
+  .solCard--lead .solCard__link {
+    color: var(--white);
+    border-top-color: rgba(255, 255, 255, 0.16);
+  }
+
+  .solCard--lead .solCard__arrow {
+    color: var(--white);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .sol__note {
+    margin-top: var(--s-8);
+    max-width: 80ch;
+    font-size: var(--fs-sm);
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  @media (min-width: 700px) {
+    .sol__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .sol__item--lead {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .sol__grid {
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr);
+    }
+
+    .sol__item--lead {
+      grid-column: 1;
+      grid-row: 1 / span 2;
+    }
+
+    .solCard--lead {
+      padding: var(--s-10);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .solCard,
+    .solCard__arrow {
+      transition: none;
+    }
+
+    .solCard:hover,
+    .solCard:hover .solCard__arrow {
+      transform: none;
+    }
+  }
+</style>

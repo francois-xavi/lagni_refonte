@@ -1,0 +1,49 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ArticlePage from '../../../components/pages/ArticlePage.astro';
+import { href, HREFLANG } from '../../../i18n/routes';
+import { getResources } from '../../../lib/resources';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('resources', (e) => e.id.startsWith('en/'));
+  return entries.map((entry) => ({
+    params: { slug: entry.id.replace(/^en\//, '') },
+    props: { entry },
+  }));
+}
+
+const lang = 'en' as const;
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const slug = entry.id.replace(/^en\//, '');
+const all = await getResources(lang);
+const resource = all.find((r) => r.slug === slug)!;
+const related = all.filter((r) => r.slug !== slug).slice(0, 3);
+
+// Articles live under the Resources route, so canonical and hreflang are built
+// from the slug rather than the static route table. An alternate is emitted
+// only when the same slug actually exists in the other language.
+const selfPath = `${href('resources', lang)}${slug}/`;
+const otherEntries = await getCollection('resources', (e) => e.id === `fr/${slug}`);
+const alternatePaths = [
+  { hreflang: HREFLANG[lang], path: selfPath },
+  ...(otherEntries.length
+    ? [{ hreflang: HREFLANG['fr'], path: `${href('resources', 'fr')}${slug}/` }]
+    : []),
+];
+---
+
+<BaseLayout
+  lang={lang}
+  routeKey="resources"
+  title={`${entry.data.title} — Lagni Consulting`}
+  description={entry.data.description}
+  noindex={entry.data.status === 'draft'}
+  canonicalPath={selfPath}
+  alternatePaths={alternatePaths}
+>
+  <ArticlePage lang={lang} resource={resource} related={related}>
+    <Content />
+  </ArticlePage>
+</BaseLayout>

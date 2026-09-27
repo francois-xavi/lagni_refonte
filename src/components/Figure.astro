@@ -1,0 +1,167 @@
+---
+/**
+ * Photographic slot.
+ *
+ * No real photography ships with this build. Until the client supplies assets,
+ * this renders a labelled placeholder at the correct aspect ratio so the layout
+ * is stable and no CLS occurs. Drop a file into /public/assets/images/ and pass
+ * its `src` to swap in the real image — nothing else changes.
+ * See CONTENT-TO-REPLACE.md for the full list of expected filenames.
+ */
+import Icon from './Icon.astro';
+import type { IconName } from './Icon.astro';
+
+interface Props {
+  /** e.g. "/assets/images/hero-home.jpg" — omit while awaiting the real asset. */
+  src?: string;
+  alt: string;
+  width: number;
+  height: number;
+  /** Placeholder caption shown to editors, not to end users. */
+  slotName: string;
+  loading?: 'lazy' | 'eager';
+  class?: string;
+  rounded?: boolean;
+  /** Placeholder look while `src` is missing: editor hatch, or a branded panel. */
+  fallback?: 'slot' | 'brand';
+  /** Icon shown in the centre of the branded placeholder. */
+  fallbackIcon?: IconName;
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  slotName,
+  loading = 'lazy',
+  class: className = '',
+  rounded = true,
+  fallback = 'slot',
+  fallbackIcon = 'layers',
+} = Astro.props;
+
+const ratio = `${width} / ${height}`;
+---
+
+{
+  src ? (
+    <img
+      class:list={['figure', rounded && 'figure--rounded', className]}
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      loading={loading}
+      decoding="async"
+      style={`aspect-ratio:${ratio}`}
+    />
+  ) : fallback === 'brand' ? (
+    <div
+      class:list={['figure figure--brand', rounded && 'figure--rounded', className]}
+      style={`aspect-ratio:${ratio}`}
+      role="img"
+      aria-label={alt}
+    >
+      <span class="figure__brandIcon">
+        <Icon name={fallbackIcon} size={34} />
+      </span>
+      <p class="figure__brandSlot">{slotName}</p>
+    </div>
+  ) : (
+    <div
+      class:list={['figure figure--empty', rounded && 'figure--rounded', className]}
+      style={`aspect-ratio:${ratio}`}
+      role="img"
+      aria-label={alt}
+    >
+      <Icon name="layers" size={26} />
+      <p class="figure__slot">{slotName}</p>
+      <p class="figure__dims">{width} × {height}</p>
+    </div>
+  )
+}
+
+<style>
+  .figure {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    background: var(--blue-100);
+  }
+
+  .figure--rounded {
+    border-radius: var(--radius-lg);
+  }
+
+  .figure--empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--s-1);
+    padding: var(--s-4);
+    text-align: center;
+    color: var(--blue-700);
+    background:
+      repeating-linear-gradient(
+        135deg,
+        var(--blue-050),
+        var(--blue-050) 11px,
+        var(--blue-100) 11px,
+        var(--blue-100) 22px
+      );
+    border: 1px dashed var(--blue-200);
+  }
+
+  .figure__slot {
+    font-family: var(--font-heading);
+    font-size: var(--fs-sm);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .figure__dims {
+    font-size: var(--fs-xs);
+    color: var(--muted);
+  }
+
+  .figure--brand {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--s-3);
+    color: var(--white);
+    background:
+      radial-gradient(circle at 82% 18%, rgba(255, 145, 77, 0.28), transparent 42%),
+      repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 32px),
+      repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 32px),
+      linear-gradient(145deg, var(--blue-700) 0%, var(--blue-900) 100%);
+  }
+
+  .figure__brandIcon {
+    display: grid;
+    place-items: center;
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    box-shadow: 0 12px 32px rgba(0, 20, 60, 0.35);
+    backdrop-filter: blur(6px);
+  }
+
+  .figure__brandSlot {
+    position: absolute;
+    right: var(--s-3);
+    bottom: var(--s-3);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55);
+  }
+</style>

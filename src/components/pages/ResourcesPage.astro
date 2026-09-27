@@ -1,0 +1,690 @@
+---
+/**
+ * Resources hub. The category tiles and "where to start" links drive the
+ * library filters through `data-jump-category` / `data-jump-level`; the
+ * filter chips, live region and script at the bottom are behaviour.
+ */
+import ArtHero from '../sections/ArtHero.astro';
+import FeaturedCard from '../sections/FeaturedCard.astro';
+import NoticeCard from '../sections/NoticeCard.astro';
+import CtaBand from '../CtaBand.astro';
+import Button from '../Button.astro';
+import Icon from '../Icon.astro';
+import LordIcon from '../LordIcon.astro';
+import ResourceCard from '../ResourceCard.astro';
+import type { LordIconName } from '../LordIcon.astro';
+import { href, type Lang } from '../../i18n/routes';
+import { useTranslations, usePages } from '../../i18n/utils';
+import { getResources } from '../../lib/resources';
+import { publicImage } from '../../lib/assets';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const p = usePages(lang).resources;
+const all = await getResources(lang);
+const hasDrafts = all.some((r) => r.status === 'draft');
+---
+
+<ArtHero
+  id="resources-hero-title"
+  eyebrow={p.hero.eyebrow}
+  title={p.hero.title}
+  lead={p.hero.lead}
+  trustItems={p.hero.trustItems}
+  image={{ src: '/assets/images/hero-resources.webp', alt: p.hero.imageAlt, width: 900, height: 1100 }}
+  matchCard={{ label: p.hero.matchLabel, title: p.hero.matchTitle, pills: p.hero.panel }}
+  profileCard={{ badge: p.hero.profileBadge, label: p.hero.profileLabel, title: p.hero.profileTitle }}
+  valueCard={{ text: p.hero.script, variant: 'script' }}
+  compact
+>
+  <Button href="#library" variant="primary" size="lg" icon="arrow-down">{p.hero.cta}</Button>
+</ArtHero>
+
+<section class="section cats" aria-labelledby="cat-title">
+  <div class="container">
+    <header class="secHead" data-reveal="fade-up">
+      <p class="eyebrow secHead__eyebrow">{p.categories.eyebrow}</p>
+      <h2 id="cat-title">{p.categories.title}</h2>
+      <p class="lead">{p.categories.lead}</p>
+    </header>
+    <ul class="cats__grid" data-reveal="stagger">
+      {
+        p.categories.items.map((c, i) => (
+          <li style={`--i:${i + 1}`}>
+            <a href="#library" data-jump-category={c.id} class={`cats__tile cats__tile--${c.id}`}>
+              <span class="cats__icon" aria-hidden="true">
+                <LordIcon name={c.lord as LordIconName} size={34} target={`.cats__tile--${c.id}`} />
+              </span>
+              <span class="cats__label">{c.label}</span>
+              <span class="cats__body">{c.body}</span>
+              <span class="cats__arrow" aria-hidden="true">
+                <Icon name="arrow-right" size={15} />
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<FeaturedCard
+  id="feat-title"
+  badge={p.featured.eyebrow}
+  title={p.featured.title}
+  body={p.featured.body}
+  topics={p.featured.chain}
+  image={{
+    src: publicImage('resource-what-is-sap-pp.webp'),
+    alt: p.featured.imageAlt,
+    slot: 'resources-featured',
+    width: 760,
+    height: 480,
+    fallbackIcon: 'factory',
+  }}
+>
+  <Button href={`${href('resources', lang)}${all[0]?.slug ?? ''}/`} variant="primary">
+    {p.featured.ctaPrimary}
+  </Button>
+  <Button href={href('sapPp', lang)} variant="outline">{p.featured.ctaSecondary}</Button>
+  <div slot="note" class="start">
+    <h3 class="start__title">{p.start.title}</h3>
+    <ul class="start__list">
+      {
+        p.start.items.map((s) => (
+          <li>
+            <a href="#library" data-jump-level={s.level} class={`start__link start__link--${s.level}`}>
+              <span class="start__icon" aria-hidden="true">
+                <LordIcon name={s.lord as LordIconName} size={26} target={`.start__link--${s.level}`} />
+              </span>
+              <span class="start__text">
+                <strong>{s.title}</strong>
+                <span>{s.body}</span>
+              </span>
+              <Icon name="arrow-right" size={15} />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</FeaturedCard>
+
+<section class="section lib" id="library" aria-labelledby="lib-title">
+  <div class="container">
+    <header class="secHead" data-reveal="fade-up">
+      <p class="eyebrow secHead__eyebrow">{p.list.eyebrow}</p>
+      <h2 id="lib-title">{p.list.title}</h2>
+      <p class="lead">{p.list.lead}</p>
+    </header>
+
+    {
+      all.length > 0 && (
+        <div class="filters" id="filters">
+          <fieldset>
+            <legend>{p.categories.filterLegend}</legend>
+            <div class="filters__row">
+              <button type="button" class="chip is-active" data-filter="category" data-value="all">
+                {p.categories.allLabel}
+              </button>
+              {p.categories.items.map((c) => (
+                <button type="button" class="chip" data-filter="category" data-value={c.id}>
+                  {c.label}
+                </button>
+              ))}
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>{p.categories.levelLegend}</legend>
+            <div class="filters__row">
+              <button type="button" class="chip is-active" data-filter="level" data-value="all">
+                {p.levels.all}
+              </button>
+              <button type="button" class="chip" data-filter="level" data-value="debutant">
+                {p.levels.debutant}
+              </button>
+              <button type="button" class="chip" data-filter="level" data-value="intermediaire">
+                {p.levels.intermediaire}
+              </button>
+              <button type="button" class="chip" data-filter="level" data-value="avance">
+                {p.levels.avance}
+              </button>
+            </div>
+          </fieldset>
+        </div>
+      )
+    }
+
+    <div class="grid grid--3" id="resourceGrid">
+      {
+        all.map((r) => (
+          <div data-category={r.category} data-level={r.level}>
+            <ResourceCard
+              resource={r}
+              lang={lang}
+              readLabel={t.common.readArticle}
+              draftLabel={p.list.draftLabel}
+            />
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="empty" id="emptyState" hidden>{p.categories.noResults}</p>
+    <p class="count visually-hidden" role="status" aria-live="polite" id="resultCount"></p>
+
+    <div class="lib__notices">
+      {hasDrafts && <NoticeCard lord="document" body={p.list.draftNote} />}
+      <NoticeCard lord="shield" body={p.certificationNote} tone="info" />
+      <NoticeCard lord="network" body={t.common.ecosystemNote} tone="info" />
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint vids" aria-labelledby="vid-title">
+  <div class="container vids__grid">
+    <div data-reveal="fade-up">
+      <p class="eyebrow secHead__eyebrow">{p.videos.eyebrow}</p>
+      <h2 id="vid-title">{p.videos.title}</h2>
+      <p class="lead">{p.videos.lead}</p>
+      <div class="vids__placeholder">
+        <span class="vids__play" aria-hidden="true">
+          <LordIcon name="play" size={44} target=".vids__placeholder" />
+        </span>
+        <p>{p.videos.placeholder}</p>
+      </div>
+    </div>
+
+    <div class="teach" data-reveal="fade-up">
+      <span class="teach__icon" aria-hidden="true">
+        <LordIcon name="school" size={34} target=".teach" />
+      </span>
+      <p class="teach__eyebrow">{p.teaching.eyebrow}</p>
+      <h2 class="teach__title">{p.teaching.title}</h2>
+      <p>{p.teaching.body}</p>
+      <div class="teach__actions">
+        <Button href={href('institutions', lang)} variant="primary">{p.teaching.ctaSecondary}</Button>
+        <Button href={href('institutions', lang)} variant="outline">{p.teaching.ctaPrimary}</Button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<CtaBand title={p.finalCta.title} body={p.finalCta.body} script={p.finalCta.script} imageSlot="cta-resources">
+  <Button href="#library" variant="primary" size="lg">{p.finalCta.cta}</Button>
+</CtaBand>
+
+<style>
+  /* ── Shared section header ── */
+
+  .secHead {
+    display: grid;
+    gap: var(--s-4);
+    max-width: 44rem;
+    margin-bottom: var(--s-10);
+  }
+
+  .secHead__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-3);
+  }
+
+  .secHead__eyebrow::before {
+    content: '';
+    width: 1.75rem;
+    height: 2px;
+    background: var(--orange-500);
+    border-radius: 2px;
+  }
+
+  .secHead h2,
+  .vids h2:not(.teach__title) {
+    font-size: var(--fs-3xl);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--blue-900);
+  }
+
+  .vids h2:not(.teach__title) {
+    margin-block: var(--s-4);
+  }
+
+  /* ── Categories ── */
+
+  .cats__grid {
+    display: grid;
+    gap: var(--s-4);
+  }
+
+  @media (min-width: 640px) {
+    .cats__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .cats__grid {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+  }
+
+  .cats__tile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+    height: 100%;
+    padding: var(--s-6) var(--s-5);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition:
+      border-color 0.3s var(--ease-out),
+      box-shadow 0.3s var(--ease-out),
+      transform 0.3s var(--ease-out);
+  }
+
+  .cats__tile::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 3px;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    background: var(--orange-500);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s var(--ease-out);
+  }
+
+  .cats__tile:hover {
+    border-color: var(--blue-100);
+    transform: translateY(-4px);
+    box-shadow: 0 18px 36px -18px rgba(0, 74, 173, 0.28);
+  }
+
+  .cats__tile:hover::before {
+    transform: scaleX(1);
+  }
+
+  .cats__icon {
+    display: grid;
+    place-items: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    margin-bottom: var(--s-2);
+    border-radius: var(--radius);
+    background: var(--blue-050);
+  }
+
+  .cats__label {
+    font-family: var(--font-heading);
+    font-size: var(--fs-md);
+    font-weight: 700;
+    line-height: var(--lh-snug);
+    color: var(--blue-900);
+  }
+
+  .cats__body {
+    margin-bottom: var(--s-3);
+    font-size: var(--fs-sm);
+    color: var(--muted);
+  }
+
+  .cats__arrow {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    margin-top: auto;
+    border-radius: 50%;
+    color: var(--blue-700);
+    background: var(--blue-050);
+    transition:
+      transform 0.3s var(--ease-out),
+      background-color 0.25s ease,
+      color 0.25s ease;
+  }
+
+  .cats__tile:hover .cats__arrow {
+    transform: translateX(4px);
+    color: var(--white);
+    background: var(--orange-650);
+  }
+
+  /* ── Featured: where to start ── */
+
+  .start__title {
+    font-size: var(--fs-md);
+    color: var(--blue-900);
+    margin-bottom: var(--s-3);
+  }
+
+  .start__list {
+    display: grid;
+    gap: var(--s-2);
+  }
+
+  .start__link {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    padding: var(--s-3);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    text-decoration: none;
+    background: var(--white);
+    transition:
+      border-color 0.25s ease,
+      background-color 0.25s ease;
+  }
+
+  .start__link:hover {
+    border-color: var(--blue-200);
+    background: var(--blue-050);
+  }
+
+  .start__link > :global(svg) {
+    color: var(--orange-700);
+    flex-shrink: 0;
+  }
+
+  .start__icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius);
+    background: var(--orange-050);
+  }
+
+  .start__text {
+    flex: 1;
+    display: grid;
+  }
+
+  .start__text strong {
+    font-size: var(--fs-base);
+    color: var(--blue-900);
+  }
+
+  .start__text span {
+    font-size: var(--fs-xs);
+    color: var(--muted);
+  }
+
+  /* ── Library ── */
+
+  .filters {
+    display: grid;
+    gap: var(--s-5);
+    margin-bottom: var(--s-8);
+    padding: var(--s-5);
+    background: var(--blue-050);
+    border: 1px solid var(--blue-100);
+    border-radius: var(--radius-lg);
+  }
+
+  .filters fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+  }
+
+  .filters legend {
+    font-family: var(--font-heading);
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange-700);
+    margin-bottom: var(--s-3);
+  }
+
+  .filters__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0.45rem 1rem;
+    font-size: var(--fs-sm);
+    font-weight: 700;
+    color: var(--blue-800);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    transition:
+      border-color 0.2s ease,
+      background-color 0.2s ease,
+      color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .chip:hover {
+    border-color: var(--blue-200);
+    transform: translateY(-1px);
+  }
+
+  /* Active filter is marked by fill, border AND a leading check glyph. */
+  .chip.is-active {
+    background: var(--blue-800);
+    border-color: var(--blue-800);
+    color: var(--white);
+  }
+
+  .chip.is-active::before {
+    content: '✓';
+    margin-right: 0.4rem;
+    color: var(--orange-500);
+  }
+
+  .empty {
+    padding: var(--s-8);
+    text-align: center;
+    color: var(--muted);
+    background: var(--blue-050);
+    border: 1px dashed var(--blue-200);
+    border-radius: var(--radius-lg);
+  }
+
+  .lib__notices {
+    display: grid;
+    gap: var(--s-4);
+    margin-top: var(--s-10);
+  }
+
+  @media (min-width: 1000px) {
+    .lib__notices {
+      grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+    }
+  }
+
+  /* ── Videos + teaching ── */
+
+  .vids__grid {
+    display: grid;
+    gap: var(--s-8);
+    align-items: start;
+  }
+
+  @media (min-width: 1000px) {
+    .vids__grid {
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+      gap: var(--s-12);
+    }
+  }
+
+  .vids__placeholder {
+    display: grid;
+    justify-items: center;
+    gap: var(--s-4);
+    margin-top: var(--s-6);
+    padding: var(--s-12) var(--s-6);
+    text-align: center;
+    color: rgba(255, 255, 255, 0.82);
+    background:
+      radial-gradient(ellipse 60% 60% at 50% 40%, rgba(255, 145, 77, 0.16), transparent 70%),
+      linear-gradient(160deg, var(--blue-800), var(--blue-900));
+    border-radius: var(--radius-lg);
+    aspect-ratio: 16 / 9;
+    align-content: center;
+  }
+
+  .vids__placeholder p {
+    max-width: 44ch;
+    font-size: var(--fs-sm);
+  }
+
+  .vids__play {
+    display: grid;
+    place-items: center;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    background: var(--white);
+    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.12);
+  }
+
+  .teach {
+    display: grid;
+    justify-items: start;
+    gap: var(--s-3);
+    padding: var(--s-6);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--orange-500);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 12px 32px -18px rgba(0, 46, 107, 0.18);
+  }
+
+  .teach__icon {
+    display: grid;
+    place-items: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: var(--radius);
+    background: var(--blue-050);
+  }
+
+  .teach__eyebrow {
+    font-family: var(--font-heading);
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange-700);
+  }
+
+  .teach__title {
+    font-size: var(--fs-xl);
+    line-height: var(--lh-snug);
+    color: var(--blue-900);
+  }
+
+  .teach p:not(.teach__eyebrow) {
+    color: var(--muted);
+  }
+
+  .teach__actions {
+    display: grid;
+    gap: var(--s-2);
+    width: 100%;
+    margin-top: var(--s-2);
+  }
+
+  @media (max-width: 480px) {
+    .vids__placeholder {
+      aspect-ratio: auto;
+      padding: var(--s-10) var(--s-5);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cats__tile,
+    .cats__tile::before,
+    .cats__arrow,
+    .chip {
+      transition: none;
+    }
+
+    .cats__tile:hover,
+    .chip:hover {
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  import '../../scripts/reveal';
+  import '../../scripts/lordicon';
+
+  /**
+   * Category + level filtering, done entirely in the DOM.
+   * The unfiltered list is fully rendered server-side, so the page works
+   * without JavaScript; this only hides cards.
+   */
+  const grid = document.getElementById('resourceGrid');
+  const filters = document.getElementById('filters');
+  const empty = document.getElementById('emptyState');
+  const count = document.getElementById('resultCount');
+
+  if (grid && filters) {
+    const state: Record<string, string> = { category: 'all', level: 'all' };
+    const cards = Array.from(grid.children) as HTMLElement[];
+
+    const apply = () => {
+      let visible = 0;
+      cards.forEach((card) => {
+        const okCat = state.category === 'all' || card.dataset.category === state.category;
+        const okLvl = state.level === 'all' || card.dataset.level === state.level;
+        const show = okCat && okLvl;
+        card.hidden = !show;
+        if (show) visible += 1;
+      });
+      if (empty) empty.hidden = visible > 0;
+      if (count) count.textContent = String(visible);
+    };
+
+    filters.addEventListener('click', (e) => {
+      const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('.chip');
+      if (!btn) return;
+      const group = btn.dataset.filter!;
+      state[group] = btn.dataset.value!;
+      filters
+        .querySelectorAll<HTMLElement>(`.chip[data-filter="${group}"]`)
+        .forEach((c) => c.classList.toggle('is-active', c === btn));
+      apply();
+    });
+
+    // Category / level shortcuts elsewhere on the page.
+    document.querySelectorAll<HTMLElement>('[data-jump-category], [data-jump-level]').forEach((link) => {
+      link.addEventListener('click', () => {
+        const cat = link.dataset.jumpCategory;
+        const lvl = link.dataset.jumpLevel;
+        const group = cat ? 'category' : 'level';
+        const value = cat ?? lvl!;
+        const chip = filters.querySelector<HTMLButtonElement>(
+          `.chip[data-filter="${group}"][data-value="${value}"]`,
+        );
+        chip?.click();
+      });
+    });
+
+    apply();
+  }
+</script>

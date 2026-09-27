@@ -1,0 +1,333 @@
+---
+/**
+ * Founder portrait with an orange corner bracket + editorial copy
+ * (homepage About, Formations trainer). Title words, points, signature and
+ * link enter in sequence once the block is in view.
+ */
+import Figure from '../Figure.astro';
+import Icon from '../Icon.astro';
+
+interface Props {
+  id: string;
+  eyebrow: string;
+  title: string;
+  body: string;
+  image: { src: string; alt: string; slot: string };
+  points?: readonly string[];
+  signature?: { name: string; role: string };
+  link: { href: string; label: string };
+  tint?: boolean;
+}
+
+const { id, eyebrow, title, body, image, points = [], signature, link, tint = true } = Astro.props;
+const words = title.split(' ');
+---
+
+<section class:list={['section', tint && 'section--tint']} aria-labelledby={id}>
+  <div
+    class="container aboutHome"
+    data-reveal="about"
+    style={`--n:${words.length};--p:${points.length}`}
+  >
+    <div class="aboutHome__media">
+      <div class="aboutHome__frame">
+        <Figure
+          src={image.src}
+          alt={image.alt}
+          slotName={image.slot}
+          width={600}
+          height={600}
+          rounded={false}
+          class="aboutHome__photo"
+        />
+      </div>
+    </div>
+    <div class="aboutHome__copy">
+      <p class="eyebrow aboutHome__eyebrow">{eyebrow}</p>
+      <h2 id={id}>
+        {
+          words.map((word, i) => (
+            <>
+              <span class="aboutHome__word" style={`--w:${i}`}>
+                {word}
+              </span>
+              {i < words.length - 1 && ' '}
+            </>
+          ))
+        }
+      </h2>
+      <p class="aboutHome__body">{body}</p>
+      {
+        points.length > 0 && (
+          <ul class="aboutHome__points">
+            {points.map((pt, j) => (
+              <li class="aboutHome__point" style={`--j:${j}`}>
+                <Icon name="check" size={16} />
+                <span>{pt}</span>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+      {
+        signature && (
+          <p class="aboutHome__signature">
+            <strong>{signature.name}</strong>
+            <span>{signature.role}</span>
+          </p>
+        )
+      }
+      <a class="aboutHome__more" href={link.href}>
+        {link.label}
+        <Icon name="arrow-right" size={16} />
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  import '../../scripts/reveal';
+</script>
+
+<style>
+  .aboutHome {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-12);
+    align-items: center;
+  }
+
+  .aboutHome__media {
+    position: relative;
+    width: calc(100% - var(--s-4));
+    max-width: 26rem;
+    margin-inline: var(--s-4) auto;
+  }
+
+  /* Orange corner bracket peeking out from behind the portrait. */
+  .aboutHome__media::before {
+    content: '';
+    position: absolute;
+    left: calc(-1 * var(--s-4));
+    bottom: calc(-1 * var(--s-4));
+    width: 34%;
+    height: 34%;
+    border-left: 2px solid var(--orange-500);
+    border-bottom: 2px solid var(--orange-500);
+  }
+
+  .aboutHome__frame {
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px -18px rgba(0, 46, 107, 0.25);
+    transition:
+      opacity 0.7s var(--about-ease),
+      filter 0.7s var(--about-ease),
+      transform 0.7s var(--about-ease),
+      box-shadow 0.45s var(--about-ease);
+  }
+
+  .aboutHome__media :global(.aboutHome__photo) {
+    display: block;
+    background: var(--white);
+    object-position: center 20%;
+    transition: transform 0.6s var(--about-ease);
+  }
+
+  .aboutHome__frame:hover {
+    box-shadow: 0 28px 56px -22px rgba(0, 46, 107, 0.4);
+  }
+
+  .aboutHome__frame:hover :global(.aboutHome__photo) {
+    transform: scale(1.03);
+  }
+
+  /* ── Entrance sequence ──
+     Photo 0s → eyebrow 0.2s → title words every 0.12s → body → points →
+     signature → link. `--after` is when the last title word has landed. */
+  .aboutHome {
+    --about-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --after: calc(0.32s + var(--n, 3) * 0.12s + 0.1s);
+    --tail: calc(var(--after) + 0.14s + var(--p, 0) * 0.08s);
+  }
+
+  .aboutHome__word {
+    display: inline-block;
+  }
+
+  .aboutHome__eyebrow,
+  .aboutHome__word,
+  .aboutHome__body,
+  .aboutHome__point,
+  .aboutHome__signature,
+  .aboutHome__more {
+    transition-property: opacity, transform;
+    transition-duration: 0.6s;
+    transition-timing-function: var(--about-ease);
+  }
+
+  .aboutHome__eyebrow {
+    transition-delay: 0.2s;
+  }
+
+  .aboutHome__word {
+    transition-delay: calc(0.32s + var(--w, 0) * 0.12s);
+  }
+
+  .aboutHome__body {
+    transition-delay: var(--after);
+  }
+
+  .aboutHome__point {
+    transition-delay: calc(var(--after) + 0.14s + var(--j, 0) * 0.08s);
+  }
+
+  .aboutHome__signature {
+    transition-delay: var(--tail);
+  }
+
+  .aboutHome__more {
+    transition-delay: calc(var(--tail) + 0.12s);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.reveal-ready) .aboutHome:not(.is-visible) .aboutHome__frame {
+      opacity: 0;
+      filter: blur(10px);
+      transform: scale(0.96);
+    }
+
+    :global(.reveal-ready) .aboutHome:not(.is-visible) .aboutHome__media::before {
+      opacity: 0;
+    }
+
+    :global(.reveal-ready) .aboutHome:not(.is-visible) .aboutHome__eyebrow,
+    :global(.reveal-ready) .aboutHome:not(.is-visible) .aboutHome__body,
+    :global(.reveal-ready) .aboutHome:not(.is-visible) .aboutHome__point,
+    :global(.reveal-ready) .aboutHome:not(.is-visible) .aboutHome__signature,
+    :global(.reveal-ready) .aboutHome:not(.is-visible) .aboutHome__more {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+
+    :global(.reveal-ready) .aboutHome:not(.is-visible) .aboutHome__word {
+      opacity: 0;
+      transform: translateY(0.45em);
+    }
+  }
+
+  .aboutHome__media::before {
+    transition: opacity 0.6s var(--about-ease) 0.45s;
+  }
+
+  .aboutHome__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-3);
+    letter-spacing: 0.14em;
+    margin-bottom: var(--s-4);
+  }
+
+  .aboutHome__eyebrow::before {
+    content: '';
+    width: 1.75rem;
+    height: 1px;
+    background: var(--orange-500);
+  }
+
+  .aboutHome h2 {
+    font-size: var(--fs-4xl);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    color: var(--blue-900);
+  }
+
+  .aboutHome__body {
+    margin-top: var(--s-6);
+    max-width: 58ch;
+    font-size: var(--fs-md);
+    line-height: 1.8;
+    color: var(--muted);
+  }
+
+  .aboutHome__points {
+    display: grid;
+    gap: var(--s-3);
+    margin-top: var(--s-6);
+  }
+
+  .aboutHome__point {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--s-3);
+    font-size: var(--fs-base);
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .aboutHome__point :global(svg) {
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+    padding: 0.15rem;
+    box-sizing: content-box;
+    color: var(--orange-700);
+    background: var(--orange-050);
+    border-radius: 50%;
+  }
+
+  .aboutHome__signature {
+    display: grid;
+    gap: var(--s-1);
+    margin-top: var(--s-8);
+  }
+
+  .aboutHome__signature strong {
+    font-size: var(--fs-sm);
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .aboutHome__signature span {
+    font-size: var(--fs-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .aboutHome__more {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    margin-top: var(--s-8);
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--blue-700);
+  }
+
+  .aboutHome__more :global(svg) {
+    transition: transform 0.25s ease-out;
+  }
+
+  .aboutHome__more:hover {
+    color: var(--blue-900);
+  }
+
+  .aboutHome__more:hover :global(svg) {
+    transform: translateX(4px);
+  }
+
+  @media (min-width: 900px) {
+    .aboutHome {
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      gap: var(--s-16);
+    }
+
+    .aboutHome__media {
+      margin-inline: var(--s-4) 0;
+    }
+  }
+</style>

@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ErpPage from '../../../components/pages/ErpPage.astro';
+import { usePages } from '../../../i18n/utils';
+
+const lang = 'en' as const;
+const p = usePages(lang).erp;
+---
+
+<BaseLayout lang={lang} routeKey="erp" title={p.seo.title} description={p.seo.description}>
+  <ErpPage lang={lang} />
+</BaseLayout>

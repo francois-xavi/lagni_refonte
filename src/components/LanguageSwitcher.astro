@@ -1,0 +1,58 @@
+---
+/**
+ * Links to the EQUIVALENT page in the other language, never to the homepage.
+ * The mapping comes from the single route table in src/i18n/routes.ts.
+ */
+import { alternateHref, type Lang } from '../i18n/routes';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  routeKey: string;
+}
+
+const { lang, routeKey } = Astro.props;
+const t = useTranslations(lang);
+const other: Lang = lang === 'fr' ? 'en' : 'fr';
+const target = alternateHref(routeKey, lang);
+---
+
+<div class="lang" role="group" aria-label={t.meta.langSwitchLabel}>
+  <span class="lang__current" aria-current="true">{lang.toUpperCase()}</span>
+  <span class="lang__sep" aria-hidden="true">|</span>
+  <a class="lang__link" href={target} hreflang={other} lang={other}>
+    <span aria-hidden="true">{other.toUpperCase()}</span>
+    <span class="visually-hidden">{t.meta.switchToFull}</span>
+  </a>
+</div>
+
+<style>
+  .lang {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-1);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
+
+  .lang__current {
+    color: var(--blue-700);
+  }
+
+  .lang__sep {
+    color: var(--line);
+  }
+
+  .lang__link {
+    color: var(--muted);
+    text-decoration: none;
+    padding: var(--s-1);
+    border-radius: var(--radius-sm);
+  }
+
+  .lang__link:hover {
+    color: var(--blue-700);
+    text-decoration: underline;
+  }
+</style>

@@ -1,0 +1,89 @@
+---
+/**
+ * ⚠ PROTECTED BRAND ASSET — /assets/images/logo.png
+ *
+ * The file is used exactly as supplied. Do NOT recolour it, invert it, apply
+ * any CSS filter, crop it, distort it, recreate it as SVG/text, or swap it for
+ * a wordmark. Its aspect ratio (1206 × 1156) is preserved by setting height
+ * only and letting width follow.
+ *
+ * The file is RGB with a SOLID WHITE background (no alpha), so it must sit on
+ * a white or near-white surface. On dark sections, put it in a white container
+ * — never alter the logo to suit the background.
+ */
+import { href, type Lang } from '../i18n/routes';
+
+interface Props {
+  lang: Lang;
+  /** Rendered height in px. Width follows the intrinsic aspect ratio. */
+  height?: number;
+  /** Wrap in a white plate — required on any non-white background. */
+  plate?: boolean;
+  linked?: boolean;
+  alt: string;
+  homeAriaLabel?: string;
+}
+
+const {
+  lang,
+  height = 44,
+  plate = false,
+  linked = true,
+  alt,
+  homeAriaLabel,
+} = Astro.props;
+
+const INTRINSIC_W = 1206;
+const INTRINSIC_H = 1156;
+const width = Math.round((height * INTRINSIC_W) / INTRINSIC_H);
+---
+
+{
+  linked ? (
+    <a class:list={['logo', plate && 'logo--plate']} href={href('home', lang)} aria-label={homeAriaLabel}>
+      <img
+        src="/assets/images/logo.png"
+        alt={alt}
+        width={width}
+        height={height}
+        style={`height:${height}px;width:${width}px`}
+        decoding="async"
+      />
+    </a>
+  ) : (
+    <span class:list={['logo', plate && 'logo--plate']}>
+      <img
+        src="/assets/images/logo.png"
+        alt={alt}
+        width={width}
+        height={height}
+        style={`height:${height}px;width:${width}px`}
+        loading="lazy"
+        decoding="async"
+      />
+    </span>
+  )
+}
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    line-height: 0;
+  }
+
+  /* White plate for dark surfaces — the logo itself is never modified. */
+  .logo--plate {
+    background: var(--white);
+    padding: var(--s-2) var(--s-3);
+    border-radius: var(--radius);
+  }
+
+  .logo img {
+    /* Guard rail: no filter may ever be applied to the brand mark. */
+    filter: none;
+    mix-blend-mode: normal;
+    object-fit: contain;
+  }
+</style>

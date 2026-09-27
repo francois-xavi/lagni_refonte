@@ -1,0 +1,297 @@
+---
+/**
+ * Dark band showing a bridge between three worlds (e.g. academic → SAP →
+ * industry): three columns joined by arrows that draw in, plus a quote.
+ * A column with `highlight` becomes the emphasised centre card.
+ */
+import Icon from '../Icon.astro';
+import LordIcon from '../LordIcon.astro';
+import type { LordIconName } from '../LordIcon.astro';
+
+interface Props {
+  id: string;
+  eyebrow: string;
+  title: string;
+  lead: string;
+  columns: readonly {
+    title: string;
+    subtitle: string;
+    items: readonly string[];
+    highlight?: string;
+    lord: LordIconName;
+  }[];
+  quote?: string;
+}
+
+const { id, eyebrow, title, lead, columns, quote } = Astro.props;
+---
+
+<section class="section bridge" aria-labelledby={id}>
+  <div class="container">
+    <header class="bridge__head" data-reveal="fade-up">
+      <p class="eyebrow eyebrow--onDark bridge__eyebrow">{eyebrow}</p>
+      <h2 id={id}>{title}</h2>
+      <p class="bridge__lead">{lead}</p>
+    </header>
+
+    <ol class="bridge__cols" data-reveal="stagger">
+      {
+        columns.map((col, i) => (
+          <li
+            class:list={['bridge__col', col.highlight && 'bridge__col--hl']}
+            style={`--i:${i * 2}`}
+          >
+            <span class="bridge__icon" aria-hidden="true">
+              <LordIcon
+                name={col.lord}
+                size={32}
+                tone={col.highlight ? 'brand' : 'light'}
+                target=".bridge__col"
+              />
+            </span>
+            <h3>{col.title}</h3>
+            <p class="bridge__sub">{col.subtitle}</p>
+            {col.highlight && <p class="bridge__hl">{col.highlight}</p>}
+            <ul class="bridge__items">
+              {col.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </li>
+        )).flatMap((node, i) =>
+          i < columns.length - 1
+            ? [
+                node,
+                <li class="bridge__arrow" aria-hidden="true" style={`--i:${i * 2 + 1}`}>
+                  <Icon name="arrow-right" size={22} />
+                </li>,
+              ]
+            : [node],
+        )
+      }
+    </ol>
+
+    {
+      quote && (
+        <blockquote class="bridge__quote" data-reveal="fade-up">
+          <p>{quote}</p>
+        </blockquote>
+      )
+    }
+  </div>
+</section>
+
+<script>
+  import '../../scripts/reveal';
+  import '../../scripts/lordicon';
+</script>
+
+<style>
+  .bridge {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    color: var(--white);
+    background:
+      radial-gradient(ellipse 50% 60% at 100% 0%, rgba(255, 145, 77, 0.16), transparent 60%),
+      radial-gradient(ellipse 60% 70% at 0% 100%, rgba(0, 74, 173, 0.55), transparent 65%),
+      var(--blue-900);
+  }
+
+  .bridge::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 48px),
+      repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 48px);
+    mask-image: linear-gradient(180deg, transparent, #000 30%, #000 70%, transparent);
+  }
+
+  .bridge__head {
+    max-width: 48rem;
+  }
+
+  .bridge__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-3);
+    letter-spacing: 0.14em;
+    margin-bottom: var(--s-4);
+  }
+
+  .bridge__eyebrow::before {
+    content: '';
+    width: 1.75rem;
+    height: 1px;
+    background: var(--orange-500);
+  }
+
+  .bridge h2 {
+    font-size: var(--fs-3xl);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--white);
+  }
+
+  .bridge__lead {
+    margin-top: var(--s-4);
+    font-size: var(--fs-md);
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .bridge__cols {
+    display: grid;
+    gap: var(--s-4);
+    margin-top: var(--s-10);
+  }
+
+  .bridge__col {
+    padding: var(--s-6);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: var(--radius-lg);
+    background: rgba(255, 255, 255, 0.05);
+    transition:
+      transform 0.3s var(--ease-out),
+      border-color 0.3s var(--ease-out),
+      background-color 0.3s var(--ease-out);
+  }
+
+  .bridge__col:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 145, 77, 0.55);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .bridge__col--hl {
+    background: var(--white);
+    border-color: var(--white);
+    color: var(--ink);
+    box-shadow: 0 24px 48px -20px rgba(0, 0, 0, 0.5);
+  }
+
+  .bridge__col--hl:hover {
+    background: var(--white);
+  }
+
+  .bridge__icon {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: var(--s-4);
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .bridge__col--hl .bridge__icon {
+    background: var(--blue-100);
+  }
+
+  .bridge__col h3 {
+    font-size: var(--fs-lg);
+    color: var(--white);
+  }
+
+  .bridge__col--hl h3 {
+    color: var(--blue-900);
+  }
+
+  .bridge__sub {
+    margin-top: var(--s-1);
+    font-size: var(--fs-sm);
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .bridge__col--hl .bridge__sub {
+    color: var(--muted);
+  }
+
+  .bridge__hl {
+    display: inline-block;
+    margin-top: var(--s-4);
+    padding: 0.35rem 0.9rem;
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: var(--fs-lg);
+    color: var(--white);
+    background: var(--blue-700);
+    border-radius: var(--radius-pill);
+  }
+
+  .bridge__items {
+    display: grid;
+    gap: var(--s-2);
+    margin-top: var(--s-4);
+  }
+
+  .bridge__items li {
+    position: relative;
+    padding-left: var(--s-5);
+    font-size: var(--fs-sm);
+    color: rgba(255, 255, 255, 0.88);
+  }
+
+  .bridge__col--hl .bridge__items li {
+    color: var(--ink-soft);
+  }
+
+  .bridge__items li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 0.6rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--orange-500);
+  }
+
+  .bridge__arrow {
+    display: grid;
+    place-items: center;
+    color: var(--orange-500);
+  }
+
+  .bridge__arrow :global(svg) {
+    transform: rotate(90deg);
+  }
+
+  .bridge__quote {
+    margin-top: var(--s-10);
+    max-width: 52rem;
+    padding-left: var(--s-5);
+    border-left: 3px solid var(--orange-500);
+  }
+
+  .bridge__quote p {
+    font-family: var(--font-script);
+    font-size: clamp(1.4rem, 1.1rem + 1vw, 1.9rem);
+    line-height: 1.3;
+    color: var(--white);
+  }
+
+  @media (min-width: 1000px) {
+    .bridge__cols {
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+    }
+
+    .bridge__arrow :global(svg) {
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bridge__col {
+      transition: none;
+    }
+
+    .bridge__col:hover {
+      transform: none;
+    }
+  }
+</style>

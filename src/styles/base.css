@@ -1,0 +1,334 @@
+/* Reset, element defaults and the layout/utility primitives every page uses. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  /* `clip` rather than `hidden`: it prevents a stray horizontal scrollbar
+     without turning the root into a scroll container, so `position: sticky`
+     on the header keeps working. */
+  overflow-x: clip;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  line-height: var(--lh-base);
+  color: var(--ink);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+li,
+a,
+span,
+strong,
+em,
+label {
+  /* Product names and certification codes are long and unbreakable; let them
+     wrap instead of overflowing narrow cards and half-width columns. */
+  overflow-wrap: break-word;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: var(--lh-tight);
+  letter-spacing: -0.015em;
+  color: var(--blue-700);
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--fs-4xl);
+}
+h2 {
+  font-size: var(--fs-3xl);
+}
+h3 {
+  font-size: var(--fs-xl);
+}
+h4 {
+  font-size: var(--fs-md);
+}
+
+p {
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--blue-700);
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  color: var(--blue-500);
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+  /* White halo outside the dark ring keeps the indicator visible on the
+     dark-blue heroes and CTA bands as well as on light backgrounds. */
+  box-shadow: 0 0 0 6px var(--focus-halo);
+  border-radius: 2px;
+}
+
+::selection {
+  background: var(--blue-200);
+  color: var(--blue-900);
+}
+
+/* ─────────────────── Layout primitives ─────────────────── */
+
+.container {
+  width: min(var(--max-width), 100% - var(--gutter) * 2);
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: var(--s-12);
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-block: var(--s-16);
+  }
+}
+
+.section--tight {
+  padding-block: var(--s-10);
+}
+
+.section--tint {
+  background: var(--blue-050);
+}
+
+.stack > * + * {
+  margin-top: var(--s-4);
+}
+
+.grid {
+  display: grid;
+  gap: var(--s-4);
+}
+
+@media (min-width: 640px) {
+  .grid--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 880px) {
+  .grid--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .grid--4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .grid--5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 640px) and (max-width: 879px) {
+  .grid--3,
+  .grid--4,
+  .grid--5 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ─────────────────── Text helpers ─────────────────── */
+
+.eyebrow {
+  font-family: var(--font-heading);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--orange-700);
+  margin-bottom: var(--s-2);
+}
+
+.eyebrow--onDark {
+  color: var(--orange-500);
+}
+
+.lead {
+  color: var(--muted);
+  font-size: var(--fs-md);
+  max-width: 62ch;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.onDark {
+  color: var(--white);
+}
+
+.onDark h1,
+.onDark h2,
+.onDark h3 {
+  color: var(--white);
+}
+
+.onDark .lead,
+.onDark p {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.onDark a {
+  color: var(--white);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Handwritten accent phrase used across the mockups. */
+.script {
+  font-family: var(--font-script);
+  font-size: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  line-height: 1.25;
+  color: var(--white);
+  font-weight: 600;
+}
+
+.script--onLight {
+  color: var(--blue-700);
+}
+
+.script::after {
+  content: '';
+  display: block;
+  width: 3.5rem;
+  height: 3px;
+  margin-top: var(--s-2);
+  border-radius: var(--radius-pill);
+  background: var(--orange-500);
+}
+
+/* ─────────────────── Skip link ─────────────────── */
+
+.skip-link {
+  position: absolute;
+  left: var(--s-4);
+  top: var(--s-2);
+  z-index: 200;
+  transform: translateY(-200%);
+  background: var(--blue-700);
+  color: var(--white);
+  padding: var(--s-3) var(--s-5);
+  border-radius: var(--radius);
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.15s ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+  color: var(--white);
+}
+
+/* ─────────────────── Motion ─────────────────── */
+
+/* Scroll reveal — hidden only once reveal.ts has marked <html>, so content
+   stays visible without JavaScript. */
+.reveal-ready [data-reveal='fade-up'],
+.reveal-ready [data-reveal='stagger'] > * {
+  opacity: 0;
+  transform: translateY(24px) scale(0.98);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--i, 0) * 90ms + var(--reveal-delay, 0ms));
+}
+
+.reveal-ready [data-reveal='fade-up'].is-visible,
+.reveal-ready [data-reveal='stagger'].is-visible > * {
+  opacity: 1;
+  transform: none;
+}
+
+/* Entrance finished: drop the stagger delay so hover feedback is immediate. */
+.reveal-ready [data-reveal='fade-up'].reveal-done,
+.reveal-ready [data-reveal='stagger'].reveal-done > * {
+  transition-delay: 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-ready [data-reveal='fade-up'],
+  .reveal-ready [data-reveal='stagger'] > * {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,266 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import Button from './Button.astro';
+import { href, navRoutes, type Lang } from '../i18n/routes';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  routeKey: string;
+}
+
+const { lang, routeKey } = Astro.props;
+const t = useTranslations(lang);
+const nav = navRoutes.map((r) => ({
+  key: r.key,
+  label: t.nav[r.key as keyof typeof t.nav] as string,
+  url: href(r.key, lang),
+  current: r.key === routeKey,
+}));
+---
+
+<header class="header">
+  <div class="header__inner container">
+    <Logo lang={lang} height={40} alt={t.meta.logoAlt} homeAriaLabel={`${t.meta.siteName} — ${t.meta.homeLabel}`} />
+
+    <nav class="header__nav" aria-label={t.nav.primaryLabel}>
+      <ul>
+        {
+          nav.map((item) => (
+            <li>
+              <a href={item.url} aria-current={item.current ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="header__actions">
+      <LanguageSwitcher lang={lang} routeKey={routeKey} />
+      <Button href={href('contact', lang)} variant="primary" size="md" class="header__cta">
+        {t.nav.headerCta}
+      </Button>
+      <button
+        type="button"
+        class="header__toggle"
+        id="navToggle"
+        aria-expanded="false"
+        aria-controls="mobileNav"
+        aria-label={t.meta.menuOpen}
+        data-label-open={t.meta.menuOpen}
+        data-label-close={t.meta.menuClose}
+      >
+        <Icon name="menu" size={22} class="header__toggleOpen" />
+        <Icon name="close" size={22} class="header__toggleClose" />
+      </button>
+    </div>
+  </div>
+
+  <div class="mobileNav" id="mobileNav" hidden>
+    <nav class="container" aria-label={t.nav.primaryLabel}>
+      <ul>
+        {
+          nav.map((item) => (
+            <li>
+              <a href={item.url} aria-current={item.current ? 'page' : undefined}>
+                {item.label}
+                <Icon name="arrow-right" size={16} />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <Button href={href('contact', lang)} variant="primary" size="lg" class="mobileNav__cta">
+        {t.nav.headerCta}
+      </Button>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    gap: var(--s-4);
+    min-height: var(--header-h);
+  }
+
+  .header__nav {
+    display: none;
+    margin-inline: auto;
+  }
+
+  .header__nav ul {
+    display: flex;
+    gap: clamp(0.55rem, 1.1vw, 1.2rem);
+  }
+
+  .header__nav a {
+    display: block;
+    padding: var(--s-2) 0;
+    font-size: var(--fs-base);
+    font-weight: 500;
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+  }
+
+  .header__nav a:hover {
+    color: var(--blue-700);
+  }
+
+  .header__nav a[aria-current='page'] {
+    color: var(--blue-700);
+    font-weight: 600;
+    border-bottom-color: var(--blue-700);
+  }
+
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    margin-left: auto;
+  }
+
+  .header__cta {
+    display: none;
+  }
+
+  .header__toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    color: var(--blue-700);
+    cursor: pointer;
+  }
+
+  /* :global() because these classes land on <Icon>'s <svg>, which sits
+     outside this component's style scope. */
+  .header__toggle :global(.header__toggleClose) {
+    display: none;
+  }
+
+  .header__toggle[aria-expanded='true'] :global(.header__toggleOpen) {
+    display: none;
+  }
+
+  .header__toggle[aria-expanded='true'] :global(.header__toggleClose) {
+    display: block;
+  }
+
+  /* ── Mobile panel ── */
+
+  .mobileNav {
+    border-top: 1px solid var(--line);
+    background: var(--white);
+    padding-block: var(--s-4) var(--s-6);
+    max-height: calc(100dvh - var(--header-h));
+    overflow-y: auto;
+  }
+
+  .mobileNav ul {
+    margin-bottom: var(--s-4);
+  }
+
+  .mobileNav a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-3);
+    padding: var(--s-3) var(--s-1);
+    font-size: var(--fs-md);
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .mobileNav a[aria-current='page'] {
+    color: var(--blue-700);
+    font-weight: 600;
+  }
+
+  .mobileNav :global(a.mobileNav__cta) {
+    width: 100%;
+    color: var(--white);
+  }
+
+  @media (min-width: 1180px) {
+    .header__nav {
+      display: block;
+    }
+    .header__cta {
+      display: inline-flex;
+    }
+    .header__toggle,
+    .mobileNav {
+      display: none !important;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('navToggle');
+  const panel = document.getElementById('mobileNav');
+
+  if (toggle && panel) {
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      panel.hidden = !open;
+      const label = open ? toggle.dataset.labelClose : toggle.dataset.labelOpen;
+      if (label) toggle.setAttribute('aria-label', label);
+      document.body.style.overflow = open ? 'hidden' : '';
+    };
+
+    toggle.addEventListener('click', () => {
+      setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+
+    // Keep focus inside the panel while it is open.
+    panel.addEventListener('keydown', (e) => {
+      if (e.key !== 'Tab') return;
+      const items = panel.querySelectorAll<HTMLElement>('a, button');
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        toggle.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        toggle.focus();
+      }
+    });
+
+    // Reset when the layout crosses into desktop.
+    const mq = window.matchMedia('(min-width: 1180px)');
+    mq.addEventListener('change', (e) => {
+      if (e.matches) setOpen(false);
+    });
+  }
+</script>

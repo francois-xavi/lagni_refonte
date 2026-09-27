@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AboutPage from '../../components/pages/AboutPage.astro';
+import { usePages } from '../../i18n/utils';
+
+const lang = 'fr' as const;
+const p = usePages(lang).about;
+---
+
+<BaseLayout lang={lang} routeKey="about" title={p.seo.title} description={p.seo.description}>
+  <AboutPage lang={lang} />
+</BaseLayout>

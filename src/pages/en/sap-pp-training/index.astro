@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SapPpPage from '../../../components/pages/SapPpPage.astro';
+import { usePages } from '../../../i18n/utils';
+
+const lang = 'en' as const;
+const p = usePages(lang).sapPp;
+---
+
+<BaseLayout lang={lang} routeKey="sapPp" title={p.seo.title} description={p.seo.description}>
+  <SapPpPage lang={lang} />
+</BaseLayout>

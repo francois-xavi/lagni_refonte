@@ -1,0 +1,173 @@
+---
+/**
+ * The full homepage body, shared by the FR and EN routes.
+ * Only the language differs; the composition is identical.
+ */
+import ArtHero from '../sections/ArtHero.astro';
+import ProofBand from '../sections/ProofBand.astro';
+import NumberedCards from '../sections/NumberedCards.astro';
+import FeaturedCard from '../sections/FeaturedCard.astro';
+import IconTiles from '../sections/IconTiles.astro';
+import RowsBand from '../sections/RowsBand.astro';
+import FounderSplit from '../sections/FounderSplit.astro';
+import ResourceShowcase from '../sections/ResourceShowcase.astro';
+import CtaBand from '../CtaBand.astro';
+import Button from '../Button.astro';
+import type { LordIconName } from '../LordIcon.astro';
+import { href, type Lang } from '../../i18n/routes';
+import { useTranslations, usePages } from '../../i18n/utils';
+import { getResourcePreviews } from '../../lib/resources';
+import { publicImage } from '../../lib/assets';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const p = usePages(lang).home;
+const latest = await getResourcePreviews(lang, 3);
+
+const proofLords: Record<string, LordIconName> = {
+  chart: 'experience',
+  database: 'server',
+  network: 'network',
+  badge: 'medal',
+};
+
+const institutionIcons: Record<string, LordIconName> = {
+  calendar: 'calendar',
+  screen: 'monitor',
+  gear: 'tools',
+  people: 'mentor',
+};
+
+const companyNeeds: Record<string, { icon: LordIconName; route: string }> = {
+  people: { icon: 'mentor', route: 'training' },
+  chart: { icon: 'experience', route: 'erp' },
+  search: { icon: 'search', route: 'recruitment' },
+};
+---
+
+<ArtHero
+  id="home-hero-title"
+  title={p.hero.title}
+  lead={p.hero.lead}
+  trustItems={p.hero.trustItems}
+  image={{ src: '/assets/images/hero-consultant.jpg', alt: p.hero.imageAlt, width: 900, height: 1100 }}
+  matchCard={{ label: p.hero.matchLabel, title: p.hero.matchBody, pills: p.hero.matchPills }}
+  profileCard={{
+    badge: 'ERP',
+    label: p.hero.profileLabel,
+    title: p.hero.profileRole,
+    status: p.hero.profileStatus,
+  }}
+  valueCard={{ text: p.hero.valueLine }}
+>
+  <Button href={href('recruitment', lang)} variant="primary" size="lg">{p.hero.ctaPrimary}</Button>
+  <Button href={href('about', lang)} variant="ghost" size="lg">{p.hero.ctaSecondary}</Button>
+</ArtHero>
+
+<ProofBand
+  label={p.credibility.label}
+  items={p.credibility.items.map((item, i) => ({
+    figure: item.figure,
+    label: item.label,
+    lord: proofLords[item.icon] ?? 'experience',
+    count: i === 0,
+  }))}
+/>
+
+<NumberedCards
+  id="pillars-title"
+  eyebrow={p.pillars.eyebrow}
+  title={p.pillars.title}
+  lead={p.pillars.lead}
+  items={p.pillars.items.map((item) => ({
+    title: item.title,
+    body: item.body,
+    icon: item.icon,
+    href: href(item.route, lang),
+    cta: item.cta,
+  }))}
+/>
+
+<FeaturedCard
+  id="sap-title"
+  badge={p.sapFocus.eyebrow}
+  title={p.sapFocus.title}
+  tagline={[p.sapFocus.tagline, p.sapFocus.lead]}
+  body={p.sapFocus.body}
+  topics={p.sapFocus.topics}
+  image={{
+    src: publicImage('home-sap-pp.webp'),
+    alt: p.sapFocus.imageAlt,
+    slot: 'home-sap-pp',
+    width: 800,
+    height: 640,
+    fallbackIcon: 'factory',
+  }}
+>
+  <Button href={href('sapPp', lang)} variant="primary" size="lg">{p.sapFocus.cta}</Button>
+</FeaturedCard>
+
+<IconTiles
+  id="inst-title"
+  eyebrow={p.institutions.eyebrow}
+  title={p.institutions.title}
+  lead={p.institutions.body}
+  tiles={p.institutions.features.map((f) => ({
+    label: f.label,
+    lord: institutionIcons[f.icon] ?? 'tools',
+  }))}
+  image={{
+    src: publicImage('home-institutions.webp'),
+    alt: p.institutions.imageAlt,
+    slot: 'home-institutions',
+    width: 700,
+    height: 560,
+    fallbackIcon: 'school',
+  }}
+>
+  <Button href={href('institutions', lang)} variant="primary" size="lg">
+    {p.institutions.cta}
+  </Button>
+</IconTiles>
+
+<RowsBand
+  id="comp-title"
+  eyebrow={p.companies.eyebrow}
+  title={p.companies.title}
+  body={p.companies.body}
+  rows={p.companies.cards.map((c) => {
+    const need = companyNeeds[c.icon] ?? companyNeeds.chart;
+    return { title: c.title, desc: c.body, href: href(need.route, lang), lord: need.icon };
+  })}
+>
+  <Button href={href('contact', lang)} variant="primary" size="lg">{p.companies.cta}</Button>
+</RowsBand>
+
+<FounderSplit
+  id="about-title"
+  eyebrow={p.about.eyebrow}
+  title={p.about.title}
+  body={p.about.body}
+  image={{ src: '/assets/images/founder.jpg', alt: p.about.imageAlt, slot: 'home-about' }}
+  signature={{ name: p.about.signatureName, role: p.about.signatureRole }}
+  link={{ href: href('about', lang), label: p.about.cta }}
+/>
+
+<ResourceShowcase
+  id="res-title"
+  lang={lang}
+  eyebrow={p.resources.eyebrow}
+  title={p.resources.title}
+  lead={p.resources.lead}
+  all={{ href: href('resources', lang), label: p.resources.cta }}
+  readLabel={t.common.readArticle}
+  resources={latest}
+/>
+
+<CtaBand title={p.finalCta.title} body={p.finalCta.body} script={p.finalCta.script} imageSlot="cta-home">
+  <Button href={href('contact', lang)} variant="primary" size="lg">{p.finalCta.cta}</Button>
+</CtaBand>

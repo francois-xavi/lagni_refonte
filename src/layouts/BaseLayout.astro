@@ -1,0 +1,63 @@
+---
+import '@fontsource-variable/inter';
+import '@fontsource-variable/archivo';
+import '@fontsource/caveat/600.css';
+import '../styles/tokens.css';
+import '../styles/base.css';
+
+import Seo from '../components/Seo.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { type Lang } from '../i18n/routes';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  routeKey: string;
+  title: string;
+  description: string;
+  schema?: Record<string, unknown>[];
+  noindex?: boolean;
+  canonicalPath?: string;
+  alternatePaths?: { hreflang: string; path: string }[];
+}
+
+const {
+  lang,
+  routeKey,
+  title,
+  description,
+  schema = [],
+  noindex = false,
+  canonicalPath,
+  alternatePaths,
+} = Astro.props;
+const t = useTranslations(lang);
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <Seo
+      lang={lang}
+      routeKey={routeKey}
+      title={title}
+      description={description}
+      schema={schema}
+      noindex={noindex}
+      canonicalPath={canonicalPath}
+      alternatePaths={alternatePaths}
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{t.meta.skipToContent}</a>
+    <SiteHeader lang={lang} routeKey={routeKey} />
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter lang={lang} />
+  </body>
+</html>

@@ -1,0 +1,247 @@
+---
+/**
+ * Wraps any form with the shared submission behaviour:
+ *  - honeypot + time-trap spam guards
+ *  - accessible client-side validation (aria-invalid + live region)
+ *  - fetch submit with inline success / failure states
+ *  - graceful degradation: without JS the form performs a native POST
+ *
+ * All of the logic lives in src/scripts/form.ts, loaded once per page.
+ */
+import Icon from '../Icon.astro';
+import Button from '../Button.astro';
+import { FORM_ENDPOINT, FORM_CONFIGURED, CONTACT } from '../../config';
+import { href, type Lang } from '../../i18n/routes';
+import { useTranslations } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  formName: string;
+  submitLabel: string;
+  title?: string;
+  intro?: string;
+  consentLabel?: string;
+  id?: string;
+  class?: string;
+}
+
+const {
+  lang,
+  formName,
+  submitLabel,
+  title,
+  intro,
+  consentLabel,
+  id = 'contactForm',
+  class: className = '',
+} = Astro.props;
+
+const t = useTranslations(lang);
+const consentText = consentLabel ?? t.forms.consent;
+---
+
+<div class:list={['formShell', className]}>
+  {title && <h2 class="formShell__title">{title}</h2>}
+  {intro && <p class="formShell__intro">{intro}</p>}
+
+  <form
+    id={id}
+    class="form"
+    method="post"
+    action={FORM_CONFIGURED ? FORM_ENDPOINT : href('thanks', lang)}
+    novalidate
+    data-form
+    data-endpoint={FORM_CONFIGURED ? FORM_ENDPOINT : ''}
+    data-thanks={href('thanks', lang)}
+    data-msg-required={t.forms.errors.required}
+    data-msg-email={t.forms.errors.email}
+    data-msg-consent={t.forms.errors.consent}
+    data-msg-filetype={t.forms.errors.fileType}
+    data-msg-filesize={t.forms.errors.fileSize}
+    data-msg-summary={t.forms.errors.summary}
+    data-msg-network={`${t.forms.errors.network} ${CONTACT.email}`}
+    data-msg-sending={t.forms.sending}
+    data-submit-label={submitLabel}
+  >
+    <input type="hidden" name="form_name" value={formName} />
+    <input type="hidden" name="locale" value={lang} />
+    <input type="hidden" name="started_at" value="" data-timetrap />
+
+    <!-- Honeypot: hidden from users and assistive tech; bots fill it in. -->
+    <div class="hp" aria-hidden="true">
+      <label for={`${id}-website`}>Website</label>
+      <input id={`${id}-website`} type="text" name="website" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <div class="form__fields">
+      <slot />
+    </div>
+
+    <div class="form__consent">
+      <input type="checkbox" id={`${id}-consent`} name="consent" required aria-describedby={`${id}-consent-error`} />
+      <label for={`${id}-consent`}>{consentText}</label>
+      <p class="field__error" id={`${id}-consent-error`} data-error-for="consent"></p>
+    </div>
+
+    <div class="form__actions">
+      <Button type="submit" variant="primary" size="lg" class="form__submit">{submitLabel}</Button>
+    </div>
+
+    <p class="form__privacy">
+      <Icon name="lock" size={15} />
+      <span>{t.forms.privacyNote}</span>
+    </p>
+
+    <!-- Announcements for screen readers and visible status messages. -->
+    <div class="form__status" data-status role="status" aria-live="polite"></div>
+    <div class="form__alert" data-alert role="alert"></div>
+
+    {
+      !FORM_CONFIGURED && (
+        <p class="form__notConfigured">
+          <Icon name="shield" size={15} />
+          <span>
+            {t.forms.errors.notConfigured} <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+          </span>
+        </p>
+      )
+    }
+  </form>
+</div>
+
+<style>
+  .formShell {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: var(--s-6);
+  }
+
+  .formShell__title {
+    font-size: var(--fs-xl);
+    margin-bottom: var(--s-2);
+  }
+
+  .formShell__intro {
+    color: var(--muted);
+    font-size: var(--fs-base);
+    margin-bottom: var(--s-6);
+  }
+
+  .form__fields {
+    display: grid;
+    gap: var(--s-4);
+  }
+
+  @media (min-width: 640px) {
+    .form__fields {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .form__consent {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--s-2) var(--s-3);
+    align-items: start;
+    margin-top: var(--s-5);
+  }
+
+  .form__consent input {
+    width: 1.1rem;
+    height: 1.1rem;
+    margin-top: 0.15rem;
+    accent-color: var(--blue-700);
+  }
+
+  .form__consent label {
+    font-size: var(--fs-sm);
+    color: var(--ink-soft);
+  }
+
+  .form__consent .field__error {
+    grid-column: 2;
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    color: var(--danger);
+  }
+
+  .form__consent .field__error:empty {
+    display: none;
+  }
+
+  .form__actions {
+    margin-top: var(--s-5);
+  }
+
+  .form__privacy {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--s-2);
+    margin-top: var(--s-4);
+    font-size: var(--fs-xs);
+    color: var(--muted);
+  }
+
+  .form__privacy :global(svg) {
+    color: var(--blue-700);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .form__status:empty,
+  .form__alert:empty,
+  .form__notConfigured:empty {
+    display: none;
+  }
+
+  .form__status,
+  .form__alert {
+    margin-top: var(--s-4);
+    padding: var(--s-3) var(--s-4);
+    border-radius: var(--radius-sm);
+    font-size: var(--fs-base);
+  }
+
+  .form__status {
+    background: var(--success-bg);
+    border: 1px solid #b6ddc9;
+    color: var(--success);
+  }
+
+  .form__alert {
+    background: var(--danger-bg);
+    border: 1px solid #f2c4c0;
+    color: var(--danger);
+  }
+
+  .form__notConfigured {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--s-2);
+    margin-top: var(--s-4);
+    padding: var(--s-3) var(--s-4);
+    font-size: var(--fs-sm);
+    background: var(--orange-050);
+    border: 1px dashed var(--orange-200);
+    border-radius: var(--radius-sm);
+    color: var(--orange-700);
+  }
+
+  .form__notConfigured :global(svg) {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+</style>
+
+<script>
+  import '../../scripts/form';
+</script>

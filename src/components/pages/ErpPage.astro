@@ -1,0 +1,194 @@
+---
+/**
+ * ERP & Solutions page — composed from the same section components as the
+ * homepage and the Formations page.
+ */
+import ArtHero from '../sections/ArtHero.astro';
+import ProofBand from '../sections/ProofBand.astro';
+import NumberedCards from '../sections/NumberedCards.astro';
+import SolutionCards from '../sections/SolutionCards.astro';
+import IconTiles from '../sections/IconTiles.astro';
+import ProcessChain from '../sections/ProcessChain.astro';
+import RowsBand from '../sections/RowsBand.astro';
+import CaseCards from '../sections/CaseCards.astro';
+import FeaturedCard from '../sections/FeaturedCard.astro';
+import CtaBand from '../CtaBand.astro';
+import Button from '../Button.astro';
+import type { LordIconName } from '../LordIcon.astro';
+import { href, type Lang } from '../../i18n/routes';
+import { useTranslations, usePages } from '../../i18n/utils';
+import { publicImage } from '../../lib/assets';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const p = usePages(lang).erp;
+
+const methodLords: Record<string, LordIconName> = {
+  search: 'search',
+  bulb: 'design',
+  gear: 'tools',
+  people: 'mentor',
+};
+
+const serviceLords: Record<string, LordIconName> = {
+  doc: 'document',
+  network: 'network',
+  clipboard: 'checklist',
+  database: 'server',
+  cap: 'cap',
+  chart: 'experience',
+};
+
+const engagementRows: Record<string, { lord: LordIconName; route: string }> = {
+  person: { lord: 'mentor', route: 'contact' },
+  sliders: { lord: 'tools', route: 'contact' },
+  cap: { lord: 'cap', route: 'training' },
+};
+
+const caseLords: Record<string, LordIconName> = {
+  factory: 'tools',
+  box: 'briefcase',
+};
+---
+
+<ArtHero
+  id="erp-hero-title"
+  eyebrow={p.hero.eyebrow}
+  title={p.hero.title}
+  lead={p.hero.lead}
+  trustItems={p.hero.trustItems}
+  image={{ src: '/assets/images/hero-erp.webp', alt: p.hero.imageAlt, width: 900, height: 1100 }}
+  matchCard={{ label: p.hero.matchLabel, title: p.hero.matchTitle, pills: p.hero.matchPills }}
+  profileCard={{
+    badge: p.hero.profileBadge,
+    label: p.hero.profileLabel,
+    title: p.hero.profileTitle,
+    status: p.hero.profileStatus,
+  }}
+  valueCard={{ text: p.hero.script, variant: 'script' }}
+>
+  <Button href={href('contact', lang)} variant="primary" size="lg">{p.hero.ctaPrimary}</Button>
+  <Button href="#portfolio" variant="ghost" size="lg">{p.hero.ctaSecondary}</Button>
+</ArtHero>
+
+<ProofBand
+  label={p.proof.label}
+  items={p.proof.items.map((item) => ({ ...item, lord: item.lord as LordIconName }))}
+/>
+
+<NumberedCards
+  id="meth-title"
+  eyebrow={p.method.eyebrow}
+  title={p.method.title}
+  lead={p.method.lead}
+  quote={p.method.quote}
+  items={p.method.steps.map((step) => ({
+    title: step.title,
+    points: step.items,
+    lord: methodLords[step.icon] ?? 'search',
+  }))}
+  reveal
+/>
+
+<SolutionCards
+  id="port-title"
+  anchor="portfolio"
+  eyebrow={p.portfolio.eyebrow}
+  title={p.portfolio.title}
+  lead={p.portfolio.lead}
+  items={p.portfolio.items.map((item) => ({
+    name: item.name,
+    family: p.portfolio.families[item.family]?.label ?? '',
+    title: item.title,
+    body: item.body,
+    tags: item.tags,
+    href: href('contact', lang),
+    cta: item.cta,
+  }))}
+>
+  <p slot="note">{t.common.ecosystemNote}</p>
+</SolutionCards>
+
+<IconTiles
+  id="serv-title"
+  eyebrow={p.services.eyebrow}
+  title={p.services.title}
+  lead={p.services.lead}
+  tiles={p.services.items.map((s) => ({
+    label: s.title,
+    body: s.body,
+    lord: serviceLords[s.icon] ?? 'tools',
+  }))}
+  image={{
+    src: publicImage('erp-services.webp'),
+    alt: p.services.imageAlt,
+    slot: 'erp-services',
+    width: 1000,
+    height: 800,
+    fallbackIcon: 'people',
+  }}
+  tint={false}
+/>
+
+<ProcessChain
+  id="spec-title"
+  eyebrow={p.specialisation.eyebrow}
+  title={p.specialisation.title}
+  lead={p.specialisation.lead}
+  steps={p.specialisation.chain}
+  systems={p.specialisation.systems}
+/>
+
+<RowsBand
+  id="eng-title"
+  eyebrow={p.engagement.eyebrow}
+  title={p.engagement.title}
+  body={p.engagement.lead}
+  rows={p.engagement.items.map((e) => {
+    const row = engagementRows[e.icon] ?? engagementRows.person;
+    return { title: e.title, desc: e.body, href: href(row.route, lang), lord: row.lord };
+  })}
+>
+  <Button href={href('contact', lang)} variant="primary" size="lg">{p.hero.ctaPrimary}</Button>
+</RowsBand>
+
+<CaseCards
+  id="cases-title"
+  eyebrow={p.cases.eyebrow}
+  title={p.cases.title}
+  lead={p.cases.lead}
+  quote={p.why.quote}
+  items={p.cases.items.map((c) => ({
+    title: c.title,
+    subtitle: c.subtitle,
+    tags: c.tags,
+    lord: caseLords[c.icon] ?? 'briefcase',
+  }))}
+  disclaimer={p.cases.disclaimer}
+/>
+
+<FeaturedCard
+  id="cross-title"
+  badge={p.crossSell.eyebrow}
+  title={p.crossSell.title}
+  body={p.crossSell.body}
+  image={{
+    src: publicImage('erp-cross-sell.webp'),
+    alt: p.crossSell.imageAlt,
+    slot: 'erp-cross-sell',
+    width: 1000,
+    height: 800,
+    fallbackIcon: 'people',
+  }}
+  reverse
+>
+  <Button href={href('recruitment', lang)} variant="primary" size="lg">{p.crossSell.cta}</Button>
+</FeaturedCard>
+
+<CtaBand title={p.finalCta.title} body={p.finalCta.body} script={p.finalCta.script} imageSlot="cta-erp">
+  <Button href={href('contact', lang)} variant="primary" size="lg">{p.finalCta.cta}</Button>
+</CtaBand>

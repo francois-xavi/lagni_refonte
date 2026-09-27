@@ -1,0 +1,384 @@
+---
+import Button from '../Button.astro';
+import Icon from '../Icon.astro';
+import Figure from '../Figure.astro';
+import CtaBand from '../CtaBand.astro';
+import LordIcon from '../LordIcon.astro';
+import NoticeCard from '../sections/NoticeCard.astro';
+import ResourceShowcase from '../sections/ResourceShowcase.astro';
+import type { ResourcePreview } from '../../lib/resources';
+import { publicImage } from '../../lib/assets';
+import { href, type Lang } from '../../i18n/routes';
+import { useTranslations, usePages, formatDate } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  resource: ResourcePreview;
+  related: ResourcePreview[];
+}
+
+const { lang, resource, related } = Astro.props;
+const t = useTranslations(lang);
+const p = usePages(lang).resources;
+
+const categoryLabel =
+  p.categories.items.find((c) => c.id === resource.category)?.label ?? resource.category;
+const levelLabel = p.levels[resource.level];
+---
+
+<article class="article">
+  <header class="article__head">
+    <div class="article__glow" aria-hidden="true"></div>
+    <div class="container article__headInner">
+      <nav class="crumbs" aria-label={t.meta.breadcrumbLabel}>
+        <a href={href('resources', lang)}>
+          <Icon name="arrow-right" size={14} class="crumbs__back" />
+          {p.article.backToList}
+        </a>
+      </nav>
+
+      <p class="article__eyebrow">{categoryLabel}</p>
+      <h1>{resource.title}</h1>
+      <p class="article__desc">{resource.description}</p>
+
+      <ul class="article__meta">
+        <li><Icon name="calendar" size={15} />{p.article.publishedOn} {formatDate(resource.date, lang)}</li>
+        <li><Icon name="clock" size={15} />{resource.readingMinutes} {t.common.minRead}</li>
+        <li><Icon name="chart" size={15} />{levelLabel}</li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="container article__body">
+    <div class="article__main">
+      {resource.status === 'draft' && <NoticeCard lord="document" body={p.article.draftNotice} class="article__draft" />}
+
+      <Figure
+        src={resource.image ? publicImage(resource.image) : undefined}
+        alt=""
+        slotName={`resource-${resource.slug}`}
+        width={1280}
+        height={720}
+        loading="eager"
+        class="article__hero"
+      />
+
+      <div class="prose">
+        <slot />
+      </div>
+    </div>
+
+    <aside class="article__aside">
+      <div class="asideCard">
+        <div class="asideCard__top">
+          <span class="asideCard__icon" aria-hidden="true">
+            <LordIcon name="target" size={28} target=".asideCard" />
+          </span>
+          <p class="asideCard__eyebrow">{p.article.ctaEyebrow}</p>
+        </div>
+        <h2>{p.article.ctaTitle}</h2>
+        <p>{p.article.ctaBody}</p>
+        <Button href={href(resource.cta, lang)} variant="primary">{p.article.ctaLabels[resource.cta]}</Button>
+      </div>
+    </aside>
+  </div>
+</article>
+
+<ResourceShowcase
+  id="rel-title"
+  lang={lang}
+  eyebrow={p.article.relatedEyebrow}
+  title={p.article.relatedTitle}
+  lead={p.article.relatedLead}
+  all={{ href: href('resources', lang), label: p.list.all }}
+  readLabel={t.common.readArticle}
+  resources={related}
+/>
+
+<CtaBand title={p.finalCta.title} body={p.finalCta.body} script={p.finalCta.script} imageSlot="cta-resources">
+  <Button href={href('resources', lang)} variant="primary" size="lg">{p.finalCta.cta}</Button>
+</CtaBand>
+
+<script>
+  import '../../scripts/reveal';
+  import '../../scripts/lordicon';
+</script>
+
+<style>
+  .article__head {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding-block: var(--s-12) var(--s-10);
+    color: var(--white);
+    background:
+      radial-gradient(ellipse 60% 80% at 100% 0%, rgba(0, 74, 173, 0.55), transparent 60%),
+      linear-gradient(160deg, var(--blue-800), var(--blue-900));
+  }
+
+  .article__glow {
+    position: absolute;
+    z-index: -1;
+    right: -8rem;
+    bottom: -10rem;
+    width: 26rem;
+    height: 26rem;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 145, 77, 0.22), transparent 65%);
+  }
+
+  .article__headInner > * {
+    max-width: 56rem;
+  }
+
+  .crumbs {
+    margin-bottom: var(--s-6);
+  }
+
+  .crumbs a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    padding: 0.4rem 0.85rem;
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.88);
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: var(--radius-pill);
+    transition: background-color 0.2s ease;
+  }
+
+  .crumbs a:hover {
+    color: var(--white);
+    background: rgba(255, 255, 255, 0.14);
+  }
+
+  .crumbs :global(.crumbs__back) {
+    transform: rotate(180deg);
+  }
+
+  .article__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-3);
+    margin-bottom: var(--s-4);
+    font-family: var(--font-heading);
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange-500);
+  }
+
+  .article__eyebrow::before {
+    content: '';
+    width: 1.75rem;
+    height: 2px;
+    background: var(--orange-500);
+    border-radius: 2px;
+  }
+
+  .article__head h1 {
+    max-width: 24ch;
+    font-size: var(--fs-4xl);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    color: var(--white);
+    overflow-wrap: break-word;
+  }
+
+  .article__desc {
+    margin-top: var(--s-5);
+    max-width: 62ch;
+    font-size: var(--fs-md);
+    color: rgba(255, 255, 255, 0.84);
+  }
+
+  .article__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    margin-top: var(--s-8);
+  }
+
+  .article__meta li {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    padding: 0.35rem 0.8rem;
+    font-size: var(--fs-sm);
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: var(--radius-pill);
+  }
+
+  .article__meta :global(svg) {
+    color: var(--orange-500);
+  }
+
+  .article__body {
+    display: grid;
+    gap: var(--s-10);
+    padding-block: var(--s-12) var(--s-16);
+    align-items: start;
+  }
+
+  @media (min-width: 980px) {
+    .article__body {
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: var(--s-12);
+    }
+  }
+
+  .article__main :global(.article__draft) {
+    margin-bottom: var(--s-6);
+  }
+
+  .article__main :global(.article__hero) {
+    margin-bottom: var(--s-10);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  /* Markdown body */
+  .prose {
+    max-width: 68ch;
+    font-size: var(--fs-md);
+    line-height: 1.75;
+    color: var(--ink-soft);
+  }
+
+  .prose :global(h2) {
+    position: relative;
+    margin-top: var(--s-12);
+    margin-bottom: var(--s-4);
+    padding-left: var(--s-5);
+    font-size: var(--fs-2xl);
+    line-height: var(--lh-snug);
+    color: var(--blue-900);
+  }
+
+  .prose :global(h2)::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.2em;
+    bottom: 0.2em;
+    width: 4px;
+    border-radius: 4px;
+    background: var(--orange-500);
+  }
+
+  .prose :global(h3) {
+    margin-top: var(--s-8);
+    margin-bottom: var(--s-3);
+    font-size: var(--fs-lg);
+    color: var(--blue-900);
+  }
+
+  .prose :global(p) {
+    margin-bottom: var(--s-5);
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin-bottom: var(--s-5);
+    padding-left: var(--s-6);
+    display: grid;
+    gap: var(--s-2);
+  }
+
+  .prose :global(ul) {
+    list-style: disc;
+  }
+
+  .prose :global(ol) {
+    list-style: decimal;
+  }
+
+  .prose :global(li)::marker {
+    color: var(--orange-700);
+  }
+
+  .prose :global(strong) {
+    color: var(--ink);
+  }
+
+  .prose :global(a) {
+    color: var(--blue-700);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .prose :global(blockquote) {
+    margin-block: var(--s-6);
+    padding: var(--s-4) var(--s-5);
+    background: var(--blue-050);
+    border-left: 4px solid var(--blue-700);
+    border-radius: 0 var(--radius) var(--radius) 0;
+  }
+
+  /* Aside */
+  .asideCard {
+    position: sticky;
+    top: calc(var(--header-h) + var(--s-6));
+    display: grid;
+    justify-items: start;
+    gap: var(--s-3);
+    padding: var(--s-6);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow:
+      0 1px 2px rgba(0, 46, 107, 0.04),
+      0 12px 32px -14px rgba(0, 46, 107, 0.16);
+    overflow: hidden;
+  }
+
+  .asideCard::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 4px;
+    background: var(--orange-500);
+  }
+
+  .asideCard__top {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+  }
+
+  .asideCard__icon {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--radius);
+    background: var(--orange-100);
+  }
+
+  .asideCard__eyebrow {
+    font-family: var(--font-heading);
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange-700);
+  }
+
+  .asideCard h2 {
+    font-size: var(--fs-xl);
+    line-height: var(--lh-snug);
+    color: var(--blue-900);
+  }
+
+  .asideCard p {
+    color: var(--muted);
+    margin-bottom: var(--s-2);
+  }
+</style>

@@ -1,0 +1,619 @@
+---
+/**
+ * Contact page. The inquiry chooser, the conditional field groups and the
+ * script at the bottom are behaviour — restyle freely, but keep the radios,
+ * their `data-target` / `data-form-title` and the `[data-group]` wrappers.
+ */
+import ArtHero from '../sections/ArtHero.astro';
+import FormCard from '../sections/FormCard.astro';
+import FaqSplit from '../sections/FaqSplit.astro';
+import CtaBand from '../CtaBand.astro';
+import Button from '../Button.astro';
+import Icon from '../Icon.astro';
+import LordIcon from '../LordIcon.astro';
+import FormShell from '../forms/FormShell.astro';
+import FormField from '../forms/FormField.astro';
+import type { IconName } from '../Icon.astro';
+import type { LordIconName } from '../LordIcon.astro';
+import { href, type Lang } from '../../i18n/routes';
+import { useTranslations, usePages } from '../../i18n/utils';
+import { CONTACT } from '../../config';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const p = usePages(lang).contact;
+const f = t.forms;
+const opts = p.chooser.options;
+const marketIcons = ['globe', 'pin', 'target'];
+---
+
+<ArtHero
+  id="contact-hero-title"
+  eyebrow={p.hero.eyebrow}
+  title={p.hero.title}
+  lead={p.hero.lead}
+  trustItems={p.hero.markets.map((m, i) => ({ icon: marketIcons[i] ?? 'globe', label: m }))}
+  image={{ src: '/assets/images/hero-contact.webp', alt: p.hero.imageAlt, width: 900, height: 1100 }}
+  matchCard={{
+    label: p.hero.matchLabel,
+    title: p.hero.matchTitle,
+    pills: [opts[0].label, opts[2].label, opts[3].label],
+  }}
+  profileCard={{ badge: p.hero.profileBadge, label: p.hero.profileLabel, title: p.hero.profileTitle }}
+  valueCard={{ text: p.hero.script, variant: 'script' }}
+  compact
+>
+  <Button href="#inquiryChooser" variant="primary" size="lg">{p.hero.ctaPrimary}</Button>
+  <Button href={`mailto:${CONTACT.email}`} variant="ghost" size="lg">{CONTACT.email}</Button>
+</ArtHero>
+
+<section class="section inquiry" aria-labelledby="chooser-title">
+  <div class="container">
+    <header class="inquiry__head" data-reveal="fade-up">
+      <p class="eyebrow inquiry__eyebrow">{p.chooser.eyebrow}</p>
+      <h2 id="chooser-title">{p.chooser.title}</h2>
+      <p class="lead">{p.chooser.lead}</p>
+    </header>
+
+    <fieldset class="chooser" id="inquiryChooser" data-reveal="stagger">
+      <legend class="visually-hidden">{p.chooser.legend}</legend>
+      {
+        opts.map((o, i) => (
+          <div class="chooser__item" style={`--i:${i + 1}`}>
+            <input
+              type="radio"
+              name="inquiry_type"
+              id={`inq-${o.id}`}
+              value={o.label}
+              data-target={o.id}
+              data-form-title={o.formTitle}
+              checked={i === 0}
+            />
+            <label for={`inq-${o.id}`} class={`chooser__card chooser__card--${o.id}`}>
+              <span class="chooser__icon" aria-hidden="true">
+                <LordIcon name={o.lord as LordIconName} size={30} target={`.chooser__card--${o.id}`} />
+              </span>
+              <span class="chooser__text">
+                <span class="chooser__label">{o.label}</span>
+                <span class="chooser__body">{o.body}</span>
+              </span>
+              <span class="chooser__check" aria-hidden="true">
+                <Icon name="check" size={14} />
+              </span>
+            </label>
+          </div>
+        ))
+      }
+    </fieldset>
+
+    <div class="contactGrid">
+      <FormCard eyebrow={p.chooser.formEyebrow} lord="document">
+        <FormShell
+          lang={lang}
+          id="contactForm"
+          formName="contact"
+          submitLabel={f.send}
+          title={opts[0].formTitle}
+          intro={p.chooser.formIntro}
+        >
+          <!-- Always visible -->
+          <FormField name="first_name" label={f.firstName} required placeholder={f.firstNamePlaceholder} autocomplete="given-name" />
+          <FormField name="last_name" label={f.lastName} required placeholder={f.lastNamePlaceholder} autocomplete="family-name" />
+          <FormField name="email" label={f.email} type="email" required placeholder={f.emailPlaceholder} autocomplete="email" />
+          <FormField name="country" label={f.country} type="select" required options={f.countryOptions} optionsPlaceholder={f.countryPlaceholder} />
+
+          <!--
+            Conditional field groups.
+            All groups exist in the HTML; JS hides the ones that do not apply.
+            Without JS every group stays visible and the form still submits.
+          -->
+          <div class="group" data-group="formation">
+            <div class="group__grid">
+              <FormField name="desired_training" label={f.desiredTraining} type="select" options={f.trainingOptions} optionsPlaceholder={f.desiredTrainingPlaceholder} />
+              <FormField name="profile" label={f.profile} type="select" options={f.profileOptions} optionsPlaceholder={f.select} help={f.profileHelp} />
+            </div>
+          </div>
+
+          <div class="group" data-group="formation-entreprise">
+            <div class="group__grid">
+              <FormField name="organisation" label={f.organisation} placeholder={f.organisationPlaceholder} autocomplete="organization" />
+              <FormField name="group_size" label={f.groupSize} type="number" placeholder={f.groupSizePlaceholder} />
+            </div>
+          </div>
+
+          <div class="group" data-group="erp">
+            <div class="group__grid">
+              <FormField name="organisation_erp" label={f.organisation} placeholder={f.organisationPlaceholder} />
+              <FormField name="solution" label={f.solution} type="select" options={f.solutionOptions} optionsPlaceholder={f.solutionPlaceholder} />
+              <FormField name="need_type" label={f.needType} type="select" options={f.needTypeOptions} optionsPlaceholder={f.select} wide />
+            </div>
+          </div>
+
+          <div class="group" data-group="recrutement">
+            <div class="group__grid">
+              <FormField name="organisation_rec" label={f.organisation} placeholder={f.organisationPlaceholder} />
+              <FormField name="role_sought" label={f.roleSought} placeholder={f.roleSoughtPlaceholder} />
+              <FormField name="domain" label={f.domain} type="select" options={f.domainOptions} optionsPlaceholder={f.select} />
+              <FormField name="contract_type" label={f.contractType} type="select" options={f.contractOptions} optionsPlaceholder={f.select} />
+            </div>
+          </div>
+
+          <div class="group" data-group="etablissement">
+            <div class="group__grid">
+              <FormField name="institution" label={f.institutionName} placeholder={f.institutionPlaceholder} />
+              <FormField name="programme" label={f.programme} placeholder={f.programmePlaceholder} />
+              <FormField name="student_count" label={f.studentCount} type="number" placeholder={f.studentCountPlaceholder} />
+              <FormField name="period" label={f.period} type="select" options={f.periodOptions} optionsPlaceholder={f.select} />
+            </div>
+          </div>
+
+          <FormField name="message" label={f.message} type="textarea" required placeholder={f.messagePlaceholder} wide />
+        </FormShell>
+      </FormCard>
+
+      <aside class="side">
+        <div class="side__cv">
+          <span class="side__icon side__icon--warm" aria-hidden="true">
+            <LordIcon name="document" size={30} target=".side__cv" />
+          </span>
+          <h2>{p.cvCallout.title}</h2>
+          <p>{p.cvCallout.body}</p>
+          <Button href={`${href('recruitment', lang)}#candidate`} variant="outline">
+            {p.cvCallout.cta}
+          </Button>
+        </div>
+
+        <div class="side__details">
+          <h2>{p.details.title}</h2>
+          <ul>
+            <li>
+              <span class="side__icon" aria-hidden="true"><LordIcon name="location" size={24} target=".side__details li" /></span>
+              <span>{CONTACT.locality}</span>
+            </li>
+            <li>
+              <span class="side__icon" aria-hidden="true"><LordIcon name="mail" size={24} target=".side__details li" /></span>
+              <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+            </li>
+            <li>
+              <span class="side__icon" aria-hidden="true"><LordIcon name="phone" size={24} target=".side__details li" /></span>
+              <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`}>{CONTACT.phoneDisplay}</a>
+            </li>
+            <li>
+              <span class="side__icon" aria-hidden="true"><LordIcon name="network" size={24} target=".side__details li" /></span>
+              <a href={CONTACT.linkedin} rel="noopener noreferrer" target="_blank">
+                {p.details.linkedinLabel}
+              </a>
+            </li>
+          </ul>
+          <div class="side__response">
+            <span class="side__icon side__icon--warm" aria-hidden="true">
+              <LordIcon name="clock" size={24} target=".side__response" />
+            </span>
+            <div>
+              <p class="side__responseTitle">{p.details.responseTitle}</p>
+              <p>{p.details.responseBody}</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<FaqSplit id="faq-title" eyebrow={p.faq.eyebrow} title={p.faq.title} lead={p.faq.lead} items={p.faq.items}>
+  <div slot="aside" class="quoteCard">
+    <Icon name="quote" size={26} />
+    <p class="quoteCard__text">{p.quote}</p>
+    <ul class="quoteCard__pillars">
+      {
+        p.pillars.map((pi) => (
+          <li>
+            <Icon name={pi.icon as IconName} size={22} />
+            <span>{pi.label}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</FaqSplit>
+
+<CtaBand title={p.finalCta.title} body={p.finalCta.body} script={p.finalCta.script} imageSlot="cta-contact">
+  <Button href="#inquiryChooser" variant="primary" size="lg">{p.finalCta.cta}</Button>
+</CtaBand>
+
+<style>
+  /* ── Chooser ── */
+
+  .inquiry__head {
+    display: grid;
+    gap: var(--s-4);
+    max-width: 44rem;
+    margin-bottom: var(--s-10);
+  }
+
+  .inquiry__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-3);
+  }
+
+  .inquiry__eyebrow::before {
+    content: '';
+    width: 1.75rem;
+    height: 2px;
+    background: var(--orange-500);
+    border-radius: 2px;
+  }
+
+  .inquiry h2 {
+    font-size: var(--fs-3xl);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--blue-900);
+  }
+
+  .chooser {
+    display: grid;
+    gap: var(--s-4);
+    border: none;
+    padding: 0;
+    margin: 0;
+    scroll-margin-top: calc(var(--header-h) + 1rem);
+  }
+
+  @media (min-width: 640px) {
+    .chooser {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .chooser {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .chooser__item {
+    position: relative;
+  }
+
+  .chooser__item input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+  }
+
+  .chooser__card {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--s-4);
+    height: 100%;
+    padding: var(--s-5);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition:
+      border-color 0.25s var(--ease-out),
+      background-color 0.25s var(--ease-out),
+      box-shadow 0.25s var(--ease-out),
+      transform 0.25s var(--ease-out);
+  }
+
+  .chooser__card:hover {
+    border-color: var(--blue-200);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px -16px rgba(0, 46, 107, 0.25);
+  }
+
+  .chooser__icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius);
+    background: var(--blue-050);
+    transition: background-color 0.25s var(--ease-out);
+  }
+
+  .chooser__text {
+    display: grid;
+    gap: var(--s-1);
+    padding-right: var(--s-6);
+  }
+
+  .chooser__label {
+    font-family: var(--font-heading);
+    font-size: var(--fs-md);
+    font-weight: 700;
+    color: var(--blue-900);
+  }
+
+  .chooser__body {
+    font-size: var(--fs-sm);
+    color: var(--muted);
+  }
+
+  /* Selected state: border, background AND a check glyph — never colour alone. */
+  .chooser__check {
+    position: absolute;
+    top: var(--s-4);
+    right: var(--s-4);
+    display: grid;
+    place-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    border: 1.5px solid var(--line);
+    color: transparent;
+    background: var(--white);
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .chooser__item input:checked + .chooser__card {
+    border-color: var(--orange-500);
+    background: var(--orange-050);
+    box-shadow: 0 0 0 1px var(--orange-500);
+  }
+
+  .chooser__item input:checked + .chooser__card .chooser__icon {
+    background: var(--white);
+  }
+
+  .chooser__item input:checked + .chooser__card .chooser__check {
+    background: var(--orange-650);
+    border-color: var(--orange-650);
+    color: var(--white);
+  }
+
+  .chooser__item input:focus-visible + .chooser__card {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 6px var(--focus-halo);
+  }
+
+  /* ── Form + aside ── */
+
+  .contactGrid {
+    display: grid;
+    gap: var(--s-8);
+    align-items: start;
+    margin-top: var(--s-12);
+  }
+
+  @media (min-width: 1000px) {
+    .contactGrid {
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.9fr);
+      gap: var(--s-10);
+    }
+
+    .side {
+      position: sticky;
+      top: calc(var(--header-h, 72px) + var(--s-6));
+    }
+  }
+
+  .group {
+    grid-column: 1 / -1;
+  }
+
+  .group[hidden] {
+    display: none;
+  }
+
+  .group__grid {
+    display: grid;
+    gap: var(--s-4);
+  }
+
+  @media (min-width: 640px) {
+    .group__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .side {
+    display: grid;
+    gap: var(--s-5);
+  }
+
+  .side__icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius);
+    background: var(--blue-050);
+  }
+
+  .side__icon--warm {
+    background: var(--orange-100);
+  }
+
+  .side__cv {
+    display: grid;
+    justify-items: start;
+    gap: var(--s-3);
+    padding: var(--s-6);
+    background: linear-gradient(160deg, var(--blue-050), var(--white));
+    border: 1px solid var(--blue-100);
+    border-radius: var(--radius-lg);
+  }
+
+  .side__cv .side__icon {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .side__cv h2,
+  .side__details h2 {
+    font-size: var(--fs-lg);
+    line-height: var(--lh-snug);
+    color: var(--blue-900);
+  }
+
+  .side__cv p {
+    color: var(--muted);
+    margin-bottom: var(--s-2);
+  }
+
+  .side__details {
+    padding: var(--s-6);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 12px 32px -18px rgba(0, 46, 107, 0.18);
+  }
+
+  .side__details h2 {
+    margin-bottom: var(--s-5);
+  }
+
+  .side__details ul {
+    display: grid;
+    gap: var(--s-3);
+  }
+
+  .side__details li {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .side__details a {
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+
+  .side__details a:hover {
+    color: var(--blue-700);
+    text-decoration: underline;
+  }
+
+  .side__response {
+    display: flex;
+    gap: var(--s-3);
+    margin-top: var(--s-5);
+    padding-top: var(--s-5);
+    border-top: 1px solid var(--line);
+  }
+
+  .side__responseTitle {
+    font-weight: 700;
+    color: var(--blue-900);
+  }
+
+  .side__response p:not(.side__responseTitle) {
+    font-size: var(--fs-sm);
+    color: var(--muted);
+  }
+
+  /* ── FAQ aside ── */
+
+  .quoteCard {
+    padding: var(--s-6);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--orange-500);
+    border-radius: var(--radius-lg);
+  }
+
+  .quoteCard > :global(svg) {
+    color: var(--blue-200);
+    margin-bottom: var(--s-2);
+  }
+
+  .quoteCard__text {
+    font-family: var(--font-script);
+    font-size: var(--fs-2xl);
+    line-height: var(--lh-snug);
+    color: var(--blue-700);
+  }
+
+  .quoteCard__pillars {
+    display: flex;
+    justify-content: space-around;
+    gap: var(--s-4);
+    margin-top: var(--s-6);
+    padding-top: var(--s-5);
+    border-top: 1px solid var(--line);
+  }
+
+  .quoteCard__pillars li {
+    display: grid;
+    justify-items: center;
+    gap: var(--s-2);
+    font-size: var(--fs-sm);
+    font-weight: 700;
+    color: var(--blue-900);
+    text-align: center;
+  }
+
+  .quoteCard__pillars :global(svg) {
+    color: var(--orange-700);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chooser__card {
+      transition: none;
+    }
+
+    .chooser__card:hover {
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  import '../../scripts/reveal';
+  import '../../scripts/lordicon';
+
+  /**
+   * Show only the field group that matches the selected inquiry type, and
+   * retitle the form. Without JS every group stays visible and usable.
+   */
+  const chooser = document.getElementById('inquiryChooser');
+  const form = document.getElementById('contactForm');
+  const title = document.querySelector<HTMLElement>('.formShell__title');
+
+  if (chooser && form) {
+    const groups = Array.from(form.querySelectorAll<HTMLElement>('[data-group]'));
+
+    const apply = (radio: HTMLInputElement) => {
+      const target = radio.dataset.target;
+      groups.forEach((g) => {
+        const match = g.dataset.group === target;
+        g.hidden = !match;
+        // Keep hidden controls out of the submitted payload.
+        g.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(
+          'input, select, textarea',
+        ).forEach((el) => {
+          el.disabled = !match;
+        });
+      });
+      if (title && radio.dataset.formTitle) title.textContent = radio.dataset.formTitle;
+    };
+
+    const checked = chooser.querySelector<HTMLInputElement>('input:checked');
+    if (checked) apply(checked);
+
+    chooser.addEventListener('change', (e) => {
+      const radio = e.target as HTMLInputElement;
+      if (radio.name === 'inquiry_type') apply(radio);
+    });
+  }
+</script>

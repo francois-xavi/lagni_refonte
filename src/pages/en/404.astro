@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SimplePage from '../../components/pages/SimplePage.astro';
+import Button from '../../components/Button.astro';
+import { usePages } from '../../i18n/utils';
+import { href, navRoutes } from '../../i18n/routes';
+import { useTranslations } from '../../i18n/utils';
+
+const lang = 'en' as const;
+const p = usePages(lang).notFound;
+const t = useTranslations(lang);
+const links = navRoutes
+  .filter((r) => r.key !== 'home')
+  .map((r) => ({ route: r.key, label: t.nav[r.key as keyof typeof t.nav] as string }));
+---
+
+<BaseLayout
+  lang={lang}
+  routeKey="home"
+  title={p.seo.title}
+  description={p.seo.description}
+  noindex
+>
+  <SimplePage
+    lang={lang}
+    icon="search"
+    code={p.code}
+    title={p.title}
+    lead={p.lead}
+    linksTitle={p.suggestionsTitle}
+    links={links}
+  >
+    <Button href={href('home', lang)} variant="primary" size="lg">{p.backHome}</Button>
+    <Button href={href('contact', lang)} variant="outline" size="lg">{p.contact}</Button>
+  </SimplePage>
+</BaseLayout>

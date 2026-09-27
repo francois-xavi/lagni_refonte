@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ContactPage from '../../../components/pages/ContactPage.astro';
+import { usePages } from '../../../i18n/utils';
+
+const lang = 'en' as const;
+const p = usePages(lang).contact;
+---
+
+<BaseLayout lang={lang} routeKey="contact" title={p.seo.title} description={p.seo.description}>
+  <ContactPage lang={lang} />
+</BaseLayout>

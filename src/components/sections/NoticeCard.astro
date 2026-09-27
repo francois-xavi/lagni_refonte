@@ -1,0 +1,109 @@
+---
+/**
+ * Integrity notice (certification, SAP access, ecosystems, immigration…).
+ * `warning` = orange left rule, `info` = blue. Extra lines go in the slot.
+ */
+import LordIcon from '../LordIcon.astro';
+import type { LordIconName } from '../LordIcon.astro';
+
+interface Props {
+  lord?: LordIconName;
+  title?: string;
+  body: string;
+  tone?: 'info' | 'warning';
+  class?: string;
+}
+
+const { lord = 'shield', title, body, tone = 'warning', class: className = '' } = Astro.props;
+---
+
+<aside class:list={['notice', `notice--${tone}`, className]} data-reveal="fade-up">
+  <span class="notice__icon" aria-hidden="true">
+    <LordIcon name={lord} size={28} target=".notice" />
+  </span>
+  <div class="notice__text">
+    {title && <h3 class="notice__title">{title}</h3>}
+    <p>{body}</p>
+    <slot />
+  </div>
+</aside>
+
+<script>
+  import '../../scripts/reveal';
+  import '../../scripts/lordicon';
+</script>
+
+<style>
+  .notice {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--s-4);
+    align-items: start;
+    padding: var(--s-5) var(--s-6);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--line);
+    border-left-width: 4px;
+  }
+
+  .notice--warning {
+    background: var(--orange-050);
+    border-color: var(--orange-200);
+    border-left-color: var(--orange-500);
+  }
+
+  .notice--info {
+    background: var(--blue-050);
+    border-color: var(--blue-100);
+    border-left-color: var(--blue-700);
+  }
+
+  .notice__icon {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    background: var(--white);
+  }
+
+  .notice__title {
+    margin-bottom: var(--s-2);
+    font-size: var(--fs-md);
+    line-height: var(--lh-snug);
+  }
+
+  .notice--warning .notice__title {
+    color: var(--orange-700);
+  }
+
+  .notice--info .notice__title {
+    color: var(--blue-900);
+  }
+
+  .notice__text > :global(p) {
+    color: var(--ink-soft);
+    font-size: var(--fs-sm);
+    line-height: 1.65;
+  }
+
+  .notice__text > :global(p + p) {
+    margin-top: var(--s-3);
+  }
+
+  .notice__text > :global(.notice__aside) {
+    margin-top: var(--s-3);
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  .notice__text > :global(.btn) {
+    margin-top: var(--s-4);
+  }
+
+  @media (max-width: 420px) {
+    .notice {
+      grid-template-columns: minmax(0, 1fr);
+      padding: var(--s-5);
+    }
+  }
+</style>

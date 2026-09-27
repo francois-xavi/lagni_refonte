@@ -1,0 +1,243 @@
+---
+/**
+ * Numbered step timeline: heading + steps joined by a line that draws in,
+ * each step with an animated icon, title and short text (recruitment process).
+ * Horizontal from 1000px, vertical below.
+ */
+import LordIcon from '../LordIcon.astro';
+import type { LordIconName } from '../LordIcon.astro';
+
+interface Props {
+  id: string;
+  anchor?: string;
+  eyebrow: string;
+  title: string;
+  lead: string;
+  /** `tag` replaces the step number (e.g. "Phase 1 · 4 séances"). */
+  steps: readonly { title: string; body: string; lord: LordIconName; tag?: string }[];
+  tint?: boolean;
+}
+
+const { id, anchor, eyebrow, title, lead, steps, tint = false } = Astro.props;
+const hasHeadExtra = Astro.slots.has('head');
+const hasAfter = Astro.slots.has('default');
+---
+
+<section id={anchor} class:list={['section', 'tl', tint && 'tl--tint']} aria-labelledby={id}>
+  <div class="container">
+    <header class="tl__head" data-reveal="fade-up">
+      <p class="eyebrow tl__eyebrow">{eyebrow}</p>
+      <h2 id={id}>{title}</h2>
+      <p class="lead">{lead}</p>
+      {hasHeadExtra && <div class="tl__headExtra"><slot name="head" /></div>}
+    </header>
+
+    <ol class="tl__steps" data-reveal="stagger" style={`--count:${steps.length}`}>
+      {
+        steps.map((step, i) => (
+          <li class="tl__step" style={`--i:${i + 1}`}>
+            <span class="tl__marker" aria-hidden="true">
+              <LordIcon name={step.lord} size={30} target=".tl__step" />
+            </span>
+            <div class="tl__text">
+              <span class="tl__num">{step.tag ?? String(i + 1).padStart(2, '0')}</span>
+              <h3 class="tl__title">{step.title}</h3>
+              <p class="tl__body">{step.body}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+    {hasAfter && <div class="tl__after" data-reveal="fade-up"><slot /></div>}
+  </div>
+</section>
+
+<script>
+  import '../../scripts/reveal';
+  import '../../scripts/lordicon';
+</script>
+
+<style>
+  .tl {
+    background: var(--white);
+    scroll-margin-top: var(--header-h);
+  }
+
+  .tl--tint {
+    background: var(--blue-050);
+  }
+
+  .tl--tint .tl__marker {
+    box-shadow:
+      0 0 0 6px var(--blue-050),
+      0 10px 24px -12px rgba(0, 46, 107, 0.35);
+  }
+
+  .tl__headExtra {
+    margin-top: var(--s-5);
+  }
+
+  .tl__after {
+    display: grid;
+    gap: var(--s-5);
+    justify-items: start;
+    margin-top: var(--s-10);
+  }
+
+  .tl__head {
+    max-width: 46rem;
+  }
+
+  .tl__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-3);
+    margin-bottom: var(--s-4);
+  }
+
+  .tl__eyebrow::before {
+    content: '';
+    width: 1.75rem;
+    height: 2px;
+    background: var(--orange-500);
+    border-radius: 2px;
+  }
+
+  .tl h2 {
+    font-size: var(--fs-3xl);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--blue-900);
+  }
+
+  .tl__head .lead {
+    margin-top: var(--s-4);
+  }
+
+  .tl__steps {
+    --marker: 3.5rem;
+    position: relative;
+    display: grid;
+    gap: var(--s-6);
+    margin-top: var(--s-10);
+  }
+
+  /* Connecting line: vertical on mobile, horizontal from 1000px. */
+  .tl__steps::before {
+    content: '';
+    position: absolute;
+    top: calc(var(--marker) / 2);
+    bottom: calc(var(--marker) / 2);
+    left: calc(var(--marker) / 2 - 1px);
+    width: 2px;
+    background: linear-gradient(var(--blue-200), var(--orange-500));
+    transform-origin: top;
+    transition: transform 1.1s var(--ease-out);
+  }
+
+  :global(.reveal-ready) .tl__steps::before {
+    transform: scaleY(0);
+  }
+
+  :global(.reveal-ready) .tl__steps:global(.is-visible)::before {
+    transform: none;
+  }
+
+  .tl__step {
+    position: relative;
+    display: grid;
+    grid-template-columns: var(--marker) minmax(0, 1fr);
+    gap: var(--s-4);
+    align-items: start;
+    align-content: start;
+  }
+
+  .tl__marker {
+    display: grid;
+    place-items: center;
+    width: var(--marker);
+    height: var(--marker);
+    border-radius: 50%;
+    background: var(--white);
+    border: 1px solid var(--blue-100);
+    box-shadow:
+      0 0 0 6px var(--white),
+      0 10px 24px -12px rgba(0, 46, 107, 0.35);
+    transition:
+      border-color 0.25s ease,
+      transform 0.25s ease;
+  }
+
+  .tl__step:hover .tl__marker {
+    border-color: var(--orange-500);
+    transform: translateY(-3px);
+  }
+
+  .tl__num {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--orange-700);
+  }
+
+  .tl__title {
+    margin-top: var(--s-1);
+    font-size: var(--fs-lg);
+    line-height: var(--lh-snug);
+    color: var(--blue-900);
+  }
+
+  .tl__body {
+    margin-top: var(--s-2);
+    font-size: var(--fs-sm);
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  @media (min-width: 1000px) {
+    .tl__steps {
+      grid-template-columns: repeat(var(--count), minmax(0, 1fr));
+      gap: var(--s-6);
+      margin-top: var(--s-12);
+    }
+
+    .tl__steps::before {
+      top: calc(var(--marker) / 2 - 1px);
+      bottom: auto;
+      left: calc(100% / var(--count) / 2);
+      right: calc(100% / var(--count) / 2);
+      width: auto;
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue-200), var(--orange-500));
+      transform-origin: left;
+    }
+
+    :global(.reveal-ready) .tl__steps::before {
+      transform: scaleX(0);
+    }
+
+    .tl__step {
+      grid-template-columns: minmax(0, 1fr);
+      justify-items: center;
+      text-align: center;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tl__steps::before,
+    .tl__marker {
+      transition: none;
+    }
+
+    :global(.reveal-ready) .tl__steps::before {
+      transform: none;
+    }
+
+    .tl__step:hover .tl__marker {
+      transform: none;
+    }
+  }
+</style>

@@ -1,0 +1,171 @@
+---
+/**
+ * Process spotlight: heading + numbered step chain (steps enter one by one)
+ * + the systems it applies to (ERP production specialisation).
+ */
+import FlowChain from '../FlowChain.astro';
+import Icon from '../Icon.astro';
+
+interface Props {
+  id: string;
+  eyebrow: string;
+  title: string;
+  lead: string;
+  steps: readonly string[];
+  systems?: readonly string[];
+}
+
+const { id, eyebrow, title, lead, steps, systems = [] } = Astro.props;
+const hasAfter = Astro.slots.has('default');
+---
+
+<section class="section pchainSection" aria-labelledby={id}>
+  <div class="container">
+    <div class="pchain" data-reveal="fade-up">
+      <div class="pchain__head">
+        <p class="eyebrow pchain__eyebrow">{eyebrow}</p>
+        <h2 id={id}>{title}</h2>
+        <p class="lead">{lead}</p>
+      </div>
+      <div class="pchain__flow">
+        <FlowChain items={steps} tone="light" numbered reveal />
+      </div>
+      {
+        systems.length > 0 && (
+          <ul class="pchain__systems">
+            {systems.map((s) => (
+              <li>
+                <Icon name="layers" size={16} />
+                <span>{s}</span>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+      {hasAfter && <div class="pchain__after"><slot /></div>}
+    </div>
+  </div>
+</section>
+
+<script>
+  import '../../scripts/reveal';
+</script>
+
+<style>
+  .pchainSection {
+    background: radial-gradient(ellipse 70% 60% at 50% 55%, var(--blue-050), var(--white) 70%);
+  }
+
+  .pchain {
+    padding: var(--s-6);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow:
+      0 1px 2px rgba(0, 46, 107, 0.04),
+      0 12px 32px -12px rgba(0, 46, 107, 0.14);
+  }
+
+  .pchain__head {
+    max-width: 46rem;
+  }
+
+  .pchain__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-3);
+    margin-bottom: var(--s-4);
+  }
+
+  .pchain__eyebrow::before {
+    content: '';
+    width: 1.75rem;
+    height: 2px;
+    background: var(--orange-500);
+    border-radius: 2px;
+  }
+
+  .pchain h2 {
+    font-size: var(--fs-3xl);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--blue-900);
+  }
+
+  .pchain__head .lead {
+    margin-top: var(--s-4);
+  }
+
+  .pchain__flow {
+    margin-top: var(--s-8);
+    padding-top: var(--s-8);
+    border-top: 1px solid var(--line);
+  }
+
+  .pchain__flow :global(.chain) {
+    gap: var(--s-3);
+  }
+
+  .pchain__flow :global(.chain__label) {
+    padding: 0.55rem 0.9rem;
+    border: 1px solid rgba(0, 74, 173, 0.12);
+    transition:
+      background-color 0.25s ease-out,
+      transform 0.25s ease-out;
+  }
+
+  .pchain__flow :global(.chain__label:hover) {
+    background: var(--white);
+    transform: translateY(-2px);
+  }
+
+  .pchain__flow :global(.chain__sep) {
+    color: var(--orange-500);
+  }
+
+  .pchain__systems {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3);
+    margin-top: var(--s-8);
+  }
+
+  .pchain__systems li {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    padding: 0.5rem 0.95rem;
+    font-size: var(--fs-sm);
+    font-weight: 700;
+    color: var(--white);
+    background: var(--blue-800);
+    border-radius: var(--radius-pill);
+  }
+
+  .pchain__systems li :global(svg) {
+    color: var(--orange-500);
+  }
+
+  .pchain__after {
+    display: grid;
+    gap: var(--s-4);
+    margin-top: var(--s-8);
+  }
+
+  @media (min-width: 900px) {
+    .pchain {
+      padding: var(--s-12);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pchain__flow :global(.chain__label) {
+      transition: none;
+    }
+
+    .pchain__flow :global(.chain__label:hover) {
+      transform: none;
+    }
+  }
+</style>

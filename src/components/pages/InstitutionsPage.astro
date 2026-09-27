@@ -1,0 +1,409 @@
+---
+/**
+ * Institutions page — composed from the shared section components.
+ * Only the SAP-resources band and the partnership form keep page-level markup.
+ */
+import ArtHero from '../sections/ArtHero.astro';
+import ProofBand from '../sections/ProofBand.astro';
+import BridgeBand from '../sections/BridgeBand.astro';
+import IconTiles from '../sections/IconTiles.astro';
+import ProcessChain from '../sections/ProcessChain.astro';
+import NumberedCards from '../sections/NumberedCards.astro';
+import NoticeCard from '../sections/NoticeCard.astro';
+import FounderSplit from '../sections/FounderSplit.astro';
+import StepTimeline from '../sections/StepTimeline.astro';
+import FaqSplit from '../sections/FaqSplit.astro';
+import FormCard from '../sections/FormCard.astro';
+import CtaBand from '../CtaBand.astro';
+import Button from '../Button.astro';
+import FlowChain from '../FlowChain.astro';
+import LordIcon from '../LordIcon.astro';
+import FormShell from '../forms/FormShell.astro';
+import FormField from '../forms/FormField.astro';
+import type { LordIconName } from '../LordIcon.astro';
+import { href, type Lang } from '../../i18n/routes';
+import { useTranslations, usePages } from '../../i18n/utils';
+import { publicImage } from '../../lib/assets';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const p = usePages(lang).institutions;
+const f = t.forms;
+
+const bridgeLords: LordIconName[] = ['book', 'server', 'medal'];
+
+const programmeLords: Record<string, LordIconName> = {
+  truck: 'network',
+  factory: 'tools',
+  gear: 'design',
+  chart: 'experience',
+  box: 'checklist',
+  screen: 'monitor',
+};
+
+const formatLords: Record<string, LordIconName> = {
+  calendar: 'calendar',
+  refresh: 'clock',
+  people: 'school',
+  star: 'medal',
+};
+
+const modalityLords: Record<string, LordIconName> = {
+  screen: 'monitor',
+  school: 'school',
+  layers: 'refresh',
+};
+
+const pedagogyLords: Record<string, LordIconName> = {
+  bulb: 'book',
+  gear: 'tools',
+  search: 'search',
+  people: 'conversation',
+};
+
+const pilotLords: LordIconName[] = ['target', 'school', 'checklist', 'refresh', 'network'];
+---
+
+<ArtHero
+  id="inst-hero-title"
+  eyebrow={p.hero.eyebrow}
+  title={p.hero.title}
+  tagline={p.hero.tagline}
+  lead={p.hero.lead}
+  trustItems={p.hero.trustItems}
+  image={{ src: '/assets/images/hero-institutions.webp', alt: p.hero.imageAlt, width: 900, height: 1100 }}
+  matchCard={{ label: p.hero.matchLabel, title: p.hero.panelTitle, pills: p.hero.panel.slice(1, 4) }}
+  profileCard={{ badge: p.hero.profileBadge, label: p.hero.profileLabel, title: p.hero.profileTitle }}
+  valueCard={{ text: p.hero.script, variant: 'script' }}
+>
+  <Button href="#partnership" variant="primary" size="lg">{p.hero.ctaPrimary}</Button>
+  <Button href={href('sapPp', lang)} variant="ghost" size="lg">{p.hero.ctaSecondary}</Button>
+</ArtHero>
+
+<ProofBand
+  label={p.proof.label}
+  items={p.proof.items.map((item) => ({ ...item, lord: item.lord as LordIconName }))}
+/>
+
+<BridgeBand
+  id="why-title"
+  eyebrow={p.why.eyebrow}
+  title={p.why.title}
+  lead={p.why.lead}
+  columns={p.why.columns.map((c, i) => ({
+    title: c.title,
+    subtitle: c.subtitle,
+    items: c.items,
+    highlight: 'highlight' in c ? c.highlight : undefined,
+    lord: bridgeLords[i] ?? 'book',
+  }))}
+  quote={p.why.quote}
+/>
+
+<IconTiles
+  id="progs-title"
+  eyebrow={p.programmes.eyebrow}
+  title={p.programmes.title}
+  lead={p.programmes.lead}
+  tiles={p.programmes.items.map((i) => ({ label: i.label, lord: programmeLords[i.icon] ?? 'school' }))}
+  image={{
+    src: publicImage('institutions-programmes.webp'),
+    alt: p.programmes.imageAlt,
+    slot: 'institutions-programmes',
+    width: 1000,
+    height: 800,
+    fallbackIcon: 'school',
+  }}
+  tint={false}
+>
+  <p class="softNote">{p.programmes.note}</p>
+</IconTiles>
+
+<ProcessChain
+  id="prog-title"
+  eyebrow={p.programme.eyebrow}
+  title={`${p.programme.title} — ${p.programme.subtitle}`}
+  lead={p.programme.body}
+  steps={p.programme.phases}
+  systems={p.programme.meta.map((m) => (m.sub ? `${m.label} ${m.sub}` : m.label))}
+>
+  <div>
+    <Button href={href('sapPp', lang)} variant="outline" size="md" icon="arrow-right">{p.programme.cta}</Button>
+  </div>
+</ProcessChain>
+
+<NumberedCards
+  id="formats-title"
+  eyebrow={p.formats.eyebrow}
+  title={p.formats.title}
+  lead={p.formats.lead}
+  items={p.formats.items.map((i) => ({ title: i.title, body: i.body, lord: formatLords[i.icon] ?? 'calendar' }))}
+  reveal
+  tint
+>
+  <div slot="note" class="modal">
+    <div class="modal__head">
+      <h3>{p.modalities.title}</h3>
+      <p>{p.modalities.lead}</p>
+    </div>
+    <ul class="modal__list">
+      {
+        p.modalities.items.map((m) => (
+          <li>
+            <span class="modal__icon" aria-hidden="true">
+              <LordIcon name={modalityLords[m.icon] ?? 'monitor'} size={26} target=".modal__list li" />
+            </span>
+            <span>
+              <strong>{m.title}</strong>
+              {m.body}
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</NumberedCards>
+
+<IconTiles
+  id="peda-title"
+  eyebrow={p.pedagogy.eyebrow}
+  title={p.pedagogy.title}
+  lead={p.pedagogy.tagline}
+  tiles={p.pedagogy.items.map((i) => ({
+    label: i.title,
+    body: i.body,
+    lord: pedagogyLords[i.icon] ?? 'book',
+  }))}
+  image={{
+    src: publicImage('sap-pp-practice.webp'),
+    alt: p.pedagogy.imageAlt,
+    slot: 'sap-pp-practice',
+    width: 1000,
+    height: 800,
+    fallbackIcon: 'people',
+  }}
+  tint={false}
+/>
+
+<NumberedCards
+  id="resp-title"
+  eyebrow={p.responsibilities.eyebrow}
+  title={p.responsibilities.title}
+  lead={p.responsibilities.lead}
+  items={[
+    { title: p.responsibilities.institution.title, points: p.responsibilities.institution.items, lord: 'school' },
+    { title: p.responsibilities.lagni.title, points: p.responsibilities.lagni.items, lord: 'mentor' },
+  ]}
+  reveal
+  tint
+/>
+
+<section class="section sapRes" aria-labelledby="sapres-title">
+  <div class="container sapRes__grid">
+    <div data-reveal="fade-up">
+      <p class="eyebrow sapRes__eyebrow">{p.sapResources.eyebrow}</p>
+      <h2 id="sapres-title">{p.sapResources.title}</h2>
+      <p class="lead">{p.sapResources.body}</p>
+      <div class="sapRes__chain">
+        <FlowChain items={p.sapResources.chain} tone="blue" numbered reveal />
+      </div>
+    </div>
+    <div class="sapRes__notices">
+      <NoticeCard lord="shield" title={p.sapResources.accessTitle} body={p.sapResources.disclaimer} tone="warning" />
+      <NoticeCard lord="medal" title={p.sapResources.certificationTitle} body={p.sapResources.certification} tone="info" />
+    </div>
+  </div>
+</section>
+
+<FounderSplit
+  id="trainer-title"
+  eyebrow={p.trainer.eyebrow}
+  title={p.trainer.title}
+  body={p.trainer.body}
+  image={{ src: '/assets/images/founder.jpg', alt: t.founder.photoAlt, slot: 'founder-portrait' }}
+  points={p.trainer.points}
+  signature={{ name: t.founder.name, role: t.founder.role }}
+  link={{ href: href('about', lang), label: p.trainer.cta }}
+/>
+
+<StepTimeline
+  id="pilot-title"
+  eyebrow={p.pilot.eyebrow}
+  title={p.pilot.title}
+  lead={p.pilot.body}
+  steps={p.pilot.steps.map((s, i) => ({
+    title: s,
+    body: p.pilot.stepDetails[i] ?? '',
+    lord: pilotLords[i] ?? 'checklist',
+  }))}
+>
+  <p class="softNote">{p.pilot.cohortNote}</p>
+  <NoticeCard lord="conversation" title={p.partners.title} body={p.partners.placeholder} tone="info">
+    <p class="notice__aside">{p.partners.lead}</p>
+  </NoticeCard>
+</StepTimeline>
+
+<FaqSplit
+  id="faq-title"
+  anchor="partnership"
+  eyebrow={p.faq.eyebrow}
+  title={p.faq.title}
+  lead={p.faq.lead}
+  items={p.faq.items}
+  wideAside
+>
+  <FormCard slot="aside" lord="school" eyebrow={p.formCard.eyebrow} title={p.formIntro.title} body={p.formIntro.body}>
+    <FormShell
+      lang={lang}
+      id="institutionForm"
+      formName="institution-partnership"
+      submitLabel={f.discussPartnership}
+    >
+      <FormField name="institution" label={f.institutionName} required placeholder={f.institutionPlaceholder} autocomplete="organization" />
+      <FormField name="country" label={f.country} type="select" required options={f.countryOptions} optionsPlaceholder={f.countryPlaceholder} />
+      <FormField name="role" label={f.role} required placeholder={f.rolePlaceholder} />
+      <FormField name="email" label={f.email} type="email" required placeholder={f.emailPlaceholder} autocomplete="email" />
+      <FormField name="programme" label={f.programme} required placeholder={f.programmePlaceholder} />
+      <FormField name="student_count" label={f.studentCount} type="number" placeholder={f.studentCountPlaceholder} />
+      <FormField name="period" label={f.period} type="select" options={f.periodOptions} optionsPlaceholder={f.select} />
+      <FormField name="message" label={f.message} type="textarea" placeholder={f.messagePlaceholder} wide />
+    </FormShell>
+  </FormCard>
+</FaqSplit>
+
+<CtaBand title={p.finalCta.title} body={p.finalCta.body} script={p.finalCta.script} imageSlot="cta-institutions">
+  <Button href="#partnership" variant="primary" size="lg">{p.finalCta.cta}</Button>
+  <Button href={href('sapPp', lang)} variant="outlineLight" size="lg">{p.hero.ctaSecondary}</Button>
+</CtaBand>
+
+<script>
+  import '../../scripts/reveal';
+  import '../../scripts/lordicon';
+</script>
+
+<style>
+  .softNote {
+    font-size: var(--fs-sm);
+    font-style: italic;
+    color: var(--muted);
+    max-width: 60ch;
+  }
+
+  /* ── Modalities (formats note) ── */
+
+  .modal {
+    display: grid;
+    gap: var(--s-5);
+    margin-top: var(--s-4);
+    padding: var(--s-6);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+  }
+
+  .modal__head h3 {
+    font-size: var(--fs-md);
+    color: var(--blue-900);
+  }
+
+  .modal__head p {
+    margin-top: var(--s-1);
+    font-size: var(--fs-sm);
+    color: var(--muted);
+  }
+
+  .modal__list {
+    display: grid;
+    gap: var(--s-4);
+  }
+
+  .modal__list li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--s-3);
+    font-size: var(--fs-sm);
+    color: var(--muted);
+  }
+
+  .modal__list strong {
+    display: block;
+    color: var(--blue-900);
+  }
+
+  .modal__icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius);
+    background: var(--blue-050);
+  }
+
+  @media (min-width: 900px) {
+    .modal {
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 2fr);
+      align-items: center;
+      column-gap: var(--s-10);
+    }
+
+    .modal__list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  /* ── SAP resources ── */
+
+  .sapRes__grid {
+    display: grid;
+    gap: var(--s-10);
+    align-items: start;
+  }
+
+  .sapRes__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-3);
+    margin-bottom: var(--s-4);
+  }
+
+  .sapRes__eyebrow::before {
+    content: '';
+    width: 1.75rem;
+    height: 2px;
+    background: var(--orange-500);
+    border-radius: 2px;
+  }
+
+  .sapRes h2 {
+    font-size: var(--fs-3xl);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--blue-900);
+  }
+
+  .sapRes .lead {
+    margin-top: var(--s-4);
+  }
+
+  .sapRes__chain {
+    margin-top: var(--s-8);
+  }
+
+  .sapRes__notices {
+    display: grid;
+    gap: var(--s-4);
+  }
+
+  @media (min-width: 1000px) {
+    .sapRes__grid {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: var(--s-16);
+    }
+  }
+</style>

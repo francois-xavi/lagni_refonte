@@ -1,0 +1,61 @@
+---
+import { alternates, href, LOCALE, type Lang } from '../i18n/routes';
+import { SITE_URL } from '../config';
+
+interface Props {
+  lang: Lang;
+  routeKey: string;
+  title: string;
+  description: string;
+  /** Optional JSON-LD objects to emit on this page. */
+  schema?: Record<string, unknown>[];
+  noindex?: boolean;
+  /** Override for dynamic routes (e.g. an article under /ressources/<slug>/). */
+  canonicalPath?: string;
+  /** Explicit hreflang pairs; omit to derive them from the route table. */
+  alternatePaths?: { hreflang: string; path: string }[];
+}
+
+const {
+  lang,
+  routeKey,
+  title,
+  description,
+  schema = [],
+  noindex = false,
+  canonicalPath,
+  alternatePaths,
+} = Astro.props;
+
+const canonical = new URL(canonicalPath ?? href(routeKey, lang), SITE_URL).toString();
+const hreflangs = (alternatePaths ?? alternates(routeKey)).map((a) => ({
+  hreflang: a.hreflang,
+  url: new URL(a.path, SITE_URL).toString(),
+}));
+const ogImage = new URL('/assets/images/og-default.png', SITE_URL).toString();
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex, follow" />}
+
+{hreflangs.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.url} />)}
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Lagni Consulting" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:locale" content={LOCALE[lang]} />
+<meta property="og:image" content={ogImage} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+{
+  schema.map((s) => (
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(s)} />
+  ))
+}

@@ -1,0 +1,164 @@
+---
+/**
+ * Accordion built on <details>/<summary>: keyboard-operable and fully
+ * functional with JavaScript disabled. No JS is loaded for it at all.
+ */
+import Icon from './Icon.astro';
+
+interface Props {
+  items: readonly { q: string; a: string }[];
+  /** Split into two columns on wide screens. */
+  columns?: 1 | 2;
+  class?: string;
+}
+
+const { items, columns = 1, class: className = '' } = Astro.props;
+---
+
+<div class:list={['faq', columns === 2 && 'faq--2col', className]}>
+  {
+    items.map((item) => (
+      <details class="faq__item">
+        <summary>
+          <span>{item.q}</span>
+          <span class="faq__toggle" aria-hidden="true">
+            <Icon name="plus" size={16} class="faq__plus" />
+            <Icon name="minus" size={16} class="faq__minus" />
+          </span>
+        </summary>
+        <div class="faq__answer">
+          <p>{item.a}</p>
+        </div>
+      </details>
+    ))
+  }
+</div>
+
+<style>
+  .faq {
+    display: grid;
+    gap: var(--s-3);
+    align-content: start;
+  }
+
+  @media (min-width: 880px) {
+    .faq--2col {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .faq__item {
+    position: relative;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--white);
+    height: fit-content;
+    overflow: hidden;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .faq__item::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 3px;
+    background: var(--orange-500);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.3s var(--ease-out);
+  }
+
+  .faq__item:hover {
+    border-color: var(--blue-200);
+  }
+
+  .faq__item[open] {
+    border-color: var(--blue-200);
+    box-shadow: 0 12px 28px -18px rgba(0, 46, 107, 0.35);
+  }
+
+  .faq__item[open]::before {
+    transform: none;
+  }
+
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-3);
+    padding: var(--s-4) var(--s-5);
+    font-family: var(--font-heading);
+    font-size: var(--fs-base);
+    font-weight: 700;
+    color: var(--blue-900);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__toggle {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 1.9rem;
+    height: 1.9rem;
+    border-radius: 50%;
+    background: var(--orange-050);
+    color: var(--orange-700);
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .faq__item[open] .faq__toggle {
+    background: var(--orange-650);
+    color: var(--white);
+  }
+
+  .faq__toggle :global(.faq__minus) {
+    display: none;
+  }
+
+  .faq__item[open] .faq__toggle :global(.faq__plus) {
+    display: none;
+  }
+
+  .faq__item[open] .faq__toggle :global(.faq__minus) {
+    display: block;
+  }
+
+  .faq__answer {
+    padding: 0 var(--s-5) var(--s-5);
+    color: var(--ink-soft);
+    font-size: var(--fs-base);
+    max-width: 72ch;
+  }
+
+  .faq__item[open] .faq__answer {
+    animation: faqIn 0.3s var(--ease-out) both;
+  }
+
+  @keyframes faqIn {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faq__item::before,
+    .faq__item[open] .faq__answer {
+      transition: none;
+      animation: none;
+    }
+  }
+</style>

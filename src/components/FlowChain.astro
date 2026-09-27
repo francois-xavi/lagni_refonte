@@ -1,0 +1,96 @@
+---
+/** Horizontal arrow chain (Demande → MRP → Capacité → …). */
+interface Props {
+  items: readonly string[];
+  tone?: 'light' | 'dark' | 'blue';
+  numbered?: boolean;
+  /** Steps enter one after another (needs scripts/reveal on the page). */
+  reveal?: boolean;
+}
+
+const { items, tone = 'light', numbered = false, reveal = false } = Astro.props;
+---
+
+<ol class:list={['chain', `chain--${tone}`]} data-reveal={reveal ? 'stagger' : undefined}>
+  {
+    items.map((item, i) => (
+      <li class="chain__item" style={reveal ? `--i:${i + 1}` : undefined}>
+        {numbered && <span class="chain__n">{String(i + 1).padStart(2, '0')}</span>}
+        <span class="chain__label">{item}</span>
+        {i < items.length - 1 && (
+          <span class="chain__sep" aria-hidden="true">
+            →
+          </span>
+        )}
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .chain {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: var(--s-2);
+  }
+
+  .chain__item {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+  }
+
+  .chain__label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    padding: 0.45rem 0.8rem;
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    text-align: center;
+  }
+
+  .chain__n {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--blue-700);
+    color: var(--white);
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .chain__sep {
+    color: var(--muted);
+    font-weight: 700;
+  }
+
+  .chain--light .chain__label {
+    background: var(--blue-100);
+    color: var(--blue-700);
+  }
+
+  .chain--blue .chain__label {
+    background: var(--blue-700);
+    color: var(--white);
+  }
+
+  .chain--blue .chain__sep {
+    color: var(--blue-500);
+  }
+
+  .chain--dark .chain__label {
+    background: rgba(255, 255, 255, 0.14);
+    color: var(--white);
+  }
+
+  .chain--dark .chain__sep {
+    color: rgba(255, 255, 255, 0.6);
+  }
+</style>

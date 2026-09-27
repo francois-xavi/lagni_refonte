@@ -1,0 +1,156 @@
+---
+/**
+ * Editorial resource grid: one lead card spanning two rows + compact rows
+ * (homepage Resources, Formations "Ressources pour démarrer").
+ */
+import Icon from '../Icon.astro';
+import ResourceCard from '../ResourceCard.astro';
+import type { Lang } from '../../i18n/routes';
+import type { ResourcePreview } from '../../lib/resources';
+
+interface Props {
+  id: string;
+  lang: Lang;
+  eyebrow: string;
+  title: string;
+  lead: string;
+  all: { href: string; label: string };
+  readLabel: string;
+  resources: readonly ResourcePreview[];
+}
+
+const { id, lang, eyebrow, title, lead, all, readLabel, resources } = Astro.props;
+---
+
+{
+  resources.length > 0 && (
+    <section class="section res" aria-labelledby={id}>
+      <div class="container">
+        <div class="res__head" data-reveal="fade-up">
+          <div>
+            <p class="eyebrow res__eyebrow">{eyebrow}</p>
+            <h2 id={id}>{title}</h2>
+            <p class="lead">{lead}</p>
+          </div>
+          <a class="res__all" href={all.href}>
+            {all.label}
+            <span class="res__allArrow">
+              <Icon name="arrow-right" size={16} />
+            </span>
+          </a>
+        </div>
+        <div class="res__grid" data-reveal="stagger">
+          {resources.map((r, i) => (
+            <div class:list={['res__item', i === 0 && 'res__item--lead']} style={`--i:${i + 1}`}>
+              <ResourceCard
+                resource={r}
+                lang={lang}
+                readLabel={readLabel}
+                variant={i === 0 ? 'featured' : 'row'}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<script>
+  import '../../scripts/reveal';
+</script>
+
+<style>
+  .res__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--s-6);
+    margin-bottom: var(--s-10);
+  }
+
+  .res__head h2 {
+    font-size: var(--fs-4xl);
+    font-weight: 800;
+    color: var(--blue-900);
+    letter-spacing: -0.02em;
+  }
+
+  .res__head .lead {
+    margin-top: var(--s-3);
+  }
+
+  .res__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-3);
+  }
+
+  .res__eyebrow::before {
+    content: '';
+    width: 1.75rem;
+    height: 2px;
+    background: var(--orange-500);
+    border-radius: 2px;
+  }
+
+  .res__all {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-3);
+    padding: var(--s-3) var(--s-3) var(--s-3) var(--s-5);
+    font-weight: 700;
+    color: var(--blue-700);
+    text-decoration: none;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    transition:
+      border-color 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .res__allArrow {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    color: var(--white);
+    background: var(--blue-700);
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .res__all:hover,
+  .res__all:focus-visible {
+    border-color: var(--blue-700);
+    box-shadow: 0 8px 22px -10px rgba(0, 74, 173, 0.45);
+  }
+
+  .res__all:hover .res__allArrow,
+  .res__all:focus-visible .res__allArrow {
+    transform: translateX(3px);
+  }
+
+  .res__grid {
+    display: grid;
+    gap: var(--s-6);
+  }
+
+  @media (min-width: 900px) {
+    .res__grid {
+      grid-template-columns: 1.15fr 1fr;
+      grid-template-rows: 1fr 1fr;
+    }
+
+    .res__item--lead {
+      grid-row: 1 / span 2;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .res__allArrow {
+      transition: none;
+    }
+  }
+</style>

@@ -1,0 +1,220 @@
+---
+/**
+ * Copy + animated icon tiles on one side, photo on the other
+ * (homepage Institutions, Formations audiences). Default slot: actions.
+ */
+import Figure from '../Figure.astro';
+import LordIcon from '../LordIcon.astro';
+import type { LordIconName } from '../LordIcon.astro';
+import type { IconName } from '../Icon.astro';
+
+interface Props {
+  id: string;
+  eyebrow?: string;
+  title: string;
+  lead: string;
+  tiles: readonly { label: string; body?: string; lord: LordIconName }[];
+  image: {
+    src?: string;
+    alt: string;
+    slot: string;
+    width: number;
+    height: number;
+    fallbackIcon?: IconName;
+  };
+  tint?: boolean;
+}
+
+const { id, eyebrow, title, lead, tiles, image, tint = true } = Astro.props;
+const hasActions = Astro.slots.has('default');
+---
+
+<section class:list={['section', tint && 'section--tint']} aria-labelledby={id}>
+  <div class="container">
+    <div class="inst">
+      <div class="inst__copy" data-reveal="fade-up">
+        {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+        <h2 id={id}>{title}</h2>
+        <p class="lead">{lead}</p>
+        <ul class="inst__features" data-reveal="stagger">
+          {
+            tiles.map((tile, i) => (
+              <li class:list={['inst__feature', tile.body && 'inst__feature--rich']} style={`--i:${i + 1}`}>
+                <span class="inst__icon">
+                  <LordIcon name={tile.lord} size={30} target=".inst__feature" />
+                </span>
+                {tile.body ? (
+                  <span class="inst__text">
+                    <strong>{tile.label}</strong>
+                    <span>{tile.body}</span>
+                  </span>
+                ) : (
+                  <span>{tile.label}</span>
+                )}
+              </li>
+            ))
+          }
+        </ul>
+        {
+          hasActions && (
+            <div class="inst__actions">
+              <slot />
+            </div>
+          )
+        }
+      </div>
+      <div class="inst__media" data-reveal="fade-up" style="--reveal-delay:150ms">
+        <Figure
+          src={image.src}
+          alt={image.alt}
+          slotName={image.slot}
+          width={image.width}
+          height={image.height}
+          fallback="brand"
+          fallbackIcon={image.fallbackIcon ?? 'school'}
+          class="inst__img"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import '../../scripts/reveal';
+  import '../../scripts/lordicon';
+</script>
+
+<style>
+  .inst {
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-10);
+    align-items: center;
+  }
+
+  .inst h2 {
+    max-width: 20ch;
+    letter-spacing: -0.02em;
+  }
+
+  .inst .lead {
+    max-width: 56ch;
+    margin-top: var(--s-4);
+  }
+
+  .inst__features {
+    display: grid;
+    gap: var(--s-3);
+    margin-top: var(--s-8);
+  }
+
+  .inst__feature {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    padding: var(--s-3) var(--s-4) var(--s-3) var(--s-3);
+    font-size: var(--fs-base);
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--ink);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    /* Longhands only: the stagger delay comes from base.css. */
+    transition-property: opacity, transform, box-shadow, border-color;
+    transition-duration: 0.7s, 0.45s, 0.35s, 0.35s;
+    transition-timing-function: var(--ease-out);
+  }
+
+  .inst__feature--rich {
+    align-items: flex-start;
+    padding: var(--s-4);
+  }
+
+  .inst__text {
+    display: grid;
+    gap: var(--s-1);
+    min-width: 0;
+  }
+
+  .inst__text strong {
+    font-weight: 700;
+    color: var(--blue-900);
+  }
+
+  .inst__text span {
+    font-size: var(--fs-sm);
+    font-weight: 400;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+
+  .inst__features.is-visible .inst__feature:hover,
+  :global(html:not(.reveal-ready)) .inst__feature:hover {
+    transform: translateY(-2px);
+    border-color: rgba(0, 74, 173, 0.25);
+    box-shadow: var(--shadow-md);
+  }
+
+  .inst__icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--radius);
+    background: var(--blue-050);
+    border: 1px solid rgba(0, 74, 173, 0.08);
+  }
+
+  .inst__actions {
+    margin-top: var(--s-8);
+  }
+
+  .inst__actions :global(.btn--primary) {
+    transition:
+      background-color 0.25s ease-out,
+      border-color 0.25s ease-out,
+      box-shadow 0.3s var(--ease-out),
+      transform 0.3s var(--ease-out);
+  }
+
+  .inst__actions :global(.btn--primary:hover) {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 28px -10px rgba(255, 145, 77, 0.65);
+  }
+
+  .inst__media {
+    position: relative;
+  }
+
+  .inst__media :global(img.inst__img) {
+    display: block;
+  }
+
+  .inst__media :global(.inst__img) {
+    box-shadow:
+      0 1px 2px rgba(0, 46, 107, 0.05),
+      0 24px 48px -20px rgba(0, 46, 107, 0.3);
+  }
+
+  @media (min-width: 600px) {
+    .inst__features {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 900px) {
+    .inst {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: var(--s-16);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .inst__actions :global(.btn--primary) {
+      transition: none;
+    }
+  }
+</style>

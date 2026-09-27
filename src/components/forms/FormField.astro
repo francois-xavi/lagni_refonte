@@ -1,0 +1,161 @@
+---
+/**
+ * One labelled form control with accessible validation wiring.
+ * Every field renders: <label for>, the control, an optional help text and an
+ * empty error slot referenced by aria-describedby and filled by the validator.
+ */
+interface Props {
+  name: string;
+  label: string;
+  type?: 'text' | 'email' | 'tel' | 'number' | 'textarea' | 'select' | 'file';
+  required?: boolean;
+  placeholder?: string;
+  help?: string;
+  options?: readonly string[];
+  optionsPlaceholder?: string;
+  accept?: string;
+  rows?: number;
+  autocomplete?: string;
+  /** Span both columns of the grid. */
+  wide?: boolean;
+  /** Needed when two forms on one page share a field name, so ids stay unique. */
+  idPrefix?: string;
+}
+
+const {
+  name,
+  label,
+  type = 'text',
+  required = false,
+  placeholder,
+  help,
+  options = [],
+  optionsPlaceholder,
+  accept,
+  rows = 5,
+  autocomplete,
+  wide = false,
+  idPrefix = 'f',
+} = Astro.props;
+
+const id = `${idPrefix}-${name}`;
+const errId = `${id}-error`;
+const helpId = help ? `${id}-help` : undefined;
+const describedBy = [helpId, errId].filter(Boolean).join(' ');
+---
+
+<div class:list={['field', wide && 'field--wide']}>
+  <label for={id}>
+    {label}
+    {required && <span class="field__req" aria-hidden="true">*</span>}
+  </label>
+
+  {
+    type === 'textarea' ? (
+      <textarea
+        id={id}
+        name={name}
+        rows={rows}
+        placeholder={placeholder}
+        required={required}
+        aria-describedby={describedBy}
+      />
+    ) : type === 'select' ? (
+      <select id={id} name={name} required={required} aria-describedby={describedBy}>
+        <option value="">{optionsPlaceholder ?? placeholder ?? '—'}</option>
+        {options.map((o) => (
+          <option value={o}>{o}</option>
+        ))}
+      </select>
+    ) : (
+      <input
+        id={id}
+        name={name}
+        type={type}
+        placeholder={placeholder}
+        required={required}
+        accept={accept}
+        autocomplete={autocomplete}
+        aria-describedby={describedBy}
+      />
+    )
+  }
+
+  {help && <p class="field__help" id={helpId}>{help}</p>}
+  <p class="field__error" id={errId} data-error-for={name}></p>
+</div>
+
+<style>
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+  }
+
+  @media (min-width: 640px) {
+    .field--wide {
+      grid-column: 1 / -1;
+    }
+  }
+
+  label {
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+
+  .field__req {
+    color: var(--danger);
+    margin-left: 2px;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 0.6rem 0.7rem;
+    font-size: var(--fs-base);
+    color: var(--ink);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 7rem;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #8b97a6;
+  }
+
+  input:hover,
+  select:hover,
+  textarea:hover {
+    border-color: var(--blue-200);
+  }
+
+  input[aria-invalid='true'],
+  select[aria-invalid='true'],
+  textarea[aria-invalid='true'] {
+    border-color: var(--danger);
+    background: var(--danger-bg);
+  }
+
+  .field__help {
+    font-size: var(--fs-xs);
+    color: var(--muted);
+  }
+
+  .field__error {
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    color: var(--danger);
+  }
+
+  .field__error:empty {
+    display: none;
+  }
+</style>

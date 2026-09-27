@@ -1,0 +1,214 @@
+---
+/**
+ * Formations page — composed from the same section components as the homepage.
+ */
+import ArtHero from '../sections/ArtHero.astro';
+import ProofBand from '../sections/ProofBand.astro';
+import NumberedCards from '../sections/NumberedCards.astro';
+import FeaturedCard from '../sections/FeaturedCard.astro';
+import IconTiles from '../sections/IconTiles.astro';
+import RowsBand from '../sections/RowsBand.astro';
+import FounderSplit from '../sections/FounderSplit.astro';
+import ResourceShowcase from '../sections/ResourceShowcase.astro';
+import CtaBand from '../CtaBand.astro';
+import Button from '../Button.astro';
+import Icon from '../Icon.astro';
+import type { LordIconName } from '../LordIcon.astro';
+import { href, type Lang } from '../../i18n/routes';
+import { useTranslations, usePages } from '../../i18n/utils';
+import { getResourcesByCategory } from '../../lib/resources';
+import { publicImage } from '../../lib/assets';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const p = usePages(lang).training;
+const sapResources = await getResourcesByCategory(lang, 'sap-pp', 3);
+
+const approachLords: Record<string, LordIconName> = {
+  book: 'book',
+  gear: 'tools',
+  people: 'mentor',
+};
+
+const audienceLords: Record<string, LordIconName> = {
+  cap: 'cap',
+  factory: 'tools',
+  person: 'server',
+  refresh: 'refresh',
+};
+
+const pathwayLords: Record<string, LordIconName> = {
+  school: 'school',
+  briefcase: 'briefcase',
+  network: 'network',
+};
+---
+
+<ArtHero
+  id="training-hero-title"
+  eyebrow={p.hero.eyebrow}
+  title={p.hero.title}
+  tagline={p.hero.tagline}
+  lead={p.hero.lead}
+  trustItems={p.hero.trustItems}
+  image={{ src: '/assets/images/hero-training.webp', alt: p.hero.imageAlt, width: 900, height: 1100 }}
+  matchCard={{ label: p.hero.matchLabel, title: p.hero.panelTitle, pills: p.hero.panel.slice(0, 3) }}
+  profileCard={{
+    badge: p.hero.profileBadge,
+    label: p.hero.profileLabel,
+    title: p.hero.profileTitle,
+    status: p.hero.profileStatus,
+  }}
+  valueCard={{ text: p.hero.script, variant: 'script' }}
+>
+  <Button href={href('sapPp', lang)} variant="primary" size="lg">{p.hero.ctaPrimary}</Button>
+  <Button href={href('contact', lang)} variant="ghost" size="lg">{p.hero.ctaSecondary}</Button>
+</ArtHero>
+
+<ProofBand
+  label={p.proof.label}
+  items={p.proof.items.map((item) => ({ ...item, lord: item.lord as LordIconName }))}
+/>
+
+<NumberedCards
+  id="appr-title"
+  eyebrow={p.approach.eyebrow}
+  title={p.approach.title}
+  lead={p.approach.lead}
+  items={p.approach.items.map((item) => ({
+    title: item.title,
+    body: item.body,
+    lord: approachLords[item.icon] ?? 'book',
+  }))}
+  reveal
+/>
+
+<FeaturedCard
+  id="feat-title"
+  badge={p.featured.eyebrow}
+  title={p.featured.title}
+  tagline={[p.featured.tagline]}
+  body={p.featured.body}
+  topics={p.featured.topics}
+  image={{
+    src: publicImage('training-sap-pp.webp'),
+    alt: p.featured.imageAlt,
+    slot: 'training-sap-pp',
+    width: 1000,
+    height: 800,
+    fallbackIcon: 'factory',
+  }}
+>
+  <Button href={href('sapPp', lang)} variant="primary" size="lg">{p.featured.cta}</Button>
+  <div slot="note" class="cert">
+    <span class="cert__icon">
+      <Icon name="shield" size={20} />
+    </span>
+    <div>
+      <p class="cert__title">{p.certification.title}</p>
+      <p class="cert__body">{p.certification.body}</p>
+    </div>
+  </div>
+</FeaturedCard>
+
+<IconTiles
+  id="aud-title"
+  eyebrow={p.audiences.eyebrow}
+  title={p.audiences.title}
+  lead={p.audiences.lead}
+  tiles={p.audiences.items.map((item) => ({
+    label: item.title,
+    body: item.body,
+    lord: audienceLords[item.icon] ?? 'mentor',
+  }))}
+  image={{
+    src: publicImage('training-audiences.webp'),
+    alt: p.audiences.imageAlt,
+    slot: 'training-audiences',
+    width: 1000,
+    height: 800,
+    fallbackIcon: 'people',
+  }}
+/>
+
+<RowsBand
+  id="path-title"
+  eyebrow={p.pathways.eyebrow}
+  title={p.pathways.title}
+  body={p.pathways.lead}
+  rows={p.pathways.items.map((path) => ({
+    title: path.title,
+    subtitle: path.subtitle || undefined,
+    desc: path.body,
+    href: href(path.route, lang),
+    lord: pathwayLords[path.icon] ?? 'network',
+    pills: path.items,
+  }))}
+>
+  <p slot="after">{p.pathways.partnerNote}</p>
+</RowsBand>
+
+<FounderSplit
+  id="trainer-title"
+  eyebrow={p.trainer.eyebrow}
+  title={p.trainer.title}
+  body={p.trainer.body}
+  image={{ src: '/assets/images/founder.jpg', alt: t.founder.photoAlt, slot: 'founder-portrait' }}
+  points={p.trainer.points}
+  signature={{ name: t.founder.name, role: t.founder.role }}
+  link={{ href: href('about', lang), label: p.trainer.cta }}
+/>
+
+<ResourceShowcase
+  id="training-res-title"
+  lang={lang}
+  eyebrow={p.resources.eyebrow}
+  title={p.resources.title}
+  lead={p.resources.lead}
+  all={{ href: href('resources', lang), label: p.resources.cta }}
+  readLabel={t.common.readArticle}
+  resources={sapResources}
+/>
+
+<CtaBand title={p.finalCta.title} body={p.finalCta.body} script={p.finalCta.script} imageSlot="cta-training">
+  <Button href={href('sapPp', lang)} variant="primary" size="lg">{p.finalCta.cta}</Button>
+</CtaBand>
+
+<style>
+  .cert {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--s-3);
+  }
+
+  .cert__icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--radius);
+    color: var(--blue-700);
+    background: var(--blue-050);
+    border: 1px solid rgba(0, 74, 173, 0.1);
+  }
+
+  .cert__title {
+    font-family: var(--font-heading);
+    font-size: var(--fs-base);
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--blue-900);
+  }
+
+  .cert__body {
+    margin-top: var(--s-1);
+    font-size: var(--fs-sm);
+    line-height: 1.6;
+    color: var(--muted);
+  }
+</style>

@@ -1,0 +1,356 @@
+---
+/**
+ * Intro + numbered cards (homepage pillars, Formations approach, ERP method).
+ * Three cards sit beside the intro; four cards go below it in a 2×2 / 4-up grid.
+ * Slot `note`: full-width content under the cards.
+ */
+import Icon from '../Icon.astro';
+import type { IconName } from '../Icon.astro';
+import LordIcon from '../LordIcon.astro';
+import type { LordIconName } from '../LordIcon.astro';
+
+interface Props {
+  id: string;
+  eyebrow: string;
+  title: string;
+  lead: string;
+  items: readonly {
+    title: string;
+    body?: string;
+    points?: readonly string[];
+    icon?: string;
+    lord?: LordIconName;
+    href?: string;
+    cta?: string;
+  }[];
+  /** Pull quote under the intro lead. */
+  quote?: string;
+  /** Scroll entrance: intro fade-up, then cards in stagger. */
+  reveal?: boolean;
+  tint?: boolean;
+}
+
+const { id, eyebrow, title, lead, items, quote, reveal = false, tint = false } = Astro.props;
+const four = items.length === 4;
+const two = items.length === 2;
+const hasNote = Astro.slots.has('note');
+---
+
+<section
+  class:list={['pillars', four && 'pillars--four', two && 'pillars--two', tint && 'pillars--tint']}
+  aria-labelledby={id}
+>
+  <div class="container pillars__grid">
+    <header class="pillars__intro" data-reveal={reveal ? 'fade-up' : undefined}>
+      <div>
+        <p class="pillars__eyebrow">{eyebrow}</p>
+        <h2 id={id} class="pillars__title">{title}</h2>
+      </div>
+      <div>
+        <p class="pillars__lead">{lead}</p>
+        {
+          quote && (
+            <blockquote class="pillars__quote">
+              <p>{quote}</p>
+            </blockquote>
+          )
+        }
+      </div>
+    </header>
+
+    <ul class="pillars__cards" data-reveal={reveal ? 'stagger' : undefined}>
+      {
+        items.map((item, i) => (
+          <li style={`--i:${i + 1}`}>
+            <article class="pillar">
+              <div class="pillar__top">
+                <span class="pillar__icon" aria-hidden="true">
+                  {item.lord ? (
+                    <LordIcon name={item.lord} size={30} target=".pillar" />
+                  ) : (
+                    <Icon name={(item.icon ?? 'check') as IconName} size={22} />
+                  )}
+                </span>
+                <span class="pillar__num">{String(i + 1).padStart(2, '0')}</span>
+              </div>
+              <h3 class="pillar__title">{item.title}</h3>
+              {item.body && <p class="pillar__body">{item.body}</p>}
+              {item.points && item.points.length > 0 && (
+                <ul class="pillar__points">
+                  {item.points.map((pt) => (
+                    <li>{pt}</li>
+                  ))}
+                </ul>
+              )}
+              {item.href && item.cta && (
+                <a class="pillar__cta" href={item.href}>
+                  {item.cta}
+                  <span aria-hidden="true">→</span>
+                </a>
+              )}
+            </article>
+          </li>
+        ))
+      }
+    </ul>
+
+    {
+      hasNote && (
+        <div class="pillars__note" data-reveal={reveal ? 'fade-up' : undefined}>
+          <slot name="note" />
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<script>
+  import '../../scripts/reveal';
+  import '../../scripts/lordicon';
+</script>
+
+<style>
+  .pillars {
+    background: var(--bg);
+    padding-block: var(--s-16);
+  }
+
+  .pillars--tint {
+    background: var(--blue-050);
+  }
+
+  .pillars__grid {
+    display: grid;
+    gap: var(--s-10);
+    align-items: start;
+  }
+
+  .pillars__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-3);
+    margin-bottom: var(--s-5);
+    font-family: var(--font-heading);
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange-700);
+  }
+
+  .pillars__eyebrow::before {
+    content: '';
+    width: 1.35rem;
+    height: 2px;
+    border-radius: var(--radius-pill);
+    background: var(--orange-500);
+  }
+
+  .pillars__title {
+    font-size: clamp(1.65rem, 1.25rem + 1.6vw, 2.35rem);
+    line-height: var(--lh-tight);
+    letter-spacing: -0.03em;
+    color: var(--blue-900);
+    max-width: 12ch;
+  }
+
+  .pillars__lead {
+    margin-top: var(--s-5);
+    font-size: var(--fs-base);
+    color: var(--muted);
+    line-height: 1.65;
+    max-width: 28ch;
+  }
+
+  .pillars__cards {
+    display: grid;
+    gap: var(--s-4);
+    grid-template-columns: 1fr;
+  }
+
+  .pillar {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: var(--s-6);
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .pillar:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .pillar__top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: var(--s-5);
+  }
+
+  .pillar__icon {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--radius);
+    background: var(--blue-100);
+    color: var(--blue-800);
+  }
+
+  .pillar__num {
+    font-family: var(--font-heading);
+    font-size: var(--fs-sm);
+    font-weight: 700;
+    color: var(--orange-600);
+    letter-spacing: 0.04em;
+  }
+
+  .pillar__title {
+    font-size: var(--fs-lg);
+    color: var(--blue-900);
+    line-height: var(--lh-snug);
+    margin-bottom: var(--s-3);
+  }
+
+  .pillar__body {
+    font-size: var(--fs-base);
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: var(--s-6);
+    flex: 1;
+  }
+
+  .pillar__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    margin-top: auto;
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--blue-800);
+    text-decoration: none;
+  }
+
+  .pillar__cta:hover {
+    color: var(--blue-600);
+  }
+
+  .pillar__cta span {
+    transition: transform 0.2s ease;
+  }
+
+  .pillar__cta:hover span {
+    transform: translateX(3px);
+  }
+
+  .pillar__points {
+    display: grid;
+    gap: var(--s-2);
+    align-content: start;
+    flex: 1;
+  }
+
+  .pillar__points li {
+    position: relative;
+    padding-left: var(--s-5);
+    font-size: var(--fs-sm);
+    line-height: 1.5;
+    color: var(--ink);
+  }
+
+  .pillar__points li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 0.6rem;
+    height: 2px;
+    border-radius: var(--radius-pill);
+    background: var(--orange-500);
+  }
+
+  .pillars__note {
+    grid-column: 1 / -1;
+  }
+
+  .pillars__quote {
+    margin-top: var(--s-6);
+    padding-left: var(--s-4);
+    border-left: 3px solid var(--orange-500);
+  }
+
+  .pillars__quote p {
+    font-family: var(--font-heading);
+    font-size: var(--fs-md);
+    font-weight: 600;
+    line-height: var(--lh-snug);
+    color: var(--blue-700);
+  }
+
+  @media (min-width: 768px) {
+    .pillars__cards {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--s-5);
+    }
+
+    .pillars--four .pillars__cards,
+    .pillars--two .pillars__cards {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .pillars__grid {
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.9fr);
+      gap: var(--s-12);
+      align-items: center;
+    }
+
+    .pillars__title {
+      max-width: 11ch;
+    }
+
+    .pillars--four .pillars__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .pillars--four .pillars__intro {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--s-12);
+      align-items: end;
+    }
+
+    .pillars--four .pillars__title {
+      max-width: 18ch;
+    }
+
+    .pillars--four .pillars__lead {
+      max-width: 52ch;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .pillars--four .pillars__cards {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pillar {
+      transition: none;
+    }
+
+    .pillar:hover {
+      transform: none;
+    }
+  }
+</style>

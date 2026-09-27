@@ -1,0 +1,309 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { href, type Lang } from '../i18n/routes';
+import { useTranslations } from '../i18n/utils';
+import { CONTACT } from '../config';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+
+const services = [
+  { label: t.nav.training, key: 'training' },
+  { label: t.nav.sapPp, key: 'sapPp' },
+  { label: t.nav.erp, key: 'erp' },
+  { label: t.nav.recruitment, key: 'recruitment' },
+  { label: t.nav.institutions, key: 'institutions' },
+];
+
+const company = [
+  { label: t.nav.about, key: 'about' },
+  { label: t.nav.resources, key: 'resources' },
+  { label: t.nav.contact, key: 'contact' },
+];
+---
+
+<footer class="footer" data-reveal="footer">
+  <div class="container footer__grid">
+    <div class="footer__brand" style="--c:0">
+      <Logo lang={lang} height={48} linked={false} alt={t.meta.logoAlt} />
+      <p class="footer__signature">{t.meta.signature}</p>
+      <ul class="footer__contact">
+        <li>
+          <Icon name="mail" size={16} />
+          <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+        </li>
+        <li>
+          <Icon name="phone" size={16} />
+          <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`}>{CONTACT.phoneDisplay}</a>
+        </li>
+        <li>
+          <Icon name="pin" size={16} />
+          <span>{CONTACT.locality}</span>
+        </li>
+      </ul>
+    </div>
+
+    <nav class="footer__col" aria-label={t.footer.solutionsTitle} style="--c:1">
+      <h2>{t.footer.solutionsTitle}</h2>
+      <ul>
+        {t.footer.solutions.map((s) => <li><a href={href('erp', lang)}>{s}</a></li>)}
+      </ul>
+    </nav>
+
+    <nav class="footer__col" aria-label={t.footer.servicesTitle} style="--c:2">
+      <h2>{t.footer.servicesTitle}</h2>
+      <ul>
+        {services.map((s) => <li><a href={href(s.key, lang)}>{s.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <nav class="footer__col" aria-label={t.footer.companyTitle} style="--c:3">
+      <h2>{t.footer.companyTitle}</h2>
+      <ul>
+        {company.map((s) => <li><a href={href(s.key, lang)}>{s.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <div class="footer__col" style="--c:4">
+      <h2>{t.footer.followTitle}</h2>
+      <a class="footer__social" href={CONTACT.linkedin} aria-label={t.footer.linkedinAria} rel="noopener noreferrer" target="_blank">
+        <Icon name="linkedin" size={20} />
+      </a>
+    </div>
+  </div>
+
+  <div class="footer__bar">
+    <div class="container footer__barInner">
+      <p>© {year} Lagni Consulting. {t.footer.rights}</p>
+      <p class="footer__tagline">{t.meta.signatureLong}</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  import '../scripts/reveal';
+</script>
+
+<style>
+  .footer {
+    --footer-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    background: var(--white);
+    border-top: 1px solid var(--line);
+  }
+
+  .footer__grid {
+    display: grid;
+    gap: var(--s-8);
+    padding-block: var(--s-12);
+  }
+
+  @media (min-width: 640px) {
+    .footer__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .footer__grid {
+      grid-template-columns: 1.6fr repeat(3, 1fr) 0.7fr;
+    }
+  }
+
+  .footer__signature {
+    margin-top: var(--s-3);
+    font-family: var(--font-heading);
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    max-width: 18ch;
+  }
+
+  .footer__contact {
+    margin-top: var(--s-5);
+    display: grid;
+    gap: var(--s-2);
+  }
+
+  .footer__contact li {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    font-size: var(--fs-base);
+    color: var(--muted);
+  }
+
+  .footer__contact :global(svg) {
+    color: var(--blue-700);
+    flex-shrink: 0;
+  }
+
+  .footer__col h2 {
+    font-size: var(--fs-base);
+    font-weight: 700;
+    color: var(--blue-700);
+    margin-bottom: var(--s-3);
+  }
+
+  .footer__col ul {
+    display: grid;
+    gap: var(--s-2);
+  }
+
+  .footer__col ul a,
+  .footer__contact a {
+    display: inline-block;
+    font-size: var(--fs-base);
+    color: var(--muted);
+    text-decoration: none;
+    transition:
+      color 0.25s ease,
+      transform 0.3s var(--footer-ease);
+  }
+
+  .footer__col ul a:hover,
+  .footer__col ul a:focus-visible,
+  .footer__contact a:hover,
+  .footer__contact a:focus-visible {
+    color: var(--blue-700);
+    transform: translateX(4px);
+  }
+
+  .footer__social {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius);
+    background: var(--blue-700);
+    color: var(--white);
+    transition:
+      transform 0.3s var(--footer-ease),
+      box-shadow 0.3s var(--footer-ease),
+      background-color 0.25s ease;
+  }
+
+  .footer__social::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    border: 2px solid var(--blue-700);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .footer__social:hover,
+  .footer__social:focus-visible {
+    color: var(--white);
+    background: var(--blue-800);
+    transform: scale(1.1);
+    box-shadow:
+      0 0 0 6px rgba(0, 74, 173, 0.15),
+      0 10px 24px -8px rgba(0, 74, 173, 0.55);
+  }
+
+  .footer__social:hover::after,
+  .footer__social:focus-visible::after {
+    animation: footer-pulse 0.9s var(--footer-ease);
+  }
+
+  @keyframes footer-pulse {
+    from {
+      opacity: 0.6;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(1.6);
+    }
+  }
+
+  .footer__bar {
+    border-top: 1px solid var(--line);
+    padding-block: var(--s-4);
+  }
+
+  .footer__barInner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-6);
+    justify-content: space-between;
+    font-size: var(--fs-sm);
+    color: var(--muted);
+  }
+
+  .footer__tagline {
+    color: var(--blue-700);
+    font-weight: 500;
+  }
+
+  /* ── Entrance ── */
+
+  .footer,
+  .footer__grid > *,
+  .footer__bar {
+    transition-property: opacity, transform;
+    transition-duration: 0.65s;
+    transition-timing-function: var(--footer-ease);
+  }
+
+  .footer__grid > * {
+    transition-delay: calc(0.1s + var(--c, 0) * 0.1s);
+  }
+
+  .footer__bar {
+    transition-delay: 0.7s;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.reveal-ready) .footer:not(.is-visible) {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+
+    :global(.reveal-ready) .footer:not(.is-visible) .footer__grid > * {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    :global(.reveal-ready) .footer:not(.is-visible) .footer__bar {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .footer,
+    .footer__grid > *,
+    .footer__bar,
+    .footer__col ul a,
+    .footer__contact a,
+    .footer__social {
+      transition: none;
+    }
+
+    .footer__col ul a:hover,
+    .footer__col ul a:focus-visible,
+    .footer__contact a:hover,
+    .footer__contact a:focus-visible,
+    .footer__social:hover,
+    .footer__social:focus-visible {
+      transform: none;
+    }
+
+    .footer__social:hover::after,
+    .footer__social:focus-visible::after {
+      animation: none;
+    }
+  }
+</style>

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "trailingSlash": true,
+  "cleanUrls": false,
+  "redirects": [
+    { "source": "/jd-edwards", "destination": "/erp-solutions/", "permanent": true },
+    { "source": "/en/jd-edwards", "destination": "/en/erp-solutions/", "permanent": true },
+    { "source": "/quickbooks", "destination": "/erp-solutions/", "permanent": true },
+    { "source": "/en/quickbooks", "destination": "/en/erp-solutions/", "permanent": true },
+    { "source": "/web-development", "destination": "/erp-solutions/", "permanent": true },
+    { "source": "/newcomer-support", "destination": "/recrutement/", "permanent": true },
+    { "source": "/recruitment", "destination": "/recrutement/", "permanent": true },
+    { "source": "/candidates", "destination": "/recrutement/", "permanent": true },
+    { "source": "/employers", "destination": "/recrutement/", "permanent": true },
+    { "source": "/about", "destination": "/a-propos/", "permanent": true },
+    { "source": "/blog", "destination": "/ressources/", "permanent": true },
+    { "source": "/blog/:path*", "destination": "/ressources/", "permanent": true },
+    { "source": "/fr", "destination": "/", "permanent": true },
+    { "source": "/fr/:path*", "destination": "/", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
+      ]
+    },
+    {
+      "source": "/_astro/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    }
+  ]
+}

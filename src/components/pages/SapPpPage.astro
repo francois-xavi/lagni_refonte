@@ -1,0 +1,496 @@
+---
+/**
+ * SAP PP training page — composed from the shared section components.
+ */
+import ArtHero from '../sections/ArtHero.astro';
+import ProofBand from '../sections/ProofBand.astro';
+import NumberedCards from '../sections/NumberedCards.astro';
+import StepTimeline from '../sections/StepTimeline.astro';
+import FeaturedCard from '../sections/FeaturedCard.astro';
+import ProcessChain from '../sections/ProcessChain.astro';
+import NoticeCard from '../sections/NoticeCard.astro';
+import FounderSplit from '../sections/FounderSplit.astro';
+import RowsBand from '../sections/RowsBand.astro';
+import FaqSplit from '../sections/FaqSplit.astro';
+import CtaBand from '../CtaBand.astro';
+import Button from '../Button.astro';
+import Icon from '../Icon.astro';
+import FlowChain from '../FlowChain.astro';
+import LordIcon from '../LordIcon.astro';
+import type { LordIconName } from '../LordIcon.astro';
+import { href, type Lang } from '../../i18n/routes';
+import { useTranslations, usePages } from '../../i18n/utils';
+import { publicImage } from '../../lib/assets';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const p = usePages(lang).sapPp;
+
+const audienceLords: Record<string, LordIconName> = {
+  factory: 'tools',
+  person: 'server',
+  cap: 'cap',
+  refresh: 'refresh',
+};
+
+const phaseLords: LordIconName[] = ['book', 'document', 'calendar', 'tools', 'refresh'];
+const approachLords: LordIconName[] = ['book', 'tools', 'mentor'];
+const supportLords: LordIconName[] = ['clock', 'calendar', 'conversation', 'mentor', 'network'];
+const pathLords: LordIconName[] = ['cap', 'school'];
+const pathRoutes = ['contact', 'institutions'] as const;
+---
+
+<ArtHero
+  id="sappp-hero-title"
+  eyebrow={p.hero.eyebrow}
+  title={p.hero.title}
+  lead={p.hero.lead}
+  trustItems={p.hero.meta.map((m) => ({ icon: m.icon, label: m.sub ? `${m.label} ${m.sub}` : m.label }))}
+  image={{ src: '/assets/images/hero-sap-pp.webp', alt: p.hero.imageAlt, width: 900, height: 1100 }}
+  matchCard={{ label: p.hero.matchLabel, title: p.hero.panelTitle, pills: p.hero.panel.slice(0, 3) }}
+  profileCard={{
+    badge: p.hero.profileBadge,
+    label: p.hero.profileLabel,
+    title: p.hero.profileTitle,
+    status: p.hero.profileStatus,
+  }}
+  valueCard={{ text: p.finalCta.script, variant: 'script' }}
+>
+  <Button href={href('contact', lang)} variant="primary" size="lg">{p.hero.ctaPrimary}</Button>
+  <Button href="#programme" variant="ghost" size="lg">{p.hero.ctaSecondary}</Button>
+</ArtHero>
+
+<ProofBand
+  label={p.proof.label}
+  items={p.proof.items.map((item) => ({ ...item, lord: item.lord as LordIconName }))}
+/>
+
+<NumberedCards
+  id="aud-title"
+  eyebrow={p.audiences.eyebrow}
+  title={p.audiences.title}
+  lead={p.audiences.lead}
+  items={p.audiences.items.map((i) => ({
+    title: i.title,
+    body: i.body,
+    lord: audienceLords[i.icon] ?? 'mentor',
+  }))}
+  reveal
+>
+  <p slot="note" class="scriptLine">{p.audiences.script}</p>
+</NumberedCards>
+
+<StepTimeline
+  id="prog-title"
+  anchor="programme"
+  eyebrow={p.curriculum.eyebrow}
+  title={p.curriculum.title}
+  lead={p.curriculum.lead}
+  steps={p.curriculum.phases.map((ph, i) => ({
+    tag: `${ph.phase} · ${ph.sessions}`,
+    title: ph.title,
+    body: ph.body,
+    lord: phaseLords[i] ?? 'book',
+  }))}
+  tint
+>
+  <div slot="head" class="session">
+    <p class="session__label">{p.curriculum.sessionStructureLabel}</p>
+    <FlowChain items={p.curriculum.sessionStructure} tone="blue" />
+  </div>
+  <div class="outcomes">
+    <h3 class="outcomes__title">
+      <LordIcon name="checklist" size={28} target=".outcomes" />
+      {p.outcomes.title}
+    </h3>
+    <ul class="outcomes__list">
+      {
+        p.outcomes.items.map((item) => (
+          <li>
+            <Icon name="check" size={16} />
+            <span>{item}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</StepTimeline>
+
+<FeaturedCard
+  id="practice-title"
+  badge={p.practice.eyebrow}
+  title={p.practice.title}
+  tagline={[p.practice.tagline]}
+  body={p.practice.body}
+  topics={p.practice.steps.map((s, i) => `${String(i + 1).padStart(2, '0')} · ${s}`)}
+  image={{
+    src: publicImage('sap-pp-practice.webp'),
+    alt: p.practice.imageAlt,
+    slot: 'sap-pp-practice',
+    width: 1000,
+    height: 800,
+    fallbackIcon: 'factory',
+  }}
+>
+  <div slot="note" class="approach">
+    <p class="approach__title">{p.approach.title} — {p.approach.tagline}</p>
+    <ul class="approach__list">
+      {
+        p.approach.items.map((a, i) => (
+          <li>
+            <span class="approach__icon" aria-hidden="true">
+              <LordIcon name={approachLords[i] ?? 'book'} size={26} target=".approach__list li" />
+            </span>
+            <span>
+              <strong>{a.title}</strong>
+              {a.body}
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</FeaturedCard>
+
+<ProcessChain
+  id="res-title"
+  eyebrow={p.resources.eyebrow}
+  title={p.resources.title}
+  lead={p.resources.body}
+  steps={p.resources.chain}
+  systems={p.hero.panel}
+/>
+
+<section class="section section--tint support" aria-labelledby="support-title">
+  <div class="container support__grid">
+    <div data-reveal="fade-up">
+      <p class="eyebrow support__eyebrow">{p.support.eyebrow}</p>
+      <h2 id="support-title">{p.support.title}</h2>
+      <p class="lead">{p.support.lead}</p>
+      <ul class="support__list" data-reveal="stagger">
+        {
+          p.support.items.map((item, i) => (
+            <li style={`--i:${i + 1}`}>
+              <span class="support__icon" aria-hidden="true">
+                <LordIcon name={supportLords[i] ?? 'checklist'} size={26} target=".support__list li" />
+              </span>
+              <span>{item}</span>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="support__note">{p.support.note}</p>
+    </div>
+    <div class="support__cert" id="certification">
+      <h3 class="support__certTitle">{p.certification.title}</h3>
+      <p class="support__certBody">{p.certification.body}</p>
+      <NoticeCard lord="shield" body={p.certification.disclaimer} tone="warning">
+        <Button href={href('contact', lang)} variant="outline" size="md">{p.certification.cta}</Button>
+      </NoticeCard>
+    </div>
+  </div>
+</section>
+
+<FounderSplit
+  id="trainer-title"
+  eyebrow={p.trainer.eyebrow}
+  title={p.trainer.title}
+  body={p.trainer.body}
+  image={{ src: '/assets/images/founder.jpg', alt: t.founder.photoAlt, slot: 'founder-portrait' }}
+  points={p.trainer.points}
+  signature={{ name: t.founder.name, role: t.founder.role }}
+  link={{ href: href('about', lang), label: p.trainer.cta }}
+  tint={false}
+/>
+
+<RowsBand
+  id="paths-title"
+  eyebrow={p.paths.eyebrow}
+  title={p.paths.title}
+  body={p.paths.body}
+  rows={p.paths.items.map((path, i) => ({
+    title: path.title,
+    subtitle: path.subtitle,
+    desc: path.cta,
+    href: href(pathRoutes[i] ?? 'contact', lang),
+    lord: pathLords[i] ?? 'cap',
+    pills: path.items,
+  }))}
+/>
+
+<FaqSplit id="faq-title" eyebrow={p.faq.eyebrow} title={p.faq.title} lead={p.faq.lead} items={p.faq.items}>
+  <div slot="aside" class="testi">
+    <p class="testi__title">{p.testimonials.title}</p>
+    <p class="testi__body">{p.testimonials.body}</p>
+    <blockquote class="testi__quote">
+      <Icon name="quote" size={22} />
+      <p>{p.testimonials.placeholder}</p>
+    </blockquote>
+  </div>
+</FaqSplit>
+
+<CtaBand title={p.finalCta.title} body={p.finalCta.body} script={p.finalCta.script} imageSlot="cta-sap-pp">
+  <Button href={href('contact', lang)} variant="primary" size="lg">{p.finalCta.ctaPrimary}</Button>
+  <Button href={href('contact', lang)} variant="outlineLight" size="lg">{p.finalCta.ctaSecondary}</Button>
+</CtaBand>
+
+<script>
+  import '../../scripts/reveal';
+  import '../../scripts/lordicon';
+</script>
+
+<style>
+  .scriptLine {
+    font-family: var(--font-script);
+    font-size: clamp(1.4rem, 1.1rem + 1vw, 1.85rem);
+    line-height: 1.3;
+    color: var(--blue-700);
+    text-align: center;
+  }
+
+  /* ── Programme timeline slots ── */
+
+  .session {
+    display: grid;
+    gap: var(--s-3);
+  }
+
+  .session__label {
+    font-family: var(--font-heading);
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .outcomes {
+    width: 100%;
+    padding: var(--s-6);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--blue-700);
+    border-radius: var(--radius-lg);
+  }
+
+  .outcomes__title {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    font-size: var(--fs-lg);
+    color: var(--blue-900);
+  }
+
+  .outcomes__list {
+    display: grid;
+    gap: var(--s-3);
+    margin-top: var(--s-5);
+  }
+
+  .outcomes__list li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--s-3);
+    color: var(--ink-soft);
+    font-size: var(--fs-sm);
+    line-height: 1.6;
+  }
+
+  .outcomes__list :global(svg) {
+    flex-shrink: 0;
+    margin-top: 3px;
+    color: var(--orange-700);
+  }
+
+  @media (min-width: 900px) {
+    .outcomes {
+      padding: var(--s-8);
+    }
+
+    .outcomes__list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: var(--s-8);
+    }
+  }
+
+  /* ── Approach (FeaturedCard note) ── */
+
+  .approach__title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--blue-900);
+  }
+
+  .approach__list {
+    display: grid;
+    gap: var(--s-3);
+    margin-top: var(--s-3);
+  }
+
+  .approach__list li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--s-3);
+    font-size: var(--fs-sm);
+    color: var(--muted);
+  }
+
+  .approach__list strong {
+    display: block;
+    color: var(--blue-900);
+  }
+
+  .approach__icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius);
+    background: var(--blue-050);
+  }
+
+  /* ── Support + certification ── */
+
+  .support__grid {
+    display: grid;
+    gap: var(--s-10);
+    align-items: start;
+  }
+
+  .support__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-3);
+    margin-bottom: var(--s-4);
+  }
+
+  .support__eyebrow::before {
+    content: '';
+    width: 1.75rem;
+    height: 2px;
+    background: var(--orange-500);
+    border-radius: 2px;
+  }
+
+  .support h2 {
+    font-size: var(--fs-3xl);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--blue-900);
+  }
+
+  .support .lead {
+    margin-top: var(--s-4);
+  }
+
+  .support__list {
+    display: grid;
+    gap: var(--s-3);
+    margin-top: var(--s-8);
+  }
+
+  .support__list li {
+    display: flex;
+    align-items: center;
+    gap: var(--s-4);
+    padding: var(--s-3) var(--s-4);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    color: var(--blue-900);
+  }
+
+  .support__icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius);
+    background: var(--blue-100);
+  }
+
+  .support__note {
+    margin-top: var(--s-4);
+    font-size: var(--fs-sm);
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  .support__cert {
+    display: grid;
+    gap: var(--s-4);
+    padding: var(--s-6);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 12px 32px -14px rgba(0, 46, 107, 0.16);
+    scroll-margin-top: calc(var(--header-h) + 1rem);
+  }
+
+  .support__certTitle {
+    font-size: var(--fs-xl);
+    line-height: var(--lh-snug);
+    color: var(--blue-900);
+  }
+
+  .support__certBody {
+    color: var(--muted);
+  }
+
+  @media (min-width: 1000px) {
+    .support__grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--s-16);
+    }
+
+    .support__cert {
+      padding: var(--s-8);
+      position: sticky;
+      top: calc(var(--header-h) + var(--s-6));
+    }
+  }
+
+  /* ── Testimonial placeholder (FAQ aside) ── */
+
+  .testi {
+    padding: var(--s-6);
+    background: var(--white);
+    border: 1px dashed var(--blue-200);
+    border-radius: var(--radius-lg);
+  }
+
+  .testi__title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--blue-900);
+  }
+
+  .testi__body {
+    margin-top: var(--s-1);
+    font-size: var(--fs-sm);
+    color: var(--muted);
+  }
+
+  .testi__quote {
+    display: flex;
+    gap: var(--s-3);
+    margin-top: var(--s-4);
+    padding-top: var(--s-4);
+    border-top: 1px solid var(--line);
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+
+  .testi__quote :global(svg) {
+    flex-shrink: 0;
+    color: var(--orange-500);
+  }
+</style>

@@ -1,0 +1,273 @@
+---
+/**
+ * Light proof band shown directly under an ArtHero.
+ * Lordicon tiles; figures flagged `count` animate up from 0 on first view.
+ */
+import LordIcon from '../LordIcon.astro';
+import type { LordIconName } from '../LordIcon.astro';
+
+interface Props {
+  label: string;
+  items: readonly { figure: string; label: string; lord: LordIconName; count?: boolean }[];
+}
+
+const { label, items } = Astro.props;
+
+function parseCountFigure(figure: string) {
+  const match = figure.match(/^(\d+)(.*)$/);
+  if (!match) return null;
+  return { value: Number(match[1]), suffix: match[2] ?? '' };
+}
+---
+
+<section class="proof" aria-label={label}>
+  <div class="container">
+    <ul class="proof__grid">
+      {
+        items.map((item, i) => {
+          const count = item.count ? parseCountFigure(item.figure) : null;
+          const lord = item.lord;
+          return (
+            <li class="proof__item" style={`--i:${i}`}>
+              <span class="proof__icon" aria-hidden="true">
+                <LordIcon name={lord} size={34} trigger="hover" />
+              </span>
+              <span class="proof__text">
+                {count ? (
+                  <span class="proof__count" aria-label={item.figure}>
+                    <span class="proof__countNum" data-count-to={count.value}>
+                      0
+                    </span>
+                    {count.suffix ? <span aria-hidden="true">{count.suffix}</span> : null}
+                  </span>
+                ) : (
+                  <strong class="proof__figure">{item.figure}</strong>
+                )}
+                <span class="proof__label">{item.label}</span>
+              </span>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+  <!-- Animated icons by Lordicon (https://lordicon.com) — free license attribution -->
+</section>
+
+<script>
+  import '../../scripts/lordicon';
+
+  function easeOutCubic(t: number) {
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  function animateCount(el: HTMLElement, to: number, durationMs: number) {
+    const start = performance.now();
+
+    function frame(now: number) {
+      const t = Math.min(1, (now - start) / durationMs);
+      el.textContent = String(Math.round(to * easeOutCubic(t)));
+      if (t < 1) requestAnimationFrame(frame);
+    }
+
+    requestAnimationFrame(frame);
+  }
+
+  function initProofCountUp() {
+    const root = document.querySelector('.proof');
+    const nums = document.querySelectorAll<HTMLElement>('.proof__countNum[data-count-to]');
+    if (!(root instanceof HTMLElement) || nums.length === 0) return;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const pending: { el: HTMLElement; target: number }[] = [];
+
+    nums.forEach((num) => {
+      const target = Number(num.getAttribute('data-count-to'));
+      if (!Number.isFinite(target) || num.dataset.countReady === '1') return;
+      num.dataset.countReady = '1';
+      num.textContent = reduced ? String(target) : '0';
+      if (!reduced) pending.push({ el: num, target });
+    });
+
+    if (pending.length === 0) return;
+
+    let done = false;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting || done) continue;
+          done = true;
+          observer.disconnect();
+          pending.forEach(({ el, target }) => animateCount(el, target, 1800));
+        }
+      },
+      { threshold: 0.35 },
+    );
+
+    observer.observe(root);
+  }
+
+  initProofCountUp();
+  document.addEventListener('astro:page-load', initProofCountUp);
+</script>
+
+<style>
+  .proof {
+    position: relative;
+    z-index: 1;
+    background:
+      radial-gradient(ellipse 50% 80% at 0% 50%, rgba(199, 219, 244, 0.45), transparent 60%),
+      radial-gradient(ellipse 40% 70% at 100% 50%, rgba(255, 232, 217, 0.28), transparent 55%),
+      linear-gradient(180deg, #eef4fb 0%, var(--blue-050) 100%);
+    border-top: 1px solid rgba(0, 74, 173, 0.1);
+    border-bottom: 1px solid rgba(0, 74, 173, 0.08);
+    padding-block: var(--s-12);
+    overflow: hidden;
+    box-shadow:
+      0 16px 40px rgba(0, 46, 107, 0.08),
+      0 4px 12px rgba(0, 46, 107, 0.04);
+  }
+
+  .proof__grid {
+    display: grid;
+    gap: var(--s-7);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .proof__item {
+    display: flex;
+    align-items: center;
+    gap: var(--s-4);
+    opacity: 0;
+    animation: proofIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) calc(0.08s * var(--i)) both;
+    transition: transform 0.22s ease;
+  }
+
+  .proof__item:hover {
+    transform: translateY(-3px);
+  }
+
+  .proof__item:hover .proof__icon {
+    box-shadow:
+      0 10px 24px rgba(0, 46, 107, 0.12),
+      0 2px 6px rgba(0, 46, 107, 0.06);
+    border-color: rgba(0, 74, 173, 0.14);
+  }
+
+  .proof__icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 3.35rem;
+    height: 3.35rem;
+    border-radius: 0.75rem;
+    background: var(--white);
+    border: 1px solid rgba(0, 74, 173, 0.08);
+    box-shadow:
+      0 8px 20px rgba(0, 46, 107, 0.09),
+      0 1px 3px rgba(0, 46, 107, 0.04);
+    transition:
+      box-shadow 0.25s ease,
+      border-color 0.25s ease,
+      transform 0.25s ease;
+  }
+
+  .proof__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    min-width: 0;
+  }
+
+  .proof__count {
+    display: inline-flex;
+    align-items: baseline;
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 1.8rem + 2.2vw, 3.4rem);
+    font-weight: 800;
+    line-height: 0.92;
+    letter-spacing: -0.05em;
+    color: var(--blue-700);
+  }
+
+  .proof__countNum {
+    font: inherit;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .proof__figure {
+    font-family: var(--font-heading);
+    font-size: clamp(1.05rem, 0.95rem + 0.4vw, 1.25rem);
+    font-weight: 800;
+    color: var(--blue-700);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .proof__label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  @keyframes proofIn {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (min-width: 900px) {
+    .proof {
+      padding-block: var(--s-16);
+    }
+
+    .proof__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+      align-items: center;
+    }
+
+    .proof__item {
+      padding-inline: var(--s-6);
+      justify-content: flex-start;
+    }
+
+    .proof__item + .proof__item {
+      border-left: 1px solid rgba(0, 74, 173, 0.1);
+    }
+
+    .proof__icon {
+      width: 3.5rem;
+      height: 3.5rem;
+    }
+
+    .proof__label {
+      font-size: 0.7rem;
+      letter-spacing: 0.11em;
+    }
+
+    .proof__count {
+      font-size: clamp(2.75rem, 2.1rem + 1.4vw, 3.5rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .proof__item {
+      animation: none;
+      opacity: 1;
+      transition: none;
+    }
+
+    .proof__item:hover {
+      transform: none;
+    }
+  }
+</style>

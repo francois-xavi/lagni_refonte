@@ -1,0 +1,156 @@
+---
+/**
+ * Card wrapper for a FormShell: top accent bar, animated icon, eyebrow,
+ * title and intro. `id` doubles as the in-page anchor. Notes under the form
+ * use `<p class="formNote">` (add `formNote--warn` for a caution line).
+ */
+import LordIcon from '../LordIcon.astro';
+import type { LordIconName } from '../LordIcon.astro';
+
+interface Props {
+  id?: string;
+  eyebrow?: string;
+  title?: string;
+  body?: string;
+  lord: LordIconName;
+  tone?: 'blue' | 'warm';
+  /** Heading level for the title (3 inside a section, 2 when it heads one). */
+  level?: 2 | 3;
+  titleId?: string;
+  class?: string;
+}
+
+const {
+  id,
+  eyebrow,
+  title,
+  body,
+  lord,
+  tone = 'blue',
+  level = 3,
+  titleId,
+  class: className = '',
+} = Astro.props;
+const Heading = level === 2 ? 'h2' : 'h3';
+---
+
+<div id={id} class:list={['formCard', tone === 'warm' && 'formCard--warm', className]}>
+  <div class="formCard__top">
+    <span class="formCard__icon" aria-hidden="true">
+      <LordIcon name={lord} size={30} target=".formCard" />
+    </span>
+    {eyebrow && <p class="formCard__eyebrow">{eyebrow}</p>}
+  </div>
+  {title && <Heading id={titleId} class="formCard__title">{title}</Heading>}
+  {body && <p class="formCard__body">{body}</p>}
+  <slot />
+</div>
+
+<script>
+  import '../../scripts/lordicon';
+</script>
+
+<style>
+  .formCard {
+    position: relative;
+    padding: var(--s-6);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow:
+      0 1px 2px rgba(0, 46, 107, 0.04),
+      0 12px 32px -14px rgba(0, 46, 107, 0.16);
+    overflow: hidden;
+    scroll-margin-top: calc(var(--header-h) + 1rem);
+  }
+
+  .formCard::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 4px;
+    background: var(--blue-700);
+  }
+
+  .formCard--warm::before {
+    background: var(--orange-500);
+  }
+
+  .formCard__top {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    margin-bottom: var(--s-4);
+  }
+
+  .formCard__icon {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--radius);
+    background: var(--blue-100);
+  }
+
+  .formCard--warm .formCard__icon {
+    background: var(--orange-100);
+  }
+
+  .formCard__eyebrow {
+    font-family: var(--font-heading);
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange-700);
+  }
+
+  .formCard__title {
+    font-size: var(--fs-xl);
+    line-height: var(--lh-snug);
+    color: var(--blue-900);
+  }
+
+  .formCard__body {
+    margin-top: var(--s-2);
+    margin-bottom: var(--s-5);
+    color: var(--muted);
+  }
+
+  .formCard :global(.formShell) {
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .formCard :global(.formShell__title) {
+    color: var(--blue-900);
+  }
+
+  .formCard :global(.formNote) {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--s-2);
+    margin-top: var(--s-4);
+    font-size: var(--fs-xs);
+    color: var(--muted);
+  }
+
+  .formCard :global(.formNote svg) {
+    color: var(--blue-700);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .formCard :global(.formNote--warn),
+  .formCard :global(.formNote--warn svg) {
+    color: var(--orange-700);
+  }
+
+  @media (min-width: 900px) {
+    .formCard {
+      padding: var(--s-8);
+    }
+  }
+</style>

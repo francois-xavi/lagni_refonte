@@ -1,0 +1,287 @@
+---
+/**
+ * Featured training card: photo on one side, badge + copy + topic tags + CTA
+ * on the other. Slots: default (actions), `note` (fine print under the CTA).
+ */
+import Figure from '../Figure.astro';
+import type { IconName } from '../Icon.astro';
+
+interface Props {
+  id: string;
+  badge: string;
+  title: string;
+  /** Each entry renders on its own line. */
+  tagline?: readonly string[];
+  body: string;
+  topics?: readonly string[];
+  /** Photo on the right from 900px up. */
+  reverse?: boolean;
+  image: {
+    src?: string;
+    alt: string;
+    slot: string;
+    width: number;
+    height: number;
+    fallbackIcon?: IconName;
+  };
+}
+
+const { id, badge, title, tagline = [], body, topics = [], reverse = false, image } = Astro.props;
+const hasNote = Astro.slots.has('note');
+---
+
+<section class="section featuredSection" aria-labelledby={id}>
+  <div class="container">
+    <article class:list={['featured', reverse && 'featured--reverse']} data-reveal="fade-up">
+      <div class="featured__media">
+        <Figure
+          src={image.src}
+          alt={image.alt}
+          slotName={image.slot}
+          width={image.width}
+          height={image.height}
+          fallback="brand"
+          fallbackIcon={image.fallbackIcon ?? 'factory'}
+          class="featured__img"
+        />
+      </div>
+      <div class="featured__body">
+        <p class="featured__badge">
+          <span class="featured__dot" aria-hidden="true"></span>
+          {badge}
+        </p>
+        <h2 id={id}>{title}</h2>
+        {
+          tagline.length > 0 && (
+            <p class="featured__tagline">
+              {tagline.map((line, i) => (
+                <>
+                  {i > 0 && <br />}
+                  {line}
+                </>
+              ))}
+            </p>
+          )
+        }
+        <p class="lead">{body}</p>
+        {
+          topics.length > 0 && (
+            <ul class="tags">
+              {topics.map((topic) => (
+                <li>{topic}</li>
+              ))}
+            </ul>
+          )
+        }
+        <div class="featured__actions">
+          <slot />
+        </div>
+        {hasNote && (
+          <div class="featured__note">
+            <slot name="note" />
+          </div>
+        )}
+      </div>
+    </article>
+  </div>
+</section>
+
+<script>
+  import '../../scripts/reveal';
+</script>
+
+<style>
+  .featuredSection {
+    background: radial-gradient(ellipse 70% 60% at 50% 55%, var(--blue-050), var(--white) 70%);
+  }
+
+  .featured {
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    display: grid;
+    gap: var(--s-8);
+    align-items: center;
+    padding: var(--s-5);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow:
+      0 1px 2px rgba(0, 46, 107, 0.04),
+      0 12px 32px -12px rgba(0, 46, 107, 0.14);
+    transition:
+      opacity 0.7s var(--ease-out),
+      transform 0.45s var(--ease-out),
+      box-shadow 0.45s var(--ease-out),
+      border-color 0.45s var(--ease-out);
+  }
+
+  .featured.is-visible:hover,
+  :global(html:not(.reveal-ready)) .featured:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 74, 173, 0.18);
+    box-shadow:
+      0 2px 4px rgba(0, 46, 107, 0.05),
+      0 28px 56px -18px rgba(0, 46, 107, 0.26);
+  }
+
+  .featured__media {
+    overflow: hidden;
+    border-radius: var(--radius);
+  }
+
+  .featured__media :global(img.featured__img) {
+    display: block;
+  }
+
+  .featured__media :global(.featured__img) {
+    border-radius: var(--radius);
+    transition: transform 0.8s var(--ease-out);
+  }
+
+  .featured:hover .featured__media :global(.featured__img) {
+    transform: scale(1.03);
+  }
+
+  .featured__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    margin-bottom: var(--s-4);
+    padding: 0.4rem 0.85rem 0.4rem 0.7rem;
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange-700);
+    background: var(--blue-050);
+    border: 1px solid rgba(0, 74, 173, 0.12);
+    border-radius: var(--radius-pill);
+  }
+
+  .featured__dot {
+    position: relative;
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: var(--orange-500);
+  }
+
+  .featured__dot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--orange-500);
+    animation: featured-pulse 2.4s var(--ease-out) infinite;
+  }
+
+  @keyframes featured-pulse {
+    0% {
+      transform: scale(1);
+      opacity: 0.6;
+    }
+    70%,
+    100% {
+      transform: scale(2.8);
+      opacity: 0;
+    }
+  }
+
+  .featured h2 {
+    letter-spacing: -0.02em;
+  }
+
+  .featured h2 + .lead {
+    margin-top: var(--s-4);
+  }
+
+  .featured__tagline {
+    margin-block: var(--s-4) var(--s-3);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: var(--fs-md);
+    line-height: 1.35;
+    color: var(--blue-700);
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    margin-top: var(--s-6);
+  }
+
+  .tags li {
+    padding: 0.4rem 0.85rem;
+    font-size: var(--fs-sm);
+    font-weight: 500;
+    color: var(--blue-700);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-pill);
+    transition:
+      background-color 0.25s ease-out,
+      border-color 0.25s ease-out,
+      transform 0.25s ease-out;
+  }
+
+  .tags li:hover {
+    background: var(--blue-050);
+    border-color: rgba(0, 74, 173, 0.28);
+    transform: translateY(-1px);
+  }
+
+  .featured__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3);
+    margin-top: var(--s-8);
+  }
+
+  .featured__actions:empty {
+    display: none;
+  }
+
+  .featured__actions :global(.btn--primary) {
+    transition:
+      background-color 0.25s ease-out,
+      border-color 0.25s ease-out,
+      box-shadow 0.3s var(--ease-out),
+      transform 0.3s var(--ease-out);
+  }
+
+  .featured__actions :global(.btn--primary:hover) {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 28px -10px rgba(255, 145, 77, 0.65);
+  }
+
+  .featured__note {
+    margin-top: var(--s-6);
+    padding-top: var(--s-5);
+    border-top: 1px solid var(--line);
+  }
+
+  @media (min-width: 900px) {
+    .featured--reverse .featured__media {
+      order: 2;
+    }
+
+    .featured {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--s-12);
+      padding: var(--s-10);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .featured,
+    .featured__media :global(.featured__img),
+    .tags li,
+    .featured__actions :global(.btn--primary) {
+      transition: none;
+    }
+
+    .featured__dot::after {
+      animation: none;
+    }
+  }
+</style>
