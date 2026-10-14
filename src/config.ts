@@ -5,8 +5,12 @@
  * See CONTENT-TO-REPLACE.md.
  */
 
-/** Destination for every contact/application form POST. */
-export const FORM_ENDPOINT = 'REPLACE_ME__FORM_ENDPOINT';
+/**
+ * Destination for every contact/application form POST: form-service/, routed at
+ * /api/form on the production domain. Demo builds (sub-path) have no backend.
+ */
+export const FORM_ENDPOINT =
+  import.meta.env.BASE_URL === '/' ? '/api/form' : 'REPLACE_ME__FORM_ENDPOINT';
 
 /** True once a real endpoint has been configured. */
 export const FORM_CONFIGURED = !FORM_ENDPOINT.startsWith('REPLACE_ME');

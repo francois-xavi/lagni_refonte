@@ -14,12 +14,12 @@ or shows an obvious placeholder. This file lists every one of those.
 
 | Item | Where | Current state |
 | --- | --- | --- |
-| Form destination URL | `src/config.ts` → `FORM_ENDPOINT` | `REPLACE_ME__FORM_ENDPOINT` |
+| Form destination URL | `src/config.ts` → `FORM_ENDPOINT` | `/api/form` → `form-service/` (production only) |
+| SMTP mailbox for sending | Dokploy → `lagni-form-service` → Environment | `SMTP_*`, `MAIL_FROM`, `MAIL_TO` |
 
-Until this is set, every form shows a visible notice pointing to the fallback email
-and, on submit, goes straight to `/merci/` without sending anything (no data leaves
-the browser). Choose a provider (Formspree,
-Netlify Forms, Basin, a serverless function…) and paste its POST URL.
+`form-service/` emails every submission (CV attached) to `MAIL_TO` over any SMTP
+account. Moving mail away from o2switch only means changing its env vars.
+Demo builds still have no endpoint and go straight to `/merci/`.
 
 **Then test all four forms and confirm the email arrives:**
 
