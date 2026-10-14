@@ -1,7 +1,8 @@
 ---
 /**
  * Light proof band shown directly under an ArtHero.
- * Lordicon tiles; figures flagged `count` animate up from 0 on first view.
+ * Lordicon tiles. Figures are static text: an animated count-up once left
+ * "0+" on screen whenever its observer failed to fire.
  */
 import LordIcon from '../LordIcon.astro';
 import type { LordIconName } from '../LordIcon.astro';
@@ -35,8 +36,8 @@ function parseCountFigure(figure: string) {
               <span class="proof__text">
                 {count ? (
                   <span class="proof__count" aria-label={item.figure}>
-                    <span class="proof__countNum" data-count-to={count.value}>
-                      0
+                    <span class="proof__countNum">
+                      {count.value}
                     </span>
                     {count.suffix ? <span aria-hidden="true">{count.suffix}</span> : null}
                   </span>
@@ -56,59 +57,6 @@ function parseCountFigure(figure: string) {
 
 <script>
   import '../../scripts/lordicon';
-
-  function easeOutCubic(t: number) {
-    return 1 - Math.pow(1 - t, 3);
-  }
-
-  function animateCount(el: HTMLElement, to: number, durationMs: number) {
-    const start = performance.now();
-
-    function frame(now: number) {
-      const t = Math.min(1, (now - start) / durationMs);
-      el.textContent = String(Math.round(to * easeOutCubic(t)));
-      if (t < 1) requestAnimationFrame(frame);
-    }
-
-    requestAnimationFrame(frame);
-  }
-
-  function initProofCountUp() {
-    const root = document.querySelector('.proof');
-    const nums = document.querySelectorAll<HTMLElement>('.proof__countNum[data-count-to]');
-    if (!(root instanceof HTMLElement) || nums.length === 0) return;
-
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const pending: { el: HTMLElement; target: number }[] = [];
-
-    nums.forEach((num) => {
-      const target = Number(num.getAttribute('data-count-to'));
-      if (!Number.isFinite(target) || num.dataset.countReady === '1') return;
-      num.dataset.countReady = '1';
-      num.textContent = reduced ? String(target) : '0';
-      if (!reduced) pending.push({ el: num, target });
-    });
-
-    if (pending.length === 0) return;
-
-    let done = false;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting || done) continue;
-          done = true;
-          observer.disconnect();
-          pending.forEach(({ el, target }) => animateCount(el, target, 1800));
-        }
-      },
-      { threshold: 0.35 },
-    );
-
-    observer.observe(root);
-  }
-
-  initProofCountUp();
-  document.addEventListener('astro:page-load', initProofCountUp);
 </script>
 
 <style>
@@ -197,7 +145,7 @@ function parseCountFigure(figure: string) {
 
   .proof__figure {
     font-family: var(--font-heading);
-    font-size: clamp(1.05rem, 0.95rem + 0.4vw, 1.25rem);
+    font-size: var(--fs-lg);
     font-weight: 800;
     color: var(--blue-700);
     letter-spacing: -0.02em;
@@ -205,7 +153,7 @@ function parseCountFigure(figure: string) {
   }
 
   .proof__label {
-    font-size: 0.68rem;
+    font-size: var(--fs-xs);
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -250,7 +198,7 @@ function parseCountFigure(figure: string) {
     }
 
     .proof__label {
-      font-size: 0.7rem;
+      font-size: var(--fs-xs);
       letter-spacing: 0.11em;
     }
 

@@ -7,7 +7,7 @@ export const resources = {
 
   hero: {
     eyebrow: 'Ressources',
-    title: 'Comprendre les systèmes. Développer les compétences.',
+    title: 'Guides et articles sur SAP, les ERP et les carrières.',
     lead: 'Analyses, guides et contenus pratiques autour des ERP, SAP S/4HANA, Production Planning, transformation numérique et carrières.',
     cta: 'Explorer les ressources',
     imageAlt: 'Professionnel consultant des ressources documentaires sur un ordinateur portable',

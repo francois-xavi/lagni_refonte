@@ -1,6 +1,7 @@
 ---
-import { alternates, href, LOCALE, type Lang } from '../i18n/routes';
+import { alternates, routePath, LOCALE, type Lang } from '../i18n/routes';
 import { SITE_URL } from '../config';
+import { HAS_BASE, stripBase } from '../lib/url';
 
 interface Props {
   lang: Lang;
@@ -27,10 +28,11 @@ const {
   alternatePaths,
 } = Astro.props;
 
-const canonical = new URL(canonicalPath ?? href(routeKey, lang), SITE_URL).toString();
+// SEO URLs always point at the real domain, even from a sub-path demo build.
+const canonical = new URL(stripBase(canonicalPath ?? routePath(routeKey, lang)), SITE_URL).toString();
 const hreflangs = (alternatePaths ?? alternates(routeKey)).map((a) => ({
   hreflang: a.hreflang,
-  url: new URL(a.path, SITE_URL).toString(),
+  url: new URL(stripBase(a.path), SITE_URL).toString(),
 }));
 const ogImage = new URL('/assets/images/og-default.png', SITE_URL).toString();
 ---
@@ -38,7 +40,7 @@ const ogImage = new URL('/assets/images/og-default.png', SITE_URL).toString();
 <title>{title}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
-{noindex && <meta name="robots" content="noindex, follow" />}
+{(noindex || HAS_BASE) && <meta name="robots" content="noindex, follow" />}
 
 {hreflangs.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.url} />)}
 

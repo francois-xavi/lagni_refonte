@@ -7,8 +7,8 @@ export const erp = {
 
   hero: {
     eyebrow: 'ERP, CRM & applications d’entreprise',
-    title: 'Vos systèmes doivent servir vos processus. Pas l’inverse.',
-    lead: 'De l’analyse des besoins à l’adoption par les utilisateurs, Lagni Consulting accompagne les organisations dans leurs projets de systèmes d’entreprise. Une approche combinant compréhension des processus métiers, expertise ERP, gestion de projet et accompagnement du changement.',
+    title: 'Conseil ERP et CRM, de l’analyse à l’adoption.',
+    lead: 'Vos systèmes doivent servir vos processus, pas l’inverse. Lagni Consulting accompagne les organisations dans leurs projets SAP, JD Edwards, Odoo et CRM, en combinant compréhension des processus métiers, gestion de projet et accompagnement du changement.',
     ctaPrimary: 'Parler de votre projet',
     ctaSecondary: 'Découvrir notre expertise',
     imageAlt: 'Ingénieur consultant des écrans de supervision de production en usine',

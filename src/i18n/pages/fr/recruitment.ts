@@ -7,8 +7,8 @@ export const recruitment = {
 
   hero: {
     eyebrow: 'Recrutement spécialisé',
-    title: 'Les bonnes compétences. Les bonnes opportunités.',
-    lead: 'Lagni Consulting accompagne les organisations dans la recherche de professionnels spécialisés en ERP, CRM, systèmes d’entreprise et transformation numérique. Notre connaissance des technologies et des processus métiers nous permet d’aller au-delà du simple CV.',
+    title: 'Recrutement spécialisé en ERP, CRM et transformation numérique.',
+    lead: 'Les bonnes compétences, les bonnes opportunités. Notre connaissance des technologies et des processus métiers nous permet d’aller au-delà du simple CV, pour les entreprises comme pour les candidats.',
     ctaPrimary: 'Je cherche un talent',
     ctaSecondary: 'Je suis candidat',
     imageAlt: 'Entretien professionnel entre une recruteuse et un candidat dans un bureau',

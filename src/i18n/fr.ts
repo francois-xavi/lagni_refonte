@@ -30,6 +30,7 @@ export const fr = {
     home: 'Accueil',
     training: 'Formations',
     sapPp: 'Formation SAP PP',
+    sapPpShort: 'SAP PP',
     erp: 'ERP & Solutions',
     recruitment: 'Recrutement',
     institutions: 'Établissements',

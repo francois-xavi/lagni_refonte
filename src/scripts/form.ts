@@ -11,6 +11,11 @@ const ALLOWED_EXT = ['pdf', 'doc', 'docx'];
 
 type Msgs = Record<string, string>;
 
+/** Site home, including the base path on sub-path demo builds. */
+function homeHref(): string {
+  return import.meta.env.BASE_URL;
+}
+
 function messages(form: HTMLFormElement): Msgs {
   const d = form.dataset;
   return {
@@ -123,14 +128,19 @@ function init(form: HTMLFormElement) {
     }
 
     const endpoint = form.dataset.endpoint;
-    // No endpoint configured yet: let the native POST fall through to /merci/.
-    if (!endpoint) return;
+    // No endpoint configured yet (demo builds): send nothing, just show the
+    // thank-you page so the flow can be reviewed end to end.
+    if (!endpoint) {
+      e.preventDefault();
+      window.location.href = form.dataset.thanks ?? homeHref();
+      return;
+    }
 
     // Spam guards.
     const hp = form.querySelector<HTMLInputElement>('input[name="website"]');
     if (hp?.value || Date.now() - openedAt < 3000) {
       e.preventDefault();
-      window.location.href = form.dataset.thanks ?? '/';
+      window.location.href = form.dataset.thanks ?? homeHref();
       return;
     }
 
@@ -145,7 +155,7 @@ function init(form: HTMLFormElement) {
         headers: { Accept: 'application/json' },
       });
       if (!res.ok) throw new Error(String(res.status));
-      window.location.href = form.dataset.thanks ?? '/';
+      window.location.href = form.dataset.thanks ?? homeHref();
     } catch {
       // The message already carries a mailto address so the visitor is never stuck.
       if (alert) alert.textContent = form.dataset.msgNetwork ?? '';

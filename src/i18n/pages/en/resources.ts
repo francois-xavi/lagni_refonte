@@ -7,7 +7,7 @@ export const resources = {
 
   hero: {
     eyebrow: 'Resources',
-    title: 'Understand the systems. Build the skills.',
+    title: 'Guides and articles on SAP, ERP and careers.',
     lead: 'Analysis, guides and practical content on ERP systems, SAP S/4HANA, Production Planning, digital transformation and careers.',
     cta: 'Explore the resources',
     imageAlt: 'Professional reading reference material on a laptop',

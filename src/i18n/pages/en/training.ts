@@ -7,8 +7,8 @@ export const training = {
 
   hero: {
     eyebrow: 'Training',
-    title: 'Build skills that make a difference.',
-    tagline: 'Training grounded in practice, business processes and enterprise technology.',
+    title: 'Practical SAP and ERP training.',
+    tagline: 'Build skills that make a difference.',
     lead: 'Lagni Consulting works with professionals, students and organizations to build skills that hold up in real working environments.',
     ctaPrimary: 'Explore the SAP PP training',
     ctaSecondary: 'Train your team',

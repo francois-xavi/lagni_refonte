@@ -17,7 +17,8 @@ or shows an obvious placeholder. This file lists every one of those.
 | Form destination URL | `src/config.ts` → `FORM_ENDPOINT` | `REPLACE_ME__FORM_ENDPOINT` |
 
 Until this is set, every form shows a visible notice pointing to the fallback email
-and submits as a plain browser POST to `/merci/`. Choose a provider (Formspree,
+and, on submit, goes straight to `/merci/` without sending anything (no data leaves
+the browser). Choose a provider (Formspree,
 Netlify Forms, Basin, a serverless function…) and paste its POST URL.
 
 **Then test all four forms and confirm the email arrives:**
@@ -148,6 +149,41 @@ Still to come from the client:
 - [ ] YouTube links for the *SAP S/4HANA — One Scope Item at a Time* series
       (the Resources page shows a placeholder where the videos go)
 - [ ] Any remaining articles from the list in §25 of the cahier
+
+---
+
+## 🟠 6b. Copy rewritten in the UX clarity pass — needs client validation
+
+The headlines below were rewritten so a first-time visitor can tell what Lagni
+offers within a few seconds. No new facts were added: every service, system and
+audience named already appears elsewhere in the validated cahier. Please confirm
+or amend each one (FR and EN).
+
+| Page | Field | Before (validated) | After (proposed) |
+| --- | --- | --- | --- |
+| Accueil | Hero eyebrow | *(written but not displayed)* Recrutement spécialisé · Québec & international | Former. Accompagner. Connecter. |
+| Accueil | H1 | Les talents qui font avancer les entreprises exigeantes. | Formation SAP, projets ERP et recrutement spécialisé. |
+| Accueil | Lead | Lagni Consulting connecte les entreprises à des experts rares… | Nous formons les professionnels à SAP S/4HANA, accompagnons les entreprises dans leurs projets ERP et CRM, et trouvons les profils spécialisés qui les font réussir. |
+| Accueil | CTAs | Recruter un expert · Découvrir Lagni | Parler de votre projet · Voir la formation SAP PP |
+| Accueil | Hero tags | Expertise métier · Regard international · Accompagnement humain | Expertise ERP terrain · Québec · Europe · Afrique · Accompagnement humain |
+| Accueil | Hero card | Le bon profil. Au bon moment. | Les processus d’abord. La technologie ensuite. |
+| Accueil | Services heading | Les trois piliers — Une plateforme claire pour avancer. | Nos services — Trois façons de vous accompagner. |
+| Accueil | Service cards | Formation · ERP & Solutions · Recrutement spécialisé (+ “Découvrir”) | Se former à SAP et aux ERP · Réussir un projet ERP ou CRM · Recruter un profil spécialisé, each with a “Pour : …” audience line and a named link |
+| Formations | H1 / tagline | Développez des compétences qui font la différence. | H1: Formations SAP et ERP, orientées vers la pratique. — the old H1 becomes the tagline |
+| ERP & Solutions | H1 / lead | Vos systèmes doivent servir vos processus. Pas l’inverse. | H1: Conseil ERP et CRM, de l’analyse à l’adoption. — the old H1 opens the lead, which now names SAP, JD Edwards, Odoo and CRM |
+| Recrutement | H1 / lead | Les bonnes compétences. Les bonnes opportunités. | H1: Recrutement spécialisé en ERP, CRM et transformation numérique. — the old H1 opens the lead |
+| Ressources | H1 | Comprendre les systèmes. Développer les compétences. | Guides et articles sur SAP, les ERP et les carrières. |
+
+English mirrors each change in `src/i18n/pages/en/*.ts`.
+
+**Removed from the homepage:** the dark “Entreprises” band (it repeated the three
+services) and the two decorative hero cards (“Matching spécialisé”, “Profil
+recommandé · Consultant ERP · Disponible”), which read like a live product UI.
+**Removed as duplicates on inner pages:** the founder block on Formations and
+Établissements (it stays on À propos, Formation SAP PP and the homepage), the
+“Comment pouvons-nous intervenir ?” band on ERP, the pillars band on À propos, and
+the cross-links band on Recrutement. The copy for these still sits in `src/i18n/`
+so any of them can be restored.
 
 ---
 

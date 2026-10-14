@@ -3,6 +3,7 @@
  * Self-hosted Lordicon player wrapper.
  * Icons live in /public/assets/icons/lordicon/*.json — no CDN at runtime.
  */
+import { withBase } from '../lib/url';
 export type LordIconName =
   | 'experience'
   | 'server'
@@ -50,7 +51,7 @@ const {
   tone = 'brand',
   class: className = '',
 } = Astro.props;
-const src = `/assets/icons/lordicon/${name}.json`;
+const src = withBase(`/assets/icons/lordicon/${name}.json`);
 const colors =
   tone === 'light' ? 'primary:#FFFFFF,secondary:#FF914D' : 'primary:#004AAD,secondary:#FF914D';
 ---

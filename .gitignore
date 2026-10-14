@@ -7,3 +7,4 @@ dist/
 .env.*
 .firecrawl/
 .claude/
+.serena/

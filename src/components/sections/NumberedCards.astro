@@ -22,7 +22,10 @@ interface Props {
     lord?: LordIconName;
     href?: string;
     cta?: string;
+    /** Short "who it's for" line, prefixed with `metaLabel`. */
+    meta?: string;
   }[];
+  metaLabel?: string;
   /** Pull quote under the intro lead. */
   quote?: string;
   /** Scroll entrance: intro fade-up, then cards in stagger. */
@@ -30,7 +33,7 @@ interface Props {
   tint?: boolean;
 }
 
-const { id, eyebrow, title, lead, items, quote, reveal = false, tint = false } = Astro.props;
+const { id, eyebrow, title, lead, items, metaLabel, quote, reveal = false, tint = false } = Astro.props;
 const four = items.length === 4;
 const two = items.length === 2;
 const hasNote = Astro.slots.has('note');
@@ -75,6 +78,12 @@ const hasNote = Astro.slots.has('note');
               </div>
               <h3 class="pillar__title">{item.title}</h3>
               {item.body && <p class="pillar__body">{item.body}</p>}
+              {item.meta && (
+                <p class="pillar__meta">
+                  {metaLabel && <span class="pillar__metaLabel">{metaLabel}</span>}
+                  {item.meta}
+                </p>
+              )}
               {item.points && item.points.length > 0 && (
                 <ul class="pillar__points">
                   {item.points.map((pt) => (
@@ -112,7 +121,7 @@ const hasNote = Astro.slots.has('note');
 <style>
   .pillars {
     background: var(--bg);
-    padding-block: var(--s-16);
+    padding-block: var(--section-y);
   }
 
   .pillars--tint {
@@ -147,11 +156,11 @@ const hasNote = Astro.slots.has('note');
   }
 
   .pillars__title {
-    font-size: clamp(1.65rem, 1.25rem + 1.6vw, 2.35rem);
+    font-size: var(--fs-3xl);
     line-height: var(--lh-tight);
     letter-spacing: -0.03em;
     color: var(--blue-900);
-    max-width: 12ch;
+    max-width: 16ch;
   }
 
   .pillars__lead {
@@ -169,6 +178,7 @@ const hasNote = Astro.slots.has('note');
   }
 
   .pillar {
+    position: relative;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -243,6 +253,37 @@ const hasNote = Astro.slots.has('note');
     color: var(--blue-600);
   }
 
+  /* The whole card is the link target; the visible CTA stays the accessible name. */
+  .pillar__cta::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+
+  .pillar:has(.pillar__cta:focus-visible) {
+    box-shadow: var(--shadow-md);
+  }
+
+  .pillar__meta {
+    margin-bottom: var(--s-6);
+    padding-top: var(--s-4);
+    border-top: 1px solid var(--line);
+    font-size: var(--fs-sm);
+    line-height: 1.5;
+    color: var(--ink);
+  }
+
+  .pillar__metaLabel {
+    display: block;
+    margin-bottom: var(--s-1);
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--orange-700);
+  }
+
   .pillar__cta span {
     transition: transform 0.2s ease;
   }
@@ -307,33 +348,21 @@ const hasNote = Astro.slots.has('note');
     }
   }
 
+  /* Intro reads across the top (title left, lead right); cards run below at
+     full width so each one has room to breathe. */
   @media (min-width: 1024px) {
-    .pillars__grid {
-      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.9fr);
-      gap: var(--s-12);
-      align-items: center;
-    }
-
-    .pillars__title {
-      max-width: 11ch;
-    }
-
-    .pillars--four .pillars__grid {
-      grid-template-columns: minmax(0, 1fr);
-    }
-
-    .pillars--four .pillars__intro {
+    .pillars__intro {
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       gap: var(--s-12);
       align-items: end;
     }
 
-    .pillars--four .pillars__title {
+    .pillars__title {
       max-width: 18ch;
     }
 
-    .pillars--four .pillars__lead {
+    .pillars__lead {
       max-width: 52ch;
     }
   }

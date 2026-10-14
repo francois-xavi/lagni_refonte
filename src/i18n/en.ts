@@ -25,6 +25,7 @@ export const en = {
     home: 'Home',
     training: 'Training',
     sapPp: 'SAP PP Training',
+    sapPpShort: 'SAP PP',
     erp: 'ERP & Solutions',
     recruitment: 'Recruitment',
     institutions: 'Institutions',

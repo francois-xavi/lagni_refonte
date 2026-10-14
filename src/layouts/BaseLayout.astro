@@ -10,6 +10,7 @@ import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import { type Lang } from '../i18n/routes';
 import { useTranslations } from '../i18n/utils';
+import { withBase } from '../lib/url';
 
 interface Props {
   lang: Lang;
@@ -40,7 +41,7 @@ const t = useTranslations(lang);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
     <Seo
       lang={lang}
       routeKey={routeKey}
