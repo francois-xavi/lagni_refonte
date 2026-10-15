@@ -15,10 +15,11 @@ or shows an obvious placeholder. This file lists every one of those.
 | Item | Where | Current state |
 | --- | --- | --- |
 | Form destination URL | `src/config.ts` → `FORM_ENDPOINT` | `/api/form` → `form-service/` (production only) |
-| SMTP mailbox for sending | Dokploy → `lagni-form-service` → Environment | `SMTP_*`, `MAIL_FROM`, `MAIL_TO` |
+| Admin inbox | `https://lagniconsulting.ca/admin/` | login = `ADMIN_PASSWORD` env var on Dokploy (`lagni-form-service`) |
 
-`form-service/` emails every submission (CV attached) to `MAIL_TO` over any SMTP
-account. Moving mail away from o2switch only means changing its env vars.
+`form-service/` stores every submission (CV included) in SQLite on the `/data` volume;
+the client reads them at `/admin/`. Optional email notification: set `SMTP_HOST`,
+`SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `MAIL_FROM`, `MAIL_TO` — any provider, no code change.
 Demo builds still have no endpoint and go straight to `/merci/`.
 
 **Then test all four forms and confirm the email arrives:**
