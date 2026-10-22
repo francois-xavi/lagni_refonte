@@ -200,6 +200,12 @@ site WordPress, et un `X-Robots-Tag: noindex` automatique sur tout hôte autre q
 | `SITE_URL` | non | origine utilisée pour les redirections |
 | `PORT` | non (`3000`) | port d'écoute ; `nginx.conf` proxifie vers 3000 |
 | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `MAIL_FROM`, `MAIL_TO` | non | notification par courriel. Absents, le service n'envoie rien et stocke quand même |
+| `GITHUB_TOKEN`, `GITHUB_OWNER`, `GITHUB_REPO`, `GITHUB_BRANCH` | non | publication du contenu depuis `/admin/contenu/`. **Absents, le dashboard tourne à blanc** : il enregistre les brouillons et montre ce qu'il publierait, sans rien écrire |
+
+Le jeton est un **PAT fine-grained limité à ce seul dépôt**, permission
+*Contents: read & write*. Il vit en variable d'environnement Dokploy — jamais
+dans l'image, jamais dans le dépôt. Le dépôt visé doit être celui que le
+webhook Dokploy surveille, sinon la publication n'aurait aucun effet visible.
 
 Router `/api/form` et `/admin/` vers ce conteneur.
 
