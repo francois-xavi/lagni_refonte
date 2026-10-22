@@ -127,25 +127,31 @@ sans heurt, puisque je n'y avais pas touché.
 
 ## 4. Conséquences sur les demandes en cours
 
-### L'hébergement Cloudflare est à rediscuter
+### L'hébergement est tranché : Dokploy
 
-Le dépôt vise **Dokploy** : deux conteneurs, nginx pour le statique et Node pour le
-form-service. **Cloudflare Pages ne peut pas exécuter ce service Node** — ni SQLite
-sur disque, ni stockage de CV.
+**Décision du 22 octobre 2026.** Le site reste sur Dokploy : deux conteneurs,
+nginx pour le statique et Node pour `form-service`.
 
-Trois voies, sans préjuger :
+Cloudflare Pages était écarté pour une raison technique simple : **il ne peut pas
+exécuter le service Node** — ni SQLite sur disque, ni stockage de CV. Le retenir
+aurait coûté soit un hébergement scindé (CORS et cookies à traiter), soit une
+réécriture complète vers Workers + D1 + R2, avec la perte du tableau de bord
+`/admin/` existant.
 
-1. **Rester sur Dokploy.** Tout fonctionne déjà, le tableau de bord existe, les CV
-   restent sur un serveur dont vous choisissez l'emplacement — ce qui simplifie
-   l'argument Loi 25.
-2. **Statique sur Cloudflare Pages, form-service ailleurs.** Hébergement scindé,
-   `/api/form` et `/admin` sur un autre domaine ou sous-domaine ; à traiter côté CORS
-   et cookies.
-3. **Réécrire le service pour Cloudflare** (Workers + D1 + R2). Travail réel, et on
-   perd le tableau de bord existant.
+Conséquences actives :
 
-Mon travail Netlify Forms du 5 octobre est **caduc** dans tous les cas : le backend
-maison le remplace avantageusement.
+- `public/_redirects` et `public/_headers`, au format Cloudflare, ont été
+  **retirés**. `nginx.conf` portait déjà les mêmes 301 ; la `Permissions-Policy`
+  et le cache 30 jours sur `/assets/images/` y ont été ajoutés, qui n'existaient
+  que côté Cloudflare.
+- Les CV restent sur un serveur dont vous choisissez l'emplacement — argument
+  nettement plus solide au regard de la Loi 25. **Cette localisation reste à
+  confirmer**, et la politique de confidentialité l'annonce comme telle.
+- Le dashboard de contenu devient réalisable : il suppose un serveur qui exécute
+  du Node et conserve un volume.
+
+Mon travail Netlify Forms du 5 octobre est **caduc** : le backend maison le
+remplace avantageusement.
 
 ### Le dashboard demandé par le client : la moitié existe déjà
 

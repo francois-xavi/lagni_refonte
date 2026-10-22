@@ -179,12 +179,14 @@ Un dashboard qui commite dans git est une surface d'attaque réelle.
 
 ## 6. Prérequis avant de commencer
 
-1. **Fusionner les deux branches** (`recette/corrections-octobre` et
-   `webxify/main`) — 5 conflits identifiés, résolution déjà documentée dans
-   `ETAT-BRANCHES.md`. Développer sur une base divergente serait du travail perdu.
-2. **Trancher l'hébergement.** Le dashboard suppose un serveur qui exécute du
-   Node et conserve un volume : **Cloudflare Pages ne convient pas.** Dokploy,
-   déjà en place, convient.
+1. ~~Fusionner les deux branches.~~ **Fait le 22 octobre** (`aab608e`), plus deux
+   ruptures que la fusion automatique n'avait pas vues : `FormShell.astro` nommait
+   le champ `form-name` à la mode Netlify au lieu du `form_name` attendu par
+   `form-service`, et la politique de confidentialité annonçait un hébergement
+   aux États-Unis.
+2. ~~Trancher l'hébergement.~~ **Fait le 22 octobre : Dokploy.** Cloudflare Pages
+   ne pouvait pas exécuter le service Node. Les fichiers de déploiement Cloudflare
+   ont été retirés, `nginx.conf` reprend leurs en-têtes.
 3. Créer la clé de déploiement git et la poser en variable d'environnement.
 
 ---
