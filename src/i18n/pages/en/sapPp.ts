@@ -36,8 +36,8 @@ export const sapPp = {
   proof: {
     label: 'SAP PP training at a glance',
     items: [
-      { figure: '40', label: 'hours of training', lord: 'clock', count: true },
-      { figure: '20 × 2 h', label: 'live sessions', lord: 'calendar' },
+      { figure: '{hours}', label: 'hours of training', lord: 'clock', count: true },
+      { figure: '{sessions} × {sessionHours} h', label: 'live sessions', lord: 'calendar' },
       { figure: '5', label: 'progressive phases', lord: 'checklist', count: true },
       { figure: '8', label: 'step worked example', lord: 'tools', count: true },
     ],

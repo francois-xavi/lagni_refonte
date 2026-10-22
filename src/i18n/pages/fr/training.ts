@@ -31,8 +31,8 @@ export const training = {
   proof: {
     label: 'Le parcours SAP PP en bref',
     items: [
-      { figure: '40', label: 'heures de formation', lord: 'clock', count: true },
-      { figure: '20 × 2 h', label: 'séances structurées', lord: 'calendar' },
+      { figure: '{hours}', label: 'heures de formation', lord: 'clock', count: true },
+      { figure: '{sessions} × {sessionHours} h', label: 'séances structurées', lord: 'calendar' },
       { figure: 'Pratique', label: 'exercices et scénarios', lord: 'monitor' },
       { figure: 'Suivi', label: 'accompagnement personnalisé', lord: 'mentor' },
     ],

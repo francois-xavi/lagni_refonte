@@ -30,10 +30,10 @@ export const institutions = {
   proof: {
     label: 'Le programme pour établissements en bref',
     items: [
-      { figure: '40', label: 'heures de formation', lord: 'clock', count: true },
-      { figure: '20 × 2 h', label: 'séances structurées', lord: 'calendar' },
+      { figure: '{hours}', label: 'heures de formation', lord: 'clock', count: true },
+      { figure: '{sessions} × {sessionHours} h', label: 'séances structurées', lord: 'calendar' },
       { figure: '5', label: 'phases progressives', lord: 'checklist', count: true },
-      { figure: '15', label: 'participants max. en pilote', lord: 'school', count: true },
+      { figure: '{maxParticipants}', label: 'participants max. en pilote', lord: 'school', count: true },
     ],
   },
 
