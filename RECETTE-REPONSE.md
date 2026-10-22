@@ -1,5 +1,13 @@
 # Réponse à la recette — Lagni Consulting
 
+> ⚠️ **Ce document date du 6 octobre et précède la fusion du 22 octobre.
+> Ne pas l'envoyer au client en l'état.** Trois affirmations y sont devenues
+> fausses : les formulaires ne passent plus par Netlify mais par `form-service/`
+> avec sa boîte `/admin/` ; les soumissions et les CV ne sont plus hébergés aux
+> États-Unis mais sur le serveur Dokploy ; et le champ caché s'appelle désormais
+> `form_name`, non `form-name`. S'y ajoute un sujet jamais soumis au client : les
+> cinq H1 réécrits lors de la passe SEO.
+
 Réponse point par point au cahier `Recette_Web_Lagni_Consulting.xlsx`
 (33 observations, verdict « NON VALIDABLE en l'état »).
 

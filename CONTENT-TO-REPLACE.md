@@ -251,7 +251,7 @@ being sold:
 
 ## 🟠 10. 301 redirects from the old site
 
-A redirect map is committed in `netlify.toml` and `vercel.json`, derived from the
+A redirect map is committed in `nginx.conf`, derived from the
 page inventory in §11 and §27 of the cahier: JD Edwards, QuickBooks, Web Development,
 Newcomer support, legacy recruitment pages, `/blog/*`, and the old `/fr` prefix.
 

@@ -95,36 +95,32 @@ The slot names are listed in [`CONTENT-TO-REPLACE.md`](./CONTENT-TO-REPLACE.md).
 
 ### Formulaires
 
-Les quatre formulaires passent par **Netlify Forms**. Netlify détecte chaque
-formulaire au build à partir du HTML statique : il n'y a ni clé d'API, ni
-endpoint à renseigner.
+Les quatre formulaires postent vers **`form-service/`**, le backend Node livré
+dans ce dépôt, exposé par nginx sur `/api/form`. Aucune clé d'API, aucun
+prestataire tiers.
 
-```ts
-// src/config.ts
-export const FORM_PROVIDER: 'netlify' | 'custom' | 'none' = 'netlify';
-```
-
-| Valeur | Comportement |
+| Point | Où |
 | --- | --- |
-| `'netlify'` | Soumissions dans le tableau de bord Netlify (défaut) |
-| `'custom'` | POST vers `FORM_ENDPOINT` (Formspree, webhook Make…) |
-| `'none'` | Aucun backend : chaque formulaire affiche un avis invitant à écrire par courriel |
+| Destination | `src/config.ts` → `FORM_ENDPOINT` (`/api/form` en production) |
+| Boîte de réception | `https://lagniconsulting.ca/admin/`, mot de passe = `ADMIN_PASSWORD` |
+| Stockage | SQLite + CV sur le volume `/data` du conteneur |
 
-Après le premier déploiement, activer les notifications sous
-*Site settings → Forms → Form notifications*.
+Chaque soumission est enregistrée avant toute notification : **un envoi de
+courriel qui échoue ne fait jamais perdre une demande.** Le client lit, marque
+« traité », télécharge les CV et exporte en CSV depuis `/admin/`.
 
 Les formulaires déclarés : `contact`, `recruitment-employer`,
 `recruitment-candidate` (avec téléversement de CV) et `institution-partnership`.
-Un champ caché `locale` distingue les soumissions françaises des anglaises.
+Un champ caché `locale` distingue les soumissions françaises des anglaises, et
+`form_name` — avec un tiret bas, c'est le nom de colonne attendu par le service.
 
-Sans JavaScript, le navigateur effectue un POST natif : Netlify traite la
-soumission puis redirige vers `/merci/`. Rien n'est perdu.
+Sans JavaScript, le navigateur effectue un POST natif : `form-service` répond
+par une redirection 303 vers `/merci/`. Rien n'est perdu.
 
-> **Confidentialité** — Netlify conserve les soumissions, donc les CV, sur des
-> serveurs américains. C'est déclaré dans la politique de confidentialité et doit
-> le rester tant que ce prestataire est utilisé.
-
-Contact details (email, phone, LinkedIn, locality) also live in `src/config.ts`.
+> **Confidentialité** — les soumissions et les CV restent sur le serveur Dokploy,
+> et non chez un prestataire tiers. C'est un argument nettement plus solide au
+> regard de la Loi 25, mais **la localisation de ce serveur reste à confirmer** et
+> doit être énoncée dans la politique de confidentialité.
 
 ### Resources / articles
 
@@ -184,33 +180,42 @@ For orange *text* on a light surface, use `--orange-700`.
 
 ## Deployment
 
-The build is fully static — any static host works.
+Deux conteneurs sur **Dokploy** : nginx pour le site statique, Node pour le
+backend de formulaires. Cloudflare Pages et Vercel ont été écartés — ils ne
+peuvent exécuter ni le service Node, ni conserver un volume pour les CV.
 
-### Netlify
+### 1. Le site — `Dockerfile` à la racine
 
-`netlify.toml` is committed with the build command, the publish directory, security
-headers and the 301 redirect map from the old WordPress URLs.
+Build Astro puis nginx 1.27 Alpine servant `dist/`. `nginx.conf` porte le gzip,
+les en-têtes de sécurité, le cache immuable sur `/_astro/`, les 301 de l'ancien
+site WordPress, et un `X-Robots-Tag: noindex` automatique sur tout hôte autre que
+`lagniconsulting.ca` — les environnements de recette ne sont jamais indexés.
 
-1. Connect the repository in Netlify.
-2. Accept the detected settings (`npm run build` → `dist`).
-3. Add the custom domain `lagniconsulting.ca`; HTTPS is provisioned automatically.
+### 2. Le backend — `form-service/Dockerfile`
 
-### Vercel
+| Variable | Obligatoire | Rôle |
+| --- | --- | --- |
+| `ADMIN_PASSWORD` | **oui**, 12 caractères minimum | accès à `/admin/`. En deçà, le tableau de bord reste fermé |
+| `DATA_DIR` | non (`/data`) | SQLite + CV — **monter un volume persistant ici** |
+| `SITE_URL` | non | origine utilisée pour les redirections |
+| `PORT` | non (`3000`) | port d'écoute ; `nginx.conf` proxifie vers 3000 |
+| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `MAIL_FROM`, `MAIL_TO` | non | notification par courriel. Absents, le service n'envoie rien et stocke quand même |
 
-`vercel.json` carries the same configuration.
+Router `/api/form` et `/admin/` vers ce conteneur.
 
-1. Import the repository in Vercel.
-2. Framework preset: **Astro**. Build `npm run build`, output `dist`.
-3. Add the domain under *Settings → Domains*.
+### Avant la mise en ligne
 
-### Before going live
-
-- Set `FORM_ENDPOINT` in `src/config.ts` and send a test submission.
-- Review the 301 map in `netlify.toml` / `vercel.json` against the live site's
-  existing URLs (Search Console → Pages, or the old sitemap). **Redirect before deleting.**
-- Work through [`CONTENT-TO-REPLACE.md`](./CONTENT-TO-REPLACE.md).
-- Confirm `site` in `astro.config.mjs` matches the production origin — canonical
-  URLs, `hreflang` and the sitemap are all built from it.
+- Poser `ADMIN_PASSWORD` et vérifier l'ouverture de `/admin/`.
+- Envoyer une soumission de test sur les quatre formulaires, CV compris, et
+  confirmer leur arrivée dans la boîte.
+- Vérifier le volume : redémarrer le conteneur ne doit perdre aucune demande.
+- Rejouer les 301 contre les URL réellement indexées (Search Console → Pages,
+  ou l'ancien sitemap). **Rediriger avant de supprimer.**
+- Dérouler [`CONTENT-TO-REPLACE.md`](./CONTENT-TO-REPLACE.md).
+- Confirmer que `site` dans `astro.config.mjs` correspond à l'origine de
+  production — les URL canoniques, les `hreflang` et le sitemap en découlent.
+- `nginx -t` au premier déploiement : la syntaxe n'a pas pu être validée
+  localement.
 
 ---
 
