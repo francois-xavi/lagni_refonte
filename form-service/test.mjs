@@ -8,7 +8,8 @@ import path from 'node:path';
 const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'form-svc-'));
 const PW = 'test-password-123';
 const srv = spawn('node', ['server.mjs'], { env: { ...process.env, DATA_DIR: dir, ADMIN_PASSWORD: PW, SMTP_HOST: '' }, stdio: 'inherit' });
-const B = 'http://localhost:3000';
+const PORT = process.env.PORT ?? '3000';
+const B = `http://localhost:${PORT}`;
 const old = Date.now() - 10_000;
 const post = (fields, file) => {
   const f = new FormData();
@@ -48,5 +49,11 @@ try {
   console.log('form-service: all checks passed');
 } finally {
   srv.kill();
-  fs.rmSync(dir, { recursive: true, force: true });
+  // Windows keeps the SQLite file handle briefly after kill(); the temp dir is
+  // disposable either way.
+  try {
+    fs.rmSync(dir, { recursive: true, force: true });
+  } catch {
+    /* ignore */
+  }
 }

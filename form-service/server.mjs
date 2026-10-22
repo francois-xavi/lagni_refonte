@@ -11,7 +11,10 @@ import { DatabaseSync } from 'node:sqlite';
 const SITE = process.env.SITE_URL ?? 'https://lagniconsulting.ca';
 const DATA_DIR = process.env.DATA_DIR ?? './data';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? '';
-const ADMIN_OK = ADMIN_PASSWORD.length >= 12; // shorter = admin disabled, forms still work
+const ADMIN_OK = ADMIN_PASSWORD.length >= 12;
+
+/** nginx proxies to 3000; overridable so the test suite can use a free port. */
+const PORT = Number(process.env.PORT ?? 3000); // shorter = admin disabled, forms still work
 
 fs.mkdirSync(path.join(DATA_DIR, 'uploads'), { recursive: true });
 const db = new DatabaseSync(path.join(DATA_DIR, 'forms.db'));
@@ -269,4 +272,4 @@ http.createServer(async (req, res) => {
     console.error(err);
     if (!res.headersSent) res.writeHead(500).end('error');
   }
-}).listen(3000, () => console.log(`form-service on :3000 (admin ${ADMIN_OK ? 'on' : 'OFF: set ADMIN_PASSWORD >= 12 chars'})`));
+}).listen(PORT, () => console.log(`form-service on :${PORT} (admin ${ADMIN_OK ? 'on' : 'OFF: set ADMIN_PASSWORD >= 12 chars'})`));
