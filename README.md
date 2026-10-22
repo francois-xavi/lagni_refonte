@@ -207,6 +207,9 @@ Le jeton est un **PAT fine-grained limité à ce seul dépôt**, permission
 dans l'image, jamais dans le dépôt. Le dépôt visé doit être celui que le
 webhook Dokploy surveille, sinon la publication n'aurait aucun effet visible.
 
+➤ **[CLE-DEPLOIEMENT.md](./CLE-DEPLOIEMENT.md)** détaille la création du jeton,
+où le poser, comment vérifier qu'il fonctionne, et ce qui protège le dépôt.
+
 Router `/api/form` et `/admin/` vers ce conteneur.
 
 ### Avant la mise en ligne
