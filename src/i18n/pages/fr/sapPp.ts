@@ -247,7 +247,6 @@ export const sapPp = {
    */
   testimonials: {
     title: 'Ils nous font confiance',
-    items: [] as readonly { quote: string; author: string; role: string }[],
   },
 
   /** Affiché à la place des témoignages tant que `testimonials.items` est vide. */

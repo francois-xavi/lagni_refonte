@@ -22,6 +22,7 @@ import { href, contactHref, type Lang } from '../../i18n/routes';
 import { useTranslations, usePages } from '../../i18n/utils';
 import { publicImage } from '../../lib/assets';
 import { getFaq } from '../../lib/faq';
+import { getTestimonials } from '../../lib/testimonials';
 
 interface Props {
   lang: Lang;
@@ -30,6 +31,7 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const p = usePages(lang).sapPp;
+const testimonials = getTestimonials(lang);
 
 const audienceLords: Record<string, LordIconName> = {
   factory: 'tools',
@@ -221,10 +223,10 @@ const pathRoutes = ['contact', 'institutions'] as const;
 <FaqSplit id="faq-title" eyebrow={p.faq.eyebrow} title={p.faq.title} lead={p.faq.lead} items={getFaq('sapPp', lang)}>
   <div slot="aside" class="testi">
     {
-      p.testimonials.items.length > 0 ? (
+      testimonials.length > 0 ? (
         <>
           <p class="testi__title">{p.testimonials.title}</p>
-          {p.testimonials.items.map((item) => (
+          {testimonials.map((item) => (
             <blockquote class="testi__quote">
               <Icon name="quote" size={22} />
               <p>{item.quote}</p>

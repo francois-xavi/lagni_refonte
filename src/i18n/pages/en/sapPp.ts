@@ -238,7 +238,6 @@ export const sapPp = {
 
   testimonials: {
     title: 'What participants say',
-    items: [] as readonly { quote: string; author: string; role: string }[],
   },
 
   faqHelp: {
