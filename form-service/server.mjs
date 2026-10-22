@@ -1,12 +1,18 @@
 // Form backend + admin dashboard for lagniconsulting.ca.
 //   POST /api/form        public: stores a submission (+ CV) in SQLite on DATA_DIR
 //   /admin/*              password-protected inbox: list, CV download, handled, delete, CSV
+//   /admin/contenu/*      the client edits site content; publishing commits to GitHub
 // Optional: set SMTP_HOST (and friends) to also get an email notification per submission.
 import http from 'node:http';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
+import { createPublisher } from './publisher.mjs';
+import {
+  initContent, getDraft, saveDraft, publishDrafts,
+  settingsFromForm, validateSettings, settingsPage, SETTINGS_PATH,
+} from './content.mjs';
 
 const SITE = process.env.SITE_URL ?? 'https://lagniconsulting.ca';
 const DATA_DIR = process.env.DATA_DIR ?? './data';
@@ -25,6 +31,15 @@ db.exec(`CREATE TABLE IF NOT EXISTS submissions(
   fields TEXT NOT NULL,
   file_name TEXT, file_id TEXT,
   handled INTEGER NOT NULL DEFAULT 0)`);
+initContent(db);
+
+/** Without GITHUB_TOKEN this is a dry-run publisher: screens work, nothing ships. */
+const publisher = createPublisher({
+  token: process.env.GITHUB_TOKEN,
+  owner: process.env.GITHUB_OWNER,
+  repo: process.env.GITHUB_REPO,
+  branch: process.env.GITHUB_BRANCH ?? 'main',
+});
 
 const MAX_BODY = 6 * 1024 * 1024; // 5 MB file + fields
 const MAX_FILE = 5 * 1024 * 1024;
@@ -151,7 +166,15 @@ button.btn,a.btn{font:inherit;padding:8px 14px;border-radius:8px;border:1px soli
 button.ghost{background:#fff;color:#004aad}button.danger{background:#fff;color:#a4281f;border-color:#a4281f}
 form.login{max-width:340px;margin:64px auto;background:#fff;padding:24px;border-radius:12px;border:1px solid #dce4ee;display:grid;gap:12px}
 input[type=password]{font:inherit;padding:10px;border:1px solid #5b6b7f;border-radius:8px;width:100%}.err{color:#a4281f}
-:focus-visible{outline:3px solid #1a2433;outline-offset:2px}`;
+:focus-visible{outline:3px solid #1a2433;outline-offset:2px}
+fieldset{background:#fff;border:1px solid #dce4ee;border-radius:8px;margin:0 0 16px;padding:12px 16px}
+legend{font-weight:600;padding:0 6px}fieldset p{margin:0 0 12px}
+fieldset label{color:#5b6b7f;font-size:14px}
+fieldset input{font:inherit;padding:8px 10px;border:1px solid #5b6b7f;border-radius:8px;width:100%;max-width:420px}
+.warn,.ok,.err{border-radius:8px;padding:10px 14px;margin:0 0 16px}
+.warn{background:#fff6ed;border:1px solid #ffd4b0}.ok{background:#eef7ee;border:1px solid #bcdcbc}
+.err{background:#fdeeed;border:1px solid #e9b8b4}.err ul{margin:4px 0 0;padding-left:20px}
+h2{margin:0 0 4px}`;
 
 const page = (title, body, head = '') =>
   `<!doctype html><html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(title)}</title><style>${CSS}</style>${head}<body>${body}</body></html>`;
@@ -251,6 +274,54 @@ async function handleAdmin(req, res, url) {
       return redirect('/admin/');
     }
   }
+  if (p === '/admin/contenu' || p === '/admin/contenu/chiffres') {
+    const pending = db.prepare('SELECT COUNT(*) n FROM content_drafts').get().n;
+    const draft = getDraft(db, 'settings', 'site');
+
+    if (req.method === 'GET') {
+      // The published file is the starting point; the draft wins if there is one.
+      let published = null;
+      try {
+        published = await publisher.readFile(SETTINGS_PATH);
+      } catch {
+        published = null; // network trouble must not lock the client out of the screen
+      }
+      const data = draft?.data ?? (published ? JSON.parse(published.content) : { figures: {}, contact: {} });
+      const sha = url.searchParams.get('published');
+      return send(200, page('Contenu — Lagni Consulting', settingsPage({
+        data, dryRun: publisher.dryRun, unreadable: !published, pending,
+        saved: url.searchParams.has('ok'),
+        publishedSha: sha,
+      })));
+    }
+
+    if (req.method === 'POST') {
+      const body = await readSmallBody(req);
+      const data = settingsFromForm(body);
+      const errors = validateSettings(data);
+      if (errors.length)
+        return send(422, page('Contenu — Lagni Consulting', settingsPage({
+          data, dryRun: publisher.dryRun, unreadable: false, errors, pending,
+        })));
+
+      // The sha read now is the lock: publishing refuses if the branch moved.
+      let baseSha = draft?.baseSha ?? null;
+      if (!baseSha) { try { baseSha = await publisher.head(); } catch { baseSha = null; } }
+      saveDraft(db, 'settings', 'site', data, baseSha);
+
+      if (body.get('action') !== 'publish') return redirect('/admin/contenu/?ok=1');
+      try {
+        const out = await publishDrafts(db, publisher);
+        return redirect(`/admin/contenu/?published=${encodeURIComponent(out.sha ?? '')}`);
+      } catch (err) {
+        return send(err.conflict ? 409 : 502, page('Contenu — Lagni Consulting', settingsPage({
+          data, dryRun: publisher.dryRun, unreadable: false,
+          errors: [err.message], pending: pending || 1,
+        })));
+      }
+    }
+  }
+
   return send(404, page('Introuvable', '<main><p>Page introuvable.</p></main>'));
 }
 

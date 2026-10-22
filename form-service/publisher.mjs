@@ -63,6 +63,30 @@ export function createPublisher({ token, owner, repo, branch = 'main', fetch: f 
     return text ? JSON.parse(text) : {};
   }
 
+  /**
+   * Published content of one file, or null if it does not exist yet.
+   * Returns the head sha alongside, so a screen can lock against the exact
+   * state it displayed.
+   */
+  async function readFile(filePath) {
+    const res = await doFetch(
+      `${base}/contents/${filePath.split('/').map(encodeURIComponent).join('/')}?ref=${encodeURIComponent(branch)}`,
+      {
+        headers: {
+          authorization: `Bearer ${token}`,
+          accept: 'application/vnd.github+json',
+          'x-github-api-version': '2022-11-28',
+          'user-agent': 'lagni-form-service',
+        },
+      },
+    );
+    if (res.status === 404) return null;
+    const text = await res.text();
+    if (!res.ok) throw new PublishError(`GitHub GET /contents/${filePath} → ${res.status}`, { status: res.status });
+    const json = JSON.parse(text);
+    return { content: Buffer.from(json.content, 'base64').toString('utf8'), sha: json.sha };
+  }
+
   /** Current head of the branch: the sha to lock against. */
   async function head() {
     const ref = await call('GET', `/git/ref/heads/${branch}`);
@@ -109,7 +133,7 @@ export function createPublisher({ token, owner, repo, branch = 'main', fetch: f 
     return { sha: commit.sha, files: files.length, dryRun: false };
   }
 
-  return { head, publish, dryRun: false, target: `${owner}/${repo}@${branch}` };
+  return { head, readFile, publish, dryRun: false, target: `${owner}/${repo}@${branch}` };
 }
 
 /** Records calls instead of sending them, so the flow is testable with no key. */
@@ -122,6 +146,10 @@ export function dryRunPublisher({ owner = '?', repo = '?', branch = 'main' } = {
     target: `${owner}/${repo}@${branch} (à blanc)`,
     async head() {
       return fakeHead;
+    },
+    /** Nothing to read without a key: callers must say so rather than guess. */
+    async readFile() {
+      return null;
     },
     async publish({ files, message, baseSha }) {
       if (!files?.length) throw new PublishError('Rien à publier.');
