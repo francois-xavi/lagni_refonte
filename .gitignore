@@ -8,3 +8,7 @@ dist/
 .firecrawl/
 .claude/
 .serena/
+
+# Base locale du tableau de bord (form-service/dev.mjs)
+form-service/data-dev/
+form-service/data/

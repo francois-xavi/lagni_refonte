@@ -9,6 +9,74 @@ publication ne part pas, et l'écran l'affiche en toutes lettres.
 
 ---
 
+## 0. L'essayer d'abord, en local
+
+Avant toute mise en service, le tableau de bord tourne sur votre poste, sans
+clé et sans rien envoyer nulle part :
+
+```bash
+cd form-service && npm run dev
+```
+
+La commande affiche l'adresse et le mot de passe local :
+
+- **Demandes reçues** — <http://localhost:3919/admin/>
+- **Contenu** — <http://localhost:3919/admin/contenu/>
+- Mot de passe : `mot-de-passe-local-de-test`
+
+Les données vont dans `form-service/data-dev/`, un dossier jetable et ignoré
+par git : supprimez-le pour repartir à zéro.
+
+Sans `GITHUB_TOKEN`, la publication tourne **à blanc** : les écrans
+fonctionnent, les brouillons s'enregistrent, mais rien ne part sur GitHub — et
+l'écran Contenu l'indique en toutes lettres.
+
+Pour voir le site en parallèle, dans un autre terminal à la racine :
+
+```bash
+npm run dev
+```
+
+---
+
+## 0 bis. Le mot de passe du tableau de bord
+
+Il **n'existe pas** avant que vous le posiez : il n'y a ni écran d'inscription,
+ni base d'utilisateurs. Vous le choisissez, vous le mettez sur Dokploy, vous le
+transmettez au client.
+
+```
+ADMIN_PASSWORD=...
+```
+
+**Douze caractères minimum** (`ADMIN_OK = ADMIN_PASSWORD.length >= 12`).
+En deçà, ou s'il est absent, le tableau de bord répond `503 non configuré` —
+les formulaires publics, eux, continuent d'enregistrer les demandes. Au
+démarrage, le service l'annonce : `admin on` ou
+`admin OFF: set ADMIN_PASSWORD >= 12 chars`.
+
+Pour en générer un : `openssl rand -base64 24`.
+
+**À savoir avant de le changer :**
+
+- **Pas de « mot de passe oublié ».** Aucun courriel de réinitialisation.
+  Perdu = on change la variable sur Dokploy.
+- **Le changer déconnecte tout le monde immédiatement**, parce que les sessions
+  sont signées avec lui comme clé HMAC. C'est le bouton « révoquer tout » en
+  cas de fuite.
+- **Un seul mot de passe, partagé.** Pas de comptes individuels, donc la piste
+  d'audit enregistre les publications, pas leur auteur. Acceptable à une ou deux
+  personnes ; au-delà, il faudra de vrais comptes.
+
+Il ouvre aussi **les CV des candidats**. Transmettez-le par un gestionnaire de
+mots de passe ou un lien à usage unique — jamais par courriel.
+
+Déjà en place côté code : comparaison à temps constant, 10 tentatives par IP
+par tranche de 10 minutes, sessions de 12 h, cookie
+`HttpOnly; SameSite=Strict; Secure`.
+
+---
+
 ## 1. La décision à prendre d'abord
 
 Un jeton *fine-grained* ne vise **qu'un seul dépôt**. Il y en a deux :
