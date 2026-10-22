@@ -99,24 +99,6 @@ export const contact = {
     eyebrow: 'FAQ',
     title: 'Questions fréquentes',
     lead: 'Trouvez rapidement des réponses aux questions les plus courantes.',
-    items: [
-      {
-        q: 'Puis-je suivre la formation SAP PP à distance ?',
-        a: 'Oui. Les séances sont données à distance, en direct avec le formateur. Une formule sur site peut être envisagée pour un groupe ou un établissement.',
-      },
-      {
-        q: 'Proposez-vous vos services hors du Canada ?',
-        a: 'Oui. Lagni Consulting collabore avec des professionnels et des organisations au Canada, en Europe et en Afrique. Les formations à distance sont accessibles depuis ces marchés.',
-      },
-      {
-        q: 'Travaillez-vous avec les établissements d’enseignement ?',
-        a: 'Oui. Nous proposons un programme adaptable aux cursus en supply chain, gestion de production, génie industriel et opérations, sous forme de cours complémentaire, de cohorte dédiée ou de format intensif.',
-      },
-      {
-        q: 'Comment déposer ma candidature ?',
-        a: 'Utilisez le formulaire candidat de la page Recrutement. Il permet de transmettre votre CV et vos domaines d’expertise en toute confidentialité.',
-      },
-    ],
   },
 
   quote: 'Des projets concrets commencent souvent par une simple conversation.',

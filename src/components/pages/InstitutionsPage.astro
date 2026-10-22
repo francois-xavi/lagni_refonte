@@ -23,6 +23,7 @@ import type { LordIconName } from '../LordIcon.astro';
 import { href, type Lang } from '../../i18n/routes';
 import { useTranslations, usePages } from '../../i18n/utils';
 import { publicImage } from '../../lib/assets';
+import { getFaq } from '../../lib/faq';
 
 interface Props {
   lang: Lang;
@@ -239,7 +240,7 @@ const pilotLords: LordIconName[] = ['target', 'school', 'checklist', 'refresh', 
   eyebrow={p.faq.eyebrow}
   title={p.faq.title}
   lead={p.faq.lead}
-  items={p.faq.items}
+  items={getFaq('institutions', lang)}
   wideAside
 >
   <FormCard slot="aside" lord="school" eyebrow={p.formCard.eyebrow} title={p.formIntro.title} body={p.formIntro.body}>

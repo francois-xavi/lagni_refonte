@@ -224,48 +224,6 @@ export const institutions = {
     eyebrow: 'FAQ',
     lead: 'The questions institutions ask most often before launching a cohort.',
     title: 'Your questions, answered',
-    items: [
-      {
-        q: 'What academic level do you recommend?',
-        a: 'The programme suits final-year undergraduate, master’s or advanced technical students in supply chain, industrial engineering, operations or information systems. Content can be adjusted to the group’s level.',
-      },
-      {
-        q: 'Do students need to know SAP already?',
-        a: 'No. The programme starts with the fundamentals of an ERP and of SAP S/4HANA before moving into production processes.',
-      },
-      {
-        q: 'How many students per cohort?',
-        a: 'We recommend starting with a smaller group — up to around fifteen participants — to protect the quality of the hands-on support.',
-      },
-      {
-        q: 'Can it be delivered in the evening or at weekends?',
-        a: 'Yes. The schedule is set with the institution and can adapt to the constraints of the programme and the students.',
-      },
-      {
-        q: 'Can it be fully remote?',
-        a: 'Yes. Sessions are delivered live with the trainer. On-site or hybrid delivery is possible where conditions allow.',
-      },
-      {
-        q: 'How do students access the SAP resources?',
-        a: 'The programme draws on official SAP Learning resources. Access arrangements are confirmed before each cohort begins, as they depend on the conditions in force at SAP.',
-      },
-      {
-        q: 'Is an SAP certification included?',
-        a: 'No. SAP certifications are issued exclusively by SAP, under its own terms and exams. The training builds the knowledge that supports such a path.',
-      },
-      {
-        q: 'Can the programme be adapted to our curriculum?',
-        a: 'Yes. Content, duration and level can all be adjusted to your teaching objectives and to the existing programme.',
-      },
-      {
-        q: 'How do we organize a pilot cohort?',
-        a: 'We define the scope, the target audience, the schedule and the evaluation criteria together, then refine the programme before any wider rollout.',
-      },
-      {
-        q: 'What are the technical requirements?',
-        a: 'One computer per participant, a stable internet connection and a headset. Nothing needs to be installed locally.',
-      },
-    ],
   },
 
   formIntro: {

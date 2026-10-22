@@ -1,0 +1,92 @@
+[
+  {
+    "fr": {
+      "q": "Faut-il déjà connaître SAP ?",
+      "a": "Non. Le parcours démarre par les concepts fondamentaux de SAP S/4HANA et de la logique ERP avant d’aborder les processus de production."
+    },
+    "en": {
+      "q": "Do I need to know SAP already?",
+      "a": "No. The programme starts with the fundamentals of SAP S/4HANA and ERP logic before moving into production processes."
+    }
+  },
+  {
+    "fr": {
+      "q": "Faut-il avoir une expérience en production ?",
+      "a": "Ce n’est pas obligatoire. Une familiarité avec les opérations, la supply chain ou la gestion industrielle facilite la progression, mais les notions métier nécessaires sont expliquées pendant la formation."
+    },
+    "en": {
+      "q": "Do I need production experience?",
+      "a": "It is not required. Familiarity with operations, supply chain or industrial management helps, but the business concepts you need are explained along the way."
+    }
+  },
+  {
+    "fr": {
+      "q": "La formation est-elle à distance ?",
+      "a": "Les séances sont données à distance, en direct avec le formateur. Une formule sur site peut être envisagée pour un groupe ou un établissement."
+    },
+    "en": {
+      "q": "Is the training delivered remotely?",
+      "a": "Sessions are delivered remotely, live with the trainer. On-site delivery can be arranged for a group or an institution."
+    }
+  },
+  {
+    "fr": {
+      "q": "Aurai-je accès à un environnement SAP ?",
+      "a": "Le parcours inclut des démonstrations et des exercices dans SAP. Les modalités exactes d’accès sont précisées avant le démarrage de chaque cohorte, car elles dépendent des conditions en vigueur au moment de la session."
+    },
+    "en": {
+      "q": "Will I have access to an SAP environment?",
+      "a": "The programme includes demonstrations and exercises in SAP. Exact access arrangements are confirmed before each cohort starts, as they depend on the conditions in force at that time."
+    }
+  },
+  {
+    "fr": {
+      "q": "La certification SAP est-elle comprise ?",
+      "a": "Non. La certification SAP est délivrée exclusivement par SAP, selon ses propres conditions et examens. Notre formation développe les connaissances utiles à cette démarche, sans s’y substituer."
+    },
+    "en": {
+      "q": "Is SAP certification included?",
+      "a": "No. SAP certification is issued exclusively by SAP, under its own terms and exams. Our training builds the knowledge that supports that path, but does not replace it."
+    }
+  },
+  {
+    "fr": {
+      "q": "Combien de temps dure le programme ?",
+      "a": "{hours} heures de formation réparties en {sessions} séances de {sessionHours} heures, suivies d’une période d’accompagnement."
+    },
+    "en": {
+      "q": "How long is the programme?",
+      "a": "{hours} hours of training across {sessions} sessions of two hours, followed by a period of ongoing support."
+    }
+  },
+  {
+    "fr": {
+      "q": "Quel accompagnement est proposé après les {hours} heures ?",
+      "a": "Un accompagnement structuré : sessions collectives de questions et de révision, points individuels et accès à une communauté d’échange entre participants."
+    },
+    "en": {
+      "q": "What support is offered after the {hours} hours?",
+      "a": "Structured follow-up: group question and review sessions, individual check-ins, and access to a community of fellow participants."
+    }
+  },
+  {
+    "fr": {
+      "q": "Quels sont les prérequis techniques ?",
+      "a": "Un ordinateur, une connexion internet stable et un casque. Aucun logiciel particulier n’est à installer localement."
+    },
+    "en": {
+      "q": "What do I need technically?",
+      "a": "A computer, a stable internet connection and a headset. Nothing needs to be installed locally."
+    }
+  },
+  {
+    "fr": {
+      "q": "La formation peut-elle être organisée pour une école ou une entreprise ?",
+      "a": "Oui. Une cohorte dédiée peut être organisée avec un calendrier et un contenu adaptés. Contactez-nous pour discuter du format."
+    },
+    "en": {
+      "q": "Can it be organized for a school or a company?",
+      "a": "Yes. A dedicated cohort can be arranged with an adapted schedule and content. Get in touch to discuss the format."
+    }
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "fr": {
+      "q": "Puis-je suivre la formation SAP PP à distance ?",
+      "a": "Oui. Les séances sont données à distance, en direct avec le formateur. Une formule sur site peut être envisagée pour un groupe ou un établissement."
+    },
+    "en": {
+      "q": "Can I take the SAP PP training remotely?",
+      "a": "Yes. Sessions are delivered remotely, live with the trainer. On-site delivery can be arranged for a group or an institution."
+    }
+  },
+  {
+    "fr": {
+      "q": "Proposez-vous vos services hors du Canada ?",
+      "a": "Oui. Lagni Consulting collabore avec des professionnels et des organisations au Canada, en Europe et en Afrique. Les formations à distance sont accessibles depuis ces marchés."
+    },
+    "en": {
+      "q": "Do you work outside Canada?",
+      "a": "Yes. Lagni Consulting works with professionals and organizations in Canada, Europe and Africa. Remote training is accessible from all of these markets."
+    }
+  },
+  {
+    "fr": {
+      "q": "Travaillez-vous avec les établissements d’enseignement ?",
+      "a": "Oui. Nous proposons un programme adaptable aux cursus en supply chain, gestion de production, génie industriel et opérations, sous forme de cours complémentaire, de cohorte dédiée ou de format intensif."
+    },
+    "en": {
+      "q": "Do you work with educational institutions?",
+      "a": "Yes. We offer a programme that adapts to supply chain, production management, industrial engineering and operations curricula — as a complementary course, a dedicated cohort or an intensive format."
+    }
+  },
+  {
+    "fr": {
+      "q": "Comment déposer ma candidature ?",
+      "a": "Utilisez le formulaire candidat de la page Recrutement. Il permet de transmettre votre CV et vos domaines d’expertise en toute confidentialité."
+    },
+    "en": {
+      "q": "How do I submit my application?",
+      "a": "Use the candidate form on the Recruitment page. It lets you share your résumé and areas of expertise confidentially."
+    }
+  }
+]

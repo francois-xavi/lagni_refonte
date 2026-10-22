@@ -232,48 +232,6 @@ export const institutions = {
     eyebrow: 'FAQ',
     lead: 'Les questions que se posent le plus souvent les établissements avant de lancer une cohorte.',
     title: 'Vos questions, nos réponses',
-    items: [
-      {
-        q: 'Quel niveau académique est recommandé ?',
-        a: 'Le programme convient à des étudiants de fin de baccalauréat, de maîtrise ou de programmes techniques avancés en supply chain, génie industriel, opérations ou systèmes d’information. Le contenu peut être ajusté au niveau du groupe.',
-      },
-      {
-        q: 'Les étudiants doivent-ils déjà connaître SAP ?',
-        a: 'Non. Le parcours commence par les concepts fondamentaux d’un ERP et de SAP S/4HANA avant d’aborder les processus de production.',
-      },
-      {
-        q: 'Combien d’étudiants par cohorte ?',
-        a: 'Nous recommandons de démarrer avec un groupe restreint — jusqu’à une quinzaine de participants — afin de préserver la qualité de l’accompagnement pratique.',
-      },
-      {
-        q: 'La formation peut-elle être donnée le soir ou la fin de semaine ?',
-        a: 'Oui. Le calendrier est défini avec l’établissement et peut s’adapter aux contraintes du programme et des étudiants.',
-      },
-      {
-        q: 'Peut-elle être entièrement à distance ?',
-        a: 'Oui. Les séances se donnent en direct avec le formateur. Une formule sur site ou hybride est possible selon les conditions.',
-      },
-      {
-        q: 'Comment les étudiants accèdent-ils aux ressources SAP ?',
-        a: 'Le parcours s’appuie sur les ressources officielles SAP Learning. Les modalités d’accès sont confirmées avant le démarrage de chaque cohorte, car elles dépendent des conditions en vigueur chez SAP.',
-      },
-      {
-        q: 'Une certification SAP est-elle incluse ?',
-        a: 'Non. Les certifications SAP sont délivrées exclusivement par SAP, selon ses propres conditions et examens. La formation développe les connaissances utiles à un tel parcours.',
-      },
-      {
-        q: 'Le programme peut-il être adapté à notre cursus ?',
-        a: 'Oui. Le contenu, la durée et le niveau peuvent être ajustés en fonction de vos objectifs pédagogiques et du programme existant.',
-      },
-      {
-        q: 'Comment organiser une cohorte pilote ?',
-        a: 'Nous définissons ensemble le cadrage, le public visé, le calendrier et les critères d’évaluation, puis nous ajustons le programme avant un éventuel déploiement plus large.',
-      },
-      {
-        q: 'Quels sont les prérequis techniques ?',
-        a: 'Un ordinateur par participant, une connexion internet stable et un casque. Aucun logiciel particulier n’est à installer localement.',
-      },
-    ],
   },
 
   formIntro: {

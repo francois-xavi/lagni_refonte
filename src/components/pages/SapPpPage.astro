@@ -21,6 +21,7 @@ import type { LordIconName } from '../LordIcon.astro';
 import { href, contactHref, type Lang } from '../../i18n/routes';
 import { useTranslations, usePages } from '../../i18n/utils';
 import { publicImage } from '../../lib/assets';
+import { getFaq } from '../../lib/faq';
 
 interface Props {
   lang: Lang;
@@ -217,7 +218,7 @@ const pathRoutes = ['contact', 'institutions'] as const;
   }))}
 />
 
-<FaqSplit id="faq-title" eyebrow={p.faq.eyebrow} title={p.faq.title} lead={p.faq.lead} items={p.faq.items}>
+<FaqSplit id="faq-title" eyebrow={p.faq.eyebrow} title={p.faq.title} lead={p.faq.lead} items={getFaq('sapPp', lang)}>
   <div slot="aside" class="testi">
     {
       p.testimonials.items.length > 0 ? (

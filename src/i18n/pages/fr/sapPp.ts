@@ -261,44 +261,6 @@ export const sapPp = {
     eyebrow: 'FAQ',
     lead: 'Les réponses aux questions les plus fréquentes sur le parcours, l’accès à SAP et la certification.',
     title: 'Vos questions, nos réponses',
-    items: [
-      {
-        q: 'Faut-il déjà connaître SAP ?',
-        a: 'Non. Le parcours démarre par les concepts fondamentaux de SAP S/4HANA et de la logique ERP avant d’aborder les processus de production.',
-      },
-      {
-        q: 'Faut-il avoir une expérience en production ?',
-        a: 'Ce n’est pas obligatoire. Une familiarité avec les opérations, la supply chain ou la gestion industrielle facilite la progression, mais les notions métier nécessaires sont expliquées pendant la formation.',
-      },
-      {
-        q: 'La formation est-elle à distance ?',
-        a: 'Les séances sont données à distance, en direct avec le formateur. Une formule sur site peut être envisagée pour un groupe ou un établissement.',
-      },
-      {
-        q: 'Aurai-je accès à un environnement SAP ?',
-        a: 'Le parcours inclut des démonstrations et des exercices dans SAP. Les modalités exactes d’accès sont précisées avant le démarrage de chaque cohorte, car elles dépendent des conditions en vigueur au moment de la session.',
-      },
-      {
-        q: 'La certification SAP est-elle comprise ?',
-        a: 'Non. La certification SAP est délivrée exclusivement par SAP, selon ses propres conditions et examens. Notre formation développe les connaissances utiles à cette démarche, sans s’y substituer.',
-      },
-      {
-        q: 'Combien de temps dure le programme ?',
-        a: '{hours} heures de formation réparties en {sessions} séances de {sessionHours} heures, suivies d’une période d’accompagnement.',
-      },
-      {
-        q: 'Quel accompagnement est proposé après les {hours} heures ?',
-        a: 'Un accompagnement structuré : sessions collectives de questions et de révision, points individuels et accès à une communauté d’échange entre participants.',
-      },
-      {
-        q: 'Quels sont les prérequis techniques ?',
-        a: 'Un ordinateur, une connexion internet stable et un casque. Aucun logiciel particulier n’est à installer localement.',
-      },
-      {
-        q: 'La formation peut-elle être organisée pour une école ou une entreprise ?',
-        a: 'Oui. Une cohorte dédiée peut être organisée avec un calendrier et un contenu adaptés. Contactez-nous pour discuter du format.',
-      },
-    ],
   },
 
   finalCta: {

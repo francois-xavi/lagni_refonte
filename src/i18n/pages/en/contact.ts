@@ -98,24 +98,6 @@ export const contact = {
     eyebrow: 'FAQ',
     title: 'Frequently asked questions',
     lead: 'Quick answers to the questions we hear most often.',
-    items: [
-      {
-        q: 'Can I take the SAP PP training remotely?',
-        a: 'Yes. Sessions are delivered remotely, live with the trainer. On-site delivery can be arranged for a group or an institution.',
-      },
-      {
-        q: 'Do you work outside Canada?',
-        a: 'Yes. Lagni Consulting works with professionals and organizations in Canada, Europe and Africa. Remote training is accessible from all of these markets.',
-      },
-      {
-        q: 'Do you work with educational institutions?',
-        a: 'Yes. We offer a programme that adapts to supply chain, production management, industrial engineering and operations curricula — as a complementary course, a dedicated cohort or an intensive format.',
-      },
-      {
-        q: 'How do I submit my application?',
-        a: 'Use the candidate form on the Recruitment page. It lets you share your résumé and areas of expertise confidentially.',
-      },
-    ],
   },
 
   quote: 'Concrete projects often start with a simple conversation.',

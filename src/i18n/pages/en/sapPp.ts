@@ -251,44 +251,6 @@ export const sapPp = {
     eyebrow: 'FAQ',
     lead: 'Answers to the most common questions about the programme, SAP access and certification.',
     title: 'Your questions, answered',
-    items: [
-      {
-        q: 'Do I need to know SAP already?',
-        a: 'No. The programme starts with the fundamentals of SAP S/4HANA and ERP logic before moving into production processes.',
-      },
-      {
-        q: 'Do I need production experience?',
-        a: 'It is not required. Familiarity with operations, supply chain or industrial management helps, but the business concepts you need are explained along the way.',
-      },
-      {
-        q: 'Is the training delivered remotely?',
-        a: 'Sessions are delivered remotely, live with the trainer. On-site delivery can be arranged for a group or an institution.',
-      },
-      {
-        q: 'Will I have access to an SAP environment?',
-        a: 'The programme includes demonstrations and exercises in SAP. Exact access arrangements are confirmed before each cohort starts, as they depend on the conditions in force at that time.',
-      },
-      {
-        q: 'Is SAP certification included?',
-        a: 'No. SAP certification is issued exclusively by SAP, under its own terms and exams. Our training builds the knowledge that supports that path, but does not replace it.',
-      },
-      {
-        q: 'How long is the programme?',
-        a: '{hours} hours of training across {sessions} sessions of two hours, followed by a period of ongoing support.',
-      },
-      {
-        q: 'What support is offered after the {hours} hours?',
-        a: 'Structured follow-up: group question and review sessions, individual check-ins, and access to a community of fellow participants.',
-      },
-      {
-        q: 'What do I need technically?',
-        a: 'A computer, a stable internet connection and a headset. Nothing needs to be installed locally.',
-      },
-      {
-        q: 'Can it be organized for a school or a company?',
-        a: 'Yes. A dedicated cohort can be arranged with an adapted schedule and content. Get in touch to discuss the format.',
-      },
-    ],
   },
 
   finalCta: {
