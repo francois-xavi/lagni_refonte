@@ -278,3 +278,24 @@ Newcomer support, legacy recruitment pages, `/blog/*`, and the old `/fr` prefix.
 - [ ] A downloadable SAP PP syllabus PDF (the "Recevoir le programme" CTA currently
       routes to the contact form)
 - [ ] Real institution partner logos, once agreements exist
+
+---
+
+## 🟡 Chiffres commerciaux — source unique
+
+Les cinq chiffres du programme vivent désormais dans
+`src/content/settings/site.json` : heures, séances, durée de séance, mois
+d'accompagnement, participants maximum. Les modifier à cet endroit les met à
+jour sur les 44 emplacements du site, FR et EN. Une valeur absente ou négative
+**fait échouer le build**.
+
+C'est le **nombre** qui est stocké, jamais la phrase : la copie garde sa propre
+grammaire autour d'un jeton (`{hours} heures` en français, `a {hours}-hour
+programme` en anglais, où la forme adjectivale est au singulier).
+
+- [ ] **Une exception connue** : dans `src/i18n/pages/en/sapPp.ts`, la réponse
+      FAQ « across 20 sessions of **two** hours » écrit la durée en toutes
+      lettres. Un jeton numérique ne peut pas produire « two ». Si
+      `sessionHours` change un jour, **cette phrase doit être corrigée à la
+      main** — ou reformulée en chiffres, ce qui modifierait le texte publié et
+      demande donc l'accord du client.

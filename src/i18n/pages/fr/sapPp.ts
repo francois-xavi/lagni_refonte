@@ -2,7 +2,7 @@ export const sapPp = {
   seo: {
     title: 'Formation SAP S/4HANA Production Planning (PP) — Lagni Consulting',
     description:
-      'Un parcours de 40 heures en 20 séances pour comprendre et pratiquer les processus de planification et d’exécution de la production dans SAP S/4HANA.',
+      'Un parcours de {hours} heures en {sessions} séances pour comprendre et pratiquer les processus de planification et d’exécution de la production dans SAP S/4HANA.',
   },
 
   hero: {
@@ -10,10 +10,10 @@ export const sapPp = {
     title: 'Maîtrisez SAP S/4HANA Production Planning',
     lead: 'Comprenez les processus de planification et d’exécution de la production. Pratiquez dans SAP. Préparez votre progression professionnelle et votre parcours de certification.',
     meta: [
-      { label: '40 heures', sub: 'de formation', icon: 'clock' },
-      { label: '20 séances', sub: '× 2 heures', icon: 'calendar' },
+      { label: '{hours} heures', sub: 'de formation', icon: 'clock' },
+      { label: '{sessions} séances', sub: '× {sessionHours} heures', icon: 'calendar' },
       { label: 'Exercices pratiques', sub: '', icon: 'screen' },
-      { label: 'Accompagnement', sub: 'sur 12 mois', icon: 'people' },
+      { label: 'Accompagnement', sub: 'sur {supportMonths} mois', icon: 'people' },
     ],
     ctaPrimary: 'Recevoir le programme',
     ctaSecondary: 'Découvrir le contenu',
@@ -29,8 +29,8 @@ export const sapPp = {
     matchLabel: 'Pratiqué dans SAP',
     profileBadge: '40h',
     profileLabel: 'Parcours structuré',
-    profileTitle: '5 phases · 20 séances',
-    profileStatus: 'Accompagnement 12 mois',
+    profileTitle: '5 phases · {sessions} séances',
+    profileStatus: 'Accompagnement {supportMonths} mois',
   },
 
   proof: {
@@ -85,7 +85,7 @@ export const sapPp = {
 
   curriculum: {
     eyebrow: 'Programme',
-    title: 'Le parcours SAP PP — 40 heures',
+    title: 'Le parcours SAP PP — {hours} heures',
     lead: 'Un programme structuré en 5 phases, basé sur les ressources officielles SAP et adapté aux réalités métier.',
     phases: [
       {
@@ -184,8 +184,8 @@ export const sapPp = {
     title: 'L’accompagnement continue',
     lead: 'La formation se termine. L’accompagnement continue.',
     items: [
-      '40 heures de formation structurée',
-      '12 mois d’accompagnement',
+      '{hours} heures de formation structurée',
+      '{supportMonths} mois d’accompagnement',
       'Sessions collectives (questions, révisions, approfondissement)',
       'Accompagnement individuel (points personnalisés)',
       'Communauté d’échange entre participants',
@@ -215,9 +215,9 @@ export const sapPp = {
         title: 'Particuliers',
         subtitle: 'Rejoindre une cohorte',
         items: [
-          'Formation 40 heures',
+          'Formation {hours} heures',
           'Exercices pratiques',
-          'Accompagnement 12 mois',
+          'Accompagnement {supportMonths} mois',
           'Communauté d’échange',
           'Préparation à la suite du parcours SAP',
         ],
@@ -284,10 +284,10 @@ export const sapPp = {
       },
       {
         q: 'Combien de temps dure le programme ?',
-        a: '40 heures de formation réparties en 20 séances de 2 heures, suivies d’une période d’accompagnement.',
+        a: '{hours} heures de formation réparties en {sessions} séances de {sessionHours} heures, suivies d’une période d’accompagnement.',
       },
       {
-        q: 'Quel accompagnement est proposé après les 40 heures ?',
+        q: 'Quel accompagnement est proposé après les {hours} heures ?',
         a: 'Un accompagnement structuré : sessions collectives de questions et de révision, points individuels et accès à une communauté d’échange entre participants.',
       },
       {

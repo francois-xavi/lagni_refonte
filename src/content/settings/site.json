@@ -1,0 +1,16 @@
+{
+  "figures": {
+    "hours": 40,
+    "sessions": 20,
+    "sessionHours": 2,
+    "supportMonths": 12,
+    "maxParticipants": 15
+  },
+  "contact": {
+    "email": "info@lagniconsulting.ca",
+    "phone": "+1 418 570 0429",
+    "phoneDisplay": "+1 418 570 0429",
+    "locality": "Québec, Canada",
+    "linkedin": "https://www.linkedin.com/company/lagni-consulting/"
+  }
+}

@@ -24,7 +24,7 @@ export const training = {
     matchLabel: 'Formation vedette',
     profileBadge: '40h',
     profileLabel: 'Parcours structuré',
-    profileTitle: '20 séances × 2 heures',
+    profileTitle: '{sessions} séances × {sessionHours} heures',
     profileStatus: 'Exercices pratiques',
   },
 
@@ -70,8 +70,8 @@ export const training = {
     tagline: 'De la demande client à l’exécution de la production.',
     body: 'Développez une compréhension structurée des processus de planification et d’exécution de la production dans SAP S/4HANA. Le parcours associe concepts, processus end-to-end, démonstrations et exercices pratiques.',
     meta: [
-      { label: '40 heures', icon: 'clock' },
-      { label: '20 séances × 2 heures', icon: 'calendar' },
+      { label: '{hours} heures', icon: 'clock' },
+      { label: '{sessions} séances × {sessionHours} heures', icon: 'calendar' },
       { label: 'Exercices pratiques', icon: 'screen' },
       { label: 'Accompagnement personnalisé', icon: 'people' },
     ],

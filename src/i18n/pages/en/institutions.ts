@@ -17,14 +17,14 @@ export const institutions = {
     panelTitle: 'SAP S/4HANA — Production Planning',
     script: 'Today’s skills for tomorrow',
     trustItems: [
-      { icon: 'clock', label: '40 hours of training' },
+      { icon: 'clock', label: '{hours} hours of training' },
       { icon: 'school', label: 'Dedicated cohort' },
       { icon: 'screen', label: 'Remote or on site' },
     ],
     matchLabel: 'Proposed programme',
     profileBadge: '15',
     profileLabel: 'Pilot cohort',
-    profileTitle: 'Up to 15 participants',
+    profileTitle: 'Up to {maxParticipants} participants',
   },
 
   proof: {
@@ -89,8 +89,8 @@ export const institutions = {
     subtitle: 'SAP S/4HANA Production Planning',
     body: 'A structured programme that shows students how the core concepts of production planning and execution are represented inside a modern ERP.',
     meta: [
-      { label: '40 hours', sub: 'of training', icon: 'clock' },
-      { label: '20 sessions', sub: '× 2 hours', icon: 'calendar' },
+      { label: '{hours} hours', sub: 'of training', icon: 'clock' },
+      { label: '{sessions} sessions', sub: '× {sessionHours} hours', icon: 'calendar' },
       { label: 'Hands-on exercises', sub: '', icon: 'screen' },
       { label: 'End-to-end cases', sub: '', icon: 'people' },
     ],
@@ -109,7 +109,7 @@ export const institutions = {
     title: 'How can it fit into the programme?',
     lead: 'A format that adapts to your organization.',
     items: [
-      { icon: 'calendar', title: 'Complementary course', body: '40 hours spread across the term.' },
+      { icon: 'calendar', title: 'Complementary course', body: '{hours} hours spread across the term.' },
       { icon: 'refresh', title: 'Intensive programme', body: 'Training condensed into a shorter period.' },
       { icon: 'people', title: 'Dedicated cohort', body: 'A programme reserved for the institution’s students.' },
       { icon: 'star', title: 'Extracurricular track', body: 'Training offered alongside the regular curriculum.' },
@@ -199,7 +199,7 @@ export const institutions = {
     title: 'Start with a pilot cohort',
     body: 'Want to gauge interest before a wider rollout? We can define a first cohort together — the teaching objectives, the schedule and the evaluation criteria.',
     steps: ['Scoping', 'Pilot cohort', 'Evaluation', 'Adjustment', 'Rollout'],
-    cohortNote: 'Target cohort: up to 15 participants, depending on the operating model chosen.',
+    cohortNote: 'Target cohort: up to {maxParticipants} participants, depending on the operating model chosen.',
   },
 
   partners: {

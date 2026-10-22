@@ -3,10 +3,25 @@ import { fr, type FrDict, type Widen } from './fr';
 import { en } from './en';
 import { pagesFr } from './pages/fr';
 import { pagesEn } from './pages/en';
+import { fillDeep } from '../lib/settings';
+
+/**
+ * Figures are interpolated once per language, not per component: `usePages` is
+ * called from almost every frontmatter block, and the dictionaries are large.
+ */
+const cache = new Map<string, unknown>();
+function filled<T>(key: string, dict: T): T {
+  let hit = cache.get(key);
+  if (!hit) {
+    hit = fillDeep(dict);
+    cache.set(key, hit);
+  }
+  return hit as T;
+}
 
 /** Shared strings: nav, footer, forms, proof blocks. */
 export function useTranslations(lang: Lang): FrDict {
-  return (lang === 'fr' ? fr : en) as FrDict;
+  return filled(`t-${lang}`, (lang === 'fr' ? fr : en) as FrDict);
 }
 
 /**
@@ -16,7 +31,7 @@ export function useTranslations(lang: Lang): FrDict {
 export type Pages = Widen<typeof pagesFr>;
 
 export function usePages(lang: Lang): Pages {
-  return (lang === 'fr' ? pagesFr : pagesEn) as Pages;
+  return filled(`p-${lang}`, (lang === 'fr' ? pagesFr : pagesEn) as Pages);
 }
 
 export function otherLang(lang: Lang): Lang {

@@ -1,8 +1,8 @@
 /**
  * Site-wide configuration.
  *
- * ⚠ BEFORE LAUNCH: set FORM_ENDPOINT to the real form provider URL.
- * See CONTENT-TO-REPLACE.md.
+ * Forms post to form-service/ via /api/form; see CONTENT-TO-REPLACE.md for the
+ * checks still owed before launch.
  */
 
 /**
@@ -17,11 +17,9 @@ export const FORM_CONFIGURED = !FORM_ENDPOINT.startsWith('REPLACE_ME');
 
 export const SITE_URL = 'https://lagniconsulting.ca';
 
-/** Verified contact details only — no residential or unconfirmed address. */
-export const CONTACT = {
-  email: 'info@lagniconsulting.ca',
-  phone: '+1 418 570 0429',
-  phoneDisplay: '+1 418 570 0429',
-  locality: 'Québec, Canada',
-  linkedin: 'https://www.linkedin.com/company/lagni-consulting/',
-} as const;
+/**
+ * Verified contact details only — no residential or unconfirmed address.
+ * The values live in src/content/settings/site.json so the dashboard can edit
+ * them; this re-export keeps every existing import working unchanged.
+ */
+export { CONTACT } from './lib/settings';

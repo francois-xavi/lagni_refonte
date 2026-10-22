@@ -24,7 +24,7 @@ export const training = {
     matchLabel: 'Featured training',
     profileBadge: '40h',
     profileLabel: 'Structured path',
-    profileTitle: '20 sessions × 2 hours',
+    profileTitle: '{sessions} sessions × {sessionHours} hours',
     profileStatus: 'Hands-on exercises',
   },
 
@@ -70,8 +70,8 @@ export const training = {
     tagline: 'From customer demand to production execution.',
     body: 'Build a structured understanding of production planning and execution in SAP S/4HANA. The programme combines concepts, end-to-end processes, demonstrations and hands-on exercises.',
     meta: [
-      { label: '40 hours', icon: 'clock' },
-      { label: '20 sessions × 2 hours', icon: 'calendar' },
+      { label: '{hours} hours', icon: 'clock' },
+      { label: '{sessions} sessions × {sessionHours} hours', icon: 'calendar' },
       { label: 'Hands-on exercises', icon: 'screen' },
       { label: 'Personal support', icon: 'people' },
     ],

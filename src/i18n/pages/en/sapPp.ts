@@ -2,7 +2,7 @@ export const sapPp = {
   seo: {
     title: 'SAP S/4HANA Production Planning (PP) training — Lagni Consulting',
     description:
-      'A 40-hour programme across 20 sessions to understand and practise production planning and execution processes in SAP S/4HANA.',
+      'A {hours}-hour programme across {sessions} sessions to understand and practise production planning and execution processes in SAP S/4HANA.',
   },
 
   hero: {
@@ -10,10 +10,10 @@ export const sapPp = {
     title: 'Master SAP S/4HANA Production Planning',
     lead: 'Understand the planning and execution processes behind production. Practise inside SAP. Prepare your professional progression and your certification path.',
     meta: [
-      { label: '40 hours', sub: 'of training', icon: 'clock' },
-      { label: '20 sessions', sub: '× 2 hours', icon: 'calendar' },
+      { label: '{hours} hours', sub: 'of training', icon: 'clock' },
+      { label: '{sessions} sessions', sub: '× {sessionHours} hours', icon: 'calendar' },
       { label: 'Hands-on exercises', sub: '', icon: 'screen' },
-      { label: 'Support', sub: 'for 12 months', icon: 'people' },
+      { label: 'Support', sub: 'for {supportMonths} months', icon: 'people' },
     ],
     ctaPrimary: 'Request the syllabus',
     ctaSecondary: 'See what it covers',
@@ -29,8 +29,8 @@ export const sapPp = {
     matchLabel: 'Practised in SAP',
     profileBadge: '40h',
     profileLabel: 'Structured programme',
-    profileTitle: '5 phases · 20 sessions',
-    profileStatus: '12 months of support',
+    profileTitle: '5 phases · {sessions} sessions',
+    profileStatus: '{supportMonths} months of support',
   },
 
   proof: {
@@ -85,7 +85,7 @@ export const sapPp = {
 
   curriculum: {
     eyebrow: 'Programme',
-    title: 'The SAP PP programme — 40 hours',
+    title: 'The SAP PP programme — {hours} hours',
     lead: 'Five structured phases, based on official SAP resources and grounded in real business practice.',
     phases: [
       {
@@ -180,8 +180,8 @@ export const sapPp = {
     title: 'The support continues',
     lead: 'The training ends. The support continues.',
     items: [
-      '40 hours of structured training',
-      '12 months of follow-up',
+      '{hours} hours of structured training',
+      '{supportMonths} months of follow-up',
       'Group sessions (questions, review, deeper dives)',
       'Individual check-ins',
       'A community of fellow participants',
@@ -211,9 +211,9 @@ export const sapPp = {
         title: 'Individuals',
         subtitle: 'Join a cohort',
         items: [
-          '40 hours of training',
+          '{hours} hours of training',
           'Hands-on exercises',
-          '12 months of support',
+          '{supportMonths} months of support',
           'Participant community',
           'Preparation for the next steps in your SAP path',
         ],
@@ -274,10 +274,10 @@ export const sapPp = {
       },
       {
         q: 'How long is the programme?',
-        a: '40 hours of training across 20 sessions of two hours, followed by a period of ongoing support.',
+        a: '{hours} hours of training across {sessions} sessions of two hours, followed by a period of ongoing support.',
       },
       {
-        q: 'What support is offered after the 40 hours?',
+        q: 'What support is offered after the {hours} hours?',
         a: 'Structured follow-up: group question and review sessions, individual check-ins, and access to a community of fellow participants.',
       },
       {

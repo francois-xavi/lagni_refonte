@@ -17,14 +17,14 @@ export const institutions = {
     panelTitle: 'SAP S/4HANA — Production Planning',
     script: 'Des compétences d’aujourd’hui pour demain',
     trustItems: [
-      { icon: 'clock', label: '40 heures de formation' },
+      { icon: 'clock', label: '{hours} heures de formation' },
       { icon: 'school', label: 'Cohorte dédiée' },
       { icon: 'screen', label: 'À distance ou sur site' },
     ],
     matchLabel: 'Programme proposé',
     profileBadge: '15',
     profileLabel: 'Cohorte pilote',
-    profileTitle: 'Jusqu’à 15 participants',
+    profileTitle: 'Jusqu’à {maxParticipants} participants',
   },
 
   proof: {
@@ -89,8 +89,8 @@ export const institutions = {
     subtitle: 'SAP S/4HANA Production Planning',
     body: 'Un parcours structuré permettant aux étudiants de comprendre comment les principaux concepts de planification et d’exécution de la production sont représentés dans un ERP moderne.',
     meta: [
-      { label: '40 heures', sub: 'de formation', icon: 'clock' },
-      { label: '20 séances', sub: '× 2 heures', icon: 'calendar' },
+      { label: '{hours} heures', sub: 'de formation', icon: 'clock' },
+      { label: '{sessions} séances', sub: '× {sessionHours} heures', icon: 'calendar' },
       { label: 'Exercices pratiques', sub: '', icon: 'screen' },
       { label: 'Cas end-to-end', sub: '', icon: 'people' },
     ],
@@ -112,7 +112,7 @@ export const institutions = {
       {
         icon: 'calendar',
         title: 'Cours complémentaire',
-        body: '40 heures réparties sur le semestre.',
+        body: '{hours} heures réparties sur le semestre.',
       },
       { icon: 'refresh', title: 'Programme intensif', body: 'Formation regroupée sur une période plus courte.' },
       { icon: 'people', title: 'Cohorte dédiée', body: 'Programme réservé aux étudiants de l’établissement.' },
@@ -207,7 +207,7 @@ export const institutions = {
     title: 'Commencez par une cohorte pilote',
     body: 'Vous souhaitez évaluer l’intérêt du programme avant un déploiement plus large ? Nous pouvons définir ensemble une première cohorte, les objectifs pédagogiques, le calendrier et les critères d’évaluation.',
     steps: ['Cadrage', 'Cohorte pilote', 'Évaluation', 'Ajustement', 'Déploiement'],
-    cohortNote: 'Cohorte cible : jusqu’à 15 participants, selon le modèle opérationnel retenu.',
+    cohortNote: 'Cohorte cible : jusqu’à {maxParticipants} participants, selon le modèle opérationnel retenu.',
   },
 
   partners: {
