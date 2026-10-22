@@ -6,7 +6,11 @@ import { href, HREFLANG } from '../../i18n/routes';
 import { getResources } from '../../lib/resources';
 
 export async function getStaticPaths() {
-  const entries = await getCollection('resources', (e) => e.id.startsWith('fr/'));
+  // Drafts are never routed: no page is generated for them at all.
+  const entries = await getCollection(
+    'resources',
+    (e) => e.id.startsWith('fr/') && e.data.status === 'published',
+  );
   return entries.map((entry) => ({
     params: { slug: entry.id.replace(/^fr\//, '') },
     props: { entry },

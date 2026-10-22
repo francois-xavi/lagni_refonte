@@ -238,8 +238,13 @@ export const sapPp = {
 
   testimonials: {
     title: 'What participants say',
-    body: 'Testimonials from our participants and partners are coming soon.',
-    placeholder: 'Your testimonial could be here. Join the next cohort!',
+    items: [] as readonly { quote: string; author: string; role: string }[],
+  },
+
+  faqHelp: {
+    title: 'A question before you sign up?',
+    body: 'Write to us — we reply to professional enquiries within one to two business days.',
+    cta: 'Ask your question',
   },
 
   faq: {

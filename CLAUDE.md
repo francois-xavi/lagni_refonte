@@ -111,6 +111,13 @@ src/
   `<Icon class="…">` **must** be wrapped in `:global()`, or it will silently not apply.
 - **Restart `npm run dev` after editing a `<style>` block** — the dev server can
   serve stale scoped CSS.
+- **`compressHTML: false` is deliberate** (`astro.config.mjs`). Astro otherwise
+  strips the whitespace between sibling elements, so a title and its description
+  serialize as "TitreTexte" in copy-paste, crawlers and reading modes even though
+  they render on separate lines. Do not re-enable it.
+- **Drafts never ship.** `getResources()` returns published articles only, and
+  the article routes do not generate a page for a draft. Anything a visitor must
+  not see is removed, not hidden behind a badge.
 
 ---
 

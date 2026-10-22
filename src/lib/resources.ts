@@ -27,12 +27,32 @@ function toPreview(entry: ResourceEntry): ResourcePreview {
   return { slug, ...entry.data };
 }
 
-/** All articles for a language, newest first. */
+/**
+ * Articles that may be shown to the public.
+ *
+ * Anything still marked `status: 'draft'` is written in-house and has NOT been
+ * reviewed by the client, so it must never reach a visitor: it is filtered out
+ * here, which removes it from every listing, the homepage, the article routes
+ * and the sitemap in one place. Flip an article's front matter to
+ * `status: 'published'` to put it online.
+ */
+export function isPublic(r: { status: ResourcePreview['status'] }): boolean {
+  return r.status === 'published';
+}
+
+/** Published articles for a language, newest first. */
 export async function getResources(lang: Lang): Promise<ResourcePreview[]> {
   const all = await getCollection('resources', (e) => splitId(e.id).lang === lang);
   return all
     .map(toPreview)
+    .filter(isPublic)
     .sort((a, b) => b.date.getTime() - a.date.getTime());
+}
+
+/** Every article including drafts — for build-time checks only, never for rendering. */
+export async function getAllResourcesIncludingDrafts(lang: Lang): Promise<ResourcePreview[]> {
+  const all = await getCollection('resources', (e) => splitId(e.id).lang === lang);
+  return all.map(toPreview).sort((a, b) => b.date.getTime() - a.date.getTime());
 }
 
 /** The n most recent articles — used on the homepage. */

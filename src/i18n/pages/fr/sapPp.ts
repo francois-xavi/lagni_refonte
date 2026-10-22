@@ -96,9 +96,9 @@ export const sapPp = {
       },
       {
         phase: 'Phase 2',
-        title: 'Construire les données de base',
+        title: 'Construire les données de base (Master Data)',
         sessions: 'Séances 4 à 7',
-        body: 'Material Master, nomenclatures (BOM), postes de travail (Work Center), gammes (Routing) et Production Version. Comprendre pourquoi la qualité des données conditionne le résultat de la planification.',
+        body: 'Fiche article (Material Master), nomenclatures (BOM), postes de travail (Work Center), gammes (Routing) et version de production (Production Version). Comprendre pourquoi la qualité des données conditionne le résultat de la planification.',
       },
       {
         phase: 'Phase 3',
@@ -240,10 +240,21 @@ export const sapPp = {
     ],
   },
 
+  /**
+   * Aucun témoignage n'est publié tant que des avis réels et autorisés ne sont
+   * pas fournis. Ajoutez-les dans `items` ({ quote, author, role }) et la
+   * section remplacera automatiquement le bloc d'aide ci-dessous.
+   */
   testimonials: {
     title: 'Ils nous font confiance',
-    body: 'Bientôt des témoignages de nos participants et partenaires.',
-    placeholder: 'Votre témoignage pourrait être ici. Rejoignez la prochaine cohorte !',
+    items: [] as readonly { quote: string; author: string; role: string }[],
+  },
+
+  /** Affiché à la place des témoignages tant que `testimonials.items` est vide. */
+  faqHelp: {
+    title: 'Une question avant de vous inscrire ?',
+    body: 'Écrivez-nous : nous répondons aux demandes professionnelles dans un délai de 1 à 2 jours ouvrables.',
+    cta: 'Poser ma question',
   },
 
   faq: {

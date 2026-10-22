@@ -14,7 +14,7 @@ import CtaBand from '../CtaBand.astro';
 import Button from '../Button.astro';
 import Icon from '../Icon.astro';
 import type { LordIconName } from '../LordIcon.astro';
-import { href, type Lang } from '../../i18n/routes';
+import { href, contactHref, type Lang } from '../../i18n/routes';
 import { useTranslations, usePages } from '../../i18n/utils';
 import { getResourcesByCategory } from '../../lib/resources';
 import { publicImage } from '../../lib/assets';
@@ -66,7 +66,7 @@ const pathwayLords: Record<string, LordIconName> = {
   valueCard={{ text: p.hero.script, variant: 'script' }}
 >
   <Button href={href('sapPp', lang)} variant="primary" size="lg">{p.hero.ctaPrimary}</Button>
-  <Button href={href('contact', lang)} variant="ghost" size="lg">{p.hero.ctaSecondary}</Button>
+  <Button href={contactHref(lang, 'formation')} variant="ghost" size="lg">{p.hero.ctaSecondary}</Button>
 </ArtHero>
 
 <ProofBand

@@ -32,6 +32,7 @@ export const en = {
     resources: 'Resources',
     contact: 'Contact',
     thanks: 'Thank you',
+    privacy: 'Privacy',
     headerCta: 'Discuss your project',
     primaryLabel: 'Main navigation',
   },
@@ -57,7 +58,13 @@ export const en = {
     linkedinAria: 'Lagni Consulting on LinkedIn',
     rights: 'All rights reserved.',
     navLabel: 'Footer',
-    solutions: ['SAP S/4HANA', 'Oracle JD Edwards', 'Odoo', 'GoHighLevel', 'Chataap'],
+    solutions: [
+      { label: 'SAP S/4HANA', slug: 'sap' },
+      { label: 'Oracle JD Edwards', slug: 'jde' },
+      { label: 'Odoo', slug: 'odoo' },
+      { label: 'GoHighLevel', slug: 'gohighlevel' },
+      { label: 'Chataap', slug: 'chataap' },
+    ],
   },
 
   forms: {
@@ -66,8 +73,10 @@ export const en = {
     lastName: 'Last name',
     lastNamePlaceholder: 'Your last name',
     name: 'Name',
-    email: 'Work email',
-    emailPlaceholder: 'you@organization.com',
+    email: 'Email',
+    emailPlaceholder: 'you@example.com',
+    emailPro: 'Work email',
+    emailProPlaceholder: 'you@organization.com',
     country: 'Country',
     countryPlaceholder: 'Select a country',
     countryOptions: ['Canada', 'France', 'Belgium', 'Switzerland', 'Côte d’Ivoire', 'Cameroon', 'Senegal', 'Benin', 'Other'],
@@ -155,6 +164,7 @@ export const en = {
     consentCandidate:
       'I agree that Lagni Consulting may keep my résumé and contact details in order to share relevant professional opportunities with me.',
     privacyNote: 'The information you provide is used only to handle your request.',
+    privacyLink: 'Read the privacy policy.',
     confidentialNote:
       'Your information is confidential and used only as part of our recruitment services.',
     candidateNote:

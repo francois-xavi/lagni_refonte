@@ -5,6 +5,14 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://lagniconsulting.ca',
   output: 'static',
+  /**
+   * Astro's HTML compressor strips the whitespace between sibling elements, so
+   * a heading and its paragraph serialize as "TitreTexte" in copy-paste,
+   * crawlers and reading modes even though they render on separate lines.
+   * Keeping the whitespace costs a few KB before gzip and fixes every
+   * occurrence at the source.
+   */
+  compressHTML: false,
   trailingSlash: 'always',
   build: { format: 'directory' },
   integrations: [

@@ -85,7 +85,7 @@ export const about = {
     title: 'Le fondateur',
     tagline: 'Une expertise ERP et une vision orientée impact.',
     body: [
-      'Professionnel des systèmes ERP et de la gestion de projet, Romuald possède plus de 15 années d’expérience dans les environnements Oracle JD Edwards et développe aujourd’hui également une expertise SAP S/4HANA, particulièrement autour des processus de planification et d’exécution de la production.',
+      'Professionnel des systèmes ERP et de la gestion de projet, Romuald compte plus de 15 années d’expérience sur des implantations Oracle JD Edwards. Son expertise SAP S/4HANA porte sur la planification et l’exécution de la production (Production Planning), domaine autour duquel il conçoit et anime la formation SAP PP.',
       'Son parcours couvre l’analyse fonctionnelle, les implantations ERP end-to-end, la coordination de projets, les tests, la formation des utilisateurs et l’accompagnement du changement.',
     ],
     points: [

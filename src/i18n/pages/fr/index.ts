@@ -7,6 +7,7 @@ import { institutions } from './institutions';
 import { about } from './about';
 import { resources } from './resources';
 import { contact } from './contact';
+import { privacy } from './privacy';
 import { thanks, notFound } from './misc';
 
 export const pagesFr = {
@@ -21,6 +22,7 @@ export const pagesFr = {
   contact,
   thanks,
   notFound,
+  privacy,
 } as const;
 
 export type PagesFr = typeof pagesFr;

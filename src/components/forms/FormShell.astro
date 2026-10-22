@@ -10,7 +10,7 @@
  */
 import Icon from '../Icon.astro';
 import Button from '../Button.astro';
-import { FORM_ENDPOINT, FORM_CONFIGURED, CONTACT } from '../../config';
+import { FORM_ENDPOINT, FORM_CONFIGURED, FORM_PROVIDER, CONTACT } from '../../config';
 import { href, type Lang } from '../../i18n/routes';
 import { useTranslations } from '../../i18n/utils';
 
@@ -23,6 +23,8 @@ interface Props {
   consentLabel?: string;
   id?: string;
   class?: string;
+  /** Set when the form carries a file input — Netlify needs multipart then. */
+  hasUpload?: boolean;
 }
 
 const {
@@ -34,10 +36,20 @@ const {
   consentLabel,
   id = 'contactForm',
   class: className = '',
+  hasUpload = false,
 } = Astro.props;
 
 const t = useTranslations(lang);
 const consentText = consentLabel ?? t.forms.consent;
+const isNetlify = FORM_PROVIDER === 'netlify';
+
+// Without JS the browser posts natively: Netlify processes the submission and
+// redirects to `action`; a custom endpoint receives it directly.
+const action = isNetlify
+  ? href('thanks', lang)
+  : FORM_CONFIGURED
+    ? FORM_ENDPOINT
+    : href('thanks', lang);
 ---
 
 <div class:list={['formShell', className]}>
@@ -46,12 +58,18 @@ const consentText = consentLabel ?? t.forms.consent;
 
   <form
     id={id}
+    name={formName}
     class="form"
     method="post"
-    action={FORM_CONFIGURED ? FORM_ENDPOINT : href('thanks', lang)}
+    action={action}
+    enctype={hasUpload ? 'multipart/form-data' : undefined}
     novalidate
+    data-netlify={isNetlify ? 'true' : undefined}
+    netlify-honeypot={isNetlify ? 'website' : undefined}
     data-form
-    data-endpoint={FORM_CONFIGURED ? FORM_ENDPOINT : ''}
+    data-provider={FORM_PROVIDER}
+    data-upload={hasUpload ? 'true' : undefined}
+    data-endpoint={FORM_PROVIDER === 'custom' ? FORM_ENDPOINT : ''}
     data-thanks={href('thanks', lang)}
     data-msg-required={t.forms.errors.required}
     data-msg-email={t.forms.errors.email}
@@ -63,7 +81,8 @@ const consentText = consentLabel ?? t.forms.consent;
     data-msg-sending={t.forms.sending}
     data-submit-label={submitLabel}
   >
-    <input type="hidden" name="form_name" value={formName} />
+    {/* Netlify matches the submission to the form by this exact field name. */}
+    <input type="hidden" name="form-name" value={formName} />
     <input type="hidden" name="locale" value={lang} />
     <input type="hidden" name="started_at" value="" data-timetrap />
 
@@ -89,7 +108,10 @@ const consentText = consentLabel ?? t.forms.consent;
 
     <p class="form__privacy">
       <Icon name="lock" size={15} />
-      <span>{t.forms.privacyNote}</span>
+      <span>
+        {t.forms.privacyNote}{' '}
+        <a href={href('privacy', lang)}>{t.forms.privacyLink}</a>
+      </span>
     </p>
 
     <!-- Announcements for screen readers and visible status messages. -->

@@ -209,6 +209,6 @@ export const recruitment = {
     body: 'Vous recherchez un professionnel ERP, CRM ou transformation numérique ? Vous êtes candidat ? Parlons de vos objectifs.',
     ctaPrimary: 'Confier un mandat',
     ctaSecondary: 'Rejoindre notre réseau',
-    script: 'Des talents des projets un avenir meilleur.',
+    script: 'Des talents. Des projets. Un avenir meilleur.',
   },
 } as const;

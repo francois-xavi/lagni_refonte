@@ -25,8 +25,19 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const p = usePages(lang).resources;
+// `getResources` returns published articles only — drafts never reach a visitor.
 const all = await getResources(lang);
-const hasDrafts = all.some((r) => r.status === 'draft');
+const hasArticles = all.length > 0;
+
+// Only offer a category that actually leads somewhere.
+const liveCategories = p.categories.items.filter((c) => all.some((r) => r.category === c.id));
+const liveLevels = (['debutant', 'intermediaire', 'avance'] as const).filter((lvl) =>
+  all.some((r) => r.level === lvl),
+);
+
+// The featured guide points at a specific article; show it only once published.
+const featuredSlug = lang === 'fr' ? 'qu-est-ce-que-sap-pp' : 'what-is-sap-pp';
+const featured = all.find((r) => r.slug === featuredSlug);
 ---
 
 <ArtHero
@@ -44,6 +55,7 @@ const hasDrafts = all.some((r) => r.status === 'draft');
   <Button href="#library" variant="primary" size="lg" icon="arrow-down">{p.hero.cta}</Button>
 </ArtHero>
 
+{ liveCategories.length > 0 && (
 <section class="section cats" aria-labelledby="cat-title">
   <div class="container">
     <header class="secHead" data-reveal="fade-up">
@@ -53,7 +65,7 @@ const hasDrafts = all.some((r) => r.status === 'draft');
     </header>
     <ul class="cats__grid" data-reveal="stagger">
       {
-        p.categories.items.map((c, i) => (
+        liveCategories.map((c, i) => (
           <li style={`--i:${i + 1}`}>
             <a href="#library" data-jump-category={c.id} class={`cats__tile cats__tile--${c.id}`}>
               <span class="cats__icon" aria-hidden="true">
@@ -71,7 +83,9 @@ const hasDrafts = all.some((r) => r.status === 'draft');
     </ul>
   </div>
 </section>
+) }
 
+{ featured && (
 <FeaturedCard
   id="feat-title"
   badge={p.featured.eyebrow}
@@ -87,7 +101,7 @@ const hasDrafts = all.some((r) => r.status === 'draft');
     fallbackIcon: 'factory',
   }}
 >
-  <Button href={`${href('resources', lang)}${all[0]?.slug ?? ''}/`} variant="primary">
+  <Button href={`${href('resources', lang)}${featured.slug}/`} variant="primary">
     {p.featured.ctaPrimary}
   </Button>
   <Button href={href('sapPp', lang)} variant="outline">{p.featured.ctaSecondary}</Button>
@@ -102,7 +116,7 @@ const hasDrafts = all.some((r) => r.status === 'draft');
                 <LordIcon name={s.lord as LordIconName} size={26} target={`.start__link--${s.level}`} />
               </span>
               <span class="start__text">
-                <strong>{s.title}</strong>
+                <strong>{s.title}</strong>{' '}
                 <span>{s.body}</span>
               </span>
               <Icon name="arrow-right" size={15} />
@@ -113,6 +127,7 @@ const hasDrafts = all.some((r) => r.status === 'draft');
     </ul>
   </div>
 </FeaturedCard>
+) }
 
 <section class="section lib" id="library" aria-labelledby="lib-title">
   <div class="container">
@@ -123,7 +138,7 @@ const hasDrafts = all.some((r) => r.status === 'draft');
     </header>
 
     {
-      all.length > 0 && (
+      hasArticles && (
         <div class="filters" id="filters">
           <fieldset>
             <legend>{p.categories.filterLegend}</legend>
@@ -131,7 +146,7 @@ const hasDrafts = all.some((r) => r.status === 'draft');
               <button type="button" class="chip is-active" data-filter="category" data-value="all">
                 {p.categories.allLabel}
               </button>
-              {p.categories.items.map((c) => (
+              {liveCategories.map((c) => (
                 <button type="button" class="chip" data-filter="category" data-value={c.id}>
                   {c.label}
                 </button>
@@ -145,67 +160,61 @@ const hasDrafts = all.some((r) => r.status === 'draft');
               <button type="button" class="chip is-active" data-filter="level" data-value="all">
                 {p.levels.all}
               </button>
-              <button type="button" class="chip" data-filter="level" data-value="debutant">
-                {p.levels.debutant}
-              </button>
-              <button type="button" class="chip" data-filter="level" data-value="intermediaire">
-                {p.levels.intermediaire}
-              </button>
-              <button type="button" class="chip" data-filter="level" data-value="avance">
-                {p.levels.avance}
-              </button>
+              {liveLevels.map((lvl) => (
+                <button type="button" class="chip" data-filter="level" data-value={lvl}>
+                  {p.levels[lvl]}
+                </button>
+              ))}
             </div>
           </fieldset>
         </div>
       )
     }
 
-    <div class="grid grid--3" id="resourceGrid">
-      {
-        all.map((r) => (
-          <div data-category={r.category} data-level={r.level}>
-            <ResourceCard
-              resource={r}
-              lang={lang}
-              readLabel={t.common.readArticle}
-              draftLabel={p.list.draftLabel}
-            />
+    {
+      hasArticles ? (
+        <>
+          <div class="grid grid--3" id="resourceGrid">
+            {all.map((r) => (
+              <div data-category={r.category} data-level={r.level}>
+                <ResourceCard resource={r} lang={lang} readLabel={t.common.readArticle} />
+              </div>
+            ))}
           </div>
-        ))
-      }
-    </div>
-
-    <p class="empty" id="emptyState" hidden>{p.categories.noResults}</p>
-    <p class="count visually-hidden" role="status" aria-live="polite" id="resultCount"></p>
+          <p class="empty" id="emptyState" hidden>{p.categories.noResults}</p>
+          <p class="count visually-hidden" role="status" aria-live="polite" id="resultCount" />
+        </>
+      ) : (
+        <div class="lib__soon" data-reveal="fade-up">
+          <span class="lib__soonIcon" aria-hidden="true">
+            <LordIcon name="document" size={40} target=".lib__soon" />
+          </span>
+          <h3>{p.list.soonTitle}</h3>
+          <p>{p.list.soonBody}</p>
+          <Button href={href('sapPp', lang)} variant="primary">{p.list.soonCta}</Button>
+        </div>
+      )
+    }
 
     <div class="lib__notices">
-      {hasDrafts && <NoticeCard lord="document" body={p.list.draftNote} />}
       <NoticeCard lord="shield" body={p.certificationNote} tone="info" />
       <NoticeCard lord="network" body={t.common.ecosystemNote} tone="info" />
     </div>
   </div>
 </section>
 
-<section class="section section--tint vids" aria-labelledby="vid-title">
-  <div class="container vids__grid">
-    <div data-reveal="fade-up">
-      <p class="eyebrow secHead__eyebrow">{p.videos.eyebrow}</p>
-      <h2 id="vid-title">{p.videos.title}</h2>
-      <p class="lead">{p.videos.lead}</p>
-      <div class="vids__placeholder">
-        <span class="vids__play" aria-hidden="true">
-          <LordIcon name="play" size={44} target=".vids__placeholder" />
-        </span>
-        <p>{p.videos.placeholder}</p>
-      </div>
-    </div>
-
+<!--
+  The YouTube series block is removed until real video links exist. Re-add it
+  here once the URLs are supplied; do not ship a placeholder in its place.
+-->
+<section class="section section--tint vids" aria-labelledby="teach-title">
+  <div class="container vids__grid vids__grid--single">
     <div class="teach" data-reveal="fade-up">
       <span class="teach__icon" aria-hidden="true">
         <LordIcon name="school" size={34} target=".teach" />
       </span>
       <p class="teach__eyebrow">{p.teaching.eyebrow}</p>
-      <h2 class="teach__title">{p.teaching.title}</h2>
+      <h2 class="teach__title" id="teach-title">{p.teaching.title}</h2>
       <p>{p.teaching.body}</p>
       <div class="teach__actions">
         <Button href={href('institutions', lang)} variant="primary">{p.teaching.ctaSecondary}</Button>
@@ -502,6 +511,39 @@ const hasDrafts = all.some((r) => r.status === 'draft');
     border-radius: var(--radius-lg);
   }
 
+  /* Controlled "nothing published yet" state — shown instead of an empty grid. */
+  .lib__soon {
+    display: grid;
+    justify-items: center;
+    gap: var(--s-4);
+    padding: var(--s-12) var(--s-6);
+    text-align: center;
+    background: var(--blue-050);
+    border: 1px solid var(--blue-100);
+    border-radius: var(--radius-lg);
+  }
+
+  .lib__soonIcon {
+    display: grid;
+    place-items: center;
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 50%;
+    color: var(--blue-700);
+    background: var(--white);
+    box-shadow: 0 0 0 8px rgba(232, 240, 251, 0.6);
+  }
+
+  .lib__soon h3 {
+    font-size: var(--fs-xl);
+    color: var(--blue-900);
+  }
+
+  .lib__soon p {
+    max-width: 52ch;
+    color: var(--muted);
+  }
+
   .lib__notices {
     display: grid;
     gap: var(--s-4);
@@ -514,7 +556,7 @@ const hasDrafts = all.some((r) => r.status === 'draft');
     }
   }
 
-  /* ── Videos + teaching ── */
+  /* ── Teaching ── */
 
   .vids__grid {
     display: grid;
@@ -526,6 +568,12 @@ const hasDrafts = all.some((r) => r.status === 'draft');
     .vids__grid {
       grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
       gap: var(--s-12);
+    }
+
+    /* The video column is gone until real links exist; keep the block centred. */
+    .vids__grid--single {
+      grid-template-columns: minmax(0, 46rem);
+      justify-content: center;
     }
   }
 
@@ -660,16 +708,43 @@ const hasDrafts = all.some((r) => r.status === 'draft');
       if (count) count.textContent = String(visible);
     };
 
+    const select = (group: string, value: string, push = true) => {
+      const chip = filters.querySelector<HTMLButtonElement>(
+        `.chip[data-filter="${group}"][data-value="${CSS.escape(value)}"]`,
+      );
+      if (!chip) return;
+      state[group] = value;
+      filters
+        .querySelectorAll<HTMLElement>(`.chip[data-filter="${group}"]`)
+        .forEach((c) => c.classList.toggle('is-active', c === chip));
+      apply();
+      if (push) syncUrl();
+    };
+
+    // Keep the active filter in the URL so it survives a reload and can be
+    // shared or linked to directly.
+    const syncUrl = () => {
+      const params = new URLSearchParams(window.location.search);
+      for (const key of ['category', 'level']) {
+        if (state[key] === 'all') params.delete(key);
+        else params.set(key, state[key]);
+      }
+      const qs = params.toString();
+      history.replaceState(null, '', `${window.location.pathname}${qs ? `?${qs}` : ''}#library`);
+    };
+
     filters.addEventListener('click', (e) => {
       const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('.chip');
       if (!btn) return;
-      const group = btn.dataset.filter!;
-      state[group] = btn.dataset.value!;
-      filters
-        .querySelectorAll<HTMLElement>(`.chip[data-filter="${group}"]`)
-        .forEach((c) => c.classList.toggle('is-active', c === btn));
-      apply();
+      select(btn.dataset.filter!, btn.dataset.value!);
     });
+
+    // Restore the filter named in the URL on load.
+    const initial = new URLSearchParams(window.location.search);
+    for (const key of ['category', 'level'] as const) {
+      const value = initial.get(key);
+      if (value) select(key, value, false);
+    }
 
     // Category / level shortcuts elsewhere on the page.
     document.querySelectorAll<HTMLElement>('[data-jump-category], [data-jump-level]').forEach((link) => {
@@ -678,10 +753,7 @@ const hasDrafts = all.some((r) => r.status === 'draft');
         const lvl = link.dataset.jumpLevel;
         const group = cat ? 'category' : 'level';
         const value = cat ?? lvl!;
-        const chip = filters.querySelector<HTMLButtonElement>(
-          `.chip[data-filter="${group}"][data-value="${value}"]`,
-        );
-        chip?.click();
+        select(group, value);
       });
     });
 

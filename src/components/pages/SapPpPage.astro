@@ -18,7 +18,7 @@ import Icon from '../Icon.astro';
 import FlowChain from '../FlowChain.astro';
 import LordIcon from '../LordIcon.astro';
 import type { LordIconName } from '../LordIcon.astro';
-import { href, type Lang } from '../../i18n/routes';
+import { href, contactHref, type Lang } from '../../i18n/routes';
 import { useTranslations, usePages } from '../../i18n/utils';
 import { publicImage } from '../../lib/assets';
 
@@ -60,7 +60,7 @@ const pathRoutes = ['contact', 'institutions'] as const;
   }}
   valueCard={{ text: p.finalCta.script, variant: 'script' }}
 >
-  <Button href={href('contact', lang)} variant="primary" size="lg">{p.hero.ctaPrimary}</Button>
+  <Button href={contactHref(lang, 'formation')} variant="primary" size="lg">{p.hero.ctaPrimary}</Button>
   <Button href="#programme" variant="ghost" size="lg">{p.hero.ctaSecondary}</Button>
 </ArtHero>
 
@@ -145,9 +145,11 @@ const pathRoutes = ['contact', 'institutions'] as const;
             <span class="approach__icon" aria-hidden="true">
               <LordIcon name={approachLords[i] ?? 'book'} size={26} target=".approach__list li" />
             </span>
-            <span>
-              <strong>{a.title}</strong>
-              {a.body}
+            <span class="approach__text">
+              {/* Explicit space: JSX drops whitespace between sibling elements,
+                  which made the serialized text read "ComprendreLes processus". */}
+              <strong>{a.title}</strong>{' '}
+              <span>{a.body}</span>
             </span>
           </li>
         ))
@@ -189,7 +191,7 @@ const pathRoutes = ['contact', 'institutions'] as const;
       <h3 class="support__certTitle">{p.certification.title}</h3>
       <p class="support__certBody">{p.certification.body}</p>
       <NoticeCard lord="shield" body={p.certification.disclaimer} tone="warning">
-        <Button href={href('contact', lang)} variant="outline" size="md">{p.certification.cta}</Button>
+        <Button href={contactHref(lang, 'formation')} variant="outline" size="md">{p.certification.cta}</Button>
       </NoticeCard>
     </div>
   </div>
@@ -224,18 +226,37 @@ const pathRoutes = ['contact', 'institutions'] as const;
 
 <FaqSplit id="faq-title" eyebrow={p.faq.eyebrow} title={p.faq.title} lead={p.faq.lead} items={p.faq.items}>
   <div slot="aside" class="testi">
-    <p class="testi__title">{p.testimonials.title}</p>
-    <p class="testi__body">{p.testimonials.body}</p>
-    <blockquote class="testi__quote">
-      <Icon name="quote" size={22} />
-      <p>{p.testimonials.placeholder}</p>
-    </blockquote>
+    {
+      p.testimonials.items.length > 0 ? (
+        <>
+          <p class="testi__title">{p.testimonials.title}</p>
+          {p.testimonials.items.map((item) => (
+            <blockquote class="testi__quote">
+              <Icon name="quote" size={22} />
+              <p>{item.quote}</p>
+              <footer>
+                <strong>{item.author}</strong>{' '}
+                <span>{item.role}</span>
+              </footer>
+            </blockquote>
+          ))}
+        </>
+      ) : (
+        /* No invented social proof: a real, useful aside until authorised
+           testimonials are supplied. */
+        <>
+          <p class="testi__title">{p.faqHelp.title}</p>
+          <p class="testi__body">{p.faqHelp.body}</p>
+          <Button href={contactHref(lang, 'formation')} variant="primary">{p.faqHelp.cta}</Button>
+        </>
+      )
+    }
   </div>
 </FaqSplit>
 
 <CtaBand title={p.finalCta.title} body={p.finalCta.body} script={p.finalCta.script} imageSlot="cta-sap-pp">
-  <Button href={href('contact', lang)} variant="primary" size="lg">{p.finalCta.ctaPrimary}</Button>
-  <Button href={href('contact', lang)} variant="outlineLight" size="lg">{p.finalCta.ctaSecondary}</Button>
+  <Button href={contactHref(lang, 'formation')} variant="primary" size="lg">{p.finalCta.ctaPrimary}</Button>
+  <Button href={contactHref(lang, 'formation')} variant="outlineLight" size="lg">{p.finalCta.ctaSecondary}</Button>
 </CtaBand>
 
 <script>

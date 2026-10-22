@@ -37,6 +37,7 @@ export const fr = {
     resources: 'Ressources',
     contact: 'Contact',
     thanks: 'Merci',
+    privacy: 'Confidentialité',
     headerCta: 'Parler de votre projet',
     primaryLabel: 'Navigation principale',
   },
@@ -62,7 +63,13 @@ export const fr = {
     linkedinAria: 'Lagni Consulting sur LinkedIn',
     rights: 'Tous droits réservés.',
     navLabel: 'Pied de page',
-    solutions: ['SAP S/4HANA', 'Oracle JD Edwards', 'Odoo', 'GoHighLevel', 'Chataap'],
+    solutions: [
+      { label: 'SAP S/4HANA', slug: 'sap' },
+      { label: 'Oracle JD Edwards', slug: 'jde' },
+      { label: 'Odoo', slug: 'odoo' },
+      { label: 'GoHighLevel', slug: 'gohighlevel' },
+      { label: 'Chataap', slug: 'chataap' },
+    ],
   },
 
   /* ─────────────────────────── Forms ─────────────────────────── */
@@ -73,8 +80,12 @@ export const fr = {
     lastName: 'Nom',
     lastNamePlaceholder: 'Votre nom',
     name: 'Nom',
-    email: 'Courriel professionnel',
-    emailPlaceholder: 'vous@organisation.com',
+    // Neutral by default: students and candidates use a personal address.
+    email: 'Courriel',
+    emailPlaceholder: 'vous@exemple.com',
+    // Only for employer / institution forms.
+    emailPro: 'Courriel professionnel',
+    emailProPlaceholder: 'vous@organisation.com',
     country: 'Pays',
     countryPlaceholder: 'Sélectionner un pays',
     countryOptions: ['Canada', 'France', 'Belgique', 'Suisse', 'Côte d’Ivoire', 'Cameroun', 'Sénégal', 'Bénin', 'Autre'],
@@ -162,6 +173,7 @@ export const fr = {
     consentCandidate:
       'J’accepte que Lagni Consulting conserve mon curriculum vitæ et mes coordonnées afin de me proposer des opportunités professionnelles pertinentes.',
     privacyNote: 'Les renseignements transmis sont utilisés uniquement pour traiter votre demande.',
+    privacyLink: 'Consulter la politique de confidentialité.',
     confidentialNote:
       'Vos informations sont confidentielles et utilisées uniquement dans le cadre de nos services de recrutement.',
     candidateNote:

@@ -15,7 +15,7 @@ import FeaturedCard from '../sections/FeaturedCard.astro';
 import CtaBand from '../CtaBand.astro';
 import Button from '../Button.astro';
 import type { LordIconName } from '../LordIcon.astro';
-import { href, type Lang } from '../../i18n/routes';
+import { href, contactHref, type Lang } from '../../i18n/routes';
 import { useTranslations, usePages } from '../../i18n/utils';
 import { publicImage } from '../../lib/assets';
 
@@ -71,7 +71,7 @@ const caseLords: Record<string, LordIconName> = {
   }}
   valueCard={{ text: p.hero.script, variant: 'script' }}
 >
-  <Button href={href('contact', lang)} variant="primary" size="lg">{p.hero.ctaPrimary}</Button>
+  <Button href={contactHref(lang, 'erp')} variant="primary" size="lg">{p.hero.ctaPrimary}</Button>
   <Button href="#portfolio" variant="ghost" size="lg">{p.hero.ctaSecondary}</Button>
 </ArtHero>
 
@@ -101,12 +101,13 @@ const caseLords: Record<string, LordIconName> = {
   title={p.portfolio.title}
   lead={p.portfolio.lead}
   items={p.portfolio.items.map((item) => ({
+    slug: item.slug,
     name: item.name,
     family: p.portfolio.families[item.family]?.label ?? '',
     title: item.title,
     body: item.body,
     tags: item.tags,
-    href: href('contact', lang),
+    href: contactHref(lang, 'erp'),
     cta: item.cta,
   }))}
 >
@@ -153,7 +154,7 @@ const caseLords: Record<string, LordIconName> = {
     return { title: e.title, desc: e.body, href: href(row.route, lang), lord: row.lord };
   })}
 >
-  <Button href={href('contact', lang)} variant="primary" size="lg">{p.hero.ctaPrimary}</Button>
+  <Button href={contactHref(lang, 'erp')} variant="primary" size="lg">{p.hero.ctaPrimary}</Button>
 </RowsBand>
 
 <CaseCards
@@ -190,5 +191,5 @@ const caseLords: Record<string, LordIconName> = {
 </FeaturedCard>
 
 <CtaBand title={p.finalCta.title} body={p.finalCta.body} script={p.finalCta.script} imageSlot="cta-erp">
-  <Button href={href('contact', lang)} variant="primary" size="lg">{p.finalCta.cta}</Button>
+  <Button href={contactHref(lang, 'erp')} variant="primary" size="lg">{p.finalCta.cta}</Button>
 </CtaBand>

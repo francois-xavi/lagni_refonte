@@ -7,6 +7,7 @@ import { institutions } from './institutions';
 import { about } from './about';
 import { resources } from './resources';
 import { contact } from './contact';
+import { privacy } from './privacy';
 import { thanks, notFound } from './misc';
 
 export const pagesEn = {
@@ -21,6 +22,7 @@ export const pagesEn = {
   contact,
   thanks,
   notFound,
+  privacy,
 } as const;
 
 

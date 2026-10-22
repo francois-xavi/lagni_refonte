@@ -49,7 +49,7 @@ export const resources = {
         icon: 'screen',
         lord: 'monitor',
         label: 'Tools & solutions',
-        body: 'Odoo, HighLevel, Chataap and other solutions Lagni covers.',
+        body: 'Odoo, GoHighLevel, Chataap and other solutions Lagni covers.',
       },
       {
         id: 'careers',
@@ -118,17 +118,21 @@ export const resources = {
     draftLabel: 'Draft',
     draftNote:
       'Items marked “Draft” were written as a working basis and need review and sign-off before publication.',
+    soonTitle: 'Our first publications are on the way',
+    soonBody:
+      'We are preparing practical guides on SAP S/4HANA Production Planning, ERP processes and career paths. In the meantime, take a look at our training.',
+    soonCta: 'Explore the SAP PP training',
   },
 
   certificationNote:
     'Our resources build an understanding of SAP processes; they are not a certification. SAP certifications are issued exclusively by SAP, under its own terms and exams.',
 
+  // Section disabled until real YouTube links exist. Never ship waiting copy
+  // in its place — see ResourcesPage.astro.
   videos: {
     eyebrow: 'Video',
     title: 'Learn on video too',
     lead: 'Our series: SAP S/4HANA — One Scope Item at a Time.',
-    placeholder:
-      'The video series will appear here. Add the YouTube links listed in CONTENT-TO-REPLACE.md once the videos are online.',
   },
 
   teaching: {

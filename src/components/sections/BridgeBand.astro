@@ -34,7 +34,7 @@ const { id, eyebrow, title, lead, columns, quote } = Astro.props;
       <p class="bridge__lead">{lead}</p>
     </header>
 
-    <ol class="bridge__cols" data-reveal="stagger">
+    <ul class="bridge__cols" data-reveal="stagger">
       {
         columns.map((col, i) => (
           <li
@@ -62,14 +62,14 @@ const { id, eyebrow, title, lead, columns, quote } = Astro.props;
           i < columns.length - 1
             ? [
                 node,
-                <li class="bridge__arrow" aria-hidden="true" style={`--i:${i * 2 + 1}`}>
+                <li class="bridge__arrow" role="presentation" aria-hidden="true" style={`--i:${i * 2 + 1}`}>
                   <Icon name="arrow-right" size={22} />
                 </li>,
               ]
             : [node],
         )
       }
-    </ol>
+    </ul>
 
     {
       quote && (

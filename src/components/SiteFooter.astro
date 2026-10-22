@@ -25,6 +25,7 @@ const company = [
   { label: t.nav.about, key: 'about' },
   { label: t.nav.resources, key: 'resources' },
   { label: t.nav.contact, key: 'contact' },
+  { label: t.nav.privacy, key: 'privacy' },
 ];
 ---
 
@@ -52,7 +53,15 @@ const company = [
     <nav class="footer__col" aria-label={t.footer.solutionsTitle} style="--c:1">
       <h2>{t.footer.solutionsTitle}</h2>
       <ul>
-        {t.footer.solutions.map((s) => <li><a href={href('erp', lang)}>{s}</a></li>)}
+        {
+          /* Each solution links to its own card, so the label matches where it
+             lands instead of dropping everyone at the top of the same page. */
+          t.footer.solutions.map((s) => (
+            <li>
+              <a href={`${href('erp', lang)}#${s.slug}`}>{s.label}</a>
+            </li>
+          ))
+        }
       </ul>
     </nav>
 

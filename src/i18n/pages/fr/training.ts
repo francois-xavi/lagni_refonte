@@ -14,7 +14,7 @@ export const training = {
     ctaSecondary: 'Former votre équipe',
     imageAlt: 'Apprenante travaillant sur un ordinateur portable affichant un tableau de bord de planification',
     panelTitle: 'SAP S/4HANA — Production Planning',
-    panel: ['Planning', 'MRP', 'Production Orders', 'Capacity Planning', 'Shop Floor', 'Analytics'],
+    panel: ['Planning', 'MRP', 'Ordres de production (Production Orders)', 'Planification des capacités (Capacity Planning)', 'Shop Floor', 'Analytics'],
     script: 'Des compétences pour aujourd’hui et pour demain',
     trustItems: [
       { icon: 'target', label: 'Orientée pratique' },
@@ -76,7 +76,7 @@ export const training = {
       { label: 'Accompagnement personnalisé', icon: 'people' },
     ],
     topics: [
-      'Master Data',
+      'Données de base (Master Data)',
       'Demand Management',
       'MRP',
       'Capacity Planning',

@@ -158,8 +158,8 @@ const pilotLords: LordIconName[] = ['target', 'school', 'checklist', 'refresh', 
               <LordIcon name={modalityLords[m.icon] ?? 'monitor'} size={26} target=".modal__list li" />
             </span>
             <span>
-              <strong>{m.title}</strong>
-              {m.body}
+              <strong>{m.title}</strong>{' '}
+              <span>{m.body}</span>
             </span>
           </li>
         ))
@@ -266,7 +266,7 @@ const pilotLords: LordIconName[] = ['target', 'school', 'checklist', 'refresh', 
       <FormField name="institution" label={f.institutionName} required placeholder={f.institutionPlaceholder} autocomplete="organization" />
       <FormField name="country" label={f.country} type="select" required options={f.countryOptions} optionsPlaceholder={f.countryPlaceholder} />
       <FormField name="role" label={f.role} required placeholder={f.rolePlaceholder} />
-      <FormField name="email" label={f.email} type="email" required placeholder={f.emailPlaceholder} autocomplete="email" />
+      <FormField name="email" label={f.emailPro} type="email" required placeholder={f.emailProPlaceholder} autocomplete="email" />
       <FormField name="programme" label={f.programme} required placeholder={f.programmePlaceholder} />
       <FormField name="student_count" label={f.studentCount} type="number" placeholder={f.studentCountPlaceholder} />
       <FormField name="period" label={f.period} type="select" options={f.periodOptions} optionsPlaceholder={f.select} />

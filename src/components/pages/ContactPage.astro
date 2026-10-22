@@ -100,11 +100,24 @@ const marketIcons = ['globe', 'pin', 'target'];
           title={opts[0].formTitle}
           intro={p.chooser.formIntro}
         >
+          <noscript>
+            <p class="form__noscript">{p.chooser.noScriptNote}</p>
+          </noscript>
+
           <!-- Always visible -->
           <FormField name="first_name" label={f.firstName} required placeholder={f.firstNamePlaceholder} autocomplete="given-name" />
           <FormField name="last_name" label={f.lastName} required placeholder={f.lastNamePlaceholder} autocomplete="family-name" />
           <FormField name="email" label={f.email} type="email" required placeholder={f.emailPlaceholder} autocomplete="email" />
           <FormField name="country" label={f.country} type="select" required options={f.countryOptions} optionsPlaceholder={f.countryPlaceholder} />
+
+          {/*
+            One shared Organisation field rather than one per group: three
+            fields with the same "Organisation" label used to appear in the DOM
+            at once. `data-group-any` shows it for several inquiry types.
+          */}
+          <div class="group" data-group-any="formation-entreprise erp recrutement">
+            <FormField name="organisation" label={f.organisation} placeholder={f.organisationPlaceholder} autocomplete="organization" />
+          </div>
 
           <!--
             Conditional field groups.
@@ -120,14 +133,12 @@ const marketIcons = ['globe', 'pin', 'target'];
 
           <div class="group" data-group="formation-entreprise">
             <div class="group__grid">
-              <FormField name="organisation" label={f.organisation} placeholder={f.organisationPlaceholder} autocomplete="organization" />
               <FormField name="group_size" label={f.groupSize} type="number" placeholder={f.groupSizePlaceholder} />
             </div>
           </div>
 
           <div class="group" data-group="erp">
             <div class="group__grid">
-              <FormField name="organisation_erp" label={f.organisation} placeholder={f.organisationPlaceholder} />
               <FormField name="solution" label={f.solution} type="select" options={f.solutionOptions} optionsPlaceholder={f.solutionPlaceholder} />
               <FormField name="need_type" label={f.needType} type="select" options={f.needTypeOptions} optionsPlaceholder={f.select} wide />
             </div>
@@ -135,7 +146,6 @@ const marketIcons = ['globe', 'pin', 'target'];
 
           <div class="group" data-group="recrutement">
             <div class="group__grid">
-              <FormField name="organisation_rec" label={f.organisation} placeholder={f.organisationPlaceholder} />
               <FormField name="role_sought" label={f.roleSought} placeholder={f.roleSoughtPlaceholder} />
               <FormField name="domain" label={f.domain} type="select" options={f.domainOptions} optionsPlaceholder={f.select} />
               <FormField name="contract_type" label={f.contractType} type="select" options={f.contractOptions} optionsPlaceholder={f.select} />
@@ -404,6 +414,17 @@ const marketIcons = ['globe', 'pin', 'target'];
     }
   }
 
+  /* Shown only when JavaScript is unavailable and all groups stay visible. */
+  .form__noscript {
+    grid-column: 1 / -1;
+    padding: var(--s-3) var(--s-4);
+    font-size: var(--fs-sm);
+    color: var(--orange-700);
+    background: var(--orange-050);
+    border: 1px solid var(--orange-200);
+    border-radius: var(--radius-sm);
+  }
+
   .group {
     grid-column: 1 / -1;
   }
@@ -583,33 +604,60 @@ const marketIcons = ['globe', 'pin', 'target'];
   import '../../scripts/lordicon';
 
   /**
-   * Show only the field group that matches the selected inquiry type, and
-   * retitle the form. Without JS every group stays visible and usable.
+   * Shows only the field group matching the selected inquiry type, retitles the
+   * form, and honours a `?type=` parameter so a CTA can arrive with the right
+   * option already chosen.
+   *
+   * Without JS every group stays visible and the form still submits — see the
+   * `.group` default in the stylesheet.
    */
   const chooser = document.getElementById('inquiryChooser');
   const form = document.getElementById('contactForm');
   const title = document.querySelector<HTMLElement>('.formShell__title');
 
   if (chooser && form) {
-    const groups = Array.from(form.querySelectorAll<HTMLElement>('[data-group]'));
+    // `data-group` matches one type; `data-group-any` matches several.
+    const groups = Array.from(
+      form.querySelectorAll<HTMLElement>('[data-group], [data-group-any]'),
+    );
+
+    const matches = (g: HTMLElement, target?: string) => {
+      if (!target) return false;
+      if (g.dataset.group) return g.dataset.group === target;
+      return (g.dataset.groupAny ?? '').split(' ').includes(target);
+    };
 
     const apply = (radio: HTMLInputElement) => {
       const target = radio.dataset.target;
       groups.forEach((g) => {
-        const match = g.dataset.group === target;
-        g.hidden = !match;
+        const show = matches(g, target);
+        g.hidden = !show;
         // Keep hidden controls out of the submitted payload.
         g.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(
           'input, select, textarea',
         ).forEach((el) => {
-          el.disabled = !match;
+          el.disabled = !show;
         });
       });
       if (title && radio.dataset.formTitle) title.textContent = radio.dataset.formTitle;
     };
 
+    // A CTA may arrive as /contact/?type=erp — preselect that option so the
+    // visitor does not have to restate what they already told us.
+    const requested = new URLSearchParams(window.location.search).get('type');
+    const fromUrl = requested
+      ? chooser.querySelector<HTMLInputElement>(`input[data-target="${CSS.escape(requested)}"]`)
+      : null;
+    if (fromUrl) fromUrl.checked = true;
+
     const checked = chooser.querySelector<HTMLInputElement>('input:checked');
-    if (checked) apply(checked);
+    if (checked) {
+      apply(checked);
+      // Only pull the page down when the visitor arrived with an intent.
+      if (fromUrl) {
+        chooser.scrollIntoView({ block: 'start', behavior: 'auto' });
+      }
+    }
 
     chooser.addEventListener('change', (e) => {
       const radio = e.target as HTMLInputElement;

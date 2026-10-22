@@ -160,7 +160,7 @@ const linkLords: Record<string, LordIconName> = {
         >
           <FormField name="organisation" label={f.organisation} required placeholder={f.organisationPlaceholder} autocomplete="organization" />
           <FormField name="name" label={f.name} required placeholder={f.lastNamePlaceholder} autocomplete="name" />
-          <FormField name="email" label={f.email} type="email" required placeholder={f.emailPlaceholder} autocomplete="email" />
+          <FormField name="email" label={f.emailPro} type="email" required placeholder={f.emailProPlaceholder} autocomplete="email" />
           <FormField name="role_sought" label={f.roleSought} required placeholder={f.roleSoughtPlaceholder} />
           <FormField name="domain" label={f.domain} type="select" required options={f.domainOptions} optionsPlaceholder={f.select} />
           <FormField name="contract_type" label={f.contractType} type="select" required options={f.contractOptions} optionsPlaceholder={f.select} />
@@ -186,6 +186,7 @@ const linkLords: Record<string, LordIconName> = {
           formName="recruitment-candidate"
           submitLabel={f.submitApplication}
           consentLabel={f.consentCandidate}
+          hasUpload
         >
           <FormField name="name" idPrefix="cand" label={f.name} required placeholder={f.lastNamePlaceholder} autocomplete="name" />
           <FormField name="email" idPrefix="cand" label={f.email} type="email" required placeholder={f.emailPlaceholder} autocomplete="email" />

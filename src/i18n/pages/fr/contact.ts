@@ -46,7 +46,7 @@ export const contact = {
         icon: 'gear',
         lord: 'server',
         label: 'ERP & Solutions',
-        body: 'Nous avons un besoin concernant SAP, JDE, Odoo, HighLevel, Chataap ou un projet de transformation.',
+        body: 'Nous avons un besoin concernant SAP, JDE, Odoo, GoHighLevel, Chataap ou un projet de transformation.',
         formTitle: 'Formulaire de contact — ERP & Solutions',
       },
       {
@@ -76,6 +76,8 @@ export const contact = {
     ],
     legend: 'Type de demande',
     formEyebrow: 'Formulaire',
+    noScriptNote:
+      'Votre navigateur n’exécute pas JavaScript : tous les champs sont affichés. Remplissez uniquement ceux qui correspondent à votre demande, les autres peuvent rester vides.',
     formIntro: 'Remplissez les informations ci-dessous afin que nous puissions mieux comprendre votre demande.',
   },
 

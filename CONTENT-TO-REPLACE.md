@@ -10,27 +10,24 @@ or shows an obvious placeholder. This file lists every one of those.
 
 ---
 
-## 🔴 1. Contact form endpoint
+## 🟠 1. Formulaires — test de bout en bout
 
-| Item | Where | Current state |
-| --- | --- | --- |
-| Form destination URL | `src/config.ts` → `FORM_ENDPOINT` | `REPLACE_ME__FORM_ENDPOINT` |
+Les formulaires sont désormais branchés sur **Netlify Forms** : plus aucune
+configuration de code n'est nécessaire. Reste à valider en conditions réelles,
+après le premier déploiement.
 
-Until this is set, every form shows a visible notice pointing to the fallback email
-and submits as a plain browser POST to `/merci/`. Choose a provider (Formspree,
-Netlify Forms, Basin, a serverless function…) and paste its POST URL.
+- [ ] Créer le site sur Netlify (build `npm run build`, publication `dist`)
+- [ ] Activer les notifications : *Site settings → Forms → Form notifications* →
+      courriel vers `info@lagniconsulting.ca`
+- [ ] Tester les 4 formulaires et vérifier l'arrivée dans le tableau de bord :
+      - Contact, pour les 6 types de demande
+      - Mandat employeur (page Recrutement)
+      - Candidature avec CV en PDF, DOC et DOCX, plus un refus au-delà de 5 Mo
+      - Partenariat établissement
+- [ ] Décider du routage de chaque type de demande (boîte partagée, CRM)
 
-**Then test all four forms and confirm the email arrives:**
-
-- Contact page — all six inquiry types (Formation, Formation entreprise, ERP & Solutions, Recrutement, Établissement, Autre)
-- Recruitment page — employer form
-- Recruitment page — candidate form (includes a CV file upload)
-- Institutions page — B2B partnership form
-
-Also decide where each inquiry type should be routed (shared inbox vs. CRM), per the
-form matrix in §26 of the cahier de refonte.
-
----
+> Pour changer de prestataire, un seul endroit : `FORM_PROVIDER` dans
+> `src/config.ts` (`'netlify'`, `'custom'` + `FORM_ENDPOINT`, ou `'none'`).
 
 ## 🔴 2. Certifications — exact official wording
 
@@ -65,12 +62,22 @@ phone number should be removed in favour of the form only.
 
 ---
 
-## 🔴 4. Legal pages
+## 🔴 4. Pages légales
 
-Not built, because we have no content for them. The footer does not link to pages
-that do not exist.
+**La politique de confidentialité existe désormais en brouillon bilingue**
+(`/confidentialite/` et `/en/privacy/`), liée depuis le pied de page et sous
+chaque formulaire. Elle porte un encadré visible indiquant qu'elle doit être
+validée.
 
-- [ ] Privacy policy (required — the forms collect personal data and CVs)
+- [ ] **Faire relire la politique de confidentialité par un conseiller
+      juridique**, puis retirer l'encadré `draftNotice` dans
+      `src/i18n/pages/{fr,en}/privacy.ts`
+- [ ] Confirmer les durées de conservation proposées (24 mois pour les
+      candidatures et les demandes de contact)
+- [ ] Confirmer que l'hébergement des soumissions aux États-Unis (Netlify) est
+      accepté ; sinon, basculer `FORM_PROVIDER` vers un webhook alimentant un
+      stockage canadien
+- [ ] Désigner le responsable de la protection des renseignements personnels
 - [ ] Terms of use
 - [ ] Cookie notice — **only needed if analytics or another tracker is added.** The
       site currently sets no cookies and loads no third-party scripts, so no banner

@@ -13,6 +13,8 @@ interface Props {
   title: string;
   lead: string;
   items: readonly {
+    /** Anchor id, e.g. 'sap' — lets the footer link straight to this card. */
+    slug?: string;
     name: string;
     family: string;
     title: string;
@@ -39,7 +41,10 @@ const hasNote = Astro.slots.has('note');
       {
         items.map((item, i) => (
           <li class:list={['sol__item', i === 0 && 'sol__item--lead']} style={`--i:${i + 1}`}>
-            <article class:list={['solCard', i === 0 && 'solCard--lead']}>
+            <article
+              id={item.slug}
+              class:list={['solCard', i === 0 && 'solCard--lead']}
+            >
               <p class="solCard__family">{item.family}</p>
               <h3 class="solCard__name">{item.name}</h3>
               <p class="solCard__title">{item.title}</p>
@@ -120,6 +125,7 @@ const hasNote = Astro.slots.has('note');
   }
 
   .solCard {
+    scroll-margin-top: calc(var(--header-h) + 1.5rem);
     position: relative;
     display: flex;
     flex-direction: column;

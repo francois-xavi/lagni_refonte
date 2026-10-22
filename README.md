@@ -93,25 +93,36 @@ The slot names are listed in [`CONTENT-TO-REPLACE.md`](./CONTENT-TO-REPLACE.md).
 > must sit on a white or near-white surface — `Logo.astro` provides a `plate` prop
 > for that. If a background clashes, change the background, never the logo.
 
-### Contact form endpoint
+### Formulaires
 
-The form is **not connected to anything yet**. Set it in one place:
+Les quatre formulaires passent par **Netlify Forms**. Netlify détecte chaque
+formulaire au build à partir du HTML statique : il n'y a ni clé d'API, ni
+endpoint à renseigner.
 
 ```ts
 // src/config.ts
-export const FORM_ENDPOINT = 'REPLACE_ME__FORM_ENDPOINT';
+export const FORM_PROVIDER: 'netlify' | 'custom' | 'none' = 'netlify';
 ```
 
-Replace that string with your provider's POST URL (Formspree, Netlify Forms,
-Basin, a serverless function — anything that accepts a `multipart/form-data`
-POST and returns 2xx).
+| Valeur | Comportement |
+| --- | --- |
+| `'netlify'` | Soumissions dans le tableau de bord Netlify (défaut) |
+| `'custom'` | POST vers `FORM_ENDPOINT` (Formspree, webhook Make…) |
+| `'none'` | Aucun backend : chaque formulaire affiche un avis invitant à écrire par courriel |
 
-While the placeholder is in place:
+Après le premier déploiement, activer les notifications sous
+*Site settings → Forms → Form notifications*.
 
-- every form shows a visible notice with the fallback email address;
-- submitting performs a normal browser POST to `/merci/` so nothing is lost silently.
+Les formulaires déclarés : `contact`, `recruitment-employer`,
+`recruitment-candidate` (avec téléversement de CV) et `institution-partnership`.
+Un champ caché `locale` distingue les soumissions françaises des anglaises.
 
-Once a real endpoint is set, the form submits via `fetch` and redirects to `/merci/`.
+Sans JavaScript, le navigateur effectue un POST natif : Netlify traite la
+soumission puis redirige vers `/merci/`. Rien n'est perdu.
+
+> **Confidentialité** — Netlify conserve les soumissions, donc les CV, sur des
+> serveurs américains. C'est déclaré dans la politique de confidentialité et doit
+> le rester tant que ce prestataire est utilisé.
 
 Contact details (email, phone, LinkedIn, locality) also live in `src/config.ts`.
 
@@ -140,9 +151,12 @@ cta: "sapPp" | "training" | "erp" | "recruitment" | "institutions"
 ```
 
 - The filename becomes the URL slug.
-- `status: "draft"` (the current default for every seeded article) renders a visible
-  "Brouillon / Draft" badge, marks the page `noindex`, and keeps it out of the sitemap.
-  **Change to `published` only after the client has reviewed the text.**
+- `status: "draft"` (valeur actuelle de tous les articles) **exclut entièrement
+  l'article du site public** : aucune page n'est générée, il n'apparaît ni dans
+  les listes, ni sur l'accueil, ni dans le sitemap.
+  Passer à `published` **seulement après relecture par le client**.
+- Tant qu'aucun article n'est publié, la page Ressources masque les catégories,
+  la carte vedette et les filtres, et affiche un état « bientôt » maîtrisé.
 - Categories and levels drive the filters on the Resources hub automatically.
 - FR and EN articles are independent; an `hreflang` alternate is emitted only when
   the same slug exists in both languages.

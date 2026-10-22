@@ -32,6 +32,7 @@ export const ROUTES: RouteDef[] = [
   { key: 'resources',    path: { fr: 'ressources',       en: 'resources' },        inNav: true },
   { key: 'contact',      path: { fr: 'contact',          en: 'contact' },          inNav: true },
   { key: 'thanks',       path: { fr: 'merci',            en: 'thank-you' },        inNav: false },
+  { key: 'privacy',      path: { fr: 'confidentialite',  en: 'privacy' },          inNav: false },
 ];
 
 const BY_KEY = new Map(ROUTES.map((r) => [r.key, r]));
@@ -63,3 +64,22 @@ export function alternates(key: string): { hreflang: string; path: string }[] {
 }
 
 export const navRoutes = ROUTES.filter((r) => r.inNav);
+
+/** The inquiry types the contact form can be opened on. */
+export type InquiryType =
+  | 'formation'
+  | 'formation-entreprise'
+  | 'erp'
+  | 'recrutement'
+  | 'etablissement'
+  | 'autre';
+
+/**
+ * Link to the contact page with the inquiry type already chosen, so a visitor
+ * arriving from a page does not have to restate what they came for.
+ * ContactPage reads `?type=` on load; an unknown value falls back to the first
+ * option, so the link degrades safely.
+ */
+export function contactHref(lang: Lang, type: InquiryType): string {
+  return `${href('contact', lang)}?type=${type}`;
+}

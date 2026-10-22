@@ -28,13 +28,13 @@ function parseCountFigure(figure: string) {
           const count = item.count ? parseCountFigure(item.figure) : null;
           const lord = item.lord;
           return (
-            <li class="proof__item" style={`--i:${i}`}>
+            <li class="proof__item" style={`--i:${i}`} aria-label={`${item.figure} — ${item.label}`}>
               <span class="proof__icon" aria-hidden="true">
                 <LordIcon name={lord} size={34} trigger="hover" />
               </span>
               <span class="proof__text">
                 {count ? (
-                  <span class="proof__count" aria-label={item.figure}>
+                  <span class="proof__count">
                     <span class="proof__countNum" data-count-to={count.value}>
                       0
                     </span>
@@ -43,6 +43,11 @@ function parseCountFigure(figure: string) {
                 ) : (
                   <strong class="proof__figure">{item.figure}</strong>
                 )}
+                {/* Explicit space: without it the serialized text of the card
+                    reads "PMP®et certifications SAP" in copy-paste, crawlers
+                    and reading modes, even though the two sit on separate
+                    lines visually. */}
+                {' '}
                 <span class="proof__label">{item.label}</span>
               </span>
             </li>
