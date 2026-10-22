@@ -7,8 +7,8 @@ export const recruitment = {
 
   hero: {
     eyebrow: 'Specialized recruitment',
-    title: 'The right skills. The right opportunities.',
-    lead: 'Lagni Consulting helps organizations find professionals specialized in ERP, CRM, enterprise systems and digital transformation. Our knowledge of the technologies and the business processes lets us look past the résumé.',
+    title: 'Specialized recruitment in ERP, CRM and digital transformation.',
+    lead: 'The right skills, the right opportunities. Our knowledge of the technologies and the business processes lets us look past the résumé, for employers and candidates alike.',
     ctaPrimary: 'I am hiring',
     ctaSecondary: 'I am a candidate',
     imageAlt: 'Professional interview between a recruiter and a candidate in an office',

@@ -8,7 +8,6 @@ import NumberedCards from '../sections/NumberedCards.astro';
 import FeaturedCard from '../sections/FeaturedCard.astro';
 import IconTiles from '../sections/IconTiles.astro';
 import RowsBand from '../sections/RowsBand.astro';
-import FounderSplit from '../sections/FounderSplit.astro';
 import ResourceShowcase from '../sections/ResourceShowcase.astro';
 import CtaBand from '../CtaBand.astro';
 import Button from '../Button.astro';
@@ -56,13 +55,6 @@ const pathwayLords: Record<string, LordIconName> = {
   lead={p.hero.lead}
   trustItems={p.hero.trustItems}
   image={{ src: '/assets/images/hero-training.webp', alt: p.hero.imageAlt, width: 900, height: 1100 }}
-  matchCard={{ label: p.hero.matchLabel, title: p.hero.panelTitle, pills: p.hero.panel.slice(0, 3) }}
-  profileCard={{
-    badge: p.hero.profileBadge,
-    label: p.hero.profileLabel,
-    title: p.hero.profileTitle,
-    status: p.hero.profileStatus,
-  }}
   valueCard={{ text: p.hero.script, variant: 'script' }}
 >
   <Button href={href('sapPp', lang)} variant="primary" size="lg">{p.hero.ctaPrimary}</Button>
@@ -151,17 +143,6 @@ const pathwayLords: Record<string, LordIconName> = {
 >
   <p slot="after">{p.pathways.partnerNote}</p>
 </RowsBand>
-
-<FounderSplit
-  id="trainer-title"
-  eyebrow={p.trainer.eyebrow}
-  title={p.trainer.title}
-  body={p.trainer.body}
-  image={{ src: '/assets/images/founder.jpg', alt: t.founder.photoAlt, slot: 'founder-portrait' }}
-  points={p.trainer.points}
-  signature={{ name: t.founder.name, role: t.founder.role }}
-  link={{ href: href('about', lang), label: p.trainer.cta }}
-/>
 
 <ResourceShowcase
   id="training-res-title"

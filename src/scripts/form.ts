@@ -11,6 +11,11 @@ const ALLOWED_EXT = ['pdf', 'doc', 'docx'];
 
 type Msgs = Record<string, string>;
 
+/** Site home, including the base path on sub-path demo builds. */
+function homeHref(): string {
+  return import.meta.env.BASE_URL;
+}
+
 function messages(form: HTMLFormElement): Msgs {
   const d = form.dataset;
   return {
@@ -87,32 +92,6 @@ function validate(form: HTMLFormElement): HTMLElement | null {
   return firstInvalid;
 }
 
-/**
- * Netlify accepts a submission posted to any page of the site, as long as the
- * `form-name` field is present; posting to the current path is the documented
- * route. A custom provider gets its own endpoint.
- */
-function submitTarget(form: HTMLFormElement, provider?: string): string {
-  if (provider === 'netlify') return window.location.pathname;
-  return form.dataset.endpoint || window.location.pathname;
-}
-
-/**
- * Forms carrying a file must stay `multipart/form-data` (FormData sets that
- * automatically). Everything else goes as urlencoded, which Netlify prefers for
- * AJAX submissions and which keeps disabled/hidden fields out of the payload.
- */
-function buildBody(form: HTMLFormElement): FormData | URLSearchParams {
-  const data = new FormData(form);
-  if (form.dataset.upload === 'true') return data;
-
-  const params = new URLSearchParams();
-  data.forEach((value, key) => {
-    if (typeof value === 'string') params.append(key, value);
-  });
-  return params;
-}
-
 function init(form: HTMLFormElement) {
   if (form.dataset.bound === 'true') return;
   form.dataset.bound = 'true';
@@ -148,18 +127,20 @@ function init(form: HTMLFormElement) {
       return;
     }
 
-    const provider = form.dataset.provider;
+    const endpoint = form.dataset.endpoint;
+    // No endpoint configured yet (demo builds): send nothing, just show the
+    // thank-you page so the flow can be reviewed end to end.
+    if (!endpoint) {
+      e.preventDefault();
+      window.location.href = form.dataset.thanks ?? homeHref();
+      return;
+    }
 
-    // No backend configured: let the native POST fall through to /merci/ so the
-    // visitor still gets the mailto fallback shown under the form.
-    if (provider === 'none') return;
-
-    // Spam guards. A filled honeypot or a sub-3s completion is a bot: pretend
-    // it worked rather than telling the bot it was caught.
+    // Spam guards.
     const hp = form.querySelector<HTMLInputElement>('input[name="website"]');
     if (hp?.value || Date.now() - openedAt < 3000) {
       e.preventDefault();
-      window.location.href = form.dataset.thanks ?? '/';
+      window.location.href = form.dataset.thanks ?? homeHref();
       return;
     }
 
@@ -168,13 +149,13 @@ function init(form: HTMLFormElement) {
     if (submitText) submitText.textContent = m.sending;
 
     try {
-      const res = await fetch(submitTarget(form, provider), {
+      const res = await fetch(endpoint, {
         method: 'POST',
-        body: buildBody(form),
+        body: new FormData(form),
         headers: { Accept: 'application/json' },
       });
       if (!res.ok) throw new Error(String(res.status));
-      window.location.href = form.dataset.thanks ?? '/';
+      window.location.href = form.dataset.thanks ?? homeHref();
     } catch {
       // The message already carries a mailto address so the visitor is never stuck.
       if (alert) alert.textContent = form.dataset.msgNetwork ?? '';

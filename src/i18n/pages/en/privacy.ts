@@ -61,7 +61,7 @@ export const privacy = {
       title: 'Who has access to it',
       body: ['The information is accessible to the people at Lagni Consulting handling your request.'],
       items: [
-        'Website hosting and form processing: submissions are received and stored by our hosting provider, on servers located in the United States. Your information therefore leaves Quebec and Canada.',
+        'Website hosting and form processing: submissions, including CVs, are received and stored on Lagni Consulting’s own server, not with a third-party form collection service. Server location: to be confirmed.',
         'Email: notifications of new enquiries are sent to Lagni Consulting’s professional mailbox.',
       ],
       note: 'We do not share your information with any other third party, except where legally required. As part of a recruitment mandate, a résumé is only passed to an employer after you have been informed.',

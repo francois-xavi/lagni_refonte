@@ -4,6 +4,9 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://lagniconsulting.ca',
+  // Production serves from the root. Demo builds set SITE_BASE (see
+  // `npm run build:demo`); every internal URL goes through src/lib/url.ts.
+  base: process.env.SITE_BASE || '/',
   output: 'static',
   /**
    * Astro's HTML compressor strips the whitespace between sibling elements, so

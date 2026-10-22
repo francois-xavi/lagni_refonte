@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:demo": "SITE_BASE=/d/lagniconsulting astro build && node scripts/write-demo-headers.mjs",
     "preview": "astro preview",
     "check": "astro check"
   },

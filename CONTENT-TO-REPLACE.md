@@ -12,22 +12,27 @@ or shows an obvious placeholder. This file lists every one of those.
 
 ## 🟠 1. Formulaires — test de bout en bout
 
-Les formulaires sont désormais branchés sur **Netlify Forms** : plus aucune
-configuration de code n'est nécessaire. Reste à valider en conditions réelles,
-après le premier déploiement.
+| Item | Where | Current state |
+| --- | --- | --- |
+| Form destination URL | `src/config.ts` → `FORM_ENDPOINT` | `/api/form` → `form-service/` (production only) |
+| Admin inbox | `https://lagniconsulting.ca/admin/` | login = `ADMIN_PASSWORD` env var on Dokploy (`lagni-form-service`) |
 
-- [ ] Créer le site sur Netlify (build `npm run build`, publication `dist`)
-- [ ] Activer les notifications : *Site settings → Forms → Form notifications* →
-      courriel vers `info@lagniconsulting.ca`
-- [ ] Tester les 4 formulaires et vérifier l'arrivée dans le tableau de bord :
+`form-service/` stores every submission (CV included) in SQLite on the `/data` volume;
+the client reads them at `/admin/`. Optional email notification: set `SMTP_HOST`,
+`SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `MAIL_FROM`, `MAIL_TO` — any provider, no code change.
+Demo builds still have no endpoint and go straight to `/merci/`.
+
+Reste à valider en conditions réelles, après le premier déploiement :
+
+- [ ] Poser `ADMIN_PASSWORD` (12 caractères minimum) sur Dokploy et vérifier
+      l'ouverture de `/admin/`
+- [ ] Tester les 4 formulaires et vérifier leur arrivée dans `/admin/` :
       - Contact, pour les 6 types de demande
       - Mandat employeur (page Recrutement)
       - Candidature avec CV en PDF, DOC et DOCX, plus un refus au-delà de 5 Mo
       - Partenariat établissement
+- [ ] Vérifier le repli sans JavaScript : redirection vers `/merci/`, soumission conservée
 - [ ] Décider du routage de chaque type de demande (boîte partagée, CRM)
-
-> Pour changer de prestataire, un seul endroit : `FORM_PROVIDER` dans
-> `src/config.ts` (`'netlify'`, `'custom'` + `FORM_ENDPOINT`, ou `'none'`).
 
 ## 🔴 2. Certifications — exact official wording
 
@@ -74,9 +79,12 @@ validée.
       `src/i18n/pages/{fr,en}/privacy.ts`
 - [ ] Confirmer les durées de conservation proposées (24 mois pour les
       candidatures et les demandes de contact)
-- [ ] Confirmer que l'hébergement des soumissions aux États-Unis (Netlify) est
-      accepté ; sinon, basculer `FORM_PROVIDER` vers un webhook alimentant un
-      stockage canadien
+- [ ] **Corriger la section « hébergement des données » de la politique** : elle a
+      été rédigée en supposant un hébergement tiers aux États-Unis. Avec
+      `form-service/`, les soumissions et les CV restent sur le serveur Dokploy —
+      argument nettement plus solide au regard de la Loi 25. Confirmer la
+      localisation de ce serveur, puis l'énoncer dans
+      `src/i18n/pages/{fr,en}/privacy.ts`
 - [ ] Désigner le responsable de la protection des renseignements personnels
 - [ ] Terms of use
 - [ ] Cookie notice — **only needed if analytics or another tracker is added.** The
@@ -155,6 +163,41 @@ Still to come from the client:
 - [ ] YouTube links for the *SAP S/4HANA — One Scope Item at a Time* series
       (the Resources page shows a placeholder where the videos go)
 - [ ] Any remaining articles from the list in §25 of the cahier
+
+---
+
+## 🟠 6b. Copy rewritten in the UX clarity pass — needs client validation
+
+The headlines below were rewritten so a first-time visitor can tell what Lagni
+offers within a few seconds. No new facts were added: every service, system and
+audience named already appears elsewhere in the validated cahier. Please confirm
+or amend each one (FR and EN).
+
+| Page | Field | Before (validated) | After (proposed) |
+| --- | --- | --- | --- |
+| Accueil | Hero eyebrow | *(written but not displayed)* Recrutement spécialisé · Québec & international | Former. Accompagner. Connecter. |
+| Accueil | H1 | Les talents qui font avancer les entreprises exigeantes. | Formation SAP, projets ERP et recrutement spécialisé. |
+| Accueil | Lead | Lagni Consulting connecte les entreprises à des experts rares… | Nous formons les professionnels à SAP S/4HANA, accompagnons les entreprises dans leurs projets ERP et CRM, et trouvons les profils spécialisés qui les font réussir. |
+| Accueil | CTAs | Recruter un expert · Découvrir Lagni | Parler de votre projet · Voir la formation SAP PP |
+| Accueil | Hero tags | Expertise métier · Regard international · Accompagnement humain | Expertise ERP terrain · Québec · Europe · Afrique · Accompagnement humain |
+| Accueil | Hero card | Le bon profil. Au bon moment. | Les processus d’abord. La technologie ensuite. |
+| Accueil | Services heading | Les trois piliers — Une plateforme claire pour avancer. | Nos services — Trois façons de vous accompagner. |
+| Accueil | Service cards | Formation · ERP & Solutions · Recrutement spécialisé (+ “Découvrir”) | Se former à SAP et aux ERP · Réussir un projet ERP ou CRM · Recruter un profil spécialisé, each with a “Pour : …” audience line and a named link |
+| Formations | H1 / tagline | Développez des compétences qui font la différence. | H1: Formations SAP et ERP, orientées vers la pratique. — the old H1 becomes the tagline |
+| ERP & Solutions | H1 / lead | Vos systèmes doivent servir vos processus. Pas l’inverse. | H1: Conseil ERP et CRM, de l’analyse à l’adoption. — the old H1 opens the lead, which now names SAP, JD Edwards, Odoo and CRM |
+| Recrutement | H1 / lead | Les bonnes compétences. Les bonnes opportunités. | H1: Recrutement spécialisé en ERP, CRM et transformation numérique. — the old H1 opens the lead |
+| Ressources | H1 | Comprendre les systèmes. Développer les compétences. | Guides et articles sur SAP, les ERP et les carrières. |
+
+English mirrors each change in `src/i18n/pages/en/*.ts`.
+
+**Removed from the homepage:** the dark “Entreprises” band (it repeated the three
+services) and the two decorative hero cards (“Matching spécialisé”, “Profil
+recommandé · Consultant ERP · Disponible”), which read like a live product UI.
+**Removed as duplicates on inner pages:** the founder block on Formations and
+Établissements (it stays on À propos, Formation SAP PP and the homepage), the
+“Comment pouvons-nous intervenir ?” band on ERP, the pillars band on À propos, and
+the cross-links band on Recrutement. The copy for these still sits in `src/i18n/`
+so any of them can be restored.
 
 ---
 

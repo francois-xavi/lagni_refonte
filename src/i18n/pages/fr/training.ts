@@ -7,8 +7,8 @@ export const training = {
 
   hero: {
     eyebrow: 'Formations',
-    title: 'Développez des compétences qui font la différence.',
-    tagline: 'Des formations orientées vers la pratique, les processus métiers et les technologies d’entreprise.',
+    title: 'Formations SAP et ERP, orientées vers la pratique.',
+    tagline: 'Développez des compétences qui font la différence.',
     lead: 'Lagni Consulting accompagne les professionnels, les étudiants et les organisations dans le développement de compétences applicables dans des environnements professionnels réels.',
     ctaPrimary: 'Découvrir la formation SAP PP',
     ctaSecondary: 'Former votre équipe',

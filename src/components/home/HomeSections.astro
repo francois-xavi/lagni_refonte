@@ -8,7 +8,6 @@ import ProofBand from '../sections/ProofBand.astro';
 import NumberedCards from '../sections/NumberedCards.astro';
 import FeaturedCard from '../sections/FeaturedCard.astro';
 import IconTiles from '../sections/IconTiles.astro';
-import RowsBand from '../sections/RowsBand.astro';
 import FounderSplit from '../sections/FounderSplit.astro';
 import ResourceShowcase from '../sections/ResourceShowcase.astro';
 import CtaBand from '../CtaBand.astro';
@@ -42,31 +41,36 @@ const institutionIcons: Record<string, LordIconName> = {
   people: 'mentor',
 };
 
-const companyNeeds: Record<string, { icon: LordIconName; route: string }> = {
-  people: { icon: 'mentor', route: 'training' },
-  chart: { icon: 'experience', route: 'erp' },
-  search: { icon: 'search', route: 'recruitment' },
-};
 ---
 
 <ArtHero
   id="home-hero-title"
+  eyebrow={p.hero.eyebrow}
   title={p.hero.title}
   lead={p.hero.lead}
   trustItems={p.hero.trustItems}
   image={{ src: '/assets/images/hero-consultant.jpg', alt: p.hero.imageAlt, width: 900, height: 1100 }}
-  matchCard={{ label: p.hero.matchLabel, title: p.hero.matchBody, pills: p.hero.matchPills }}
-  profileCard={{
-    badge: 'ERP',
-    label: p.hero.profileLabel,
-    title: p.hero.profileRole,
-    status: p.hero.profileStatus,
-  }}
   valueCard={{ text: p.hero.valueLine }}
 >
-  <Button href={href('recruitment', lang)} variant="primary" size="lg">{p.hero.ctaPrimary}</Button>
-  <Button href={href('about', lang)} variant="ghost" size="lg">{p.hero.ctaSecondary}</Button>
+  <Button href={href('contact', lang)} variant="primary" size="lg">{p.hero.ctaPrimary}</Button>
+  <Button href={href('sapPp', lang)} variant="ghost" size="lg">{p.hero.ctaSecondary}</Button>
 </ArtHero>
+
+<NumberedCards
+  id="pillars-title"
+  eyebrow={p.pillars.eyebrow}
+  title={p.pillars.title}
+  lead={p.pillars.lead}
+  metaLabel={p.pillars.audienceLabel}
+  items={p.pillars.items.map((item) => ({
+    title: item.title,
+    body: item.body,
+    meta: item.audience,
+    icon: item.icon,
+    href: href(item.route, lang),
+    cta: item.cta,
+  }))}
+/>
 
 <ProofBand
   label={p.credibility.label}
@@ -75,20 +79,6 @@ const companyNeeds: Record<string, { icon: LordIconName; route: string }> = {
     label: item.label,
     lord: proofLords[item.icon] ?? 'experience',
     count: i === 0,
-  }))}
-/>
-
-<NumberedCards
-  id="pillars-title"
-  eyebrow={p.pillars.eyebrow}
-  title={p.pillars.title}
-  lead={p.pillars.lead}
-  items={p.pillars.items.map((item) => ({
-    title: item.title,
-    body: item.body,
-    icon: item.icon,
-    href: href(item.route, lang),
-    cta: item.cta,
   }))}
 />
 
@@ -133,19 +123,6 @@ const companyNeeds: Record<string, { icon: LordIconName; route: string }> = {
     {p.institutions.cta}
   </Button>
 </IconTiles>
-
-<RowsBand
-  id="comp-title"
-  eyebrow={p.companies.eyebrow}
-  title={p.companies.title}
-  body={p.companies.body}
-  rows={p.companies.cards.map((c) => {
-    const need = companyNeeds[c.icon] ?? companyNeeds.chart;
-    return { title: c.title, desc: c.body, href: href(need.route, lang), lord: need.icon };
-  })}
->
-  <Button href={href('contact', lang)} variant="primary" size="lg">{p.companies.cta}</Button>
-</RowsBand>
 
 <FounderSplit
   id="about-title"

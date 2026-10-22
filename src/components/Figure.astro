@@ -10,6 +10,7 @@
  */
 import Icon from './Icon.astro';
 import type { IconName } from './Icon.astro';
+import { withBase } from '../lib/url';
 
 interface Props {
   /** e.g. "/assets/images/hero-home.jpg" — omit while awaiting the real asset. */
@@ -48,7 +49,7 @@ const ratio = `${width} / ${height}`;
   src ? (
     <img
       class:list={['figure', rounded && 'figure--rounded', className]}
-      src={src}
+      src={withBase(src)}
       alt={alt}
       width={width}
       height={height}
@@ -159,7 +160,7 @@ const ratio = `${width} / ${height}`;
     position: absolute;
     right: var(--s-3);
     bottom: var(--s-3);
-    font-size: 0.6875rem;
+    font-size: var(--fs-xs);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.55);

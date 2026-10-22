@@ -1,3 +1,5 @@
+import { withBase } from '../lib/url';
+
 export type Lang = 'fr' | 'en';
 
 export const LANGS: Lang[] = ['fr', 'en'];
@@ -42,6 +44,11 @@ const BY_KEY = new Map(ROUTES.map((r) => [r.key, r]));
  * FR is the default locale and serves from the root; EN is prefixed with /en.
  */
 export function href(key: string, lang: Lang): string {
+  return withBase(routePath(key, lang));
+}
+
+/** The base-less path for a route — for canonical/hreflang URLs. */
+export function routePath(key: string, lang: Lang): string {
   const route = BY_KEY.get(key);
   if (!route) throw new Error(`Unknown route key: ${key}`);
   const segment = route.path[lang];
@@ -57,9 +64,9 @@ export function alternateHref(key: string, lang: Lang): string {
 /** hreflang alternates for a route, including x-default (→ FR). */
 export function alternates(key: string): { hreflang: string; path: string }[] {
   return [
-    { hreflang: HREFLANG.fr, path: href(key, 'fr') },
-    { hreflang: HREFLANG.en, path: href(key, 'en') },
-    { hreflang: 'x-default', path: href(key, 'fr') },
+    { hreflang: HREFLANG.fr, path: routePath(key, 'fr') },
+    { hreflang: HREFLANG.en, path: routePath(key, 'en') },
+    { hreflang: 'x-default', path: routePath(key, 'fr') },
   ];
 }
 

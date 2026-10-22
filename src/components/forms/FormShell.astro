@@ -10,7 +10,7 @@
  */
 import Icon from '../Icon.astro';
 import Button from '../Button.astro';
-import { FORM_ENDPOINT, FORM_CONFIGURED, FORM_PROVIDER, CONTACT } from '../../config';
+import { FORM_ENDPOINT, FORM_CONFIGURED, CONTACT } from '../../config';
 import { href, type Lang } from '../../i18n/routes';
 import { useTranslations } from '../../i18n/utils';
 
@@ -23,7 +23,7 @@ interface Props {
   consentLabel?: string;
   id?: string;
   class?: string;
-  /** Set when the form carries a file input — Netlify needs multipart then. */
+  /** Set when the form carries a file input — the native POST must be multipart. */
   hasUpload?: boolean;
 }
 
@@ -41,15 +41,10 @@ const {
 
 const t = useTranslations(lang);
 const consentText = consentLabel ?? t.forms.consent;
-const isNetlify = FORM_PROVIDER === 'netlify';
 
-// Without JS the browser posts natively: Netlify processes the submission and
-// redirects to `action`; a custom endpoint receives it directly.
-const action = isNetlify
-  ? href('thanks', lang)
-  : FORM_CONFIGURED
-    ? FORM_ENDPOINT
-    : href('thanks', lang);
+// Without JS the browser posts natively to form-service, which answers with a
+// 303 to /merci/. Demo builds have no endpoint, so they go straight there.
+const action = FORM_CONFIGURED ? FORM_ENDPOINT : href('thanks', lang);
 ---
 
 <div class:list={['formShell', className]}>
@@ -58,18 +53,14 @@ const action = isNetlify
 
   <form
     id={id}
-    name={formName}
     class="form"
     method="post"
     action={action}
     enctype={hasUpload ? 'multipart/form-data' : undefined}
     novalidate
-    data-netlify={isNetlify ? 'true' : undefined}
-    netlify-honeypot={isNetlify ? 'website' : undefined}
     data-form
-    data-provider={FORM_PROVIDER}
     data-upload={hasUpload ? 'true' : undefined}
-    data-endpoint={FORM_PROVIDER === 'custom' ? FORM_ENDPOINT : ''}
+    data-endpoint={FORM_CONFIGURED ? FORM_ENDPOINT : ''}
     data-thanks={href('thanks', lang)}
     data-msg-required={t.forms.errors.required}
     data-msg-email={t.forms.errors.email}
@@ -81,8 +72,8 @@ const action = isNetlify
     data-msg-sending={t.forms.sending}
     data-submit-label={submitLabel}
   >
-    {/* Netlify matches the submission to the form by this exact field name. */}
-    <input type="hidden" name="form-name" value={formName} />
+    {/* form-service stores the submission under this name. */}
+    <input type="hidden" name="form_name" value={formName} />
     <input type="hidden" name="locale" value={lang} />
     <input type="hidden" name="started_at" value="" data-timetrap />
 

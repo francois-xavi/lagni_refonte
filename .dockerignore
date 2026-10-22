@@ -1,0 +1,9 @@
+node_modules
+dist
+.astro
+.git
+.wrangler
+.serena
+.claude
+_reference
+form-service

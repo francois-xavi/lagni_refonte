@@ -9,7 +9,6 @@ import ProofBand from '../sections/ProofBand.astro';
 import IconTiles from '../sections/IconTiles.astro';
 import NumberedCards from '../sections/NumberedCards.astro';
 import StepTimeline from '../sections/StepTimeline.astro';
-import RowsBand from '../sections/RowsBand.astro';
 import FormCard from '../sections/FormCard.astro';
 import NoticeCard from '../sections/NoticeCard.astro';
 import CtaBand from '../CtaBand.astro';
@@ -18,7 +17,7 @@ import Icon from '../Icon.astro';
 import FormShell from '../forms/FormShell.astro';
 import FormField from '../forms/FormField.astro';
 import type { LordIconName } from '../LordIcon.astro';
-import { href, type Lang } from '../../i18n/routes';
+import { type Lang } from '../../i18n/routes';
 import { useTranslations, usePages } from '../../i18n/utils';
 import { publicImage } from '../../lib/assets';
 
@@ -53,11 +52,6 @@ const processLords: Record<string, LordIconName> = {
   handshake: 'conversation',
 };
 
-const linkLords: Record<string, LordIconName> = {
-  cap: 'cap',
-  globe: 'network',
-  school: 'school',
-};
 ---
 
 <ArtHero
@@ -67,13 +61,6 @@ const linkLords: Record<string, LordIconName> = {
   lead={p.hero.lead}
   trustItems={p.hero.trustItems}
   image={{ src: '/assets/images/hero-recruitment.webp', alt: p.hero.imageAlt, width: 900, height: 1100 }}
-  matchCard={{ label: p.hero.matchLabel, title: p.hero.matchTitle, pills: p.hero.matchPills }}
-  profileCard={{
-    badge: p.hero.profileBadge,
-    label: p.hero.profileLabel,
-    title: p.hero.profileTitle,
-    status: p.hero.profileStatus,
-  }}
   valueCard={{ text: p.hero.script, variant: 'script' }}
 >
   <Button href="#employer" variant="primary" size="lg">{p.hero.ctaPrimary}</Button>
@@ -206,20 +193,6 @@ const linkLords: Record<string, LordIconName> = {
     </div>
   </div>
 </section>
-
-<RowsBand
-  id="links-title"
-  eyebrow={p.links.eyebrow}
-  title={p.links.title}
-  body={p.links.body}
-  rows={p.links.items.map((l) => ({
-    title: l.title,
-    desc: l.body,
-    href: href(l.route, lang),
-    lord: linkLords[l.icon] ?? 'network',
-    pills: 'items' in l ? l.items : undefined,
-  }))}
-/>
 
 <section class="section intl" aria-labelledby="intl-title">
   <div class="container intl__grid">

@@ -12,6 +12,7 @@
  * — never alter the logo to suit the background.
  */
 import { href, type Lang } from '../i18n/routes';
+import { withBase } from '../lib/url';
 
 interface Props {
   lang: Lang;
@@ -42,7 +43,7 @@ const width = Math.round((height * INTRINSIC_W) / INTRINSIC_H);
   linked ? (
     <a class:list={['logo', plate && 'logo--plate']} href={href('home', lang)} aria-label={homeAriaLabel}>
       <img
-        src="/assets/images/logo.png"
+        src={withBase('/assets/images/logo.png')}
         alt={alt}
         width={width}
         height={height}
@@ -53,7 +54,7 @@ const width = Math.round((height * INTRINSIC_W) / INTRINSIC_H);
   ) : (
     <span class:list={['logo', plate && 'logo--plate']}>
       <img
-        src="/assets/images/logo.png"
+        src={withBase('/assets/images/logo.png')}
         alt={alt}
         width={width}
         height={height}

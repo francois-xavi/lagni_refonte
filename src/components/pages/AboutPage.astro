@@ -11,7 +11,6 @@ import FounderSplit from '../sections/FounderSplit.astro';
 import StepTimeline from '../sections/StepTimeline.astro';
 import ProcessChain from '../sections/ProcessChain.astro';
 import NoticeCard from '../sections/NoticeCard.astro';
-import RowsBand from '../sections/RowsBand.astro';
 import CtaBand from '../CtaBand.astro';
 import Button from '../Button.astro';
 import Icon from '../Icon.astro';
@@ -36,7 +35,6 @@ const valueLords: Record<string, LordIconName> = {
   handshake: 'conversation',
 };
 const journeyLords: LordIconName[] = ['server', 'experience', 'design', 'network', 'conversation'];
-const pillarLords: Record<string, LordIconName> = { cap: 'cap', gear: 'tools', people: 'mentor' };
 ---
 
 <ArtHero
@@ -47,12 +45,6 @@ const pillarLords: Record<string, LordIconName> = { cap: 'cap', gear: 'tools', p
   lead={p.hero.lead}
   trustItems={p.hero.trustItems}
   image={{ src: '/assets/images/hero-about.webp', alt: p.hero.imageAlt, width: 900, height: 1100 }}
-  matchCard={{
-    label: p.hero.matchLabel,
-    title: p.hero.matchTitle,
-    pills: p.pillarsBack.items.map((i) => i.title),
-  }}
-  profileCard={{ badge: p.hero.profileBadge, label: p.hero.profileLabel, title: p.hero.profileTitle }}
   valueCard={{ text: p.hero.quote, variant: 'script' }}
 >
   <Button href={href('erp', lang)} variant="primary" size="lg">{p.hero.ctaPrimary}</Button>
@@ -164,20 +156,6 @@ const pillarLords: Record<string, LordIconName> = { cap: 'cap', gear: 'tools', p
     </div>
   </div>
 </section>
-
-<RowsBand
-  id="pill-title"
-  eyebrow={p.pillarsBack.eyebrow}
-  title={p.pillarsBack.title}
-  body={p.pillarsBack.body}
-  rows={p.pillarsBack.items.map((i) => ({
-    title: i.title,
-    subtitle: i.body,
-    desc: i.cta,
-    href: href(i.route, lang),
-    lord: pillarLords[i.icon] ?? 'cap',
-  }))}
-/>
 
 <CtaBand title={p.finalCta.title} body={p.finalCta.body} script={p.finalCta.script} imageSlot="cta-about">
   <Button href={href('contact', lang)} variant="primary" size="lg">{p.finalCta.cta}</Button>

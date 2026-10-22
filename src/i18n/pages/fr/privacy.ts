@@ -70,7 +70,7 @@ export const privacy = {
         'Les renseignements sont accessibles aux personnes de Lagni Consulting chargées de traiter votre demande.',
       ],
       items: [
-        'Hébergement du site et traitement des formulaires : les soumissions sont reçues et conservées par notre hébergeur, sur des serveurs situés aux États-Unis. Vos renseignements sortent donc du Québec et du Canada.',
+        'Hébergement du site et traitement des formulaires : les soumissions, curriculum vitæ compris, sont reçues et conservées sur le serveur de Lagni Consulting, et non chez un service tiers de collecte de formulaires. Localisation du serveur : à confirmer.',
         'Courriel : les notifications de nouvelles demandes sont acheminées vers la boîte professionnelle de Lagni Consulting.',
       ],
       note: 'Nous ne communiquons vos renseignements à aucun autre tiers, sauf obligation légale. Dans le cadre d’un mandat de recrutement, un curriculum vitæ n’est transmis à un employeur qu’après vous en avoir informé.',
