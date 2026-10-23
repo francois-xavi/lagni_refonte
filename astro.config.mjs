@@ -1,13 +1,16 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import sitemap from '@astrojs/sitemap';
+import node from '@astrojs/node';
 
 export default defineConfig({
   site: 'https://lagniconsulting.ca',
   // Production serves from the root. Demo builds set SITE_BASE (see
   // `npm run build:demo`); every internal URL goes through src/lib/url.ts.
   base: process.env.SITE_BASE || '/',
-  output: 'static',
+  // Server rendered: content comes from the CMS per request, so there is no
+  // build step to re-run when the client publishes.
+  output: 'server',
+  adapter: node({ mode: 'standalone' }),
   /**
    * Astro's HTML compressor strips the whitespace between sibling elements, so
    * a heading and its paragraph serialize as "TitreTexte" in copy-paste,
@@ -18,19 +21,4 @@ export default defineConfig({
   compressHTML: false,
   trailingSlash: 'always',
   build: { format: 'directory' },
-  integrations: [
-    sitemap({
-      // Article pages are drafts pending client review: they are noindex, so
-      // they must not appear in the sitemap either. Remove this filter once
-      // articles are marked `status: 'published'`.
-      filter: (page) =>
-        !/\/(ressources|en\/resources)\/[^/]+\/$/.test(new URL(page).pathname) &&
-        !/\/404\/?$/.test(new URL(page).pathname) &&
-        !/\/(merci|en\/thank-you)\/$/.test(new URL(page).pathname),
-      i18n: {
-        defaultLocale: 'fr',
-        locales: { fr: 'fr-CA', en: 'en-CA' },
-      },
-    }),
-  ],
 });
