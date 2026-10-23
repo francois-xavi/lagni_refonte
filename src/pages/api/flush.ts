@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { flush, stats } from '../../middleware';
+import { invalidateContent } from '../../lib/payload';
 
 /**
  * Empties the page cache. The CMS calls this when the client publishes, which
@@ -29,6 +30,9 @@ export const POST: APIRoute = async ({ request }) => {
   if (!SECRET || given !== SECRET) {
     return new Response('forbidden', { status: 403, headers: { 'cache-control': 'no-store' } });
   }
+  // Both have to go: the rendered pages, and the content they were rendered
+  // from. Clearing only the pages would re-render them from stale content.
+  invalidateContent();
   const cleared = flush();
   return new Response(JSON.stringify({ cleared }), {
     headers: { 'content-type': 'application/json', 'cache-control': 'no-store' },

@@ -1,5 +1,11 @@
 /**
- * Site copy — read from `src/content/copy/`, editable from /admin/contenu/.
+ * Site copy.
+ *
+ * The live source is Payload (see cms/). The JSON files under
+ * `src/content/copy/` stay in the repository as the **fallback**: they are the
+ * shape every mapper walks, and they are what the site serves if the CMS is
+ * unreachable when the server boots. A brochure site that cannot reach its
+ * database should still answer, with the content of its last deployment.
  *
  * One rule separates content from structure:
  *
@@ -48,7 +54,7 @@ export type Unwrap<T> = T extends Pair
       ? { readonly [K in keyof T]: Unwrap<T[K]> }
       : T;
 
-const PAGES = {
+const FALLBACK_PAGES = {
   home,
   training,
   sapPp,
@@ -63,9 +69,12 @@ const PAGES = {
   privacy,
 } as const;
 
-export type PageKey = keyof typeof PAGES;
-export type Pages = Unwrap<typeof PAGES>;
+export type PageKey = keyof typeof FALLBACK_PAGES;
+export type Pages = Unwrap<typeof FALLBACK_PAGES>;
 export type Shared = Unwrap<typeof shared>;
+
+/** The bilingual tree, before a language is picked. */
+type Bundle = { shared: unknown; pages: Record<string, unknown> };
 
 // ────────────────────────────────────────────────── allowed structural values
 //
@@ -151,17 +160,46 @@ function validate(node: unknown, trail: string, errors: string[]): void {
   }
 }
 
-{
+export function problemsIn(bundle: Bundle): string[] {
   const errors: string[] = [];
-  validate(shared, 'shared', errors);
-  for (const [key, page] of Object.entries(PAGES)) validate(page, key, errors);
+  validate(bundle.shared, 'shared', errors);
+  for (const [key, page] of Object.entries(bundle.pages)) validate(page, key, errors);
+  return errors;
+}
+
+const FALLBACK: Bundle = { shared, pages: FALLBACK_PAGES };
+
+{
+  // The committed content is the safety net, so it must always be valid.
+  const errors = problemsIn(FALLBACK);
   if (errors.length) {
     throw new Error(
-      `Contenu invalide (${errors.length} problème${errors.length > 1 ? 's' : ''}) :\n  - ` +
+      `Contenu de repli invalide (${errors.length} problème${errors.length > 1 ? 's' : ''}) :\n  - ` +
         errors.join('\n  - '),
     );
   }
 }
+
+/** What the site serves right now. Swapped wholesale, never half-updated. */
+let live: Bundle = FALLBACK;
+
+/**
+ * Replaces the live content, but only if it is valid.
+ *
+ * A bad edit in the CMS must not take the site down: the errors are reported
+ * and the previous content keeps being served. This is why validation returns
+ * problems instead of throwing — throwing is right for the committed fallback
+ * at boot, wrong for data arriving at runtime.
+ */
+export function adopt(bundle: Bundle): { ok: boolean; errors: string[] } {
+  const errors = problemsIn(bundle);
+  if (errors.length) return { ok: false, errors };
+  live = bundle;
+  cache.clear();
+  return { ok: true, errors: [] };
+}
+
+export const usingFallback = () => live === FALLBACK;
 
 // ─────────────────────────────────────────────────────────── projection
 
@@ -186,5 +224,7 @@ function once<T>(key: string, build: () => T): T {
   return hit as T;
 }
 
-export const sharedFor = (lang: Lang): Shared => once(`s-${lang}`, () => project(shared, lang));
-export const pagesFor = (lang: Lang): Pages => once(`p-${lang}`, () => project(PAGES, lang));
+export const sharedFor = (lang: Lang): Shared =>
+  once(`s-${lang}`, () => project(live.shared, lang) as Shared);
+export const pagesFor = (lang: Lang): Pages =>
+  once(`p-${lang}`, () => project(live.pages, lang) as Pages);

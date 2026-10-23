@@ -1,12 +1,14 @@
 import { defineMiddleware } from 'astro:middleware';
+import { ensureContent } from './lib/payload';
 
 /**
  * Page cache.
  *
- * Server rendering costs roughly 230 ms per request against the ~5 ms nginx
- * took to hand back a static file. That is the price of publishing without a
- * rebuild, and this cache is what pays it back: a page is rendered once, then
- * served from memory until the content changes.
+ * Rendering a page costs about 4 ms, and serving it from here about 2.5 ms,
+ * both measured. So this is not what makes the site fast — it is what keeps
+ * the CMS out of the hot path: a published page is rendered once and then
+ * served from memory, so a burst of traffic does not become a burst of
+ * queries.
  *
  * Invalidation is explicit, not time-based. The CMS calls POST /api/flush when
  * the client publishes, so a change is live immediately and nothing goes stale
@@ -51,6 +53,10 @@ const cacheable = (pathname: string) =>
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const { request, url } = context;
+
+  // Loaded once, before anything renders, so usePages() can stay synchronous
+  // and no component has to change.
+  await ensureContent();
 
   if (request.method !== 'GET' || !cacheable(url.pathname) || isPreview(request)) {
     const response = await next();

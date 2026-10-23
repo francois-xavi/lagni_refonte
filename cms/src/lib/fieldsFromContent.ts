@@ -207,6 +207,9 @@ export function globalForPage(key: string, title: string): GlobalConfig {
   return {
     slug: key,
     label: title,
+    // The published content of a public website is public. Drafts are a
+    // different matter and stay behind authentication — verified, not assumed.
+    access: { read: () => true },
     admin: { group: 'Pages' },
     versions: { drafts: { autosave: false } },
     fields: fieldsFor(data),
@@ -218,6 +221,9 @@ export function sharedGlobal(): GlobalConfig {
   return {
     slug: 'shared',
     label: 'Commun au site',
+    // The published content of a public website is public. Drafts are a
+    // different matter and stay behind authentication — verified, not assumed.
+    access: { read: () => true },
     admin: {
       group: 'Pages',
       description: 'En-tête, navigation, pied de page, libellés et messages des formulaires.',
