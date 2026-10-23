@@ -201,6 +201,45 @@ export function fieldsFor(node: unknown, inLocalizedArray = false): Field[] {
   return out
 }
 
+/**
+ * Where each page lives on the site. The CMS edits content, never URLs — the
+ * route table in src/i18n/routes.ts stays the only place a path is written —
+ * so the preview button needs this small map to know where to send the editor.
+ */
+const PREVIEW_PATH: Record<string, string> = {
+  home: '/',
+  training: '/formations/',
+  sapPp: '/formation-sap-pp/',
+  erp: '/erp-solutions/',
+  recruitment: '/recrutement/',
+  institutions: '/etablissements/',
+  about: '/a-propos/',
+  resources: '/ressources/',
+  contact: '/contact/',
+  privacy: '/confidentialite/',
+  thanks: '/merci/',
+  notFound: '/404',
+  shared: '/',
+}
+
+const SITE_URL = process.env.SITE_URL ?? 'http://localhost:4333'
+const PREVIEW_SECRET = process.env.PREVIEW_SECRET ?? ''
+
+/**
+ * Hands the editor's own token to the site, which reads the draft as that
+ * user. Returning null hides the button when no secret is configured, rather
+ * than offering one that leads to a 403.
+ */
+const previewUrl = (slug: string) => (_data: unknown, { token }: { token?: string }) => {
+  if (!PREVIEW_SECRET) return null
+  const params = new URLSearchParams({
+    secret: PREVIEW_SECRET,
+    path: PREVIEW_PATH[slug] ?? '/',
+    token: token ?? '',
+  })
+  return `${SITE_URL}/api/preview/?${params.toString()}`
+}
+
 /** One Payload global per page — a page is a singleton, which is what a global is. */
 export function globalForPage(key: string, title: string): GlobalConfig {
   const data = readJson(path.join(COPY, 'pages', `${key}.json`))
@@ -210,7 +249,7 @@ export function globalForPage(key: string, title: string): GlobalConfig {
     // The published content of a public website is public. Drafts are a
     // different matter and stay behind authentication — verified, not assumed.
     access: { read: () => true },
-    admin: { group: 'Pages' },
+    admin: { group: 'Pages', preview: previewUrl(key) },
     versions: { drafts: { autosave: false } },
     fields: fieldsFor(data),
   }
@@ -226,6 +265,7 @@ export function sharedGlobal(): GlobalConfig {
     access: { read: () => true },
     admin: {
       group: 'Pages',
+      preview: previewUrl('shared'),
       description: 'En-tête, navigation, pied de page, libellés et messages des formulaires.',
     },
     versions: { drafts: { autosave: false } },

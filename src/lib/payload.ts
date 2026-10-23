@@ -1,4 +1,4 @@
-import { adopt, problemsIn, usingFallback, type PageKey } from './copy';
+import { adopt, problemsIn, usingFallback, type Bundle, type PageKey } from './copy';
 
 import shared from '../content/copy/shared.json';
 import home from '../content/copy/pages/home.json';
@@ -128,11 +128,73 @@ function merge(skeleton: unknown, fr: unknown, en: unknown): unknown {
   return fr === null ? undefined : fr;
 }
 
-async function fetchGlobal(slug: string, locale: 'fr' | 'en', signal: AbortSignal) {
-  const url = `${PAYLOAD_URL}/api/globals/${slug}?locale=${locale}&depth=0`;
-  const res = await fetch(url, { signal, headers: { accept: 'application/json' } });
+async function fetchGlobal(
+  slug: string,
+  locale: 'fr' | 'en',
+  signal: AbortSignal,
+  token?: string,
+) {
+  const draft = token ? '&draft=true' : '';
+  const url = `${PAYLOAD_URL}/api/globals/${slug}?locale=${locale}&depth=0${draft}`;
+  const res = await fetch(url, {
+    signal,
+    headers: {
+      accept: 'application/json',
+      // Drafts are not public. Payload hands the editor's own token to the
+      // preview URL, so the draft is read as that user, with their rights.
+      ...(token ? { authorization: `JWT ${token}` } : {}),
+    },
+  });
   if (!res.ok) throw new Error(`${slug} [${locale}] → HTTP ${res.status}`);
   return res.json();
+}
+
+/** Fetches every global and folds the two languages back into one tree. */
+async function collect(signal: AbortSignal, token?: string): Promise<Bundle> {
+  const keys = Object.keys(SKELETON.pages) as PageKey[];
+  const docs = await Promise.all(
+    ['shared', ...keys].map(async (slug) => ({
+      slug,
+      fr: await fetchGlobal(slug, 'fr', signal, token),
+      en: await fetchGlobal(slug, 'en', signal, token),
+    })),
+  );
+  const bySlug = new Map(docs.map((d) => [d.slug, d]));
+  const head = bySlug.get('shared')!;
+  return {
+    shared: merge(SKELETON.shared, head.fr, head.en),
+    pages: Object.fromEntries(
+      keys.map((key) => {
+        const doc = bySlug.get(key)!;
+        return [key, merge(SKELETON.pages[key], doc.fr, doc.en)];
+      }),
+    ),
+  };
+}
+
+/**
+ * Draft content for one request. Returns null rather than throwing: a preview
+ * that cannot load should fall back to showing the published site, not an
+ * error page.
+ */
+export async function loadDraft(token: string): Promise<Bundle | null> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 10_000);
+  try {
+    const bundle = await collect(controller.signal, token);
+    const errors = problemsIn(bundle);
+    if (errors.length) {
+      // A draft is work in progress, so a half-translated field is expected.
+      // It is worth saying out loud, not worth refusing.
+      console.warn(`[aperçu] ${errors.length} champ(s) incomplet(s) : ${errors.slice(0, 2).join(' | ')}`);
+    }
+    return bundle;
+  } catch (err) {
+    console.warn(`[aperçu] brouillon illisible : ${(err as Error).message}`);
+    return null;
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 /**
@@ -145,30 +207,10 @@ export async function refresh(): Promise<{ ok: boolean; detail: string }> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 10_000);
   try {
-    const slugs = ['shared', ...(Object.keys(SKELETON.pages) as PageKey[])];
-    const docs = await Promise.all(
-      slugs.map(async (slug) => ({
-        slug,
-        fr: await fetchGlobal(slug, 'fr', controller.signal),
-        en: await fetchGlobal(slug, 'en', controller.signal),
-      })),
-    );
-
-    const bySlug = new Map(docs.map((d) => [d.slug, d]));
-    const head = bySlug.get('shared')!;
-    const bundle = {
-      shared: merge(SKELETON.shared, head.fr, head.en),
-      pages: Object.fromEntries(
-        (Object.keys(SKELETON.pages) as PageKey[]).map((key) => {
-          const doc = bySlug.get(key)!;
-          return [key, merge(SKELETON.pages[key], doc.fr, doc.en)];
-        }),
-      ),
-    };
-
+    const bundle = await collect(controller.signal);
     const { ok, errors } = adopt(bundle);
     return ok
-      ? { ok: true, detail: `${slugs.length} ensembles chargés depuis le CMS` }
+      ? { ok: true, detail: `${Object.keys(SKELETON.pages).length + 1} ensembles chargés depuis le CMS` }
       : {
           ok: false,
           detail: `contenu refusé (${errors.length} problème${errors.length > 1 ? 's' : ''}) : ${errors.slice(0, 3).join(' | ')}`,

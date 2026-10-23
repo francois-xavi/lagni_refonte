@@ -1,5 +1,6 @@
 import { defineMiddleware } from 'astro:middleware';
-import { ensureContent } from './lib/payload';
+import { ensureContent, loadDraft } from './lib/payload';
+import { withDraft } from './lib/copy';
 
 /**
  * Page cache.
@@ -46,7 +47,12 @@ export function stats() {
 
 /** Preview renders unpublished content and must never be cached or shared. */
 const isPreview = (request: Request) =>
-  request.headers.get('cookie')?.includes('lagni_preview=') ?? false;
+  /(?:^|;\s*)lagni_preview=1/.test(request.headers.get('cookie') ?? '');
+
+const previewToken = (request: Request): string => {
+  const m = /(?:^|;\s*)lagni_preview_token=([^;]*)/.exec(request.headers.get('cookie') ?? '');
+  return m ? decodeURIComponent(m[1]) : '';
+};
 
 const cacheable = (pathname: string) =>
   !pathname.startsWith('/api/') && !pathname.startsWith('/_');
@@ -58,10 +64,19 @@ export const onRequest = defineMiddleware(async (context, next) => {
   // and no component has to change.
   await ensureContent();
 
-  if (request.method !== 'GET' || !cacheable(url.pathname) || isPreview(request)) {
-    const response = await next();
-    if (isPreview(request)) response.headers.set('x-robots-tag', 'noindex, nofollow');
+  if (isPreview(request)) {
+    // Drafts are fetched per request and kept in an async-local store, so the
+    // unpublished text reaches this visitor and nobody else. Never cached.
+    const draft = await loadDraft(previewToken(request));
+    const response = draft ? await withDraft(draft, () => next()) : await next();
+    response.headers.set('x-robots-tag', 'noindex, nofollow');
+    response.headers.set('cache-control', 'no-store');
+    response.headers.set('x-preview', draft ? 'draft' : 'published-fallback');
     return response;
+  }
+
+  if (request.method !== 'GET' || !cacheable(url.pathname)) {
+    return next();
   }
 
   const key = url.pathname + url.search;

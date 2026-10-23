@@ -21,6 +21,7 @@
  */
 import type { IconName } from '../components/Icon.astro';
 import type { LordIconName } from '../components/LordIcon.astro';
+import { AsyncLocalStorage } from 'node:async_hooks';
 import { ROUTES, type Lang } from '../i18n/routes';
 import { fillFigures } from './settings';
 
@@ -184,6 +185,23 @@ const FALLBACK: Bundle = { shared, pages: FALLBACK_PAGES };
 let live: Bundle = FALLBACK;
 
 /**
+ * Draft content, for the duration of one request only.
+ *
+ * Preview must not leak: if a draft were swapped into `live`, every visitor
+ * being served at that moment would see unpublished text. An async-local store
+ * keeps it attached to the request that asked for it, which is what makes
+ * `usePages()` able to stay synchronous and still be request-aware.
+ */
+const draftStore = new AsyncLocalStorage<Bundle>();
+
+export function withDraft<T>(bundle: Bundle, run: () => T): T {
+  return draftStore.run(bundle, run);
+}
+
+const current = (): Bundle => draftStore.getStore() ?? live;
+export const isPreviewing = () => draftStore.getStore() !== undefined;
+
+/**
  * Replaces the live content, but only if it is valid.
  *
  * A bad edit in the CMS must not take the site down: the errors are reported
@@ -224,7 +242,15 @@ function once<T>(key: string, build: () => T): T {
   return hit as T;
 }
 
+// Draft projections are never cached: the cache belongs to what is published.
 export const sharedFor = (lang: Lang): Shared =>
-  once(`s-${lang}`, () => project(live.shared, lang) as Shared);
+  isPreviewing()
+    ? (project(current().shared, lang) as Shared)
+    : once(`s-${lang}`, () => project(live.shared, lang) as Shared);
+
 export const pagesFor = (lang: Lang): Pages =>
-  once(`p-${lang}`, () => project(live.pages, lang) as Pages);
+  isPreviewing()
+    ? (project(current().pages, lang) as Pages)
+    : once(`p-${lang}`, () => project(live.pages, lang) as Pages);
+
+export type { Bundle };
