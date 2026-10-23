@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import type { Field, GlobalConfig } from 'payload'
+import { notifySite } from './notifySite'
 
 /**
  * Builds the Payload schema from the site's own content files.
@@ -251,6 +252,7 @@ export function globalForPage(key: string, title: string): GlobalConfig {
     access: { read: () => true },
     admin: { group: 'Pages', preview: previewUrl(key) },
     versions: { drafts: { autosave: false } },
+    hooks: { afterChange: [notifySite] },
     fields: fieldsFor(data),
   }
 }
@@ -269,6 +271,7 @@ export function sharedGlobal(): GlobalConfig {
       description: 'En-tête, navigation, pied de page, libellés et messages des formulaires.',
     },
     versions: { drafts: { autosave: false } },
+    hooks: { afterChange: [notifySite] },
     fields: fieldsFor(data),
   }
 }
