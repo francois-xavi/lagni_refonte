@@ -13,6 +13,7 @@ import {
   initContent, getDraft, saveDraft, publishDrafts,
   settingsFromForm, validateSettings, settingsPage, SETTINGS_PATH,
 } from './content.mjs';
+import { layout, esc, fmtDate, icon, badge, notice, field, emptyState, flashFor } from './ui.mjs';
 
 const SITE = process.env.SITE_URL ?? 'https://lagniconsulting.ca';
 const DATA_DIR = process.env.DATA_DIR ?? './data';
@@ -133,9 +134,6 @@ const cookie = (req, value, maxAge) =>
   `lagni_admin=${value}; HttpOnly; SameSite=Strict; Path=/admin; Max-Age=${maxAge}` +
   (req.headers['x-forwarded-proto'] === 'https' ? '; Secure' : '');
 
-const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
-const fmtDate = (s) =>
-  new Date(`${s.replace(' ', 'T')}Z`).toLocaleString('fr-CA', { timeZone: 'America/Toronto', dateStyle: 'medium', timeStyle: 'short' });
 const FORM_LABEL = {
   contact: 'Contact',
   'institution-partnership': 'Établissement',
@@ -152,60 +150,108 @@ const FIELD_LABEL = {
   period: 'Période', country: 'Pays', location: 'Lieu', profile: 'Profil', expertise_area: "Domaine d'expertise",
   years_experience: "Années d'expérience",
 };
-const CSS = `*{box-sizing:border-box}body{margin:0;font:16px/1.5 Inter,system-ui,sans-serif;background:#f4f7fb;color:#1a2433}
-header{background:#004aad;color:#fff;padding:14px 20px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
-header h1{font-size:18px;margin:0;flex:1}header a,header button{color:#fff;font:inherit;background:none;border:0;text-decoration:underline;cursor:pointer;padding:0}
-main{max-width:860px;margin:0 auto;padding:20px}nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
-nav a{padding:6px 12px;border:1px solid #dce4ee;border-radius:8px;background:#fff;color:#004aad;text-decoration:none}
-nav a[aria-current]{background:#004aad;color:#fff}details{background:#fff;border:1px solid #dce4ee;border-radius:8px;margin-bottom:8px}
-summary{padding:12px 16px;cursor:pointer;display:flex;gap:12px;flex-wrap:wrap;align-items:baseline}
-summary b{flex:1;min-width:140px}.tag{font-size:13px;color:#5b6b7f}.new{color:#ac521a;font-weight:600}.done{opacity:.65}
-dl{margin:0;padding:0 16px 8px;display:grid;grid-template-columns:max-content 1fr;gap:4px 16px}dt{color:#5b6b7f}dd{margin:0;white-space:pre-wrap;word-break:break-word}
-.row{padding:8px 16px 16px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-button.btn,a.btn{font:inherit;padding:8px 14px;border-radius:8px;border:1px solid #004aad;background:#004aad;color:#fff;cursor:pointer;text-decoration:none}
-button.ghost{background:#fff;color:#004aad}button.danger{background:#fff;color:#a4281f;border-color:#a4281f}
-form.login{max-width:340px;margin:64px auto;background:#fff;padding:24px;border-radius:12px;border:1px solid #dce4ee;display:grid;gap:12px}
-input[type=password]{font:inherit;padding:10px;border:1px solid #5b6b7f;border-radius:8px;width:100%}.err{color:#a4281f}
-:focus-visible{outline:3px solid #1a2433;outline-offset:2px}
-fieldset{background:#fff;border:1px solid #dce4ee;border-radius:8px;margin:0 0 16px;padding:12px 16px}
-legend{font-weight:600;padding:0 6px}fieldset p{margin:0 0 12px}
-fieldset label{color:#5b6b7f;font-size:14px}
-fieldset input{font:inherit;padding:8px 10px;border:1px solid #5b6b7f;border-radius:8px;width:100%;max-width:420px}
-.warn,.ok,.err{border-radius:8px;padding:10px 14px;margin:0 0 16px}
-.warn{background:#fff6ed;border:1px solid #ffd4b0}.ok{background:#eef7ee;border:1px solid #bcdcbc}
-.err{background:#fdeeed;border:1px solid #e9b8b4}.err ul{margin:4px 0 0;padding-left:20px}
-h2{margin:0 0 4px}`;
 
-const page = (title, body, head = '') =>
-  `<!doctype html><html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(title)}</title><style>${CSS}</style>${head}<body>${body}</body></html>`;
+const loginPage = (msg = '') =>
+  layout({
+    title: 'Connexion — Lagni Consulting',
+    h1: 'Connexion',
+    bare: true,
+    lead: 'Demandes reçues et contenu du site.',
+    body: `<form class="login" method="post" action="/admin/login">
+${msg ? notice({ tone: 'danger', body: `<p role="alert">${esc(msg)}</p>` }) : ''}
+${field({ name: 'password', label: 'Mot de passe', type: 'password', attrs: 'autocomplete="current-password" autofocus' })}
+<button class="btn btn--primary btn--lg" type="submit">Se connecter</button>
+</form>`,
+  });
 
-const loginPage = (msg = '') => page('Connexion — Lagni Consulting', `
-<form class="login" method="post" action="/admin/login"><h1>Lagni Consulting</h1>
-<p>Demandes reçues via le site</p>${msg ? `<p class="err" role="alert">${esc(msg)}</p>` : ''}
-<label for="p">Mot de passe</label><input id="p" name="password" type="password" autocomplete="current-password" required autofocus>
-<button class="btn" type="submit">Se connecter</button></form>`);
+/** The shell renders the <h1>; the login screen carries its own inside the card. */
+const simplePage = (title, heading, bodyHtml, bare = true) =>
+  layout({ title, h1: heading, bare, body: bodyHtml });
 
 function listPage(url) {
   const only = url.searchParams.get('form') ?? '';
+  const unhandledOnly = url.searchParams.has('new');
+
+  const where = unhandledOnly ? 'WHERE handled = 0' : only ? 'WHERE form_name = ?' : '';
   // ponytail: newest 300 only, no pagination; add paging if the inbox outgrows it.
-  const rows = db.prepare(`SELECT * FROM submissions ${only ? 'WHERE form_name = ?' : ''} ORDER BY id DESC LIMIT 300`).all(...(only ? [only] : []));
+  const rows = db
+    .prepare(`SELECT * FROM submissions ${where} ORDER BY id DESC LIMIT 300`)
+    .all(...(where && !unhandledOnly ? [only] : []));
+
+  const total = db.prepare('SELECT COUNT(*) n FROM submissions').get().n;
   const pending = db.prepare('SELECT COUNT(*) n FROM submissions WHERE handled = 0').get().n;
-  const tab = (v, label) => `<a href="/admin/${v ? `?form=${v}` : ''}"${only === v ? ' aria-current="page"' : ''}>${label}</a>`;
-  const cards = rows.map((r) => {
-    const fields = JSON.parse(r.fields).filter(([k]) => !['form_name', 'locale'].includes(k));
-    return `<details class="${r.handled ? 'done' : ''}"><summary>
-<b>${esc(r.who || '(sans nom)')}</b><span class="tag">${esc(FORM_LABEL[r.form_name] ?? r.form_name)} · ${esc(r.locale)}</span>
-<span class="tag">${esc(fmtDate(r.created_at))}</span>${r.handled ? '<span class="tag">✓ Traité</span>' : '<span class="tag new">● Nouveau</span>'}</summary>
-<dl>${fields.map(([k, v]) => `<dt>${esc(FIELD_LABEL[k] ?? k)}</dt><dd>${esc(v)}</dd>`).join('')}</dl>
-<div class="row">${r.email ? `<a class="btn" href="mailto:${esc(r.email)}">Répondre</a>` : ''}
-${r.file_id ? `<a class="btn ghost" href="/admin/file/${r.id}">Télécharger le CV (${esc(r.file_name)})</a>` : ''}
-<form method="post" action="/admin/handled/${r.id}"><button class="btn ghost" type="submit">${r.handled ? 'Marquer comme nouveau' : 'Marquer comme traité'}</button></form>
-<details><summary class="tag">Supprimer…</summary><form method="post" action="/admin/delete/${r.id}"><button class="btn danger" type="submit">Confirmer la suppression</button></form></details>
+  const perForm = Object.fromEntries(
+    db.prepare('SELECT form_name, COUNT(*) n FROM submissions GROUP BY form_name').all().map((r) => [r.form_name, r.n]),
+  );
+
+  const tab = (href, label, count, active) =>
+    `<a href="${href}"${active ? ' aria-current="page"' : ''}>${esc(label)}<span class="n">${count}</span></a>`;
+
+  const filters = `<nav class="filters" aria-label="Filtrer les demandes">
+${tab('/admin/', 'Toutes', total, !only && !unhandledOnly)}
+${tab('/admin/?new', 'Non traitées', pending, unhandledOnly)}
+${Object.entries(FORM_LABEL)
+  .map(([v, l]) => tab(`/admin/?form=${v}`, l, perForm[v] ?? 0, only === v && !unhandledOnly))
+  .join('')}
+</nav>`;
+
+  const cards = rows
+    .map((r) => {
+      const fields = JSON.parse(r.fields).filter(([k]) => !['form_name', 'locale'].includes(k));
+      return `<details class="card ${r.handled ? 'card--done' : 'card--new'}">
+<summary>
+  <h2 class="card__name">${esc(r.who || '(sans nom)')}</h2>
+  <span class="card__meta">
+    ${badge('plain', `${FORM_LABEL[r.form_name] ?? r.form_name} · ${r.locale}`)}
+    <span>${esc(fmtDate(r.created_at))}</span>
+    ${r.handled ? badge('done', 'Traité') : badge('new', 'Nouveau')}
+  </span>
+  <span class="card__chev">${icon('chevron', 18)}</span>
+</summary>
+<div class="card__body">
+  <dl>${fields.map(([k, v]) => `<dt>${esc(FIELD_LABEL[k] ?? k)}</dt><dd>${esc(v)}</dd>`).join('')}</dl>
+  <div class="card__actions">
+    ${r.email ? `<a class="btn btn--primary" href="mailto:${esc(r.email)}">${icon('mail', 17)} Répondre</a>` : ''}
+    ${r.file_id ? `<a class="btn btn--outline" href="/admin/file/${r.id}">${icon('download', 17)} CV — ${esc(r.file_name)}</a>` : ''}
+    <form method="post" action="/admin/handled/${r.id}">
+      <button class="btn btn--outline" type="submit">${icon('check', 17)} ${r.handled ? 'Remettre en nouveau' : 'Marquer comme traité'}</button>
+    </form>
+    <details class="confirm">
+      <summary>${icon('trash', 17)} Supprimer</summary>
+      <div class="confirm__box">
+        <p>Cette demande${r.file_id ? ' et son CV' : ''} seront effacés définitivement.</p>
+        <form method="post" action="/admin/delete/${r.id}">
+          <button class="btn btn--danger" type="submit">Confirmer la suppression</button>
+        </form>
+      </div>
+    </details>
+  </div>
 </div></details>`;
-  }).join('');
-  return page('Demandes — Lagni Consulting', `<header><h1>Demandes reçues${pending ? ` · ${pending} nouvelle${pending > 1 ? 's' : ''}` : ''}</h1>
-<a href="/admin/export.csv">Exporter (CSV)</a><form method="post" action="/admin/logout"><button type="submit">Déconnexion</button></form></header>
-<main><nav>${tab('', 'Toutes')}${Object.entries(FORM_LABEL).map(([v, l]) => tab(v, l)).join('')}</nav>${cards || '<p>Aucune demande pour le moment.</p>'}</main>`);
+    })
+    .join('');
+
+  const empty = emptyState({
+    title: total === 0 ? 'Aucune demande pour le moment' : 'Rien dans ce filtre',
+    body:
+      total === 0
+        ? 'Les messages envoyés depuis les formulaires du site apparaîtront ici, avec les CV joints.'
+        : 'Aucune demande ne correspond. Choisissez un autre filtre ci-dessus.',
+  });
+
+  return layout({
+    title: 'Demandes — Lagni Consulting',
+    h1: 'Demandes reçues',
+    current: '/admin/',
+    flash: flashFor(url),
+    aside: `<a class="btn btn--outline" href="/admin/export.csv">${icon('download', 17)} Exporter en CSV</a>`,
+    lead:
+      pending > 0
+        ? `<strong>${pending}</strong> demande${pending > 1 ? 's' : ''} en attente sur ${total}.`
+        : total > 0
+          ? `Les ${total} demande${total > 1 ? 's sont traitées' : ' est traitée'}.`
+          : '',
+    body: `${filters}${cards ? `<div class="stack">${cards}</div>` : empty}`,
+  });
 }
 
 // Spreadsheet formula injection: prefix cells that start with = + - @ or tab/CR.
@@ -232,7 +278,23 @@ async function handleAdmin(req, res, url) {
   }).end(body);
   const redirect = (to, extra = {}) => send(303, '', { location: to, ...extra });
 
-  if (!ADMIN_OK) return send(503, page('Indisponible', '<main><p>Tableau de bord non configuré.</p></main>'));
+  if (!ADMIN_OK)
+    return send(
+      503,
+      simplePage(
+        'Indisponible — Lagni Consulting',
+        'Tableau de bord non configuré',
+        notice({
+          tone: 'warning',
+          title: 'Il manque le mot de passe d’administration',
+          body:
+            '<p>Posez <code>ADMIN_PASSWORD</code> (douze caractères minimum) en variable ' +
+            'd’environnement, puis redémarrez le service.</p>' +
+            '<p>Les formulaires publics du site, eux, continuent d’enregistrer normalement : ' +
+            'aucune demande n’est perdue pendant ce temps.</p>',
+        }),
+      ),
+    );
   const p = url.pathname.replace(/\/+$/, '') || '/';
   const ip = clientIp(req);
 
@@ -252,7 +314,21 @@ async function handleAdmin(req, res, url) {
     const f = /^\/admin\/file\/(\d+)$/.exec(p);
     if (f) {
       const r = db.prepare('SELECT file_id, file_name FROM submissions WHERE id = ?').get(Number(f[1]));
-      if (!r?.file_id || !fs.existsSync(path.join(DATA_DIR, 'uploads', r.file_id))) return send(404, page('Introuvable', '<main><p>Fichier introuvable.</p></main>'));
+      if (!r?.file_id || !fs.existsSync(path.join(DATA_DIR, 'uploads', r.file_id)))
+        return send(
+          404,
+          simplePage(
+            'Fichier introuvable — Lagni Consulting',
+            'Fichier introuvable',
+            notice({
+              tone: 'warning',
+              body:
+                '<p>Ce document n’est plus sur le serveur. Il a sans doute été supprimé ' +
+                'avec sa demande.</p><p><a href="/admin/">Retour aux demandes</a></p>',
+            }),
+            false,
+          ),
+        );
       res.writeHead(200, {
         'content-type': 'application/octet-stream', 'x-content-type-options': 'nosniff', 'cache-control': 'no-store',
         'content-disposition': `attachment; filename="${r.file_name.replace(/[^\w.\- ]/g, '_')}"`,
@@ -265,13 +341,18 @@ async function handleAdmin(req, res, url) {
     const m = /^\/admin\/(handled|delete)\/(\d+)$/.exec(p);
     if (m) {
       const id = Number(m[2]);
-      if (m[1] === 'handled') db.prepare('UPDATE submissions SET handled = 1 - handled WHERE id = ?').run(id);
-      else {
+      let done;
+      if (m[1] === 'handled') {
+        const before = db.prepare('SELECT handled FROM submissions WHERE id = ?').get(id);
+        db.prepare('UPDATE submissions SET handled = 1 - handled WHERE id = ?').run(id);
+        done = before?.handled ? 'unhandled' : 'handled';
+      } else {
         const r = db.prepare('SELECT file_id FROM submissions WHERE id = ?').get(id);
         if (r?.file_id) fs.rmSync(path.join(DATA_DIR, 'uploads', r.file_id), { force: true });
         db.prepare('DELETE FROM submissions WHERE id = ?').run(id);
+        done = 'deleted';
       }
-      return redirect('/admin/');
+      return redirect(`/admin/?done=${done}`);
     }
   }
   if (p === '/admin/contenu' || p === '/admin/contenu/chiffres') {
@@ -288,41 +369,55 @@ async function handleAdmin(req, res, url) {
       }
       const data = draft?.data ?? (published ? JSON.parse(published.content) : { figures: {}, contact: {} });
       const sha = url.searchParams.get('published');
-      return send(200, page('Contenu — Lagni Consulting', settingsPage({
+      return send(200, settingsPage({
         data, dryRun: publisher.dryRun, unreadable: !published, pending,
-        saved: url.searchParams.has('ok'),
+        saved: url.searchParams.get('done') === 'saved',
         publishedSha: sha,
-      })));
+      }));
     }
 
     if (req.method === 'POST') {
       const body = await readSmallBody(req);
       const data = settingsFromForm(body);
       const errors = validateSettings(data);
-      if (errors.length)
-        return send(422, page('Contenu — Lagni Consulting', settingsPage({
+      if (Object.keys(errors).length)
+        return send(422, settingsPage({
           data, dryRun: publisher.dryRun, unreadable: false, errors, pending,
-        })));
+        }));
 
       // The sha read now is the lock: publishing refuses if the branch moved.
       let baseSha = draft?.baseSha ?? null;
       if (!baseSha) { try { baseSha = await publisher.head(); } catch { baseSha = null; } }
       saveDraft(db, 'settings', 'site', data, baseSha);
 
-      if (body.get('action') !== 'publish') return redirect('/admin/contenu/?ok=1');
+      if (body.get('action') !== 'publish') return redirect('/admin/contenu/?done=saved');
       try {
         const out = await publishDrafts(db, publisher);
         return redirect(`/admin/contenu/?published=${encodeURIComponent(out.sha ?? '')}`);
       } catch (err) {
-        return send(err.conflict ? 409 : 502, page('Contenu — Lagni Consulting', settingsPage({
+        // A publish failure is not a field problem: show it as a notice and
+        // keep the drafts exactly where they were.
+        return send(err.conflict ? 409 : 502, settingsPage({
           data, dryRun: publisher.dryRun, unreadable: false,
-          errors: [err.message], pending: pending || 1,
-        })));
+          publishError: err.message, pending: pending || 1,
+        }));
       }
     }
   }
 
-  return send(404, page('Introuvable', '<main><p>Page introuvable.</p></main>'));
+  return send(
+    404,
+    simplePage(
+      'Page introuvable — Lagni Consulting',
+      'Page introuvable',
+      notice({
+        tone: 'info',
+        body: '<p>Cette adresse n’existe pas dans le tableau de bord.</p>' +
+          '<p><a href="/admin/">Retour aux demandes</a></p>',
+      }),
+      false,
+    ),
+  );
 }
 
 // --------------------------------------------------------------------- server

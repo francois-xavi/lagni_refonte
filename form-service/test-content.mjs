@@ -76,10 +76,44 @@ try {
   assert.match(html, /name="figures.hours"/);
   assert.ok(!/<script/i.test(html), 'content screens must stay script-free');
 
+  // ── the shared shell ────────────────────────────────────────────────────
+  const shell = (page, what) => {
+    assert.equal((page.match(/<h1[\s>]/g) ?? []).length, 1, `${what}: exactly one <h1>`);
+    assert.match(page, /class="skip" href="#main"/, `${what}: skip link`);
+    assert.match(page, /<main id="main"/, `${what}: main landmark`);
+    assert.ok(!/<script/i.test(page), `${what}: no script`);
+  };
+  shell(html, 'contenu');
+  assert.match(html, /action="\/admin\/logout"/, 'contenu: logout must be reachable');
+  assert.match(html, /aria-current="page">Contenu/, 'contenu: nav marks the current section');
+
+  const inbox = await (await get('/admin/')).text();
+  shell(inbox, 'demandes');
+  assert.match(inbox, /action="\/admin\/logout"/, 'demandes: logout');
+
+  const notFound = await get('/admin/nimporte-quoi');
+  assert.equal(notFound.status, 404);
+  shell(await notFound.text(), '404');
+
+  // Login is reachable without a session and still carries one <h1>.
+  const anon = await fetch(`${B}/admin`, { redirect: 'manual' });
+  shell(await anon.text(), 'connexion');
+
   // Invalid values are refused and nothing is stored.
   const bad = await post('/admin/contenu/chiffres', { ...valid, 'figures.hours': '0' });
   assert.equal(bad.status, 422);
-  assert.match(await bad.text(), /Heures de formation/);
+  const badHtml = await bad.text();
+  assert.match(badHtml, /Heures de formation/);
+  // The offending control carries the state, and the message sits in its slot.
+  assert.match(badHtml, /id="f-figures-hours"[^>]*aria-invalid="true"/, 'invalid field must be marked');
+  assert.match(
+    badHtml,
+    /data-error-for="figures.hours">Heures de formation[^<]*</,
+    'the message belongs to its field',
+  );
+  assert.match(badHtml, /href="#f-figures-hours"/, 'the summary must link to the field');
+  // A valid field must NOT be marked.
+  assert.ok(!/id="f-contact-email"[^>]*aria-invalid/.test(badHtml), 'valid fields stay clean');
 
   const badMail = await post('/admin/contenu/chiffres', { ...valid, 'contact.email': 'nope' });
   assert.equal(badMail.status, 422);
@@ -88,14 +122,20 @@ try {
   // Saving a draft.
   const saved = await post('/admin/contenu/chiffres', { ...valid, 'figures.hours': '35', action: 'save' });
   assert.equal(saved.status, 303);
-  assert.match(saved.headers.get('location'), /ok=1/);
+  assert.match(saved.headers.get('location'), /done=saved/);
 
   // The draft comes back on reopen, and is counted as pending.
-  const again = await get('/admin/contenu/?ok=1');
+  const again = await get('/admin/contenu/?done=saved');
   const html2 = await again.text();
   assert.match(html2, /value="35"/, 'draft must survive a reload');
-  assert.match(html2, /1 modification en attente/);
+  assert.match(html2, /1 modification<\/strong> en attente/);
   assert.match(html2, /Brouillon enregistré/);
+
+  // A hostile or unknown ?done= value renders nothing and never reaches the HTML.
+  const hostile = await get('/admin/contenu/?done=' + encodeURIComponent('"><script>x</script>'));
+  const hostileHtml = await hostile.text();
+  assert.ok(!/<script/i.test(hostileHtml), 'flash tokens must never be echoed');
+  assert.match(hostileHtml, /<div class="flash" role="status"><\/div>/, 'unknown token shows nothing');
 
   // Publishing (dry run): one commit, drafts cleared, audit row written.
   const pub = await post('/admin/contenu/chiffres', { ...valid, 'figures.hours': '35', action: 'publish' });

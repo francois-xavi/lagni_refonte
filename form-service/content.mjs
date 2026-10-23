@@ -13,6 +13,7 @@
 // overwriting someone else's change.
 
 import { commitMessage, PublishError } from './publisher.mjs';
+import { layout, esc, icon, notice, field } from './ui.mjs';
 
 export const SETTINGS_PATH = 'src/content/settings/site.json';
 
@@ -58,16 +59,18 @@ export function initContent(db) {
  * message instead of a failed deployment.
  */
 export function validateSettings(data) {
-  const errors = [];
+  /** Keyed by field name so each message can be shown on its own control. */
+  const errors = {};
   for (const [key, label] of FIGURES) {
     const n = Number(data.figures?.[key]);
-    if (!Number.isInteger(n) || n <= 0) errors.push(`${label} : un nombre entier supérieur à zéro.`);
+    if (!Number.isInteger(n) || n <= 0)
+      errors[`figures.${key}`] = `${label} : un nombre entier supérieur à zéro.`;
   }
   for (const [key, label, type] of CONTACTS) {
     const v = String(data.contact?.[key] ?? '').trim();
-    if (!v) errors.push(`${label} : obligatoire.`);
-    else if (type === 'email' && !EMAIL.test(v)) errors.push(`${label} : adresse invalide.`);
-    else if (type === 'url' && !/^https?:\/\/\S+$/.test(v)) errors.push(`${label} : URL invalide.`);
+    if (!v) errors[`contact.${key}`] = `${label} : obligatoire.`;
+    else if (type === 'email' && !EMAIL.test(v)) errors[`contact.${key}`] = `${label} : adresse invalide.`;
+    else if (type === 'url' && !/^https?:\/\/\S+$/.test(v)) errors[`contact.${key}`] = `${label} : URL invalide.`;
   }
   return errors;
 }
@@ -141,56 +144,117 @@ export async function publishDrafts(db, publisher) {
 
 // ------------------------------------------------------------------- rendering
 
-const field = (name, label, type, value) =>
-  `<p><label for="${name}">${label}</label><br>
-   <input id="${name}" name="${name}" type="${type}" value="${esc(value)}" required
-   ${type === 'number' ? 'min="1" step="1" inputmode="numeric"' : ''}></p>`;
+const fieldsOf = (list, prefix, kind, data, errors) =>
+  list
+    .map(([key, label, type]) =>
+      field({
+        name: `${prefix}.${key}`,
+        label,
+        type: kind === 'number' ? 'number' : type,
+        value: data[prefix]?.[key] ?? '',
+        error: errors[`${prefix}.${key}`] ?? '',
+        attrs: kind === 'number' ? 'min="1" step="1" inputmode="numeric"' : '',
+      }),
+    )
+    .join('');
 
-const esc = (s) =>
-  String(s ?? '').replace(
-    /[&<>"']/g,
-    (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c],
-  );
+/**
+ * The content screen, inside the shared shell.
+ *
+ * Errors follow the public site's contract exactly, which survives without JS:
+ * `aria-invalid="true"` on the control, the message inside
+ * `[data-error-for="<name>"]`, and a summary at the top whose entries are
+ * anchors to the offending fields.
+ */
+export function settingsPage({
+  data,
+  dryRun,
+  unreadable,
+  errors = {},
+  saved = false,
+  pending = 0,
+  publishedSha = null,
+  publishError = '',
+}) {
+  const bad = Object.entries(errors);
 
-export function settingsPage({ data, dryRun, unreadable, errors = [], saved = false, pending = 0, publishedSha = null }) {
-  const warn = unreadable
-    ? `<p class="warn" role="status"><b>Mode à blanc.</b> Le contenu publié n’est pas lisible
-       sans la clé de déploiement : les champs ci-dessous montrent votre brouillon, pas l’état du site.</p>`
+  const summary = bad.length
+    ? notice({
+        tone: 'danger',
+        title: bad.length > 1 ? `${bad.length} champs à corriger` : 'Un champ à corriger',
+        body:
+          '<p>Rien n’a été enregistré.</p><ul>' +
+          bad
+            .map(([name, msg]) => `<li><a href="#f-${esc(name.replace(/[^\w-]/g, '-'))}">${esc(msg)}</a></li>`)
+            .join('') +
+          '</ul>',
+      })
     : '';
-  const errs = errors.length
-    ? `<div class="err" role="alert"><p>Rien n’a été enregistré :</p><ul>${errors
-        .map((e) => `<li>${esc(e)}</li>`)
-        .join('')}</ul></div>`
-    : '';
-  const ok = publishedSha
-    ? `<p class="ok" role="status">Publié. Commit <code>${esc(publishedSha.slice(0, 7))}</code> — le site se reconstruit.</p>`
-    : saved
-      ? '<p class="ok" role="status">Brouillon enregistré.</p>'
-      : '';
 
-  return `<main>
-<nav><a href="/admin/">Demandes</a><a href="/admin/contenu/" aria-current="page">Contenu</a></nav>
-<h2>Chiffres et coordonnées</h2>
-<p class="tag">Ces cinq nombres alimentent les 44 endroits du site qui les mentionnent, en français
-comme en anglais. Saisissez le nombre seul : la phrase garde sa propre grammaire.</p>
-${warn}${errs}${ok}
+  const failed = publishError
+    ? notice({
+        tone: 'danger',
+        title: 'La publication n’a pas abouti',
+        body: `<p>${esc(publishError)}</p><p>Vos modifications sont conservées : rien n’a été perdu.</p>`,
+      })
+    : '';
+
+  const blind = unreadable
+    ? notice({
+        tone: 'warning',
+        title: 'Mode à blanc',
+        body:
+          '<p>Le contenu publié n’est pas lisible sans la clé de déploiement : les champs ' +
+          'ci-dessous montrent votre brouillon, pas l’état du site. Vous pouvez saisir et ' +
+          'enregistrer, mais rien ne partira en ligne.</p>',
+      })
+    : '';
+
+  const published = publishedSha
+    ? notice({
+        tone: 'info',
+        title: 'Publié',
+        body: `<p>Commit <code>${esc(publishedSha.slice(0, 7))}</code> — le site se reconstruit. Comptez une minute ou deux.</p>`,
+      })
+    : '';
+
+  const pendingLine = pending
+    ? `<strong>${pending} modification${pending > 1 ? 's' : ''}</strong> en attente de publication.`
+    : 'Aucune modification en attente : tout est publié.';
+
+  return layout({
+    title: 'Contenu — Lagni Consulting',
+    h1: 'Chiffres et coordonnées',
+    current: '/admin/contenu/',
+    flash: saved ? `${icon('check', 18)}<span>Brouillon enregistré.</span>` : '',
+    lead:
+      'Ces cinq nombres alimentent les 44 endroits du site qui les mentionnent, en français ' +
+      'comme en anglais. Saisissez le <strong>nombre seul</strong> : la phrase garde sa propre grammaire.',
+    body: `${summary}${failed}${published}${blind}
 <form method="post" action="/admin/contenu/chiffres">
-  <fieldset><legend>Chiffres</legend>
-  ${FIGURES.map(([k, l]) => field(`figures.${k}`, l, 'number', data.figures?.[k] ?? '')).join('')}
+  <fieldset class="fset">
+    <legend>Chiffres du programme</legend>
+    <div class="fgrid">${fieldsOf(FIGURES, 'figures', 'number', data, errors)}</div>
   </fieldset>
-  <fieldset><legend>Coordonnées</legend>
-  ${CONTACTS.map(([k, l, t]) => field(`contact.${k}`, l, t, data.contact?.[k] ?? '')).join('')}
+  <fieldset class="fset">
+    <legend>Coordonnées</legend>
+    <div class="fgrid">${fieldsOf(CONTACTS, 'contact', 'text', data, errors)}</div>
   </fieldset>
-  <div class="row">
-    <button class="btn" type="submit" name="action" value="save">Enregistrer le brouillon</button>
-    <button class="btn ghost" type="submit" name="action" value="publish"
-      ${pending ? '' : 'disabled'}>Publier${dryRun ? ' (à blanc)' : ''}</button>
+
+  <div class="card" style="border-left-color:var(--blue-700);padding:var(--s-5)">
+    <p style="margin-bottom:var(--s-4);color:var(--muted)">${pendingLine}</p>
+    <div style="display:flex;gap:var(--s-3);flex-wrap:wrap;align-items:center">
+      <button class="btn btn--outline" type="submit" name="action" value="save">Enregistrer le brouillon</button>
+      <button class="btn btn--primary" type="submit" name="action" value="publish" ${pending ? '' : 'disabled'}>
+        Publier${dryRun ? ' (à blanc)' : ''}
+      </button>
+      ${
+        pending
+          ? ''
+          : '<span class="field__help">Enregistrez une modification pour pouvoir publier.</span>'
+      }
+    </div>
   </div>
-</form>
-<p class="tag">${
-    pending
-      ? `${pending} modification${pending > 1 ? 's' : ''} en attente de publication.`
-      : 'Aucune modification en attente.'
-  }</p>
-</main>`;
+</form>`,
+  });
 }
