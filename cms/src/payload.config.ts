@@ -2,13 +2,14 @@ import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
+import { fr } from '@payloadcms/translations/languages/fr'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { PAGES } from './pages'
-import { globalForPage, sharedGlobal } from './lib/fieldsFromContent'
+import { globalForPage, sharedGlobal, livePreviewUrl, PREVIEW_BREAKPOINTS } from './lib/fieldsFromContent'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -19,6 +20,26 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    /**
+     * The site, rendered beside the form and reloaded on save.
+     *
+     * Not the click-on-the-page editing of a visual editor — Payload keeps
+     * that for its paid tier — but it covers the reflex a client brings from
+     * WordPress: seeing the page while changing it.
+     */
+    livePreview: {
+      url: livePreviewUrl,
+      globals: ['shared', ...PAGES.map((p) => p.key)],
+      breakpoints: PREVIEW_BREAKPOINTS,
+      openByDefault: true,
+    },
+  },
+  // The client works in French; English stays available for us.
+  i18n: {
+    // French only: Payload otherwise follows the browser's Accept-Language,
+    // and an English browser would hand the client an English admin.
+    supportedLanguages: { fr },
+    fallbackLanguage: 'fr',
   },
   collections: [Users, Media],
   // One global per page: a page is a singleton, which is exactly what a global

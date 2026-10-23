@@ -42,6 +42,15 @@ const SKELETON: { shared: unknown; pages: Record<PageKey, unknown> } = {
 const PAYLOAD_URL =
   import.meta.env.PAYLOAD_URL ?? process.env.PAYLOAD_URL ?? 'http://localhost:3001';
 
+/**
+ * Service credential, used to read drafts when no editor token is available.
+ *
+ * Live Preview renders the site in an iframe on another origin, so no Payload
+ * cookie reaches it and its URL callback is given no token. Without this the
+ * frame would quietly show published content and look like it was not working.
+ */
+const API_KEY = import.meta.env.PAYLOAD_API_KEY ?? process.env.PAYLOAD_API_KEY ?? '';
+
 interface Pair {
   fr: string;
   en: string;
@@ -132,17 +141,18 @@ async function fetchGlobal(
   slug: string,
   locale: 'fr' | 'en',
   signal: AbortSignal,
-  token?: string,
+  auth?: string,
 ) {
-  const draft = token ? '&draft=true' : '';
+  const draft = auth ? '&draft=true' : '';
   const url = `${PAYLOAD_URL}/api/globals/${slug}?locale=${locale}&depth=0${draft}`;
   const res = await fetch(url, {
     signal,
     headers: {
       accept: 'application/json',
-      // Drafts are not public. Payload hands the editor's own token to the
-      // preview URL, so the draft is read as that user, with their rights.
-      ...(token ? { authorization: `JWT ${token}` } : {}),
+      // Drafts are not public. The editor's own token is preferred, so the
+      // draft is read as that user with their rights; the service key is the
+      // fallback for Live Preview, which is given no token.
+      ...(auth ? { authorization: auth } : {}),
     },
   });
   if (!res.ok) throw new Error(`${slug} [${locale}] → HTTP ${res.status}`);
@@ -150,13 +160,13 @@ async function fetchGlobal(
 }
 
 /** Fetches every global and folds the two languages back into one tree. */
-async function collect(signal: AbortSignal, token?: string): Promise<Bundle> {
+async function collect(signal: AbortSignal, auth?: string): Promise<Bundle> {
   const keys = Object.keys(SKELETON.pages) as PageKey[];
   const docs = await Promise.all(
     ['shared', ...keys].map(async (slug) => ({
       slug,
-      fr: await fetchGlobal(slug, 'fr', signal, token),
-      en: await fetchGlobal(slug, 'en', signal, token),
+      fr: await fetchGlobal(slug, 'fr', signal, auth),
+      en: await fetchGlobal(slug, 'en', signal, auth),
     })),
   );
   const bySlug = new Map(docs.map((d) => [d.slug, d]));
@@ -178,10 +188,15 @@ async function collect(signal: AbortSignal, token?: string): Promise<Bundle> {
  * error page.
  */
 export async function loadDraft(token: string): Promise<Bundle | null> {
+  const auth = token ? `JWT ${token}` : API_KEY ? `users API-Key ${API_KEY}` : '';
+  if (!auth) {
+    console.warn('[aperçu] aucun identifiant : ni jeton éditeur, ni PAYLOAD_API_KEY');
+    return null;
+  }
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 10_000);
   try {
-    const bundle = await collect(controller.signal, token);
+    const bundle = await collect(controller.signal, auth);
     const errors = problemsIn(bundle);
     if (errors.length) {
       // A draft is work in progress, so a half-translated field is expected.

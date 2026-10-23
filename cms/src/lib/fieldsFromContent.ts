@@ -80,8 +80,82 @@ const isPair = (v: unknown): v is Pair =>
   typeof (v as Pair).en === 'string' &&
   Object.keys(v as object).length === 2
 
-/** Turns `ctaPrimary` into `Cta primary` so the admin reads in plain words. */
+/**
+ * French names for the recurring content keys.
+ *
+ * The admin is the client's tool, so it reads in their language. Keys that are
+ * not listed fall back to a humanised form of the key itself — "ctaPrimary"
+ * becomes "Cta primary" — which is serviceable rather than good, so add to
+ * this list whenever a page reads badly.
+ */
+const LABELS: Record<string, string> = {
+  // structure de page
+  seo: 'Référencement', hero: 'En-tête de page', proof: 'Bande de preuve',
+  finalCta: 'Appel à l’action final', meta: 'Informations', panel: 'Encart',
+  panelTitle: 'Titre de l’encart', sections: 'Sections', list: 'Liste',
+  // texte
+  title: 'Titre', subtitle: 'Sous-titre', body: 'Texte', lead: 'Accroche',
+  eyebrow: 'Surtitre', label: 'Libellé', description: 'Description',
+  tagline: 'Signature', note: 'Note', quote: 'Citation', script: 'Mention manuscrite',
+  footnote: 'Bas de bloc', disclaimer: 'Avertissement', audience: 'Public visé',
+  sub: 'Complément', figure: 'Chiffre', tags: 'Étiquettes', items: 'Éléments',
+  points: 'Points', steps: 'Étapes', chain: 'Enchaînement', phase: 'Phase',
+  sessions: 'Séances', topics: 'Sujets', systems: 'Systèmes', groups: 'Groupes',
+  columns: 'Colonnes', options: 'Options', levels: 'Niveaux', categories: 'Catégories',
+  // boutons et liens
+  cta: 'Bouton', ctaPrimary: 'Bouton principal', ctaSecondary: 'Bouton secondaire',
+  links: 'Liens', route: 'Page liée',
+  // images
+  imageAlt: 'Texte alternatif de l’image', photoAlt: 'Texte alternatif de la photo',
+  // encart profil des héros
+  profileBadge: 'Pastille du profil', profileLabel: 'Libellé du profil',
+  profileTitle: 'Titre du profil', profileStatus: 'Statut du profil',
+  matchLabel: 'Libellé de correspondance', matchTitle: 'Titre de correspondance',
+  matchPills: 'Pastilles de correspondance', trustItems: 'Gages de confiance',
+  // technique
+  icon: 'Pictogramme', lord: 'Icône animée', slug: 'Ancre', id: 'Identifiant',
+  level: 'Niveau', tone: 'Teinte', family: 'Famille', n: 'Numéro',
+  count: 'Animation de comptage', pending: 'À confirmer', code: 'Code',
+  // sections communes
+  nav: 'Navigation', footer: 'Pied de page', forms: 'Formulaires',
+  errors: 'Messages d’erreur', success: 'Message de succès', common: 'Libellés communs',
+  credentials: 'Certifications', founder: 'Fondateur', ecosystems: 'Écosystèmes',
+  faq: 'Foire aux questions', contact: 'Contact', why: 'Pourquoi nous',
+  pillars: 'Piliers', credibility: 'Crédibilité', process: 'Démarche',
+  profiles: 'Profils', cases: 'Cas', portfolio: 'Portefeuille', method: 'Méthode',
+  services: 'Services', pathways: 'Parcours', paths: 'Parcours',
+  chooser: 'Sélecteur de demande', formTitle: 'Titre du formulaire',
+  certification: 'Certification', trainer: 'Formateur', name: 'Nom',
+  updated: 'Mise à jour', updatedDate: 'Date de mise à jour',
+  draftNotice: 'Encadré brouillon', international: 'International',
+  institutions: 'Établissements', resources: 'Ressources', about: 'À propos',
+  training: 'Formations', recruitment: 'Recrutement', erp: 'ERP',
+  // sections de pages
+  approach: 'Approche', article: 'Article', audiences: 'Publics',
+  backHome: 'Retour à l’accueil', candidate: 'Candidat',
+  certificationNote: 'Mention sur la certification', crossSell: 'Renvoi vers une autre offre',
+  curriculum: 'Programme détaillé', cvCallout: 'Encart CV', details: 'Détails',
+  ecosystemNote: 'Mention sur les écosystèmes', employer: 'Employeur',
+  engagement: 'Engagement', explore: 'Explorer', exploreTitle: 'Titre « Explorer »',
+  faqHelp: 'Encart d’aide de la FAQ', featured: 'Mis en avant',
+  formCard: 'Carte de formulaire', formIntro: 'Introduction du formulaire',
+  formats: 'Formats', founderSection: 'Section fondateur', journey: 'Parcours',
+  markets: 'Marchés', modalities: 'Modalités', next: 'Suite',
+  nextTitle: 'Titre « Suite »', outcomes: 'Résultats attendus',
+  partners: 'Partenaires', pedagogy: 'Pédagogie',
+  pillarsBack: 'Retour vers les piliers', pilot: 'Projet pilote', practice: 'Pratique',
+  programme: 'Programme', programmes: 'Programmes', purpose: 'Finalité',
+  responsibilities: 'Responsabilités', sapFocus: 'Focus SAP',
+  sapResources: 'Ressources SAP', specialisation: 'Spécialisation',
+  start: 'Pour commencer', story: 'Histoire',
+  suggestionsTitle: 'Titre des suggestions', support: 'Accompagnement',
+  teaching: 'Enseignement', testimonials: 'Témoignages', values: 'Valeurs',
+  videos: 'Vidéos',
+}
+
 const label = (name: string) => {
+  const known = LABELS[name]
+  if (known) return known
   const spaced = name.replace(/([a-z0-9])([A-Z])/g, '$1 $2').replace(/[_-]/g, ' ')
   return spaced.charAt(0).toUpperCase() + spaced.slice(1)
 }
@@ -237,6 +311,32 @@ const previewUrl = (slug: string) => (_data: unknown, { token }: { token?: strin
     secret: PREVIEW_SECRET,
     path: PREVIEW_PATH[slug] ?? '/',
     token: token ?? '',
+  })
+  return `${SITE_URL}/api/preview/?${params.toString()}`
+}
+
+
+/** Device sizes offered in the Live Preview toolbar. */
+export const PREVIEW_BREAKPOINTS = [
+  { name: 'mobile', label: 'Téléphone', width: 375, height: 812 },
+  { name: 'tablet', label: 'Tablette', width: 768, height: 1024 },
+  { name: 'desktop', label: 'Ordinateur', width: 1440, height: 900 },
+]
+
+/**
+ * The URL the Live Preview iframe loads.
+ *
+ * Unlike the preview button, this callback is given no user token, and the
+ * iframe sits on another origin so no Payload cookie reaches it. The site
+ * therefore authenticates with its own service key (PAYLOAD_API_KEY); the
+ * secret here is only what permits opening a preview session.
+ */
+export const livePreviewUrl = ({ globalConfig }: { globalConfig?: { slug: string } }) => {
+  if (!PREVIEW_SECRET) return null
+  const slug = globalConfig?.slug ?? 'home'
+  const params = new URLSearchParams({
+    secret: PREVIEW_SECRET,
+    path: PREVIEW_PATH[slug] ?? '/',
   })
   return `${SITE_URL}/api/preview/?${params.toString()}`
 }
