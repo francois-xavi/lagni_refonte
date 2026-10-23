@@ -1,0 +1,873 @@
+{
+  "seo": {
+    "title": {
+      "fr": "Formation SAP pour écoles et universités | Lagni Consulting",
+      "en": "SAP training for schools and universities | Lagni Consulting"
+    },
+    "description": {
+      "fr": "Intégrez les compétences ERP et SAP S/4HANA aux parcours de vos étudiants : cours complémentaire, cohorte dédiée, format intensif ou extracurriculaire.",
+      "en": "Bring ERP and SAP S/4HANA skills into your students’ programmes: complementary course, dedicated cohort, intensive or extracurricular format."
+    }
+  },
+  "hero": {
+    "eyebrow": {
+      "fr": "Pour les établissements d’enseignement",
+      "en": "For educational institutions"
+    },
+    "title": {
+      "fr": "Intégrez les compétences ERP aux parcours de vos étudiants.",
+      "en": "Bring ERP skills into your students’ programmes."
+    },
+    "tagline": {
+      "fr": "Complétez vos programmes en Supply Chain, gestion de production, génie industriel et opérations avec une formation pratique aux processus SAP S/4HANA.",
+      "en": "Complement your supply chain, production management, industrial engineering and operations programmes with practical training in SAP S/4HANA processes."
+    },
+    "lead": {
+      "fr": "Lagni Consulting collabore avec les établissements souhaitant rapprocher l’apprentissage académique des réalités des systèmes d’entreprise.",
+      "en": "Lagni Consulting works with institutions that want to close the distance between academic learning and the reality of enterprise systems."
+    },
+    "ctaPrimary": {
+      "fr": "Discuter d’un partenariat",
+      "en": "Discuss a partnership"
+    },
+    "ctaSecondary": {
+      "fr": "Découvrir le programme SAP PP",
+      "en": "Explore the SAP PP programme"
+    },
+    "imageAlt": {
+      "fr": "Formateur présentant un processus SAP Production Planning à un groupe d’étudiants",
+      "en": "Trainer presenting an SAP Production Planning process to a group of students"
+    },
+    "panel": [
+      {
+        "fr": "Demand",
+        "en": "Demand"
+      },
+      {
+        "fr": "MRP",
+        "en": "MRP"
+      },
+      {
+        "fr": "Production Order",
+        "en": "Production Order"
+      },
+      {
+        "fr": "Execution",
+        "en": "Execution"
+      },
+      {
+        "fr": "Delivery",
+        "en": "Delivery"
+      }
+    ],
+    "panelTitle": {
+      "fr": "SAP S/4HANA — Production Planning",
+      "en": "SAP S/4HANA — Production Planning"
+    },
+    "script": {
+      "fr": "Des compétences d’aujourd’hui pour demain",
+      "en": "Today’s skills for tomorrow"
+    },
+    "trustItems": [
+      {
+        "icon": "clock",
+        "label": {
+          "fr": "{hours} heures de formation",
+          "en": "{hours} hours of training"
+        }
+      },
+      {
+        "icon": "school",
+        "label": {
+          "fr": "Cohorte dédiée",
+          "en": "Dedicated cohort"
+        }
+      },
+      {
+        "icon": "screen",
+        "label": {
+          "fr": "À distance ou sur site",
+          "en": "Remote or on site"
+        }
+      }
+    ],
+    "matchLabel": {
+      "fr": "Programme proposé",
+      "en": "Proposed programme"
+    },
+    "profileBadge": {
+      "fr": "15",
+      "en": "15"
+    },
+    "profileLabel": {
+      "fr": "Cohorte pilote",
+      "en": "Pilot cohort"
+    },
+    "profileTitle": {
+      "fr": "Jusqu’à {maxParticipants} participants",
+      "en": "Up to {maxParticipants} participants"
+    }
+  },
+  "proof": {
+    "label": {
+      "fr": "Le programme pour établissements en bref",
+      "en": "The programme for institutions at a glance"
+    },
+    "items": [
+      {
+        "figure": {
+          "fr": "{hours}",
+          "en": "{hours}"
+        },
+        "label": {
+          "fr": "heures de formation",
+          "en": "hours of training"
+        },
+        "lord": "clock",
+        "count": true
+      },
+      {
+        "figure": {
+          "fr": "{sessions} × {sessionHours} h",
+          "en": "{sessions} × {sessionHours} h"
+        },
+        "label": {
+          "fr": "séances structurées",
+          "en": "structured sessions"
+        },
+        "lord": "calendar"
+      },
+      {
+        "figure": {
+          "fr": "5",
+          "en": "5"
+        },
+        "label": {
+          "fr": "phases progressives",
+          "en": "progressive phases"
+        },
+        "lord": "checklist",
+        "count": true
+      },
+      {
+        "figure": {
+          "fr": "{maxParticipants}",
+          "en": "{maxParticipants}"
+        },
+        "label": {
+          "fr": "participants max. en pilote",
+          "en": "participants max. in a pilot"
+        },
+        "lord": "school",
+        "count": true
+      }
+    ]
+  },
+  "why": {
+    "eyebrow": {
+      "fr": "Pourquoi un ERP",
+      "en": "Why an ERP"
+    },
+    "title": {
+      "fr": "Pourquoi intégrer un ERP au cursus ?",
+      "en": "Why bring an ERP into the curriculum?"
+    },
+    "lead": {
+      "fr": "Du concept académique au processus d’entreprise.",
+      "en": "From academic concept to business process."
+    },
+    "columns": [
+      {
+        "title": {
+          "fr": "Ce que l’étudiant apprend",
+          "en": "What the student learns"
+        },
+        "subtitle": {
+          "fr": "dans ses cours",
+          "en": "in their courses"
+        },
+        "items": [
+          {
+            "fr": "Planification",
+            "en": "Planning"
+          },
+          {
+            "fr": "Gestion des stocks",
+            "en": "Inventory management"
+          },
+          {
+            "fr": "Production",
+            "en": "Production"
+          },
+          {
+            "fr": "Supply Chain",
+            "en": "Supply chain"
+          },
+          {
+            "fr": "Capacité",
+            "en": "Capacity"
+          }
+        ]
+      },
+      {
+        "title": {
+          "fr": "Comment l’entreprise l’exécute",
+          "en": "How a company executes it"
+        },
+        "subtitle": {
+          "fr": "avec un ERP",
+          "en": "inside an ERP"
+        },
+        "items": [
+          {
+            "fr": "Des concepts réels dans un système d’entreprise",
+            "en": "Real concepts inside an enterprise system"
+          }
+        ],
+        "highlight": {
+          "fr": "SAP S/4HANA",
+          "en": "SAP S/4HANA"
+        }
+      },
+      {
+        "title": {
+          "fr": "Ce que l’étudiant développe",
+          "en": "What the student develops"
+        },
+        "subtitle": {
+          "fr": "",
+          "en": ""
+        },
+        "items": [
+          {
+            "fr": "Compréhension des processus",
+            "en": "Understanding of processes"
+          },
+          {
+            "fr": "Lecture d’un environnement ERP",
+            "en": "Ability to read an ERP environment"
+          },
+          {
+            "fr": "Analyse et résolution de problèmes",
+            "en": "Analysis and problem solving"
+          },
+          {
+            "fr": "Compétences professionnelles",
+            "en": "Professional skills"
+          }
+        ]
+      }
+    ],
+    "quote": {
+      "fr": "Un pont entre la théorie académique et la réalité des entreprises.",
+      "en": "A bridge between academic theory and the reality of business."
+    }
+  },
+  "programmes": {
+    "eyebrow": {
+      "fr": "Programmes",
+      "en": "Programmes"
+    },
+    "imageAlt": {
+      "fr": "Coordonnatrice de programme et formateur planifiant un parcours de formation",
+      "en": "Programme coordinator and trainer planning a training course"
+    },
+    "title": {
+      "fr": "Les programmes concernés",
+      "en": "The programmes concerned"
+    },
+    "lead": {
+      "fr": "Un contenu adapté à différents domaines de formation.",
+      "en": "Content adapted to a range of fields."
+    },
+    "items": [
+      {
+        "icon": "truck",
+        "label": {
+          "fr": "Supply Chain",
+          "en": "Supply chain"
+        }
+      },
+      {
+        "icon": "factory",
+        "label": {
+          "fr": "Gestion de production",
+          "en": "Production management"
+        }
+      },
+      {
+        "icon": "gear",
+        "label": {
+          "fr": "Génie industriel",
+          "en": "Industrial engineering"
+        }
+      },
+      {
+        "icon": "chart",
+        "label": {
+          "fr": "Gestion des opérations",
+          "en": "Operations management"
+        }
+      },
+      {
+        "icon": "box",
+        "label": {
+          "fr": "Logistique",
+          "en": "Logistics"
+        }
+      },
+      {
+        "icon": "screen",
+        "label": {
+          "fr": "Systèmes d’information / ERP",
+          "en": "Information systems / ERP"
+        }
+      }
+    ],
+    "note": {
+      "fr": "Le contenu peut être adapté au niveau des participants et aux objectifs pédagogiques de l’établissement.",
+      "en": "Content can be adapted to the level of the participants and to the institution’s teaching objectives."
+    }
+  },
+  "programme": {
+    "eyebrow": {
+      "fr": "Le programme",
+      "en": "The programme"
+    },
+    "title": {
+      "fr": "Le programme proposé",
+      "en": "The proposed programme"
+    },
+    "subtitle": {
+      "fr": "SAP S/4HANA Production Planning",
+      "en": "SAP S/4HANA Production Planning"
+    },
+    "body": {
+      "fr": "Un parcours structuré permettant aux étudiants de comprendre comment les principaux concepts de planification et d’exécution de la production sont représentés dans un ERP moderne.",
+      "en": "A structured programme that shows students how the core concepts of production planning and execution are represented inside a modern ERP."
+    },
+    "meta": [
+      {
+        "label": {
+          "fr": "{hours} heures",
+          "en": "{hours} hours"
+        },
+        "sub": {
+          "fr": "de formation",
+          "en": "of training"
+        },
+        "icon": "clock"
+      },
+      {
+        "label": {
+          "fr": "{sessions} séances",
+          "en": "{sessions} sessions"
+        },
+        "sub": {
+          "fr": "× {sessionHours} heures",
+          "en": "× {sessionHours} hours"
+        },
+        "icon": "calendar"
+      },
+      {
+        "label": {
+          "fr": "Exercices pratiques",
+          "en": "Hands-on exercises"
+        },
+        "sub": {
+          "fr": "",
+          "en": ""
+        },
+        "icon": "screen"
+      },
+      {
+        "label": {
+          "fr": "Cas end-to-end",
+          "en": "End-to-end cases"
+        },
+        "sub": {
+          "fr": "",
+          "en": ""
+        },
+        "icon": "people"
+      }
+    ],
+    "phases": [
+      {
+        "fr": "Comprendre SAP et la production",
+        "en": "Understanding SAP and production"
+      },
+      {
+        "fr": "Construire les données de base",
+        "en": "Building the master data"
+      },
+      {
+        "fr": "Planifier la production",
+        "en": "Planning production"
+      },
+      {
+        "fr": "Exécuter la production",
+        "en": "Executing production"
+      },
+      {
+        "fr": "Scénarios end-to-end",
+        "en": "End-to-end scenarios"
+      }
+    ],
+    "cta": {
+      "fr": "Voir le programme détaillé",
+      "en": "See the detailed syllabus"
+    }
+  },
+  "formats": {
+    "eyebrow": {
+      "fr": "Formats",
+      "en": "Formats"
+    },
+    "title": {
+      "fr": "Comment l’intégrer au programme ?",
+      "en": "How can it fit into the programme?"
+    },
+    "lead": {
+      "fr": "Un format adaptable à votre organisation.",
+      "en": "A format that adapts to your organization."
+    },
+    "items": [
+      {
+        "icon": "calendar",
+        "title": {
+          "fr": "Cours complémentaire",
+          "en": "Complementary course"
+        },
+        "body": {
+          "fr": "{hours} heures réparties sur le semestre.",
+          "en": "{hours} hours spread across the term."
+        }
+      },
+      {
+        "icon": "refresh",
+        "title": {
+          "fr": "Programme intensif",
+          "en": "Intensive programme"
+        },
+        "body": {
+          "fr": "Formation regroupée sur une période plus courte.",
+          "en": "Training condensed into a shorter period."
+        }
+      },
+      {
+        "icon": "people",
+        "title": {
+          "fr": "Cohorte dédiée",
+          "en": "Dedicated cohort"
+        },
+        "body": {
+          "fr": "Programme réservé aux étudiants de l’établissement.",
+          "en": "A programme reserved for the institution’s students."
+        }
+      },
+      {
+        "icon": "star",
+        "title": {
+          "fr": "Parcours extracurriculaire",
+          "en": "Extracurricular track"
+        },
+        "body": {
+          "fr": "Formation offerte en complément du cursus régulier.",
+          "en": "Training offered alongside the regular curriculum."
+        }
+      }
+    ]
+  },
+  "modalities": {
+    "title": {
+      "fr": "Présentiel ou distance ?",
+      "en": "On campus or remote?"
+    },
+    "lead": {
+      "fr": "Une formation qui s’adapte à votre établissement.",
+      "en": "Training that adapts to your institution."
+    },
+    "items": [
+      {
+        "icon": "screen",
+        "title": {
+          "fr": "À distance",
+          "en": "Remote"
+        },
+        "body": {
+          "fr": "Sessions interactives en direct avec un formateur expérimenté.",
+          "en": "Interactive sessions, live with an experienced trainer."
+        }
+      },
+      {
+        "icon": "school",
+        "title": {
+          "fr": "Dans votre établissement",
+          "en": "At your institution"
+        },
+        "body": {
+          "fr": "Formation sur site lorsque les conditions le permettent.",
+          "en": "On-site delivery where conditions allow."
+        }
+      },
+      {
+        "icon": "layers",
+        "title": {
+          "fr": "Hybride",
+          "en": "Hybrid"
+        },
+        "body": {
+          "fr": "Combinaison de sessions à distance et d’activités organisées avec l’établissement.",
+          "en": "A combination of remote sessions and activities organized with the institution."
+        }
+      }
+    ]
+  },
+  "pedagogy": {
+    "eyebrow": {
+      "fr": "Pédagogie",
+      "en": "Teaching"
+    },
+    "imageAlt": {
+      "fr": "Deux participants analysant ensemble un scénario de production",
+      "en": "Two participants analysing a production scenario together"
+    },
+    "title": {
+      "fr": "Notre approche pédagogique",
+      "en": "Our teaching approach"
+    },
+    "tagline": {
+      "fr": "Comprendre. Pratiquer. Analyser. Collaborer.",
+      "en": "Understand. Practise. Analyse. Collaborate."
+    },
+    "items": [
+      {
+        "icon": "bulb",
+        "title": {
+          "fr": "Comprendre",
+          "en": "Understand"
+        },
+        "body": {
+          "fr": "Relier les concepts académiques aux processus ERP.",
+          "en": "Connect academic concepts to ERP processes."
+        }
+      },
+      {
+        "icon": "gear",
+        "title": {
+          "fr": "Pratiquer",
+          "en": "Practise"
+        },
+        "body": {
+          "fr": "Travailler sur des exercices et scénarios SAP.",
+          "en": "Work through SAP exercises and scenarios."
+        }
+      },
+      {
+        "icon": "search",
+        "title": {
+          "fr": "Analyser",
+          "en": "Analyse"
+        },
+        "body": {
+          "fr": "Comprendre pourquoi le système produit certains résultats.",
+          "en": "Understand why the system produces the results it does."
+        }
+      },
+      {
+        "icon": "people",
+        "title": {
+          "fr": "Collaborer",
+          "en": "Collaborate"
+        },
+        "body": {
+          "fr": "Résoudre des scénarios en groupe et expliquer les décisions prises.",
+          "en": "Solve scenarios in groups and explain the decisions taken."
+        }
+      }
+    ]
+  },
+  "responsibilities": {
+    "eyebrow": {
+      "fr": "Partenariat",
+      "en": "Partnership"
+    },
+    "title": {
+      "fr": "Ce que Lagni apporte",
+      "en": "What Lagni brings"
+    },
+    "lead": {
+      "fr": "Un partenariat clair et transparent.",
+      "en": "A clear, transparent partnership."
+    },
+    "institution": {
+      "title": {
+        "fr": "L’établissement",
+        "en": "The institution"
+      },
+      "items": [
+        {
+          "fr": "Sélection des participants",
+          "en": "Selection of participants"
+        },
+        {
+          "fr": "Coordination académique",
+          "en": "Academic coordination"
+        },
+        {
+          "fr": "Calendrier",
+          "en": "Scheduling"
+        },
+        {
+          "fr": "Infrastructure locale si nécessaire",
+          "en": "Local infrastructure if needed"
+        }
+      ]
+    },
+    "lagni": {
+      "title": {
+        "fr": "Lagni Consulting",
+        "en": "Lagni Consulting"
+      },
+      "items": [
+        {
+          "fr": "Programme pédagogique",
+          "en": "Teaching programme"
+        },
+        {
+          "fr": "Formateur expérimenté",
+          "en": "Experienced trainer"
+        },
+        {
+          "fr": "Ressources d’apprentissage (SAP Learning)",
+          "en": "Learning resources (SAP Learning)"
+        },
+        {
+          "fr": "Exercices et cas pratiques",
+          "en": "Exercises and practical cases"
+        },
+        {
+          "fr": "Sessions de formation",
+          "en": "Training sessions"
+        },
+        {
+          "fr": "Accompagnement",
+          "en": "Ongoing support"
+        },
+        {
+          "fr": "Évaluation pédagogique, si convenue",
+          "en": "Teaching assessment, where agreed"
+        }
+      ]
+    }
+  },
+  "sapResources": {
+    "eyebrow": {
+      "fr": "Ressources SAP",
+      "en": "SAP resources"
+    },
+    "accessTitle": {
+      "fr": "Accès à SAP",
+      "en": "Access to SAP"
+    },
+    "certificationTitle": {
+      "fr": "Formation et certification",
+      "en": "Training and certification"
+    },
+    "certification": {
+      "fr": "Lagni Consulting n’est pas affiliée à SAP et ne délivre aucune certification SAP. Les certifications SAP sont délivrées exclusivement par SAP, selon ses propres conditions et examens.",
+      "en": "Lagni Consulting is not affiliated with SAP and does not issue SAP certifications. SAP certifications are issued exclusively by SAP, under its own terms and exams."
+    },
+    "title": {
+      "fr": "Un parcours construit autour des ressources officielles SAP",
+      "en": "A programme built around official SAP resources"
+    },
+    "body": {
+      "fr": "La formation s’appuie sur les ressources officielles SAP Learning et les complète par une progression pédagogique, des explications, des exercices et un accompagnement structuré.",
+      "en": "The training draws on official SAP Learning resources and adds a teaching progression, explanations, exercises and structured support."
+    },
+    "chain": [
+      {
+        "fr": "SAP Learning",
+        "en": "SAP Learning"
+      },
+      {
+        "fr": "Coaching Lagni",
+        "en": "Lagni coaching"
+      },
+      {
+        "fr": "Exercices",
+        "en": "Exercises"
+      },
+      {
+        "fr": "Pratique",
+        "en": "Practice"
+      },
+      {
+        "fr": "Consolidation",
+        "en": "Consolidation"
+      }
+    ],
+    "disclaimer": {
+      "fr": "Aucun accès étudiant à un environnement SAP n’est promis ici : les modalités d’accès sont confirmées au cas par cas, avant le démarrage de la cohorte.",
+      "en": "No student access to an SAP environment is promised here: access arrangements are confirmed case by case, before the cohort begins."
+    }
+  },
+  "pilot": {
+    "eyebrow": {
+      "fr": "Cohorte pilote",
+      "en": "Pilot cohort"
+    },
+    "stepDetails": [
+      {
+        "fr": "Objectifs pédagogiques, public visé, calendrier et critères d’évaluation.",
+        "en": "Teaching objectives, target audience, schedule and evaluation criteria."
+      },
+      {
+        "fr": "Un premier groupe restreint suit le parcours.",
+        "en": "A first, smaller group follows the programme."
+      },
+      {
+        "fr": "Bilan selon les critères définis ensemble.",
+        "en": "Review against the criteria agreed together."
+      },
+      {
+        "fr": "Le programme est ajusté selon les retours.",
+        "en": "The programme is refined based on feedback."
+      },
+      {
+        "fr": "Un déploiement plus large, si l’établissement le souhaite.",
+        "en": "A wider rollout, if the institution wishes."
+      }
+    ],
+    "title": {
+      "fr": "Commencez par une cohorte pilote",
+      "en": "Start with a pilot cohort"
+    },
+    "body": {
+      "fr": "Vous souhaitez évaluer l’intérêt du programme avant un déploiement plus large ? Nous pouvons définir ensemble une première cohorte, les objectifs pédagogiques, le calendrier et les critères d’évaluation.",
+      "en": "Want to gauge interest before a wider rollout? We can define a first cohort together — the teaching objectives, the schedule and the evaluation criteria."
+    },
+    "steps": [
+      {
+        "fr": "Cadrage",
+        "en": "Scoping"
+      },
+      {
+        "fr": "Cohorte pilote",
+        "en": "Pilot cohort"
+      },
+      {
+        "fr": "Évaluation",
+        "en": "Evaluation"
+      },
+      {
+        "fr": "Ajustement",
+        "en": "Adjustment"
+      },
+      {
+        "fr": "Déploiement",
+        "en": "Rollout"
+      }
+    ],
+    "cohortNote": {
+      "fr": "Cohorte cible : jusqu’à {maxParticipants} participants, selon le modèle opérationnel retenu.",
+      "en": "Target cohort: up to {maxParticipants} participants, depending on the operating model chosen."
+    }
+  },
+  "partners": {
+    "title": {
+      "fr": "Nos collaborations",
+      "en": "Our collaborations"
+    },
+    "lead": {
+      "fr": "Construction de partenariats durables.",
+      "en": "Building lasting partnerships."
+    },
+    "placeholder": {
+      "fr": "Nos futurs partenaires seront présentés ici.",
+      "en": "Our future partners will be presented here."
+    }
+  },
+  "trainer": {
+    "eyebrow": {
+      "fr": "Le formateur",
+      "en": "Your trainer"
+    },
+    "title": {
+      "fr": "Un formateur issu du terrain ERP",
+      "en": "A trainer from the ERP field"
+    },
+    "body": {
+      "fr": "Plus de 15 années d’expérience dans les systèmes ERP, une participation à des projets d’implantation end-to-end et une approche qui combine processus métiers, systèmes, gestion de projet et transmission des connaissances.",
+      "en": "More than 15 years of experience with ERP systems, hands-on involvement in end-to-end implementation projects, and an approach that combines business processes, systems, project management and knowledge transfer."
+    },
+    "points": [
+      {
+        "fr": "15+ ans d’expérience ERP",
+        "en": "15+ years of ERP experience"
+      },
+      {
+        "fr": "SAP S/4HANA Production Planning",
+        "en": "SAP S/4HANA Production Planning"
+      },
+      {
+        "fr": "Expérience de projets d’implantation",
+        "en": "Implementation project experience"
+      }
+    ],
+    "cta": {
+      "fr": "En savoir plus sur le formateur",
+      "en": "More about the trainer"
+    }
+  },
+  "faq": {
+    "eyebrow": {
+      "fr": "FAQ",
+      "en": "FAQ"
+    },
+    "lead": {
+      "fr": "Les questions que se posent le plus souvent les établissements avant de lancer une cohorte.",
+      "en": "The questions institutions ask most often before launching a cohort."
+    },
+    "title": {
+      "fr": "Vos questions, nos réponses",
+      "en": "Your questions, answered"
+    }
+  },
+  "formIntro": {
+    "title": {
+      "fr": "Construisons un parcours adapté à vos étudiants.",
+      "en": "Let’s build a programme that fits your students."
+    },
+    "body": {
+      "fr": "Présentez-nous votre programme, votre public et vos objectifs pédagogiques. Nous vous proposerons un format adapté.",
+      "en": "Tell us about your programme, your audience and your teaching objectives, and we will propose a suitable format."
+    }
+  },
+  "formCard": {
+    "eyebrow": {
+      "fr": "Partenariat",
+      "en": "Partnership"
+    }
+  },
+  "finalCta": {
+    "title": {
+      "fr": "Préparons ensemble la prochaine cohorte.",
+      "en": "Let’s prepare your next cohort together."
+    },
+    "body": {
+      "fr": "Un premier échange suffit pour cadrer les objectifs, le public et le calendrier. Nous vous proposons ensuite un format adapté à votre établissement.",
+      "en": "A first conversation is enough to frame the objectives, the audience and the schedule. We then propose a format suited to your institution."
+    },
+    "cta": {
+      "fr": "Discuter d’un partenariat",
+      "en": "Discuss a partnership"
+    },
+    "script": {
+      "fr": "Des partenariats pour développer les talents de demain.",
+      "en": "Partnerships to grow tomorrow’s talent."
+    }
+  }
+}

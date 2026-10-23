@@ -1,0 +1,645 @@
+{
+  "seo": {
+    "title": {
+      "fr": "À propos de Lagni Consulting — compétences, systèmes et talents",
+      "en": "About Lagni Consulting — skills, systems and talent"
+    },
+    "description": {
+      "fr": "Lagni Consulting accompagne les professionnels et les organisations à l’intersection de trois dimensions : compétences, systèmes d’entreprise et talents.",
+      "en": "Lagni Consulting works with professionals and organizations at the intersection of three dimensions: skills, enterprise systems and talent."
+    }
+  },
+  "hero": {
+    "eyebrow": {
+      "fr": "À propos de Lagni Consulting",
+      "en": "About Lagni Consulting"
+    },
+    "title": {
+      "fr": "La technologie crée de la valeur lorsque les personnes savent l’utiliser.",
+      "en": "Technology creates value when people know how to use it."
+    },
+    "tagline": {
+      "fr": "Compétences • Systèmes d’entreprise • Talents",
+      "en": "Skills • Enterprise systems • Talent"
+    },
+    "lead": {
+      "fr": "Notre mission : contribuer au développement des compétences, à l’adoption des technologies d’entreprise et à la mise en relation des organisations avec les talents dont elles ont besoin.",
+      "en": "Our mission: to contribute to skills development, to the adoption of enterprise technology, and to connecting organizations with the talent they need."
+    },
+    "ctaPrimary": {
+      "fr": "Découvrir nos services",
+      "en": "Explore our services"
+    },
+    "ctaSecondary": {
+      "fr": "Nous contacter",
+      "en": "Contact us"
+    },
+    "imageAlt": {
+      "fr": "Espace de travail de consultant : ordinateur portable et carnet de processus",
+      "en": "A consultant’s workspace: laptop and a notebook of process sketches"
+    },
+    "script": {
+      "fr": "Former. Accompagner. Connecter.",
+      "en": "Train. Support. Connect."
+    },
+    "quote": {
+      "fr": "Des compétences aujourd’hui pour un avenir meilleur.",
+      "en": "Skills today, for a better tomorrow."
+    },
+    "trustItems": [
+      {
+        "icon": "pin",
+        "label": {
+          "fr": "Basée au Québec",
+          "en": "Based in Quebec"
+        }
+      },
+      {
+        "icon": "globe",
+        "label": {
+          "fr": "Canada • Europe • Afrique",
+          "en": "Canada • Europe • Africa"
+        }
+      },
+      {
+        "icon": "layers",
+        "label": {
+          "fr": "Expertise ERP",
+          "en": "ERP expertise"
+        }
+      }
+    ],
+    "matchLabel": {
+      "fr": "Trois piliers",
+      "en": "Three pillars"
+    },
+    "matchTitle": {
+      "fr": "Une expertise ERP",
+      "en": "One ERP expertise"
+    },
+    "profileBadge": {
+      "fr": "15+",
+      "en": "15+"
+    },
+    "profileLabel": {
+      "fr": "Expérience ERP",
+      "en": "ERP experience"
+    },
+    "profileTitle": {
+      "fr": "Plus de 15 années",
+      "en": "More than 15 years"
+    }
+  },
+  "proof": {
+    "label": {
+      "fr": "Lagni Consulting en bref",
+      "en": "Lagni Consulting at a glance"
+    },
+    "items": [
+      {
+        "figure": {
+          "fr": "15+",
+          "en": "15+"
+        },
+        "label": {
+          "fr": "années d’expérience ERP",
+          "en": "years of ERP experience"
+        },
+        "lord": "experience",
+        "count": true
+      },
+      {
+        "figure": {
+          "fr": "3",
+          "en": "3"
+        },
+        "label": {
+          "fr": "piliers complémentaires",
+          "en": "complementary pillars"
+        },
+        "lord": "network",
+        "count": true
+      },
+      {
+        "figure": {
+          "fr": "5",
+          "en": "5"
+        },
+        "label": {
+          "fr": "technologies abordées",
+          "en": "technologies covered"
+        },
+        "lord": "server",
+        "count": true
+      },
+      {
+        "figure": {
+          "fr": "3",
+          "en": "3"
+        },
+        "label": {
+          "fr": "continents de collaboration",
+          "en": "continents of collaboration"
+        },
+        "lord": "globe",
+        "count": true
+      }
+    ]
+  },
+  "purpose": {
+    "eyebrow": {
+      "fr": "Raison d’être",
+      "en": "Purpose"
+    },
+    "title": {
+      "fr": "Pourquoi Lagni Consulting existe",
+      "en": "Why Lagni Consulting exists"
+    },
+    "tagline": {
+      "fr": "Former. Accompagner. Connecter.",
+      "en": "Train. Support. Connect."
+    },
+    "items": [
+      {
+        "icon": "cap",
+        "title": {
+          "fr": "Former",
+          "en": "Train"
+        },
+        "body": {
+          "fr": "Développer des compétences applicables dans des environnements professionnels réels.",
+          "en": "Build skills that hold up in real professional environments."
+        }
+      },
+      {
+        "icon": "gear",
+        "title": {
+          "fr": "Accompagner",
+          "en": "Support"
+        },
+        "body": {
+          "fr": "Aider les organisations à transformer leurs processus et à adopter leurs systèmes d’entreprise.",
+          "en": "Help organizations transform their processes and adopt their enterprise systems."
+        }
+      },
+      {
+        "icon": "people",
+        "title": {
+          "fr": "Connecter",
+          "en": "Connect"
+        },
+        "body": {
+          "fr": "Mettre en relation les compétences avec les organisations et les opportunités qui en ont besoin.",
+          "en": "Bring skills together with the organizations and opportunities that need them."
+        }
+      }
+    ],
+    "quote": {
+      "fr": "Plus que des technologies, des personnes qui avancent ensemble.",
+      "en": "More than technology — people moving forward together."
+    }
+  },
+  "story": {
+    "eyebrow": {
+      "fr": "Notre histoire",
+      "en": "Our story"
+    },
+    "imageAlt": {
+      "fr": "Tableau blanc présentant un processus métier dessiné à la main",
+      "en": "Whiteboard with a hand-drawn business process"
+    },
+    "title": {
+      "fr": "Notre histoire",
+      "en": "Our story"
+    },
+    "tagline": {
+      "fr": "Une conviction, une expérience, une vision.",
+      "en": "A conviction, an experience, a vision."
+    },
+    "body": [
+      {
+        "fr": "Lagni Consulting est née d’une conviction : les projets technologiques ne réussissent pas uniquement grâce aux logiciels.",
+        "en": "Lagni Consulting grew out of a conviction: technology projects do not succeed on software alone."
+      },
+      {
+        "fr": "Ils réussissent lorsque les processus sont compris, lorsque les utilisateurs développent les bonnes compétences et lorsque les organisations disposent de talents capables de porter la transformation.",
+        "en": "They succeed when the processes are understood, when users build the right skills, and when organizations have talent capable of carrying the transformation."
+      },
+      {
+        "fr": "Après plus de 15 années d’expérience dans les systèmes ERP et la participation à des projets d’implantation, de transformation et d’accompagnement des utilisateurs, cette expérience est aujourd’hui mise au service des professionnels, des entreprises et des établissements d’enseignement.",
+        "en": "After more than 15 years working with ERP systems, and taking part in implementation, transformation and user-adoption projects, that experience is now put to work for professionals, companies and educational institutions."
+      }
+    ],
+    "chainTitle": {
+      "fr": "De la compréhension des besoins aux résultats concrets.",
+      "en": "From understanding the need to concrete results."
+    },
+    "chain": [
+      {
+        "icon": "search",
+        "title": {
+          "fr": "Processus",
+          "en": "Process"
+        },
+        "body": {
+          "fr": "Comprendre les besoins métiers",
+          "en": "Understand the business need"
+        }
+      },
+      {
+        "icon": "database",
+        "title": {
+          "fr": "Technologie",
+          "en": "Technology"
+        },
+        "body": {
+          "fr": "Choisir et configurer la bonne solution",
+          "en": "Choose and configure the right solution"
+        }
+      },
+      {
+        "icon": "people",
+        "title": {
+          "fr": "Compétences",
+          "en": "Skills"
+        },
+        "body": {
+          "fr": "Former et accompagner les utilisateurs",
+          "en": "Train and support the users"
+        }
+      },
+      {
+        "icon": "refresh",
+        "title": {
+          "fr": "Adoption",
+          "en": "Adoption"
+        },
+        "body": {
+          "fr": "Soutenir le changement",
+          "en": "Carry the change through"
+        }
+      },
+      {
+        "icon": "target",
+        "title": {
+          "fr": "Résultats",
+          "en": "Results"
+        },
+        "body": {
+          "fr": "Une valeur durable pour l’organisation",
+          "en": "Durable value for the organization"
+        }
+      }
+    ]
+  },
+  "founderSection": {
+    "title": {
+      "fr": "Le fondateur",
+      "en": "The founder"
+    },
+    "tagline": {
+      "fr": "Une expertise ERP et une vision orientée impact.",
+      "en": "ERP expertise with an eye on impact."
+    },
+    "body": [
+      {
+        "fr": "Professionnel des systèmes ERP et de la gestion de projet, Romuald compte plus de 15 années d’expérience sur des implantations Oracle JD Edwards. Son expertise SAP S/4HANA porte sur la planification et l’exécution de la production (Production Planning), domaine autour duquel il conçoit et anime la formation SAP PP.",
+        "en": "An ERP systems and project management professional, Romuald has more than 15 years of experience on Oracle JD Edwards implementations. His SAP S/4HANA expertise covers production planning and execution (Production Planning) — the area around which he designs and delivers the SAP PP training."
+      },
+      {
+        "fr": "Son parcours couvre l’analyse fonctionnelle, les implantations ERP end-to-end, la coordination de projets, les tests, la formation des utilisateurs et l’accompagnement du changement.",
+        "en": "His work spans functional analysis, end-to-end ERP implementations, project coordination, testing, user training and change support."
+      }
+    ],
+    "points": [
+      {
+        "fr": "Analyse fonctionnelle",
+        "en": "Functional analysis"
+      },
+      {
+        "fr": "Implantations ERP end-to-end",
+        "en": "End-to-end ERP implementations"
+      },
+      {
+        "fr": "Coordination de projets et tests",
+        "en": "Project coordination and testing"
+      },
+      {
+        "fr": "Formation des utilisateurs et accompagnement du changement",
+        "en": "User training and change support"
+      }
+    ]
+  },
+  "values": {
+    "eyebrow": {
+      "fr": "Valeurs",
+      "en": "Values"
+    },
+    "title": {
+      "fr": "Nos valeurs",
+      "en": "Our values"
+    },
+    "lead": {
+      "fr": "Des principes concrets qui guident notre action.",
+      "en": "Concrete principles that guide how we work."
+    },
+    "items": [
+      {
+        "icon": "bulb",
+        "title": {
+          "fr": "Pratique",
+          "en": "Practical"
+        },
+        "body": {
+          "fr": "Une compétence devient réellement utile lorsqu’elle peut être appliquée.",
+          "en": "A skill becomes genuinely useful once it can be applied."
+        }
+      },
+      {
+        "icon": "gear",
+        "title": {
+          "fr": "Compréhension",
+          "en": "Understanding"
+        },
+        "body": {
+          "fr": "Comprendre le processus avant d’apprendre le système.",
+          "en": "Understand the process before learning the system."
+        }
+      },
+      {
+        "icon": "book",
+        "title": {
+          "fr": "Transmission",
+          "en": "Transmission"
+        },
+        "body": {
+          "fr": "L’expertise prend davantage de valeur lorsqu’elle peut être partagée.",
+          "en": "Expertise is worth more once it can be shared."
+        }
+      },
+      {
+        "icon": "handshake",
+        "title": {
+          "fr": "Accompagnement",
+          "en": "Support"
+        },
+        "body": {
+          "fr": "Les transformations durables nécessitent du temps, du suivi et de la proximité.",
+          "en": "Lasting transformation takes time, follow-up and proximity."
+        }
+      }
+    ]
+  },
+  "journey": {
+    "eyebrow": {
+      "fr": "Technologies",
+      "en": "Technologies"
+    },
+    "title": {
+      "fr": "Un parcours ERP qui traverse les technologies",
+      "en": "An ERP path that crosses technologies"
+    },
+    "tagline": {
+      "fr": "Le processus métier avant la technologie.",
+      "en": "The business process before the technology."
+    },
+    "items": [
+      {
+        "name": {
+          "fr": "Oracle JD Edwards",
+          "en": "Oracle JD Edwards"
+        },
+        "body": {
+          "fr": "15+ années d’expérience ERP. Implémentations et processus métiers.",
+          "en": "15+ years of ERP experience. Implementations and business processes."
+        }
+      },
+      {
+        "name": {
+          "fr": "SAP S/4HANA",
+          "en": "SAP S/4HANA"
+        },
+        "body": {
+          "fr": "Production Planning, Manufacturing / QM, Business Process Integration.",
+          "en": "Production Planning, Manufacturing / QM, Business Process Integration."
+        }
+      },
+      {
+        "name": {
+          "fr": "Odoo",
+          "en": "Odoo"
+        },
+        "body": {
+          "fr": "ERP modulaire pour les organisations de toutes tailles.",
+          "en": "A modular ERP for organizations of every size."
+        }
+      },
+      {
+        "name": {
+          "fr": "GoHighLevel",
+          "en": "GoHighLevel"
+        },
+        "body": {
+          "fr": "CRM et automatisation marketing.",
+          "en": "CRM and marketing automation."
+        }
+      },
+      {
+        "name": {
+          "fr": "Chataap",
+          "en": "Chataap"
+        },
+        "body": {
+          "fr": "SaaS et automatisation conversationnelle.",
+          "en": "SaaS and conversational automation."
+        }
+      }
+    ],
+    "note": {
+      "fr": "Nous sélectionnons et abordons les technologies en fonction des besoins et des processus à soutenir — pas simplement en fonction du logiciel. Le niveau d’expertise varie selon la technologie.",
+      "en": "We choose and approach technologies according to the needs and processes they have to support — not simply according to the software. The depth of expertise varies by technology."
+    }
+  },
+  "specialisation": {
+    "eyebrow": {
+      "fr": "Spécialisation",
+      "en": "Specialization"
+    },
+    "title": {
+      "fr": "Notre spécialisation métier",
+      "en": "Our sector specialization"
+    },
+    "tagline": {
+      "fr": "Manufacturing & Production, un domaine clé.",
+      "en": "Manufacturing & Production, a core domain."
+    },
+    "chain": [
+      {
+        "fr": "Demande",
+        "en": "Demand"
+      },
+      {
+        "fr": "MRP",
+        "en": "MRP"
+      },
+      {
+        "fr": "Capacité",
+        "en": "Capacity"
+      },
+      {
+        "fr": "Production",
+        "en": "Production"
+      },
+      {
+        "fr": "Qualité",
+        "en": "Quality"
+      },
+      {
+        "fr": "Réception",
+        "en": "Receipt"
+      }
+    ],
+    "systems": [
+      {
+        "fr": "SAP S/4HANA PP / QM",
+        "en": "SAP S/4HANA PP / QM"
+      },
+      {
+        "fr": "Oracle JD Edwards Manufacturing",
+        "en": "Oracle JD Edwards Manufacturing"
+      }
+    ],
+    "body": {
+      "fr": "La planification et l’exécution de la production constituent un fil conducteur important de notre expertise ERP.",
+      "en": "Production planning and execution run as a thread through our ERP expertise."
+    }
+  },
+  "markets": {
+    "eyebrow": {
+      "fr": "Marchés",
+      "en": "Markets"
+    },
+    "title": {
+      "fr": "Des compétences sans frontières",
+      "en": "Skills without borders"
+    },
+    "tagline": {
+      "fr": "Canada • Europe • Afrique",
+      "en": "Canada • Europe • Africa"
+    },
+    "body": [
+      {
+        "fr": "Basée au Québec, Lagni Consulting développe ses activités et ses collaborations avec des professionnels, des organisations et des établissements d’enseignement au Canada, en Europe et en Afrique.",
+        "en": "Based in Quebec, Lagni Consulting develops its work and collaborations with professionals, organizations and educational institutions in Canada, Europe and Africa."
+      },
+      {
+        "fr": "Notre approche permet d’accompagner les talents et les organisations au-delà des frontières, en adaptant les parcours de formation et les services aux réalités de chaque marché.",
+        "en": "This approach lets us support talent and organizations across borders, adapting training paths and services to the reality of each market."
+      }
+    ],
+    "note": {
+      "fr": "Ces marchés correspondent à des zones de collaboration, et non à des bureaux physiques.",
+      "en": "These markets are areas of collaboration, not physical offices."
+    },
+    "items": [
+      {
+        "fr": "Canada (Québec)",
+        "en": "Canada (Quebec)"
+      },
+      {
+        "fr": "Europe",
+        "en": "Europe"
+      },
+      {
+        "fr": "Afrique (francophone et anglophone)",
+        "en": "Africa (French- and English-speaking)"
+      }
+    ]
+  },
+  "ecosystemNote": {
+    "fr": "Ces technologies font partie de notre expertise. Elles ne représentent pas des partenariats officiels, sauf indication contraire.",
+    "en": "These technologies are part of our expertise. They do not represent official partnerships unless stated otherwise."
+  },
+  "pillarsBack": {
+    "eyebrow": {
+      "fr": "Nos services",
+      "en": "Our services"
+    },
+    "body": {
+      "fr": "Formation, ERP & Solutions et Recrutement spécialisé : trois façons complémentaires de mettre l’expertise ERP au service des personnes et des organisations.",
+      "en": "Training, ERP & Solutions and specialized Recruitment: three complementary ways of putting ERP expertise to work for people and organizations."
+    },
+    "title": {
+      "fr": "Une expertise. Trois façons de créer de la valeur.",
+      "en": "One expertise. Three ways to create value."
+    },
+    "items": [
+      {
+        "icon": "cap",
+        "title": {
+          "fr": "Formation",
+          "en": "Training"
+        },
+        "body": {
+          "fr": "Développer les compétences.",
+          "en": "Build the skills."
+        },
+        "cta": {
+          "fr": "Découvrir nos formations",
+          "en": "Explore our training"
+        },
+        "route": "training"
+      },
+      {
+        "icon": "gear",
+        "title": {
+          "fr": "ERP & Solutions",
+          "en": "ERP & Solutions"
+        },
+        "body": {
+          "fr": "Transformer les processus.",
+          "en": "Transform the processes."
+        },
+        "cta": {
+          "fr": "Découvrir nos solutions",
+          "en": "Explore our solutions"
+        },
+        "route": "erp"
+      },
+      {
+        "icon": "people",
+        "title": {
+          "fr": "Recrutement",
+          "en": "Recruitment"
+        },
+        "body": {
+          "fr": "Connecter les talents.",
+          "en": "Connect the talent."
+        },
+        "cta": {
+          "fr": "Découvrir notre approche",
+          "en": "Explore our approach"
+        },
+        "route": "recruitment"
+      }
+    ]
+  },
+  "finalCta": {
+    "title": {
+      "fr": "Construisons les compétences et les solutions de demain.",
+      "en": "Let’s build tomorrow’s skills and solutions."
+    },
+    "body": {
+      "fr": "Vous êtes un professionnel, une entreprise ou un établissement d’enseignement ? Découvrons comment Lagni Consulting peut vous accompagner.",
+      "en": "Whether you are a professional, a company or an educational institution, let’s work out how Lagni Consulting can help."
+    },
+    "cta": {
+      "fr": "Parler de votre projet",
+      "en": "Discuss your project"
+    },
+    "script": {
+      "fr": "Former. Accompagner. Connecter.",
+      "en": "Train. Support. Connect."
+    }
+  }
+}

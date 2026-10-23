@@ -1,0 +1,469 @@
+{
+  "seo": {
+    "title": {
+      "fr": "Ressources — SAP S/4HANA, ERP et compétences | Lagni Consulting",
+      "en": "Resources — SAP S/4HANA, ERP and skills | Lagni Consulting"
+    },
+    "description": {
+      "fr": "Analyses, guides et contenus pratiques autour des ERP, de SAP S/4HANA, du Production Planning, de la transformation numérique et des carrières.",
+      "en": "Analysis, guides and practical content on ERP systems, SAP S/4HANA, Production Planning, digital transformation and careers."
+    }
+  },
+  "hero": {
+    "eyebrow": {
+      "fr": "Ressources",
+      "en": "Resources"
+    },
+    "title": {
+      "fr": "Guides et articles sur SAP, les ERP et les carrières.",
+      "en": "Guides and articles on SAP, ERP and careers."
+    },
+    "lead": {
+      "fr": "Analyses, guides et contenus pratiques autour des ERP, SAP S/4HANA, Production Planning, transformation numérique et carrières.",
+      "en": "Analysis, guides and practical content on ERP systems, SAP S/4HANA, Production Planning, digital transformation and careers."
+    },
+    "cta": {
+      "fr": "Explorer les ressources",
+      "en": "Explore the resources"
+    },
+    "imageAlt": {
+      "fr": "Professionnel consultant des ressources documentaires sur un ordinateur portable",
+      "en": "Professional reading reference material on a laptop"
+    },
+    "script": {
+      "fr": "Apprendre aujourd’hui. Construire demain.",
+      "en": "Learn today. Build tomorrow."
+    },
+    "panel": [
+      {
+        "fr": "ERP",
+        "en": "ERP"
+      },
+      {
+        "fr": "Processus",
+        "en": "Processes"
+      },
+      {
+        "fr": "Compétences",
+        "en": "Skills"
+      },
+      {
+        "fr": "Opportunités",
+        "en": "Opportunities"
+      }
+    ],
+    "trustItems": [
+      {
+        "icon": "layers",
+        "label": {
+          "fr": "ERP & SAP S/4HANA",
+          "en": "ERP & SAP S/4HANA"
+        }
+      },
+      {
+        "icon": "book",
+        "label": {
+          "fr": "Guides pratiques",
+          "en": "Practical guides"
+        }
+      },
+      {
+        "icon": "target",
+        "label": {
+          "fr": "Du débutant à l’avancé",
+          "en": "Beginner to advanced"
+        }
+      }
+    ],
+    "matchLabel": {
+      "fr": "Thèmes",
+      "en": "Themes"
+    },
+    "matchTitle": {
+      "fr": "Des contenus pratiques",
+      "en": "Practical content"
+    },
+    "profileBadge": {
+      "fr": "5",
+      "en": "5"
+    },
+    "profileLabel": {
+      "fr": "Catégories",
+      "en": "Categories"
+    },
+    "profileTitle": {
+      "fr": "de ressources",
+      "en": "of resources"
+    }
+  },
+  "categories": {
+    "eyebrow": {
+      "fr": "Thèmes",
+      "en": "Themes"
+    },
+    "title": {
+      "fr": "Nos catégories de ressources",
+      "en": "Our resource categories"
+    },
+    "lead": {
+      "fr": "Explorez nos contenus par thème.",
+      "en": "Browse our content by theme."
+    },
+    "items": [
+      {
+        "id": "sap-pp",
+        "icon": "chart",
+        "lord": "server",
+        "label": {
+          "fr": "SAP S/4HANA & PP",
+          "en": "SAP S/4HANA & PP"
+        },
+        "body": {
+          "fr": "MRP, production, données de base, ordres de production, MTS/MTO, certification.",
+          "en": "MRP, production, master data, production orders, MTS/MTO, certification."
+        }
+      },
+      {
+        "id": "erp",
+        "icon": "gear",
+        "lord": "tools",
+        "label": {
+          "fr": "ERP & processus métiers",
+          "en": "ERP & business processes"
+        },
+        "body": {
+          "fr": "ERP, Manufacturing, Supply Chain, processus end-to-end, tests, migration.",
+          "en": "ERP, manufacturing, supply chain, end-to-end processes, testing, migration."
+        }
+      },
+      {
+        "id": "tools",
+        "icon": "screen",
+        "lord": "monitor",
+        "label": {
+          "fr": "Outils & solutions",
+          "en": "Tools & solutions"
+        },
+        "body": {
+          "fr": "Odoo, GoHighLevel, Chataap et autres solutions couvertes par Lagni.",
+          "en": "Odoo, GoHighLevel, Chataap and other solutions Lagni covers."
+        }
+      },
+      {
+        "id": "careers",
+        "icon": "people",
+        "lord": "briefcase",
+        "label": {
+          "fr": "Carrières & compétences",
+          "en": "Careers & skills"
+        },
+        "body": {
+          "fr": "Métiers ERP, reconversion, compétences, certification, gestion de projet.",
+          "en": "ERP roles, career changes, skills, certification, project management."
+        }
+      },
+      {
+        "id": "teaching",
+        "icon": "cap",
+        "lord": "school",
+        "label": {
+          "fr": "Formation & enseignement",
+          "en": "Training & teaching"
+        },
+        "body": {
+          "fr": "SAP dans les programmes académiques, pédagogie ERP, préparation des étudiants.",
+          "en": "SAP in academic programmes, ERP pedagogy, preparing students."
+        }
+      }
+    ],
+    "allLabel": {
+      "fr": "Toutes les catégories",
+      "en": "All categories"
+    },
+    "filterLegend": {
+      "fr": "Filtrer par catégorie",
+      "en": "Filter by category"
+    },
+    "levelLegend": {
+      "fr": "Filtrer par niveau",
+      "en": "Filter by level"
+    },
+    "noResults": {
+      "fr": "Aucune ressource ne correspond à ce filtre pour le moment.",
+      "en": "No resources match this filter yet."
+    }
+  },
+  "levels": {
+    "all": {
+      "fr": "Tous les niveaux",
+      "en": "All levels"
+    },
+    "debutant": {
+      "fr": "Débutant",
+      "en": "Beginner"
+    },
+    "intermediaire": {
+      "fr": "Intermédiaire",
+      "en": "Intermediate"
+    },
+    "avance": {
+      "fr": "Avancé",
+      "en": "Advanced"
+    }
+  },
+  "start": {
+    "title": {
+      "fr": "Par où commencer ?",
+      "en": "Where should you start?"
+    },
+    "items": [
+      {
+        "level": "debutant",
+        "icon": "bulb",
+        "lord": "book",
+        "title": {
+          "fr": "Débutant",
+          "en": "Beginner"
+        },
+        "body": {
+          "fr": "Les bases, concepts et principaux processus.",
+          "en": "The basics, the concepts and the main processes."
+        }
+      },
+      {
+        "level": "intermediaire",
+        "icon": "chart",
+        "lord": "checklist",
+        "title": {
+          "fr": "Intermédiaire",
+          "en": "Intermediate"
+        },
+        "body": {
+          "fr": "Approfondir les fonctionnalités et les scénarios.",
+          "en": "Go deeper into the functionality and the scenarios."
+        }
+      },
+      {
+        "level": "avance",
+        "icon": "gear",
+        "lord": "experience",
+        "title": {
+          "fr": "Avancé",
+          "en": "Advanced"
+        },
+        "body": {
+          "fr": "Scénarios end-to-end, intégrations et optimisation.",
+          "en": "End-to-end scenarios, integrations and optimization."
+        }
+      }
+    ]
+  },
+  "featured": {
+    "eyebrow": {
+      "fr": "Guide SAP PP",
+      "en": "SAP PP guide"
+    },
+    "title": {
+      "fr": "Qu’est-ce que SAP S/4HANA Production Planning ?",
+      "en": "What is SAP S/4HANA Production Planning?"
+    },
+    "body": {
+      "fr": "Comprendre le rôle de SAP PP, ses principaux processus et sa place dans la gestion industrielle.",
+      "en": "Understand the role of SAP PP, its main processes and where it sits in industrial management."
+    },
+    "chain": [
+      {
+        "fr": "Demande",
+        "en": "Demand"
+      },
+      {
+        "fr": "MRP",
+        "en": "MRP"
+      },
+      {
+        "fr": "Capacité",
+        "en": "Capacity"
+      },
+      {
+        "fr": "Ordre de production",
+        "en": "Production order"
+      },
+      {
+        "fr": "Exécution",
+        "en": "Execution"
+      },
+      {
+        "fr": "Réception",
+        "en": "Receipt"
+      }
+    ],
+    "ctaPrimary": {
+      "fr": "Lire le guide",
+      "en": "Read the guide"
+    },
+    "ctaSecondary": {
+      "fr": "Découvrir la formation SAP PP",
+      "en": "Explore the SAP PP training"
+    },
+    "imageAlt": {
+      "fr": "Planificateur consultant un tableau de bord de production sur tablette dans une usine",
+      "en": "Planner reviewing a production dashboard on a tablet in a factory"
+    }
+  },
+  "list": {
+    "eyebrow": {
+      "fr": "Bibliothèque",
+      "en": "Library"
+    },
+    "title": {
+      "fr": "Dernières ressources",
+      "en": "Latest resources"
+    },
+    "lead": {
+      "fr": "Nos articles, guides et analyses les plus récents.",
+      "en": "Our most recent articles, guides and analysis."
+    },
+    "all": {
+      "fr": "Voir toutes les ressources",
+      "en": "See all resources"
+    },
+    "draftLabel": {
+      "fr": "Brouillon",
+      "en": "Draft"
+    },
+    "draftNote": {
+      "fr": "Les contenus marqués « Brouillon » ont été rédigés comme base de travail et doivent être relus et validés avant publication.",
+      "en": "Items marked “Draft” were written as a working basis and need review and sign-off before publication."
+    },
+    "soonTitle": {
+      "fr": "Nos premières publications arrivent",
+      "en": "Our first publications are on the way"
+    },
+    "soonBody": {
+      "fr": "Nous préparons des guides pratiques sur SAP S/4HANA Production Planning, les processus ERP et les parcours de carrière. En attendant, découvrez notre formation.",
+      "en": "We are preparing practical guides on SAP S/4HANA Production Planning, ERP processes and career paths. In the meantime, take a look at our training."
+    },
+    "soonCta": {
+      "fr": "Découvrir la formation SAP PP",
+      "en": "Explore the SAP PP training"
+    }
+  },
+  "certificationNote": {
+    "fr": "Nos ressources développent la compréhension des processus SAP ; elles ne constituent pas une certification. Les certifications SAP sont délivrées exclusivement par SAP, selon ses propres conditions et examens.",
+    "en": "Our resources build an understanding of SAP processes; they are not a certification. SAP certifications are issued exclusively by SAP, under its own terms and exams."
+  },
+  "videos": {
+    "eyebrow": {
+      "fr": "Vidéo",
+      "en": "Video"
+    },
+    "title": {
+      "fr": "Apprendre aussi en vidéo",
+      "en": "Learn on video too"
+    },
+    "lead": {
+      "fr": "Notre série : SAP S/4HANA — One Scope Item at a Time.",
+      "en": "Our series: SAP S/4HANA — One Scope Item at a Time."
+    }
+  },
+  "teaching": {
+    "eyebrow": {
+      "fr": "Enseignement",
+      "en": "Teaching"
+    },
+    "title": {
+      "fr": "Vous enseignez la Supply Chain ou la gestion de production ?",
+      "en": "Do you teach supply chain or production management?"
+    },
+    "body": {
+      "fr": "Découvrez nos ressources pédagogiques et notre approche pour intégrer les processus ERP aux programmes d’enseignement.",
+      "en": "Explore our teaching resources and our approach to bringing ERP processes into academic programmes."
+    },
+    "ctaPrimary": {
+      "fr": "Ressources pédagogiques",
+      "en": "Teaching resources"
+    },
+    "ctaSecondary": {
+      "fr": "Découvrir l’offre établissements",
+      "en": "See our offer for institutions"
+    }
+  },
+  "article": {
+    "backToList": {
+      "fr": "Retour aux ressources",
+      "en": "Back to resources"
+    },
+    "publishedOn": {
+      "fr": "Publié le",
+      "en": "Published on"
+    },
+    "relatedTitle": {
+      "fr": "À lire ensuite",
+      "en": "Read next"
+    },
+    "relatedEyebrow": {
+      "fr": "Ressources",
+      "en": "Resources"
+    },
+    "relatedLead": {
+      "fr": "Poursuivez avec ces contenus complémentaires.",
+      "en": "Continue with these related pieces."
+    },
+    "ctaEyebrow": {
+      "fr": "Prochaine étape",
+      "en": "Next step"
+    },
+    "ctaLabels": {
+      "sapPp": {
+        "fr": "Découvrir la formation SAP PP",
+        "en": "Explore the SAP PP training"
+      },
+      "training": {
+        "fr": "Découvrir nos formations",
+        "en": "Explore our training"
+      },
+      "erp": {
+        "fr": "Découvrir ERP & Solutions",
+        "en": "Explore ERP & Solutions"
+      },
+      "recruitment": {
+        "fr": "Découvrir le recrutement",
+        "en": "Explore recruitment"
+      },
+      "institutions": {
+        "fr": "Découvrir l’offre établissements",
+        "en": "See our offer for institutions"
+      }
+    },
+    "ctaTitle": {
+      "fr": "Aller plus loin",
+      "en": "Go further"
+    },
+    "ctaBody": {
+      "fr": "Approfondissez le sujet avec un parcours structuré et un accompagnement.",
+      "en": "Take the subject further with a structured programme and ongoing support."
+    },
+    "draftNotice": {
+      "fr": "Ce contenu est un brouillon rédigé comme base de travail. Il doit être relu et validé par Lagni Consulting avant publication.",
+      "en": "This content is a draft written as a working basis. It must be reviewed and approved by Lagni Consulting before publication."
+    }
+  },
+  "finalCta": {
+    "title": {
+      "fr": "Continuez à apprendre.",
+      "en": "Keep learning."
+    },
+    "body": {
+      "fr": "Explorez nos contenus autour de SAP, des ERP, des processus métiers et des compétences numériques.",
+      "en": "Explore our content on SAP, ERP systems, business processes and digital skills."
+    },
+    "cta": {
+      "fr": "Explorer toutes les ressources",
+      "en": "Explore all resources"
+    },
+    "script": {
+      "fr": "Des connaissances d’aujourd’hui pour des opportunités de demain.",
+      "en": "Today’s knowledge for tomorrow’s opportunities."
+    }
+  }
+}

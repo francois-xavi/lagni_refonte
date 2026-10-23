@@ -1,0 +1,617 @@
+{
+  "seo": {
+    "title": {
+      "fr": "Recrutement spécialisé ERP, CRM et transformation numérique | Lagni Consulting",
+      "en": "Specialized ERP, CRM and digital transformation recruitment | Lagni Consulting"
+    },
+    "description": {
+      "fr": "Recrutement de professionnels spécialisés en ERP, CRM, systèmes d’entreprise et transformation numérique. Un parcours distinct pour les entreprises et pour les candidats.",
+      "en": "Recruitment of professionals specialized in ERP, CRM, enterprise systems and digital transformation. Separate paths for employers and candidates."
+    }
+  },
+  "hero": {
+    "eyebrow": {
+      "fr": "Recrutement spécialisé",
+      "en": "Specialized recruitment"
+    },
+    "title": {
+      "fr": "Recrutement spécialisé en ERP, CRM et transformation numérique.",
+      "en": "Specialized recruitment in ERP, CRM and digital transformation."
+    },
+    "lead": {
+      "fr": "Les bonnes compétences, les bonnes opportunités. Notre connaissance des technologies et des processus métiers nous permet d’aller au-delà du simple CV, pour les entreprises comme pour les candidats.",
+      "en": "The right skills, the right opportunities. Our knowledge of the technologies and the business processes lets us look past the résumé, for employers and candidates alike."
+    },
+    "ctaPrimary": {
+      "fr": "Je cherche un talent",
+      "en": "I am hiring"
+    },
+    "ctaSecondary": {
+      "fr": "Je suis candidat",
+      "en": "I am a candidate"
+    },
+    "imageAlt": {
+      "fr": "Entretien professionnel entre une recruteuse et un candidat dans un bureau",
+      "en": "Professional interview between a recruiter and a candidate in an office"
+    },
+    "panel": [
+      {
+        "fr": "Expertise des métiers et technologies",
+        "en": "Expertise in the roles and the technology"
+      },
+      {
+        "fr": "Profils qualifiés et évalués",
+        "en": "Qualified, assessed profiles"
+      },
+      {
+        "fr": "Accompagnement personnalisé",
+        "en": "Personal support throughout"
+      },
+      {
+        "fr": "Un réseau au Québec et à l’international",
+        "en": "A network in Quebec and internationally"
+      }
+    ],
+    "script": {
+      "fr": "Des talents pour vos projets d’aujourd’hui et de demain",
+      "en": "Talent for the projects of today and tomorrow"
+    },
+    "trustItems": [
+      {
+        "icon": "gear",
+        "label": {
+          "fr": "Métiers & technologies",
+          "en": "Roles & technology"
+        }
+      },
+      {
+        "icon": "search",
+        "label": {
+          "fr": "Profils évalués",
+          "en": "Assessed profiles"
+        }
+      },
+      {
+        "icon": "handshake",
+        "label": {
+          "fr": "Accompagnement",
+          "en": "Personal support"
+        }
+      }
+    ],
+    "matchLabel": {
+      "fr": "Notre processus",
+      "en": "Our process"
+    },
+    "matchTitle": {
+      "fr": "Comprendre · Identifier · Qualifier",
+      "en": "Understand · Identify · Qualify"
+    },
+    "matchPills": [
+      {
+        "fr": "ERP",
+        "en": "ERP"
+      },
+      {
+        "fr": "CRM",
+        "en": "CRM"
+      },
+      {
+        "fr": "Transformation numérique",
+        "en": "Digital transformation"
+      }
+    ],
+    "profileBadge": {
+      "fr": "ERP",
+      "en": "ERP"
+    },
+    "profileLabel": {
+      "fr": "Profils recherchés",
+      "en": "Profiles we look for"
+    },
+    "profileTitle": {
+      "fr": "Consultants · Analystes · Chefs de projet",
+      "en": "Consultants · Analysts · Project managers"
+    },
+    "profileStatus": {
+      "fr": "Québec & international",
+      "en": "Quebec & international"
+    }
+  },
+  "proof": {
+    "label": {
+      "fr": "Ce qui fait la différence",
+      "en": "What makes the difference"
+    },
+    "items": [
+      {
+        "figure": {
+          "fr": "Métier + Tech",
+          "en": "Business + Tech"
+        },
+        "label": {
+          "fr": "expertise des métiers et technologies",
+          "en": "expertise in roles and technology"
+        },
+        "lord": "tools"
+      },
+      {
+        "figure": {
+          "fr": "Évalués",
+          "en": "Assessed"
+        },
+        "label": {
+          "fr": "profils qualifiés",
+          "en": "qualified profiles"
+        },
+        "lord": "checklist"
+      },
+      {
+        "figure": {
+          "fr": "Sur mesure",
+          "en": "Tailored"
+        },
+        "label": {
+          "fr": "accompagnement personnalisé",
+          "en": "personal support"
+        },
+        "lord": "mentor"
+      },
+      {
+        "figure": {
+          "fr": "Québec + Intl",
+          "en": "Quebec + Intl"
+        },
+        "label": {
+          "fr": "notre réseau",
+          "en": "our network"
+        },
+        "lord": "network"
+      }
+    ]
+  },
+  "why": {
+    "eyebrow": {
+      "fr": "Pourquoi un recrutement spécialisé ?",
+      "en": "Why specialized recruitment?"
+    },
+    "title": {
+      "fr": "Comprendre le métier avant de rechercher le profil.",
+      "en": "Understand the role before searching for the profile."
+    },
+    "body": {
+      "fr": "Recruter un professionnel ERP ne consiste pas uniquement à rechercher « SAP » ou « Oracle » dans un CV. Il faut comprendre les processus, les modules, le rôle réellement exercé, le contexte projet et le niveau d’autonomie attendu.",
+      "en": "Recruiting an ERP professional is not a matter of searching a résumé for \"SAP\" or \"Oracle\". It means understanding the processes, the modules, the role actually performed, the project context and the level of autonomy expected."
+    },
+    "imageAlt": {
+      "fr": "Deux professionnels échangent sur un poste ERP autour d’un schéma de processus",
+      "en": "Two professionals discussing an ERP role over a process diagram"
+    },
+    "items": [
+      {
+        "icon": "gear",
+        "title": {
+          "fr": "Technologie",
+          "en": "Technology"
+        },
+        "body": {
+          "fr": "SAP, JDE, Odoo, CRM, SaaS…",
+          "en": "SAP, JDE, Odoo, CRM, SaaS…"
+        }
+      },
+      {
+        "icon": "network",
+        "title": {
+          "fr": "Processus métier",
+          "en": "Business process"
+        },
+        "body": {
+          "fr": "Production, Supply Chain, Finance, Distribution…",
+          "en": "Production, supply chain, finance, distribution…"
+        }
+      },
+      {
+        "icon": "chart",
+        "title": {
+          "fr": "Expérience projet",
+          "en": "Project experience"
+        },
+        "body": {
+          "fr": "Implantation, migration, support, transformation…",
+          "en": "Implementation, migration, support, transformation…"
+        }
+      },
+      {
+        "icon": "people",
+        "title": {
+          "fr": "Compétences humaines",
+          "en": "Human skills"
+        },
+        "body": {
+          "fr": "Communication, autonomie, collaboration, adaptation.",
+          "en": "Communication, autonomy, collaboration, adaptability."
+        }
+      }
+    ]
+  },
+  "profiles": {
+    "eyebrow": {
+      "fr": "Les profils recherchés",
+      "en": "The profiles we look for"
+    },
+    "title": {
+      "fr": "Des talents pour vos enjeux d’aujourd’hui et de demain.",
+      "en": "Talent for what you face today and tomorrow."
+    },
+    "lead": {
+      "fr": "Quatre familles de profils, dans les environnements ERP, CRM et de transformation numérique.",
+      "en": "Four families of profiles across ERP, CRM and digital transformation environments."
+    },
+    "groups": [
+      {
+        "icon": "people",
+        "title": {
+          "fr": "ERP & applications d’entreprise",
+          "en": "ERP & enterprise applications"
+        },
+        "items": [
+          {
+            "fr": "Consultants fonctionnels",
+            "en": "Functional consultants"
+          },
+          {
+            "fr": "Analystes ERP",
+            "en": "ERP analysts"
+          },
+          {
+            "fr": "Architectes fonctionnels",
+            "en": "Functional architects"
+          },
+          {
+            "fr": "Spécialistes support",
+            "en": "Support specialists"
+          },
+          {
+            "fr": "Administrateurs applicatifs",
+            "en": "Application administrators"
+          }
+        ]
+      },
+      {
+        "icon": "clipboard",
+        "title": {
+          "fr": "Gestion de projet & transformation",
+          "en": "Project management & transformation"
+        },
+        "items": [
+          {
+            "fr": "Chefs de projet",
+            "en": "Project managers"
+          },
+          {
+            "fr": "Coordonnateurs de projet",
+            "en": "Project coordinators"
+          },
+          {
+            "fr": "PMO",
+            "en": "PMO"
+          },
+          {
+            "fr": "Scrum Masters",
+            "en": "Scrum Masters"
+          },
+          {
+            "fr": "Business Process Owners",
+            "en": "Business Process Owners"
+          }
+        ]
+      },
+      {
+        "icon": "chart",
+        "title": {
+          "fr": "Data & outils numériques",
+          "en": "Data & digital tools"
+        },
+        "items": [
+          {
+            "fr": "Power BI",
+            "en": "Power BI"
+          },
+          {
+            "fr": "Business Analysis",
+            "en": "Business analysis"
+          },
+          {
+            "fr": "CRM",
+            "en": "CRM"
+          },
+          {
+            "fr": "Automatisation",
+            "en": "Automation"
+          },
+          {
+            "fr": "Analystes de données",
+            "en": "Data analysts"
+          }
+        ]
+      },
+      {
+        "icon": "factory",
+        "title": {
+          "fr": "Manufacturing & Supply Chain",
+          "en": "Manufacturing & Supply Chain"
+        },
+        "items": [
+          {
+            "fr": "Planification de production",
+            "en": "Production planning"
+          },
+          {
+            "fr": "Supply Chain",
+            "en": "Supply chain"
+          },
+          {
+            "fr": "Manufacturing",
+            "en": "Manufacturing"
+          },
+          {
+            "fr": "Logistique",
+            "en": "Logistics"
+          },
+          {
+            "fr": "ERP Manufacturing",
+            "en": "ERP Manufacturing"
+          }
+        ]
+      }
+    ]
+  },
+  "process": {
+    "eyebrow": {
+      "fr": "Notre processus de recrutement",
+      "en": "Our recruitment process"
+    },
+    "title": {
+      "fr": "Une approche structurée et rigoureuse.",
+      "en": "A structured, rigorous approach."
+    },
+    "lead": {
+      "fr": "Du besoin à la présentation des candidatures, chaque étape est suivie avec vous.",
+      "en": "From the need to the shortlist, every step is followed through with you."
+    },
+    "steps": [
+      {
+        "n": "01",
+        "icon": "search",
+        "title": {
+          "fr": "Comprendre le besoin",
+          "en": "Understand the need"
+        },
+        "body": {
+          "fr": "Poste, processus, technologie, environnement, culture.",
+          "en": "Role, processes, technology, environment, culture."
+        }
+      },
+      {
+        "n": "02",
+        "icon": "people",
+        "title": {
+          "fr": "Identifier",
+          "en": "Identify"
+        },
+        "body": {
+          "fr": "Recherche et présélection de profils pertinents.",
+          "en": "Search and shortlist relevant profiles."
+        }
+      },
+      {
+        "n": "03",
+        "icon": "doc",
+        "title": {
+          "fr": "Qualifier",
+          "en": "Qualify"
+        },
+        "body": {
+          "fr": "Expérience, compétences fonctionnelles, contexte projet et motivations.",
+          "en": "Experience, functional skills, project context and motivation."
+        }
+      },
+      {
+        "n": "04",
+        "icon": "link",
+        "title": {
+          "fr": "Présenter",
+          "en": "Present"
+        },
+        "body": {
+          "fr": "Transmission d’une sélection de candidatures pertinentes.",
+          "en": "Share a shortlist of relevant candidates."
+        }
+      },
+      {
+        "n": "05",
+        "icon": "handshake",
+        "title": {
+          "fr": "Accompagner",
+          "en": "Support"
+        },
+        "body": {
+          "fr": "Coordination des échanges et suivi du processus.",
+          "en": "Coordinate the conversations and follow the process through."
+        }
+      }
+    ]
+  },
+  "forms": {
+    "eyebrow": {
+      "fr": "Deux parcours distincts",
+      "en": "Two separate paths"
+    },
+    "title": {
+      "fr": "Entreprise ou candidat : parlons de votre besoin.",
+      "en": "Employer or candidate: let’s talk about what you need."
+    }
+  },
+  "employer": {
+    "eyebrow": {
+      "fr": "Vous êtes une entreprise ?",
+      "en": "Are you hiring?"
+    },
+    "title": {
+      "fr": "Vous recherchez un professionnel ?",
+      "en": "Looking for a specialized professional?"
+    },
+    "body": {
+      "fr": "Expliquez-nous votre besoin et le contexte du poste. Nous vous aiderons à identifier les compétences réellement nécessaires.",
+      "en": "Tell us about the need and the context of the role. We will help you pin down the skills that genuinely matter."
+    }
+  },
+  "candidate": {
+    "eyebrow": {
+      "fr": "Vous êtes candidat ?",
+      "en": "Are you a candidate?"
+    },
+    "title": {
+      "fr": "Votre expertise mérite la bonne opportunité.",
+      "en": "Your expertise deserves the right opportunity."
+    },
+    "body": {
+      "fr": "Vous travaillez dans les ERP, CRM, systèmes d’entreprise, gestion de projet, Supply Chain ou transformation numérique ? Rejoignez notre réseau de professionnels.",
+      "en": "Do you work in ERP, CRM, enterprise systems, project management, supply chain or digital transformation? Join our network of professionals."
+    },
+    "script": {
+      "fr": "De nouvelles opportunités vous attendent !",
+      "en": "New opportunities are waiting!"
+    },
+    "noPromise": {
+      "fr": "Le dépôt d’une candidature ne garantit ni un emploi, ni un entretien. Nous vous contactons lorsqu’un mandat correspond à votre profil.",
+      "en": "Submitting an application guarantees neither a job nor an interview. We get in touch when a mandate matches your profile."
+    }
+  },
+  "links": {
+    "eyebrow": {
+      "fr": "Aller plus loin",
+      "en": "Going further"
+    },
+    "title": {
+      "fr": "Un écosystème autour des compétences.",
+      "en": "An ecosystem built around skills."
+    },
+    "body": {
+      "fr": "Le recrutement s’appuie sur la formation, l’international et les établissements partenaires.",
+      "en": "Recruitment draws on training, international reach and partner institutions."
+    },
+    "items": [
+      {
+        "icon": "cap",
+        "title": {
+          "fr": "Développer les compétences. Créer des opportunités.",
+          "en": "Build skills. Create opportunities."
+        },
+        "body": {
+          "fr": "Lagni Consulting intervient également dans le développement des compétences professionnelles. Cette proximité avec la formation nous permet de mieux comprendre les compétences recherchées dans les environnements ERP.",
+          "en": "Lagni Consulting also works in professional skills development. That closeness to training helps us understand what ERP environments actually ask for."
+        },
+        "cta": {
+          "fr": "Découvrir nos formations",
+          "en": "Explore our training"
+        },
+        "route": "training"
+      },
+      {
+        "icon": "globe",
+        "title": {
+          "fr": "Des talents au-delà des frontières.",
+          "en": "Talent beyond borders."
+        },
+        "body": {
+          "fr": "Selon les besoins des employeurs et le cadre réglementaire applicable, Lagni Consulting peut également intervenir dans des démarches de recrutement international.",
+          "en": "Depending on employer needs and the applicable regulatory framework, Lagni Consulting may also take part in international recruitment."
+        },
+        "items": [
+          {
+            "fr": "Conformité avec les réglementations en vigueur",
+            "en": "Compliance with applicable regulations"
+          },
+          {
+            "fr": "Accompagnement tout au long du processus",
+            "en": "Support throughout the process"
+          },
+          {
+            "fr": "Collaboration avec des partenaires locaux",
+            "en": "Collaboration with local partners"
+          }
+        ],
+        "cta": {
+          "fr": "En savoir plus",
+          "en": "Learn more"
+        },
+        "route": "contact"
+      },
+      {
+        "icon": "school",
+        "title": {
+          "fr": "Vous êtes un établissement ou un partenaire ?",
+          "en": "Are you an institution or a partner?"
+        },
+        "body": {
+          "fr": "Lagni Consulting développe des collaborations avec des établissements de formation et des partenaires professionnels afin de favoriser le développement des compétences recherchées par les organisations.",
+          "en": "Lagni Consulting builds collaborations with training institutions and professional partners to grow the skills organizations are looking for."
+        },
+        "cta": {
+          "fr": "Devenir partenaire",
+          "en": "Become a partner"
+        },
+        "route": "institutions"
+      }
+    ]
+  },
+  "international": {
+    "eyebrow": {
+      "fr": "International",
+      "en": "International"
+    },
+    "title": {
+      "fr": "Recrutement international",
+      "en": "International recruitment"
+    },
+    "body": {
+      "fr": "Lorsqu’un mandat le justifie et que le cadre réglementaire le permet, Lagni Consulting peut accompagner des démarches de recrutement à l’international, en collaboration avec les employeurs et, le cas échéant, des partenaires locaux.",
+      "en": "Where a mandate calls for it and the regulatory framework allows, Lagni Consulting can support international recruitment, working with employers and, where relevant, local partners."
+    },
+    "disclaimerTitle": {
+      "fr": "Ce que nous ne faisons pas",
+      "en": "What we do not do"
+    },
+    "disclaimer": {
+      "fr": "Lagni Consulting ne garantit pas d’emploi, de statut d’immigration, de permis ni de visa, et ne fournit aucun conseil en immigration. Le recrutement et le conseil en immigration sont deux activités distinctes. Les démarches d’immigration relèvent des autorités compétentes et, le cas échéant, de professionnels autorisés à les exercer.",
+      "en": "Lagni Consulting does not guarantee employment, immigration status, permits or visas, and provides no immigration advice. Recruitment and immigration advice are two distinct activities. Immigration matters fall to the competent authorities and, where applicable, to professionals authorized to handle them."
+    },
+    "note": {
+      "fr": "Toute autorisation ou reconnaissance réglementaire sera affichée ici avec sa formulation officielle à jour.",
+      "en": "Any regulatory authorization or recognition will be shown here in its current official wording."
+    }
+  },
+  "finalCta": {
+    "title": {
+      "fr": "Le bon recrutement commence par la compréhension du besoin.",
+      "en": "Good hiring starts with understanding the need."
+    },
+    "body": {
+      "fr": "Vous recherchez un professionnel ERP, CRM ou transformation numérique ? Vous êtes candidat ? Parlons de vos objectifs.",
+      "en": "Looking for an ERP, CRM or digital transformation professional? Or are you a candidate? Let’s talk about your objectives."
+    },
+    "ctaPrimary": {
+      "fr": "Confier un mandat",
+      "en": "Submit a mandate"
+    },
+    "ctaSecondary": {
+      "fr": "Rejoindre notre réseau",
+      "en": "Join our network"
+    },
+    "script": {
+      "fr": "Des talents. Des projets. Un avenir meilleur.",
+      "en": "Talent, projects, a better future."
+    }
+  }
+}

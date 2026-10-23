@@ -1,0 +1,383 @@
+{
+  "seo": {
+    "title": {
+      "fr": "Lagni Consulting — Formation, ERP & Solutions, recrutement spécialisé",
+      "en": "Lagni Consulting — Training, ERP & Solutions, specialized recruitment"
+    },
+    "description": {
+      "fr": "Lagni Consulting accompagne les professionnels, les établissements d’enseignement et les entreprises : formation SAP S/4HANA, expertise ERP et CRM, et recrutement de talents spécialisés.",
+      "en": "Lagni Consulting works with professionals, educational institutions and companies: SAP S/4HANA training, ERP and CRM expertise, and recruitment of specialized talent."
+    }
+  },
+  "hero": {
+    "eyebrow": {
+      "fr": "Former. Accompagner. Connecter.",
+      "en": "Train. Support. Connect."
+    },
+    "title": {
+      "fr": "Formation SAP, projets ERP et recrutement spécialisé.",
+      "en": "SAP training, ERP projects and specialized recruitment."
+    },
+    "lead": {
+      "fr": "Nous formons les professionnels à SAP S/4HANA, accompagnons les entreprises dans leurs projets ERP et CRM, et trouvons les profils spécialisés qui les font réussir.",
+      "en": "We train professionals on SAP S/4HANA, support organizations through ERP and CRM projects, and find the specialized profiles that make them succeed."
+    },
+    "ctaPrimary": {
+      "fr": "Parler de votre projet",
+      "en": "Discuss your project"
+    },
+    "ctaSecondary": {
+      "fr": "Voir la formation SAP PP",
+      "en": "See the SAP PP training"
+    },
+    "trustItems": [
+      {
+        "label": {
+          "fr": "Expertise ERP terrain",
+          "en": "Hands-on ERP expertise"
+        },
+        "icon": "briefcase"
+      },
+      {
+        "label": {
+          "fr": "Québec · Europe · Afrique",
+          "en": "Quebec · Europe · Africa"
+        },
+        "icon": "globe"
+      },
+      {
+        "label": {
+          "fr": "Accompagnement humain",
+          "en": "Human support"
+        },
+        "icon": "handshake"
+      }
+    ],
+    "imageAlt": {
+      "fr": "Équipe en collaboration autour d’un projet technologique",
+      "en": "Team collaborating on a technology project"
+    },
+    "valueLine": {
+      "fr": "Les processus d’abord.\nLa technologie ensuite.",
+      "en": "Processes first.\nTechnology second."
+    }
+  },
+  "pillars": {
+    "eyebrow": {
+      "fr": "Nos services",
+      "en": "Our services"
+    },
+    "title": {
+      "fr": "Trois façons de vous accompagner.",
+      "en": "Three ways we can help."
+    },
+    "lead": {
+      "fr": "Choisissez le point de départ qui correspond à votre besoin.",
+      "en": "Pick the starting point that matches what you need."
+    },
+    "audienceLabel": {
+      "fr": "Pour",
+      "en": "For"
+    },
+    "items": [
+      {
+        "title": {
+          "fr": "Se former à SAP et aux ERP",
+          "en": "Learn SAP and ERP"
+        },
+        "body": {
+          "fr": "Des formations pratiques, centrées sur les processus métier. Formation vedette : SAP S/4HANA Production Planning.",
+          "en": "Practical training built around business processes. Flagship course: SAP S/4HANA Production Planning."
+        },
+        "audience": {
+          "fr": "Professionnels, étudiants et équipes en entreprise",
+          "en": "Professionals, students and corporate teams"
+        },
+        "cta": {
+          "fr": "Voir les formations",
+          "en": "See the training"
+        },
+        "route": "training",
+        "icon": "cap"
+      },
+      {
+        "title": {
+          "fr": "Réussir un projet ERP ou CRM",
+          "en": "Deliver an ERP or CRM project"
+        },
+        "body": {
+          "fr": "De l’analyse des besoins à l’adoption par les utilisateurs, sur SAP, JD Edwards, Odoo et les solutions CRM.",
+          "en": "From needs analysis to user adoption, on SAP, JD Edwards, Odoo and CRM solutions."
+        },
+        "audience": {
+          "fr": "Entreprises et organisations",
+          "en": "Companies and organizations"
+        },
+        "cta": {
+          "fr": "Voir l’offre ERP",
+          "en": "See the ERP offer"
+        },
+        "route": "erp",
+        "icon": "layers"
+      },
+      {
+        "title": {
+          "fr": "Recruter un profil spécialisé",
+          "en": "Hire a specialized profile"
+        },
+        "body": {
+          "fr": "Des profils ERP, CRM et transformation numérique qui comprennent la technologie et le processus métier.",
+          "en": "ERP, CRM and digital transformation profiles who understand both the technology and the business process."
+        },
+        "audience": {
+          "fr": "Entreprises qui recrutent et candidats",
+          "en": "Hiring companies and candidates"
+        },
+        "cta": {
+          "fr": "Voir le recrutement",
+          "en": "See recruitment"
+        },
+        "route": "recruitment",
+        "icon": "people"
+      }
+    ]
+  },
+  "credibility": {
+    "label": {
+      "fr": "Preuves d’expertise",
+      "en": "Proof of expertise"
+    },
+    "items": [
+      {
+        "figure": {
+          "fr": "15+",
+          "en": "15+"
+        },
+        "label": {
+          "fr": "Ans d'expérience ERP",
+          "en": "Years of ERP experience"
+        },
+        "icon": "chart"
+      },
+      {
+        "figure": {
+          "fr": "SAP",
+          "en": "SAP"
+        },
+        "label": {
+          "fr": "S/4HANA Production Planning",
+          "en": "S/4HANA Production Planning"
+        },
+        "icon": "database"
+      },
+      {
+        "figure": {
+          "fr": "JDE",
+          "en": "JDE"
+        },
+        "label": {
+          "fr": "Oracle JD Edwards",
+          "en": "Oracle JD Edwards"
+        },
+        "icon": "network"
+      },
+      {
+        "figure": {
+          "fr": "PMP®",
+          "en": "PMP®"
+        },
+        "label": {
+          "fr": "Management de projets",
+          "en": "Project management"
+        },
+        "icon": "badge"
+      }
+    ],
+    "footnote": {
+      "fr": "Une expertise construite sur des projets ERP concrets, de l’implantation à l’accompagnement des utilisateurs.",
+      "en": "Expertise built on real ERP projects, from implementation through to user adoption."
+    }
+  },
+  "sapFocus": {
+    "eyebrow": {
+      "fr": "Formation vedette",
+      "en": "Featured training"
+    },
+    "title": {
+      "fr": "Formation SAP S/4HANA Production Planning",
+      "en": "SAP S/4HANA Production Planning training"
+    },
+    "tagline": {
+      "fr": "Comprenez les processus. Pratiquez dans SAP.",
+      "en": "Understand the processes. Practise inside SAP."
+    },
+    "lead": {
+      "fr": "Développez une compétence recherchée en gestion de production.",
+      "en": "Build a sought-after skill in production management."
+    },
+    "body": {
+      "fr": "Un parcours structuré pour développer une compréhension concrète des principaux processus de planification et d’exécution de la production dans SAP S/4HANA.",
+      "en": "A structured programme that builds concrete understanding of the core production planning and execution processes in SAP S/4HANA."
+    },
+    "topics": [
+      {
+        "fr": "Données de base",
+        "en": "Master data"
+      },
+      {
+        "fr": "Demand Management",
+        "en": "Demand Management"
+      },
+      {
+        "fr": "MRP",
+        "en": "MRP"
+      },
+      {
+        "fr": "Capacity Planning",
+        "en": "Capacity Planning"
+      },
+      {
+        "fr": "Production Orders",
+        "en": "Production Orders"
+      },
+      {
+        "fr": "MTS",
+        "en": "MTS"
+      },
+      {
+        "fr": "MTO",
+        "en": "MTO"
+      },
+      {
+        "fr": "Discrete Manufacturing",
+        "en": "Discrete Manufacturing"
+      }
+    ],
+    "cta": {
+      "fr": "Découvrir la formation SAP PP",
+      "en": "Explore the SAP PP training"
+    },
+    "imageAlt": {
+      "fr": "Consultant travaillant sur deux écrans affichant un module de planification de production SAP",
+      "en": "Consultant working across two screens showing an SAP production planning module"
+    }
+  },
+  "institutions": {
+    "eyebrow": {
+      "fr": "Établissements d’enseignement",
+      "en": "Educational institutions"
+    },
+    "title": {
+      "fr": "Intégrez les compétences ERP à vos programmes",
+      "en": "Bring ERP skills into your programmes"
+    },
+    "body": {
+      "fr": "Vous êtes une école, une université ou un organisme de formation ? Lagni Consulting accompagne les établissements souhaitant enrichir leurs programmes en gestion de production, supply chain, génie industriel et opérations avec une formation pratique aux systèmes ERP.",
+      "en": "Are you a school, university or training organization? Lagni Consulting works with institutions that want to enrich their production management, supply chain, industrial engineering and operations programmes with practical ERP training."
+    },
+    "features": [
+      {
+        "label": {
+          "fr": "Programme adaptable",
+          "en": "Adaptable programme"
+        },
+        "icon": "calendar"
+      },
+      {
+        "label": {
+          "fr": "Formation à distance ou en établissement",
+          "en": "Remote or on your campus"
+        },
+        "icon": "screen"
+      },
+      {
+        "label": {
+          "fr": "Exercices pratiques",
+          "en": "Hands-on exercises"
+        },
+        "icon": "gear"
+      },
+      {
+        "label": {
+          "fr": "Accompagnement pédagogique",
+          "en": "Teaching support"
+        },
+        "icon": "people"
+      }
+    ],
+    "cta": {
+      "fr": "Découvrir notre offre pour les établissements",
+      "en": "See our offer for institutions"
+    },
+    "imageAlt": {
+      "fr": "Formateur présentant un processus ERP devant un groupe d’étudiants",
+      "en": "Instructor presenting an ERP process to a group of students"
+    }
+  },
+  "about": {
+    "eyebrow": {
+      "fr": "À propos de Lagni Consulting",
+      "en": "About Lagni Consulting"
+    },
+    "title": {
+      "fr": "Former. Accompagner. Connecter.",
+      "en": "Train. Support. Connect."
+    },
+    "body": {
+      "fr": "La technologie crée de la valeur lorsque les personnes savent l’utiliser. Lagni Consulting accompagne les professionnels, les organisations et les établissements avec une expertise ERP, formation et recrutement.",
+      "en": "Technology creates value when people know how to use it. Lagni Consulting supports professionals, organizations and institutions with expertise in ERP, training and recruitment."
+    },
+    "signatureName": {
+      "fr": "Romuald Monthé Kaméni, ing. jr",
+      "en": "Romuald Monthé Kaméni, Jr. Eng."
+    },
+    "signatureRole": {
+      "fr": "Founder · PMP®",
+      "en": "Founder · PMP®"
+    },
+    "cta": {
+      "fr": "En savoir plus",
+      "en": "Learn more"
+    },
+    "imageAlt": {
+      "fr": "Portrait de Romuald Monthé Kameni, fondateur de Lagni Consulting",
+      "en": "Portrait of Romuald Monthé Kameni, founder of Lagni Consulting"
+    }
+  },
+  "resources": {
+    "eyebrow": {
+      "fr": "Ressources",
+      "en": "Resources"
+    },
+    "title": {
+      "fr": "Nos dernières ressources",
+      "en": "Our latest resources"
+    },
+    "lead": {
+      "fr": "Des articles, guides et conseils sur les systèmes ERP, la formation et les carrières.",
+      "en": "Articles, guides and practical advice on ERP systems, training and careers."
+    },
+    "cta": {
+      "fr": "Voir toutes les ressources",
+      "en": "See all resources"
+    }
+  },
+  "finalCta": {
+    "title": {
+      "fr": "Faisons avancer votre prochain projet.",
+      "en": "Let’s move your next project forward."
+    },
+    "body": {
+      "fr": "Formation, transformation ERP/CRM ou recrutement spécialisé : discutons de votre besoin.",
+      "en": "Training, ERP/CRM transformation or specialized recruitment — tell us what you need."
+    },
+    "cta": {
+      "fr": "Nous contacter",
+      "en": "Contact us"
+    },
+    "script": {
+      "fr": "Des compétences au service d’un avenir meilleur.",
+      "en": "Skills in the service of a better future."
+    }
+  }
+}

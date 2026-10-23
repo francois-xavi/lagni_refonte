@@ -1,0 +1,785 @@
+{
+  "meta": {
+    "siteName": {
+      "fr": "Lagni Consulting",
+      "en": "Lagni Consulting"
+    },
+    "signature": {
+      "fr": "Former. Accompagner. Connecter.",
+      "en": "Train. Support. Connect."
+    },
+    "signatureLong": {
+      "fr": "Former. Accompagner. Connecter les talents et les organisations.",
+      "en": "Train. Support. Connect talent and organizations."
+    },
+    "logoAlt": {
+      "fr": "Lagni Consulting",
+      "en": "Lagni Consulting"
+    },
+    "skipToContent": {
+      "fr": "Aller au contenu principal",
+      "en": "Skip to main content"
+    },
+    "langSwitchLabel": {
+      "fr": "Choisir la langue",
+      "en": "Choose a language"
+    },
+    "switchTo": {
+      "fr": "EN",
+      "en": "FR"
+    },
+    "switchToFull": {
+      "fr": "View this page in English",
+      "en": "Voir cette page en français"
+    },
+    "menuOpen": {
+      "fr": "Ouvrir le menu",
+      "en": "Open menu"
+    },
+    "menuClose": {
+      "fr": "Fermer le menu",
+      "en": "Close menu"
+    },
+    "breadcrumbLabel": {
+      "fr": "Fil d’Ariane",
+      "en": "Breadcrumb"
+    },
+    "homeLabel": {
+      "fr": "Accueil",
+      "en": "Home"
+    }
+  },
+  "nav": {
+    "home": {
+      "fr": "Accueil",
+      "en": "Home"
+    },
+    "training": {
+      "fr": "Formations",
+      "en": "Training"
+    },
+    "sapPp": {
+      "fr": "Formation SAP PP",
+      "en": "SAP PP Training"
+    },
+    "sapPpShort": {
+      "fr": "SAP PP",
+      "en": "SAP PP"
+    },
+    "erp": {
+      "fr": "ERP & Solutions",
+      "en": "ERP & Solutions"
+    },
+    "recruitment": {
+      "fr": "Recrutement",
+      "en": "Recruitment"
+    },
+    "institutions": {
+      "fr": "Établissements",
+      "en": "Institutions"
+    },
+    "about": {
+      "fr": "À propos",
+      "en": "About"
+    },
+    "resources": {
+      "fr": "Ressources",
+      "en": "Resources"
+    },
+    "contact": {
+      "fr": "Contact",
+      "en": "Contact"
+    },
+    "thanks": {
+      "fr": "Merci",
+      "en": "Thank you"
+    },
+    "privacy": {
+      "fr": "Confidentialité",
+      "en": "Privacy"
+    },
+    "headerCta": {
+      "fr": "Parler de votre projet",
+      "en": "Discuss your project"
+    },
+    "primaryLabel": {
+      "fr": "Navigation principale",
+      "en": "Main navigation"
+    }
+  },
+  "common": {
+    "learnMore": {
+      "fr": "En savoir plus",
+      "en": "Learn more"
+    },
+    "readArticle": {
+      "fr": "Lire l’article",
+      "en": "Read the article"
+    },
+    "discoverTraining": {
+      "fr": "Découvrir nos formations",
+      "en": "Explore our training"
+    },
+    "discoverServices": {
+      "fr": "Découvrir nos services",
+      "en": "Explore our services"
+    },
+    "discoverInstitutions": {
+      "fr": "Découvrir notre offre établissements",
+      "en": "See our offer for institutions"
+    },
+    "talkProject": {
+      "fr": "Parler de votre projet",
+      "en": "Discuss your project"
+    },
+    "contactUs": {
+      "fr": "Nous contacter",
+      "en": "Contact us"
+    },
+    "minRead": {
+      "fr": "min",
+      "en": "min"
+    },
+    "ecosystemNote": {
+      "fr": "Ces technologies font partie de notre expertise. Elles ne représentent pas des partenariats officiels, sauf indication contraire.",
+      "en": "These technologies are part of our expertise. They do not represent official partnerships unless stated otherwise."
+    }
+  },
+  "footer": {
+    "solutionsTitle": {
+      "fr": "Solutions",
+      "en": "Solutions"
+    },
+    "servicesTitle": {
+      "fr": "Services",
+      "en": "Services"
+    },
+    "companyTitle": {
+      "fr": "Entreprise",
+      "en": "Company"
+    },
+    "followTitle": {
+      "fr": "Suivez-nous",
+      "en": "Follow us"
+    },
+    "linkedinAria": {
+      "fr": "Lagni Consulting sur LinkedIn",
+      "en": "Lagni Consulting on LinkedIn"
+    },
+    "rights": {
+      "fr": "Tous droits réservés.",
+      "en": "All rights reserved."
+    },
+    "navLabel": {
+      "fr": "Pied de page",
+      "en": "Footer"
+    },
+    "solutions": [
+      {
+        "label": {
+          "fr": "SAP S/4HANA",
+          "en": "SAP S/4HANA"
+        },
+        "slug": "sap"
+      },
+      {
+        "label": {
+          "fr": "Oracle JD Edwards",
+          "en": "Oracle JD Edwards"
+        },
+        "slug": "jde"
+      },
+      {
+        "label": {
+          "fr": "Odoo",
+          "en": "Odoo"
+        },
+        "slug": "odoo"
+      },
+      {
+        "label": {
+          "fr": "GoHighLevel",
+          "en": "GoHighLevel"
+        },
+        "slug": "gohighlevel"
+      },
+      {
+        "label": {
+          "fr": "Chataap",
+          "en": "Chataap"
+        },
+        "slug": "chataap"
+      }
+    ]
+  },
+  "forms": {
+    "firstName": {
+      "fr": "Prénom",
+      "en": "First name"
+    },
+    "firstNamePlaceholder": {
+      "fr": "Votre prénom",
+      "en": "Your first name"
+    },
+    "lastName": {
+      "fr": "Nom",
+      "en": "Last name"
+    },
+    "lastNamePlaceholder": {
+      "fr": "Votre nom",
+      "en": "Your last name"
+    },
+    "name": {
+      "fr": "Nom",
+      "en": "Name"
+    },
+    "email": {
+      "fr": "Courriel",
+      "en": "Email"
+    },
+    "emailPlaceholder": {
+      "fr": "vous@exemple.com",
+      "en": "you@example.com"
+    },
+    "emailPro": {
+      "fr": "Courriel professionnel",
+      "en": "Work email"
+    },
+    "emailProPlaceholder": {
+      "fr": "vous@organisation.com",
+      "en": "you@organization.com"
+    },
+    "country": {
+      "fr": "Pays",
+      "en": "Country"
+    },
+    "countryPlaceholder": {
+      "fr": "Sélectionner un pays",
+      "en": "Select a country"
+    },
+    "countryOptions": [
+      {
+        "fr": "Canada",
+        "en": "Canada"
+      },
+      {
+        "fr": "France",
+        "en": "France"
+      },
+      {
+        "fr": "Belgique",
+        "en": "Belgium"
+      },
+      {
+        "fr": "Suisse",
+        "en": "Switzerland"
+      },
+      {
+        "fr": "Côte d’Ivoire",
+        "en": "Côte d’Ivoire"
+      },
+      {
+        "fr": "Cameroun",
+        "en": "Cameroon"
+      },
+      {
+        "fr": "Sénégal",
+        "en": "Senegal"
+      },
+      {
+        "fr": "Bénin",
+        "en": "Benin"
+      },
+      {
+        "fr": "Autre",
+        "en": "Other"
+      }
+    ],
+    "organisation": {
+      "fr": "Organisation",
+      "en": "Organization"
+    },
+    "organisationPlaceholder": {
+      "fr": "Nom de votre entreprise",
+      "en": "Your organization"
+    },
+    "role": {
+      "fr": "Nom / fonction",
+      "en": "Name / role"
+    },
+    "rolePlaceholder": {
+      "fr": "Votre nom et votre fonction",
+      "en": "Your name and role"
+    },
+    "message": {
+      "fr": "Message",
+      "en": "Message"
+    },
+    "messagePlaceholder": {
+      "fr": "Décrivez votre projet, vos objectifs ou vos questions…",
+      "en": "Tell us about your project, your goals or your questions…"
+    },
+    "send": {
+      "fr": "Envoyer ma demande",
+      "en": "Send my request"
+    },
+    "sending": {
+      "fr": "Envoi en cours…",
+      "en": "Sending…"
+    },
+    "select": {
+      "fr": "Sélectionner",
+      "en": "Select"
+    },
+    "desiredTraining": {
+      "fr": "Formation souhaitée",
+      "en": "Training of interest"
+    },
+    "desiredTrainingPlaceholder": {
+      "fr": "Sélectionner une formation",
+      "en": "Select a training"
+    },
+    "trainingOptions": [
+      {
+        "fr": "SAP S/4HANA Production Planning (PP)",
+        "en": "SAP S/4HANA Production Planning (PP)"
+      },
+      {
+        "fr": "Autre besoin de formation",
+        "en": "Another training need"
+      }
+    ],
+    "profile": {
+      "fr": "Votre profil",
+      "en": "Your profile"
+    },
+    "profileHelp": {
+      "fr": "Étudiant, professionnel, autre",
+      "en": "Student, professional, other"
+    },
+    "profileOptions": [
+      {
+        "fr": "Étudiant ou jeune diplômé",
+        "en": "Student or recent graduate"
+      },
+      {
+        "fr": "Professionnel de la production ou de la supply chain",
+        "en": "Production or supply chain professional"
+      },
+      {
+        "fr": "Professionnel ERP",
+        "en": "ERP professional"
+      },
+      {
+        "fr": "Professionnel en transition",
+        "en": "Professional in transition"
+      },
+      {
+        "fr": "Autre",
+        "en": "Other"
+      }
+    ],
+    "groupSize": {
+      "fr": "Taille du groupe",
+      "en": "Group size"
+    },
+    "groupSizePlaceholder": {
+      "fr": "Ex. 12",
+      "en": "e.g. 12"
+    },
+    "solution": {
+      "fr": "Solution concernée",
+      "en": "Solution concerned"
+    },
+    "solutionPlaceholder": {
+      "fr": "Sélectionner une solution",
+      "en": "Select a solution"
+    },
+    "solutionOptions": [
+      {
+        "fr": "SAP S/4HANA",
+        "en": "SAP S/4HANA"
+      },
+      {
+        "fr": "Oracle JD Edwards",
+        "en": "Oracle JD Edwards"
+      },
+      {
+        "fr": "Odoo",
+        "en": "Odoo"
+      },
+      {
+        "fr": "GoHighLevel",
+        "en": "GoHighLevel"
+      },
+      {
+        "fr": "Chataap",
+        "en": "Chataap"
+      },
+      {
+        "fr": "Je ne sais pas encore",
+        "en": "Not sure yet"
+      }
+    ],
+    "needType": {
+      "fr": "Type de besoin",
+      "en": "Type of need"
+    },
+    "needTypeOptions": [
+      {
+        "fr": "Analyse fonctionnelle / diagnostic",
+        "en": "Functional analysis / assessment"
+      },
+      {
+        "fr": "Implantation ou configuration",
+        "en": "Implementation or configuration"
+      },
+      {
+        "fr": "Tests (SIT / UAT)",
+        "en": "Testing (SIT / UAT)"
+      },
+      {
+        "fr": "Migration & cutover",
+        "en": "Migration & cutover"
+      },
+      {
+        "fr": "Formation & adoption",
+        "en": "Training & adoption"
+      },
+      {
+        "fr": "Support & amélioration continue",
+        "en": "Support & continuous improvement"
+      }
+    ],
+    "roleSought": {
+      "fr": "Poste recherché",
+      "en": "Role you are hiring for"
+    },
+    "roleSoughtPlaceholder": {
+      "fr": "Ex. Analyste SAP PP",
+      "en": "e.g. SAP PP Analyst"
+    },
+    "domain": {
+      "fr": "Technologie / domaine",
+      "en": "Technology / area"
+    },
+    "domainOptions": [
+      {
+        "fr": "ERP & applications d’entreprise",
+        "en": "ERP & enterprise applications"
+      },
+      {
+        "fr": "Gestion de projet & transformation",
+        "en": "Project management & transformation"
+      },
+      {
+        "fr": "Data & outils numériques",
+        "en": "Data & digital tools"
+      },
+      {
+        "fr": "Manufacturing & Supply Chain",
+        "en": "Manufacturing & Supply Chain"
+      },
+      {
+        "fr": "Autre",
+        "en": "Other"
+      }
+    ],
+    "contractType": {
+      "fr": "Permanent / Contractuel",
+      "en": "Permanent / Contract"
+    },
+    "contractOptions": [
+      {
+        "fr": "Permanent",
+        "en": "Permanent"
+      },
+      {
+        "fr": "Contractuel",
+        "en": "Contract"
+      },
+      {
+        "fr": "À déterminer",
+        "en": "To be determined"
+      }
+    ],
+    "needDescription": {
+      "fr": "Description du besoin",
+      "en": "Describe the role"
+    },
+    "needDescriptionPlaceholder": {
+      "fr": "Contexte, responsabilités, compétences recherchées…",
+      "en": "Context, responsibilities, skills required…"
+    },
+    "submitMandate": {
+      "fr": "Confier un mandat",
+      "en": "Submit a mandate"
+    },
+    "expertiseArea": {
+      "fr": "Domaine d’expertise",
+      "en": "Area of expertise"
+    },
+    "yearsExperience": {
+      "fr": "Années d’expérience",
+      "en": "Years of experience"
+    },
+    "yearsOptions": [
+      {
+        "fr": "Moins de 2 ans",
+        "en": "Under 2 years"
+      },
+      {
+        "fr": "2 à 5 ans",
+        "en": "2 to 5 years"
+      },
+      {
+        "fr": "5 à 10 ans",
+        "en": "5 to 10 years"
+      },
+      {
+        "fr": "Plus de 10 ans",
+        "en": "Over 10 years"
+      }
+    ],
+    "cv": {
+      "fr": "Curriculum vitæ",
+      "en": "Résumé"
+    },
+    "cvHelp": {
+      "fr": "Formats acceptés : PDF, DOC, DOCX (max 5 Mo)",
+      "en": "Accepted formats: PDF, DOC, DOCX (max 5 MB)"
+    },
+    "submitApplication": {
+      "fr": "Déposer ma candidature",
+      "en": "Submit my application"
+    },
+    "institutionName": {
+      "fr": "Établissement",
+      "en": "Institution"
+    },
+    "institutionPlaceholder": {
+      "fr": "Nom de l’établissement",
+      "en": "Name of the institution"
+    },
+    "programme": {
+      "fr": "Programme concerné",
+      "en": "Programme concerned"
+    },
+    "programmePlaceholder": {
+      "fr": "Ex. Génie industriel",
+      "en": "e.g. Industrial engineering"
+    },
+    "studentCount": {
+      "fr": "Nombre d’étudiants",
+      "en": "Number of students"
+    },
+    "studentCountPlaceholder": {
+      "fr": "Ex. 15",
+      "en": "e.g. 15"
+    },
+    "period": {
+      "fr": "Période envisagée",
+      "en": "Timeframe"
+    },
+    "periodOptions": [
+      {
+        "fr": "Trimestre d’hiver",
+        "en": "Winter term"
+      },
+      {
+        "fr": "Trimestre d’été",
+        "en": "Summer term"
+      },
+      {
+        "fr": "Trimestre d’automne",
+        "en": "Fall term"
+      },
+      {
+        "fr": "À déterminer",
+        "en": "To be determined"
+      }
+    ],
+    "discussPartnership": {
+      "fr": "Discuter d’un partenariat",
+      "en": "Discuss a partnership"
+    },
+    "consent": {
+      "fr": "J’accepte que Lagni Consulting conserve les renseignements transmis afin de traiter ma demande.",
+      "en": "I agree that Lagni Consulting may keep the information provided in order to respond to my request."
+    },
+    "consentCandidate": {
+      "fr": "J’accepte que Lagni Consulting conserve mon curriculum vitæ et mes coordonnées afin de me proposer des opportunités professionnelles pertinentes.",
+      "en": "I agree that Lagni Consulting may keep my résumé and contact details in order to share relevant professional opportunities with me."
+    },
+    "privacyNote": {
+      "fr": "Les renseignements transmis sont utilisés uniquement pour traiter votre demande.",
+      "en": "The information you provide is used only to handle your request."
+    },
+    "privacyLink": {
+      "fr": "Consulter la politique de confidentialité.",
+      "en": "Read the privacy policy."
+    },
+    "confidentialNote": {
+      "fr": "Vos informations sont confidentielles et utilisées uniquement dans le cadre de nos services de recrutement.",
+      "en": "Your information is confidential and used only as part of our recruitment services."
+    },
+    "candidateNote": {
+      "fr": "Vos renseignements personnels sont traités de façon confidentielle et utilisés uniquement pour des opportunités professionnelles pertinentes.",
+      "en": "Your personal information is handled confidentially and used only for relevant professional opportunities."
+    },
+    "errors": {
+      "label": {
+        "fr": "Erreur",
+        "en": "Error"
+      },
+      "required": {
+        "fr": "Ce champ est obligatoire.",
+        "en": "This field is required."
+      },
+      "email": {
+        "fr": "Veuillez saisir une adresse courriel valide.",
+        "en": "Please enter a valid email address."
+      },
+      "consent": {
+        "fr": "Vous devez accepter pour poursuivre.",
+        "en": "You must agree in order to continue."
+      },
+      "fileType": {
+        "fr": "Format non accepté. Utilisez PDF, DOC ou DOCX.",
+        "en": "Unsupported format. Please use PDF, DOC or DOCX."
+      },
+      "fileSize": {
+        "fr": "Le fichier dépasse la taille maximale de 5 Mo.",
+        "en": "The file exceeds the 5 MB limit."
+      },
+      "summary": {
+        "fr": "Veuillez corriger les champs indiqués avant d’envoyer votre demande.",
+        "en": "Please correct the highlighted fields before sending your request."
+      },
+      "network": {
+        "fr": "Votre demande n’a pas pu être envoyée. Veuillez réessayer ou nous écrire directement à",
+        "en": "Your request could not be sent. Please try again, or email us directly at"
+      },
+      "notConfigured": {
+        "fr": "Le formulaire n’est pas encore relié à une boîte de réception. Écrivez-nous directement à",
+        "en": "This form is not yet connected to an inbox. Please email us directly at"
+      }
+    },
+    "success": {
+      "title": {
+        "fr": "Merci, votre demande a bien été envoyée.",
+        "en": "Thank you — your request has been sent."
+      },
+      "body": {
+        "fr": "Nous répondons généralement aux demandes professionnelles dans un délai de 1 à 2 jours ouvrables.",
+        "en": "We usually reply to professional enquiries within one to two business days."
+      }
+    }
+  },
+  "credentials": {
+    "title": {
+      "fr": "Certifications principales",
+      "en": "Key certifications"
+    },
+    "pendingNote": {
+      "fr": "Intitulé officiel à confirmer avant publication.",
+      "en": "Official wording to be confirmed before launch."
+    },
+    "items": [
+      {
+        "name": {
+          "fr": "SAP Certified Associate — Production Planning",
+          "en": "SAP Certified Associate — Production Planning"
+        },
+        "code": "C_TS422",
+        "pending": true
+      },
+      {
+        "name": {
+          "fr": "SAP Certified Associate — Business Process Integration",
+          "en": "SAP Certified Associate — Business Process Integration"
+        },
+        "code": "C_IEE2E",
+        "pending": true
+      },
+      {
+        "name": {
+          "fr": "PMP® — Project Management Professional",
+          "en": "PMP® — Project Management Professional"
+        },
+        "code": "",
+        "pending": true
+      },
+      {
+        "name": {
+          "fr": "15+ années d’expérience ERP",
+          "en": "15+ years of ERP experience"
+        },
+        "code": "",
+        "pending": false
+      },
+      {
+        "name": {
+          "fr": "Implantations ERP end-to-end",
+          "en": "End-to-end ERP implementations"
+        },
+        "code": "",
+        "pending": false
+      }
+    ]
+  },
+  "founder": {
+    "name": {
+      "fr": "Romuald Monthé Kameni",
+      "en": "Romuald Monthé Kameni"
+    },
+    "role": {
+      "fr": "Fondateur — Lagni Consulting",
+      "en": "Founder — Lagni Consulting"
+    },
+    "photoAlt": {
+      "fr": "Portrait de Romuald Monthé Kameni, fondateur de Lagni Consulting",
+      "en": "Portrait of Romuald Monthé Kameni, founder of Lagni Consulting"
+    }
+  },
+  "ecosystems": {
+    "title": {
+      "fr": "Technologies et écosystèmes",
+      "en": "Technologies and ecosystems"
+    },
+    "subtitle": {
+      "fr": "Un accès à un large éventail de solutions.",
+      "en": "Solutions we work with."
+    },
+    "items": [
+      {
+        "fr": "SAP S/4HANA",
+        "en": "SAP S/4HANA"
+      },
+      {
+        "fr": "Oracle JD Edwards",
+        "en": "Oracle JD Edwards"
+      },
+      {
+        "fr": "Odoo",
+        "en": "Odoo"
+      },
+      {
+        "fr": "GoHighLevel",
+        "en": "GoHighLevel"
+      },
+      {
+        "fr": "Chataap",
+        "en": "Chataap"
+      },
+      {
+        "fr": "Power BI",
+        "en": "Power BI"
+      }
+    ],
+    "more": {
+      "fr": "Et d’autres technologies d’entreprise selon les besoins de nos clients.",
+      "en": "And other enterprise technologies, depending on client needs."
+    }
+  }
+}

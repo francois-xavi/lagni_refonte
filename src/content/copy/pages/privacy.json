@@ -1,0 +1,280 @@
+{
+  "seo": {
+    "title": {
+      "fr": "Politique de confidentialité — Lagni Consulting",
+      "en": "Privacy policy — Lagni Consulting"
+    },
+    "description": {
+      "fr": "Quels renseignements Lagni Consulting recueille, pourquoi, combien de temps ils sont conservés et comment exercer vos droits.",
+      "en": "What personal information Lagni Consulting collects, why, how long it is kept, and how to exercise your rights."
+    }
+  },
+  "hero": {
+    "eyebrow": {
+      "fr": "Confidentialité",
+      "en": "Privacy"
+    },
+    "title": {
+      "fr": "Politique de confidentialité",
+      "en": "Privacy policy"
+    },
+    "lead": {
+      "fr": "Cette page explique quels renseignements personnels Lagni Consulting recueille par l’intermédiaire de ce site, à quelles fins, pendant combien de temps ils sont conservés, et comment vous pouvez exercer vos droits.",
+      "en": "This page explains what personal information Lagni Consulting collects through this website, for what purposes, how long it is kept, and how you can exercise your rights."
+    },
+    "updated": {
+      "fr": "Dernière mise à jour",
+      "en": "Last updated"
+    },
+    "updatedDate": {
+      "fr": "6 octobre 2026",
+      "en": "6 October 2026"
+    }
+  },
+  "draftNotice": {
+    "fr": "Ce texte est un brouillon de travail préparé par l’équipe de développement. Il doit être revu et validé par Lagni Consulting, et relu par un conseiller juridique, avant la mise en production du site.",
+    "en": "This text is a working draft prepared by the development team. It must be reviewed and approved by Lagni Consulting, and checked by legal counsel, before the site goes into production."
+  },
+  "sections": [
+    {
+      "title": {
+        "fr": "Qui est responsable de vos renseignements",
+        "en": "Who is responsible for your information"
+      },
+      "body": [
+        {
+          "fr": "Lagni Consulting, établie au Québec (Canada), est responsable des renseignements personnels recueillis par l’intermédiaire de ce site.",
+          "en": "Lagni Consulting, based in Quebec, Canada, is responsible for the personal information collected through this website."
+        },
+        {
+          "fr": "Pour toute question relative à cette politique ou à l’exercice de vos droits, écrivez-nous à l’adresse indiquée à la fin de cette page.",
+          "en": "For any question about this policy or to exercise your rights, write to us at the address given at the end of this page."
+        }
+      ]
+    },
+    {
+      "title": {
+        "fr": "Quels renseignements sont recueillis",
+        "en": "What information is collected"
+      },
+      "body": [
+        {
+          "fr": "Nous ne recueillons que les renseignements que vous nous transmettez volontairement au moyen des formulaires du site. Aucun compte n’est créé et aucune donnée n’est achetée auprès de tiers.",
+          "en": "We only collect what you send us voluntarily through the forms on this site. No account is created and no data is bought from third parties."
+        }
+      ],
+      "items": [
+        {
+          "fr": "Formulaire de contact : prénom, nom, courriel, pays, type de demande et contenu de votre message. Selon le type de demande : organisation, formation souhaitée, profil, solution concernée, poste recherché, programme ou nombre d’étudiants.",
+          "en": "Contact form: first name, last name, email, country, type of request and the content of your message. Depending on the request: organization, training of interest, profile, solution concerned, role being hired for, programme or number of students."
+        },
+        {
+          "fr": "Formulaire employeur (recrutement) : organisation, nom, courriel professionnel, poste recherché, domaine, type de contrat et description du besoin.",
+          "en": "Employer form (recruitment): organization, name, work email, role, area, contract type and a description of the need."
+        },
+        {
+          "fr": "Formulaire candidat (recrutement) : nom, courriel, domaine d’expertise, années d’expérience et votre curriculum vitæ (PDF, DOC ou DOCX, 5 Mo maximum).",
+          "en": "Candidate form (recruitment): name, email, area of expertise, years of experience and your résumé (PDF, DOC or DOCX, 5 MB maximum)."
+        },
+        {
+          "fr": "Formulaire établissement : nom de l’établissement, pays, nom et fonction du contact, courriel, programme concerné, nombre d’étudiants et période envisagée.",
+          "en": "Institution form: name of the institution, country, contact name and role, email, programme concerned, number of students and intended timeframe."
+        }
+      ]
+    },
+    {
+      "title": {
+        "fr": "Pourquoi ces renseignements sont recueillis",
+        "en": "Why it is collected"
+      },
+      "items": [
+        {
+          "fr": "Répondre à votre demande et assurer le suivi des échanges qui en découlent.",
+          "en": "To answer your request and follow up on the exchanges that result from it."
+        },
+        {
+          "fr": "Vous transmettre les informations demandées sur nos formations, nos services ou nos offres de partenariat.",
+          "en": "To send you the information you asked for about our training, our services or our partnership offer."
+        },
+        {
+          "fr": "Pour les candidatures : évaluer votre profil au regard des mandats de recrutement en cours et vous proposer des opportunités professionnelles pertinentes.",
+          "en": "For applications: to assess your profile against current recruitment mandates and share relevant professional opportunities with you."
+        },
+        {
+          "fr": "Pour les demandes employeurs : comprendre le besoin et préparer une proposition de service.",
+          "en": "For employer enquiries: to understand the need and prepare a service proposal."
+        }
+      ],
+      "note": {
+        "fr": "Vos renseignements ne sont utilisés à aucune autre fin. Nous ne vendons, ne louons et n’échangeons aucun renseignement personnel.",
+        "en": "Your information is used for no other purpose. We do not sell, rent or trade any personal information."
+      }
+    },
+    {
+      "title": {
+        "fr": "Sur quelle base nous les traitons",
+        "en": "On what basis we process it"
+      },
+      "body": [
+        {
+          "fr": "Le traitement repose sur votre consentement, que vous donnez en cochant la case prévue avant l’envoi de chaque formulaire, ainsi que sur notre intérêt légitime à répondre à une demande commerciale que vous avez initiée.",
+          "en": "Processing is based on your consent, given by ticking the box provided before each form is sent, and on our legitimate interest in answering a commercial enquiry you initiated."
+        },
+        {
+          "fr": "Vous pouvez retirer votre consentement à tout moment, sans que cela remette en cause les échanges déjà réalisés.",
+          "en": "You may withdraw your consent at any time, without affecting exchanges that have already taken place."
+        }
+      ]
+    },
+    {
+      "title": {
+        "fr": "Qui y a accès",
+        "en": "Who has access to it"
+      },
+      "body": [
+        {
+          "fr": "Les renseignements sont accessibles aux personnes de Lagni Consulting chargées de traiter votre demande.",
+          "en": "The information is accessible to the people at Lagni Consulting handling your request."
+        }
+      ],
+      "items": [
+        {
+          "fr": "Hébergement du site et traitement des formulaires : les soumissions, curriculum vitæ compris, sont reçues et conservées sur le serveur de Lagni Consulting, et non chez un service tiers de collecte de formulaires. Localisation du serveur : à confirmer.",
+          "en": "Website hosting and form processing: submissions, including CVs, are received and stored on Lagni Consulting’s own server, not with a third-party form collection service. Server location: to be confirmed."
+        },
+        {
+          "fr": "Courriel : les notifications de nouvelles demandes sont acheminées vers la boîte professionnelle de Lagni Consulting.",
+          "en": "Email: notifications of new enquiries are sent to Lagni Consulting’s professional mailbox."
+        }
+      ],
+      "note": {
+        "fr": "Nous ne communiquons vos renseignements à aucun autre tiers, sauf obligation légale. Dans le cadre d’un mandat de recrutement, un curriculum vitæ n’est transmis à un employeur qu’après vous en avoir informé.",
+        "en": "We do not share your information with any other third party, except where legally required. As part of a recruitment mandate, a résumé is only passed to an employer after you have been informed."
+      }
+    },
+    {
+      "title": {
+        "fr": "Combien de temps ils sont conservés",
+        "en": "How long it is kept"
+      },
+      "items": [
+        {
+          "fr": "Demandes de contact et d’information : conservées le temps de traiter la demande, puis archivées pour une durée maximale de 24 mois.",
+          "en": "Contact and information requests: kept for as long as needed to handle the request, then archived for a maximum of 24 months."
+        },
+        {
+          "fr": "Candidatures et curriculum vitæ : conservés jusqu’à 24 mois à compter de la réception, afin de pouvoir vous proposer des opportunités. Passé ce délai, ils sont supprimés.",
+          "en": "Applications and résumés: kept for up to 24 months from receipt, so that we can share opportunities with you. After that period they are deleted."
+        },
+        {
+          "fr": "Demandes employeurs et partenariats : conservées pour la durée de la relation d’affaires, puis selon les obligations comptables et légales applicables.",
+          "en": "Employer and partnership enquiries: kept for the duration of the business relationship, then according to applicable accounting and legal obligations."
+        }
+      ],
+      "note": {
+        "fr": "Vous pouvez demander la suppression de vos renseignements à tout moment, avant ces échéances.",
+        "en": "You may ask for your information to be deleted at any time, before those periods end."
+      }
+    },
+    {
+      "title": {
+        "fr": "Vos droits",
+        "en": "Your rights"
+      },
+      "body": [
+        {
+          "fr": "Conformément à la législation applicable au Québec, vous disposez des droits suivants :",
+          "en": "Under the legislation applicable in Quebec, you have the following rights:"
+        }
+      ],
+      "items": [
+        {
+          "fr": "Accéder aux renseignements personnels que nous détenons à votre sujet.",
+          "en": "Access the personal information we hold about you."
+        },
+        {
+          "fr": "Faire rectifier un renseignement inexact, incomplet ou équivoque.",
+          "en": "Have inaccurate, incomplete or ambiguous information corrected."
+        },
+        {
+          "fr": "Retirer votre consentement et demander la suppression de vos renseignements.",
+          "en": "Withdraw your consent and ask for your information to be deleted."
+        },
+        {
+          "fr": "Demander que vos renseignements vous soient communiqués dans un format technologique structuré et couramment utilisé.",
+          "en": "Ask for your information to be provided in a structured, commonly used technological format."
+        },
+        {
+          "fr": "Porter plainte auprès de la Commission d’accès à l’information du Québec si vous estimez que vos droits n’ont pas été respectés.",
+          "en": "File a complaint with the Commission d’accès à l’information du Québec if you believe your rights have not been respected."
+        }
+      ],
+      "note": {
+        "fr": "Pour exercer un de ces droits, écrivez-nous. Nous répondons dans un délai de 30 jours.",
+        "en": "To exercise any of these rights, write to us. We reply within 30 days."
+      }
+    },
+    {
+      "title": {
+        "fr": "Témoins de connexion (cookies) et mesure d’audience",
+        "en": "Cookies and analytics"
+      },
+      "body": [
+        {
+          "fr": "Ce site ne dépose aucun témoin de connexion publicitaire ou de suivi, et n’utilise aucun outil de mesure d’audience tiers.",
+          "en": "This site sets no advertising or tracking cookies, and uses no third-party analytics tool."
+        },
+        {
+          "fr": "Les seules données techniques traitées sont les journaux de connexion de l’hébergeur, nécessaires au fonctionnement et à la sécurité du site.",
+          "en": "The only technical data processed are the hosting provider’s connection logs, which are necessary to run and secure the site."
+        },
+        {
+          "fr": "Si un outil de mesure d’audience devait être ajouté, cette page serait mise à jour et un mécanisme de consentement serait mis en place au préalable.",
+          "en": "If an analytics tool were added, this page would be updated and a consent mechanism put in place beforehand."
+        }
+      ]
+    },
+    {
+      "title": {
+        "fr": "Sécurité",
+        "en": "Security"
+      },
+      "body": [
+        {
+          "fr": "Le site est servi en HTTPS et les formulaires sont transmis de façon chiffrée. L’accès aux soumissions est protégé par authentification.",
+          "en": "The site is served over HTTPS and form submissions are transmitted encrypted. Access to submissions is protected by authentication."
+        },
+        {
+          "fr": "Aucun système n’étant infaillible, nous ne pouvons garantir une sécurité absolue, mais nous nous engageons à vous informer sans délai en cas d’incident susceptible de porter atteinte à vos renseignements.",
+          "en": "No system is infallible, so we cannot guarantee absolute security, but we undertake to inform you without delay of any incident likely to affect your information."
+        }
+      ]
+    },
+    {
+      "title": {
+        "fr": "Modifications de cette politique",
+        "en": "Changes to this policy"
+      },
+      "body": [
+        {
+          "fr": "Cette politique peut être modifiée afin de refléter une évolution du site ou de la réglementation. La date de dernière mise à jour figure en haut de cette page.",
+          "en": "This policy may be amended to reflect changes to the site or to applicable regulations. The date it was last updated appears at the top of this page."
+        }
+      ]
+    }
+  ],
+  "contact": {
+    "title": {
+      "fr": "Nous joindre",
+      "en": "Contact us"
+    },
+    "body": {
+      "fr": "Pour toute question sur cette politique ou pour exercer vos droits :",
+      "en": "For any question about this policy, or to exercise your rights:"
+    },
+    "cta": {
+      "fr": "Nous écrire",
+      "en": "Write to us"
+    }
+  }
+}

@@ -1,0 +1,786 @@
+{
+  "seo": {
+    "title": {
+      "fr": "Formation SAP S/4HANA Production Planning (PP) — Lagni Consulting",
+      "en": "SAP S/4HANA Production Planning (PP) training — Lagni Consulting"
+    },
+    "description": {
+      "fr": "Un parcours de {hours} heures en {sessions} séances pour comprendre et pratiquer les processus de planification et d’exécution de la production dans SAP S/4HANA.",
+      "en": "A {hours}-hour programme across {sessions} sessions to understand and practise production planning and execution processes in SAP S/4HANA."
+    }
+  },
+  "hero": {
+    "eyebrow": {
+      "fr": "Formation SAP S/4HANA",
+      "en": "SAP S/4HANA training"
+    },
+    "title": {
+      "fr": "Maîtrisez SAP S/4HANA Production Planning",
+      "en": "Master SAP S/4HANA Production Planning"
+    },
+    "lead": {
+      "fr": "Comprenez les processus de planification et d’exécution de la production. Pratiquez dans SAP. Préparez votre progression professionnelle et votre parcours de certification.",
+      "en": "Understand the planning and execution processes behind production. Practise inside SAP. Prepare your professional progression and your certification path."
+    },
+    "meta": [
+      {
+        "label": {
+          "fr": "{hours} heures",
+          "en": "{hours} hours"
+        },
+        "sub": {
+          "fr": "de formation",
+          "en": "of training"
+        },
+        "icon": "clock"
+      },
+      {
+        "label": {
+          "fr": "{sessions} séances",
+          "en": "{sessions} sessions"
+        },
+        "sub": {
+          "fr": "× {sessionHours} heures",
+          "en": "× {sessionHours} hours"
+        },
+        "icon": "calendar"
+      },
+      {
+        "label": {
+          "fr": "Exercices pratiques",
+          "en": "Hands-on exercises"
+        },
+        "sub": {
+          "fr": "",
+          "en": ""
+        },
+        "icon": "screen"
+      },
+      {
+        "label": {
+          "fr": "Accompagnement",
+          "en": "Support"
+        },
+        "sub": {
+          "fr": "sur {supportMonths} mois",
+          "en": "for {supportMonths} months"
+        },
+        "icon": "people"
+      }
+    ],
+    "ctaPrimary": {
+      "fr": "Recevoir le programme",
+      "en": "Request the syllabus"
+    },
+    "ctaSecondary": {
+      "fr": "Découvrir le contenu",
+      "en": "See what it covers"
+    },
+    "imageAlt": {
+      "fr": "Participant travaillant sur un écran SAP de gestion de production",
+      "en": "Participant working on an SAP production management screen"
+    },
+    "panelTitle": {
+      "fr": "Dans SAP",
+      "en": "Inside SAP"
+    },
+    "panel": [
+      {
+        "fr": "Create Production Order",
+        "en": "Create Production Order"
+      },
+      {
+        "fr": "Run MRP",
+        "en": "Run MRP"
+      },
+      {
+        "fr": "Monitor Production",
+        "en": "Monitor Production"
+      },
+      {
+        "fr": "Manage Capacity",
+        "en": "Manage Capacity"
+      },
+      {
+        "fr": "Production Confirmations",
+        "en": "Production Confirmations"
+      }
+    ],
+    "matchLabel": {
+      "fr": "Pratiqué dans SAP",
+      "en": "Practised in SAP"
+    },
+    "profileBadge": {
+      "fr": "40h",
+      "en": "40h"
+    },
+    "profileLabel": {
+      "fr": "Parcours structuré",
+      "en": "Structured programme"
+    },
+    "profileTitle": {
+      "fr": "5 phases · {sessions} séances",
+      "en": "5 phases · {sessions} sessions"
+    },
+    "profileStatus": {
+      "fr": "Accompagnement {supportMonths} mois",
+      "en": "{supportMonths} months of support"
+    }
+  },
+  "proof": {
+    "label": {
+      "fr": "La formation SAP PP en bref",
+      "en": "SAP PP training at a glance"
+    },
+    "items": [
+      {
+        "figure": {
+          "fr": "{hours}",
+          "en": "{hours}"
+        },
+        "label": {
+          "fr": "heures de formation",
+          "en": "hours of training"
+        },
+        "lord": "clock",
+        "count": true
+      },
+      {
+        "figure": {
+          "fr": "{sessions} × {sessionHours} h",
+          "en": "{sessions} × {sessionHours} h"
+        },
+        "label": {
+          "fr": "séances en direct",
+          "en": "live sessions"
+        },
+        "lord": "calendar"
+      },
+      {
+        "figure": {
+          "fr": "5",
+          "en": "5"
+        },
+        "label": {
+          "fr": "phases progressives",
+          "en": "progressive phases"
+        },
+        "lord": "checklist",
+        "count": true
+      },
+      {
+        "figure": {
+          "fr": "8",
+          "en": "8"
+        },
+        "label": {
+          "fr": "étapes de cas pratique",
+          "en": "step worked example"
+        },
+        "lord": "tools",
+        "count": true
+      }
+    ]
+  },
+  "audiences": {
+    "eyebrow": {
+      "fr": "Pour qui",
+      "en": "Who it is for"
+    },
+    "title": {
+      "fr": "À qui s’adresse cette formation ?",
+      "en": "Who is this training for?"
+    },
+    "lead": {
+      "fr": "Un parcours adapté à différents profils, avec des objectifs et des parcours variés.",
+      "en": "A programme designed for several profiles, with different starting points and goals."
+    },
+    "items": [
+      {
+        "icon": "factory",
+        "title": {
+          "fr": "Professionnels de la production et de la supply chain",
+          "en": "Production and supply chain professionals"
+        },
+        "body": {
+          "fr": "Planificateurs, responsables de production, approvisionneurs et professionnels des opérations souhaitant comprendre SAP PP.",
+          "en": "Planners, production managers, buyers and operations professionals who want to understand SAP PP."
+        }
+      },
+      {
+        "icon": "person",
+        "title": {
+          "fr": "Professionnels ERP",
+          "en": "ERP professionals"
+        },
+        "body": {
+          "fr": "Consultants, analystes fonctionnels et professionnels ERP souhaitant développer une spécialisation SAP PP.",
+          "en": "Consultants, functional analysts and ERP professionals looking to build an SAP PP specialization."
+        }
+      },
+      {
+        "icon": "cap",
+        "title": {
+          "fr": "Étudiants et jeunes diplômés",
+          "en": "Students and recent graduates"
+        },
+        "body": {
+          "fr": "Supply chain, génie industriel, gestion de production, opérations et systèmes d’information.",
+          "en": "Supply chain, industrial engineering, production management, operations and information systems."
+        }
+      },
+      {
+        "icon": "refresh",
+        "title": {
+          "fr": "Professionnels en transition",
+          "en": "Professionals in transition"
+        },
+        "body": {
+          "fr": "Personnes possédant déjà une expérience métier ou ERP et souhaitant développer des compétences SAP.",
+          "en": "People with existing business or ERP experience who want to build SAP skills."
+        }
+      }
+    ],
+    "script": {
+      "fr": "Des processus réels. Des compétences concrètes. Des opportunités durables.",
+      "en": "Real processes. Concrete skills. Lasting opportunities."
+    }
+  },
+  "outcomes": {
+    "title": {
+      "fr": "Ce que vous saurez faire",
+      "en": "What you will be able to do"
+    },
+    "items": [
+      {
+        "fr": "Comprendre le processus de planification end-to-end (Demande → PIR → MRP → Planned Orders → Production Orders → Exécution).",
+        "en": "Understand the end-to-end planning process (Demand → PIR → MRP → Planned Orders → Production Orders → Execution)."
+      },
+      {
+        "fr": "Comprendre et utiliser les principales données de base (Material Master, BOM, Work Center, Routing, Production Version).",
+        "en": "Understand and use the core master data (Material Master, BOM, Work Center, Routing, Production Version)."
+      },
+      {
+        "fr": "Maîtriser la planification (Demand Management, MRP, besoins en composants et capacités).",
+        "en": "Work confidently with planning (Demand Management, MRP, component requirements and capacity)."
+      },
+      {
+        "fr": "Comprendre l’exécution de la production (création, libération, mouvements, confirmations, clôture).",
+        "en": "Understand production execution (creation, release, goods movements, confirmations, closing)."
+      },
+      {
+        "fr": "Différencier les principaux scénarios (MTS, MTO, fabrication discrète).",
+        "en": "Tell the main scenarios apart (MTS, MTO, discrete manufacturing)."
+      }
+    ]
+  },
+  "curriculum": {
+    "eyebrow": {
+      "fr": "Programme",
+      "en": "Programme"
+    },
+    "title": {
+      "fr": "Le parcours SAP PP — {hours} heures",
+      "en": "The SAP PP programme — {hours} hours"
+    },
+    "lead": {
+      "fr": "Un programme structuré en 5 phases, basé sur les ressources officielles SAP et adapté aux réalités métier.",
+      "en": "Five structured phases, based on official SAP resources and grounded in real business practice."
+    },
+    "phases": [
+      {
+        "phase": {
+          "fr": "Phase 1",
+          "en": "Phase 1"
+        },
+        "title": {
+          "fr": "Comprendre SAP S/4HANA et la production",
+          "en": "Understanding SAP S/4HANA and production"
+        },
+        "sessions": {
+          "fr": "Séances 1 à 3",
+          "en": "Sessions 1 to 3"
+        },
+        "body": {
+          "fr": "Situer SAP S/4HANA, la logique d’un ERP et la place de la production dans les processus d’entreprise. Navigation, organisation des données et vocabulaire métier.",
+          "en": "Where SAP S/4HANA fits, how an ERP is structured, and the place of production within business processes. Navigation, data organization and business vocabulary."
+        }
+      },
+      {
+        "phase": {
+          "fr": "Phase 2",
+          "en": "Phase 2"
+        },
+        "title": {
+          "fr": "Construire les données de base (Master Data)",
+          "en": "Building the master data"
+        },
+        "sessions": {
+          "fr": "Séances 4 à 7",
+          "en": "Sessions 4 to 7"
+        },
+        "body": {
+          "fr": "Fiche article (Material Master), nomenclatures (BOM), postes de travail (Work Center), gammes (Routing) et version de production (Production Version). Comprendre pourquoi la qualité des données conditionne le résultat de la planification.",
+          "en": "Material Master, bills of material, Work Centers, Routings and Production Versions. Why data quality determines what planning can deliver."
+        }
+      },
+      {
+        "phase": {
+          "fr": "Phase 3",
+          "en": "Phase 3"
+        },
+        "title": {
+          "fr": "Planifier la production",
+          "en": "Planning production"
+        },
+        "sessions": {
+          "fr": "Séances 8 à 12",
+          "en": "Sessions 8 to 12"
+        },
+        "body": {
+          "fr": "Demand Management, PIR, exécution du MRP, lecture et interprétation des propositions, planification des capacités et arbitrages.",
+          "en": "Demand Management, PIRs, running MRP, reading and interpreting the proposals, capacity planning and trade-offs."
+        }
+      },
+      {
+        "phase": {
+          "fr": "Phase 4",
+          "en": "Phase 4"
+        },
+        "title": {
+          "fr": "Exécuter la production",
+          "en": "Executing production"
+        },
+        "sessions": {
+          "fr": "Séances 13 à 17",
+          "en": "Sessions 13 to 17"
+        },
+        "body": {
+          "fr": "Conversion des Planned Orders, libération des Production Orders, mouvements de composants, confirmations d’opérations, réception et clôture technique.",
+          "en": "Converting Planned Orders, releasing Production Orders, component movements, operation confirmations, goods receipt and technical closing."
+        }
+      },
+      {
+        "phase": {
+          "fr": "Phase 5",
+          "en": "Phase 5"
+        },
+        "title": {
+          "fr": "Scénarios end-to-end et consolidation",
+          "en": "End-to-end scenarios and consolidation"
+        },
+        "sessions": {
+          "fr": "Séances 18 à 20",
+          "en": "Sessions 18 to 20"
+        },
+        "body": {
+          "fr": "Scénarios MTS et MTO complets, fabrication discrète, analyse des écarts et consolidation de l’ensemble du parcours.",
+          "en": "Complete MTS and MTO scenarios, discrete manufacturing, variance analysis and consolidation of the whole programme."
+        }
+      }
+    ],
+    "sessionStructure": [
+      {
+        "fr": "Concepts",
+        "en": "Concepts"
+      },
+      {
+        "fr": "Démonstration SAP",
+        "en": "SAP demonstration"
+      },
+      {
+        "fr": "Exercice",
+        "en": "Exercise"
+      },
+      {
+        "fr": "Résultat attendu",
+        "en": "Expected outcome"
+      }
+    ],
+    "sessionStructureLabel": {
+      "fr": "Structure de chaque séance",
+      "en": "How each session is built"
+    }
+  },
+  "practice": {
+    "eyebrow": {
+      "fr": "Cas pratique",
+      "en": "Worked example"
+    },
+    "imageAlt": {
+      "fr": "Deux participants travaillant sur un cas pratique de production",
+      "en": "Two participants working through a production case study"
+    },
+    "title": {
+      "fr": "La pratique au cœur du parcours",
+      "en": "Practice at the centre of the programme"
+    },
+    "tagline": {
+      "fr": "Vous n’apprenez pas SAP uniquement avec des diapositives.",
+      "en": "You do not learn SAP from slides alone."
+    },
+    "body": {
+      "fr": "Des démonstrations et exercices basés sur des scénarios concrets de production dans SAP S/4HANA.",
+      "en": "Demonstrations and exercises built on concrete production scenarios in SAP S/4HANA."
+    },
+    "caseTitle": {
+      "fr": "Exemple de cas pratique : planifier et produire un produit fini",
+      "en": "Worked example: planning and producing a finished good"
+    },
+    "steps": [
+      {
+        "fr": "Analyser la demande",
+        "en": "Analyse the demand"
+      },
+      {
+        "fr": "Exécuter le MRP",
+        "en": "Run MRP"
+      },
+      {
+        "fr": "Analyser les propositions",
+        "en": "Analyse the proposals"
+      },
+      {
+        "fr": "Convertir le Planned Order",
+        "en": "Convert the Planned Order"
+      },
+      {
+        "fr": "Libérer le Production Order",
+        "en": "Release the Production Order"
+      },
+      {
+        "fr": "Exécuter la production",
+        "en": "Execute production"
+      },
+      {
+        "fr": "Confirmer les opérations",
+        "en": "Confirm the operations"
+      },
+      {
+        "fr": "Réceptionner le produit fini",
+        "en": "Receive the finished good"
+      }
+    ]
+  },
+  "approach": {
+    "title": {
+      "fr": "Notre approche pédagogique",
+      "en": "Our teaching approach"
+    },
+    "tagline": {
+      "fr": "Comprendre. Pratiquer. Être accompagné.",
+      "en": "Understand. Practise. Be supported."
+    },
+    "items": [
+      {
+        "icon": "book",
+        "title": {
+          "fr": "Comprendre",
+          "en": "Understand"
+        },
+        "body": {
+          "fr": "Les processus métiers avant de simplement apprendre où cliquer.",
+          "en": "The business processes, before learning where to click."
+        }
+      },
+      {
+        "icon": "gear",
+        "title": {
+          "fr": "Pratiquer",
+          "en": "Practise"
+        },
+        "body": {
+          "fr": "Avec des exercices et des scénarios inspirés de l’entreprise.",
+          "en": "With exercises and scenarios drawn from real business cases."
+        }
+      },
+      {
+        "icon": "people",
+        "title": {
+          "fr": "Être accompagné",
+          "en": "Be supported"
+        },
+        "body": {
+          "fr": "Avec un suivi structuré et une communauté d’échange.",
+          "en": "With structured follow-up and a community to learn alongside."
+        }
+      }
+    ]
+  },
+  "resources": {
+    "eyebrow": {
+      "fr": "Ressources",
+      "en": "Resources"
+    },
+    "title": {
+      "fr": "Des ressources SAP officielles",
+      "en": "Official SAP resources"
+    },
+    "body": {
+      "fr": "Un parcours construit autour de SAP Learning. Nous utilisons les ressources officielles SAP Learning pour garantir une progression cohérente avec les concepts et processus SAP S/4HANA.",
+      "en": "The programme is built around SAP Learning. We use the official SAP Learning resources so that your progression stays consistent with SAP S/4HANA concepts and processes."
+    },
+    "chain": [
+      {
+        "fr": "SAP Learning",
+        "en": "SAP Learning"
+      },
+      {
+        "fr": "Coaching Lagni",
+        "en": "Lagni coaching"
+      },
+      {
+        "fr": "Exercices",
+        "en": "Exercises"
+      },
+      {
+        "fr": "Pratique SAP",
+        "en": "SAP practice"
+      },
+      {
+        "fr": "Progression",
+        "en": "Progression"
+      }
+    ]
+  },
+  "certification": {
+    "title": {
+      "fr": "Formation et certification : deux étapes complémentaires",
+      "en": "Training and certification: two complementary steps"
+    },
+    "body": {
+      "fr": "Notre formation développe les connaissances et compétences SAP PP. La certification SAP est un processus distinct, administré exclusivement par SAP selon ses propres conditions.",
+      "en": "Our training builds SAP PP knowledge and skills. SAP certification is a separate process, administered exclusively by SAP under its own terms."
+    },
+    "disclaimer": {
+      "fr": "Lagni Consulting n’est pas affiliée à SAP et ne délivre aucune certification SAP. La formation ne garantit ni la réussite d’un examen, ni l’obtention d’une certification.",
+      "en": "Lagni Consulting is not affiliated with SAP and does not issue SAP certifications. This training guarantees neither passing an exam nor obtaining a certification."
+    },
+    "cta": {
+      "fr": "En savoir plus sur la certification",
+      "en": "More about certification"
+    }
+  },
+  "support": {
+    "eyebrow": {
+      "fr": "Accompagnement",
+      "en": "Support"
+    },
+    "title": {
+      "fr": "L’accompagnement continue",
+      "en": "The support continues"
+    },
+    "lead": {
+      "fr": "La formation se termine. L’accompagnement continue.",
+      "en": "The training ends. The support continues."
+    },
+    "items": [
+      {
+        "fr": "{hours} heures de formation structurée",
+        "en": "{hours} hours of structured training"
+      },
+      {
+        "fr": "{supportMonths} mois d’accompagnement",
+        "en": "{supportMonths} months of follow-up"
+      },
+      {
+        "fr": "Sessions collectives (questions, révisions, approfondissement)",
+        "en": "Group sessions (questions, review, deeper dives)"
+      },
+      {
+        "fr": "Accompagnement individuel (points personnalisés)",
+        "en": "Individual check-ins"
+      },
+      {
+        "fr": "Communauté d’échange entre participants",
+        "en": "A community of fellow participants"
+      }
+    ],
+    "note": {
+      "fr": "Les modalités exactes d’accompagnement sont confirmées au moment de l’inscription.",
+      "en": "Exact support arrangements are confirmed at the point of registration."
+    }
+  },
+  "trainer": {
+    "eyebrow": {
+      "fr": "Le formateur",
+      "en": "Your trainer"
+    },
+    "title": {
+      "fr": "Une formation portée par l’expérience ERP",
+      "en": "Training grounded in ERP experience"
+    },
+    "points": [
+      {
+        "fr": "15+ ans d’expérience ERP",
+        "en": "15+ years of ERP experience"
+      },
+      {
+        "fr": "SAP S/4HANA Production Planning",
+        "en": "SAP S/4HANA Production Planning"
+      },
+      {
+        "fr": "Oracle JD Edwards",
+        "en": "Oracle JD Edwards"
+      },
+      {
+        "fr": "Expérience de projets d’implantation",
+        "en": "Implementation project experience"
+      }
+    ],
+    "body": {
+      "fr": "Plus de 15 années d’expérience dans les systèmes ERP, une participation à des projets d’implantation end-to-end et une approche qui combine processus métiers, systèmes, gestion de projet et transmission des connaissances.",
+      "en": "More than 15 years of experience with ERP systems, hands-on involvement in end-to-end implementation projects, and an approach that combines business processes, systems, project management and knowledge transfer."
+    },
+    "cta": {
+      "fr": "En savoir plus sur le formateur",
+      "en": "More about the trainer"
+    }
+  },
+  "paths": {
+    "eyebrow": {
+      "fr": "Formules",
+      "en": "Formats"
+    },
+    "body": {
+      "fr": "Rejoignez une cohorte ouverte ou organisez un groupe dédié pour votre établissement ou votre entreprise.",
+      "en": "Join an open cohort or organize a dedicated group for your institution or company."
+    },
+    "title": {
+      "fr": "Deux façons de se former",
+      "en": "Two ways to train"
+    },
+    "items": [
+      {
+        "title": {
+          "fr": "Particuliers",
+          "en": "Individuals"
+        },
+        "subtitle": {
+          "fr": "Rejoindre une cohorte",
+          "en": "Join a cohort"
+        },
+        "items": [
+          {
+            "fr": "Formation {hours} heures",
+            "en": "{hours} hours of training"
+          },
+          {
+            "fr": "Exercices pratiques",
+            "en": "Hands-on exercises"
+          },
+          {
+            "fr": "Accompagnement {supportMonths} mois",
+            "en": "{supportMonths} months of support"
+          },
+          {
+            "fr": "Communauté d’échange",
+            "en": "Participant community"
+          },
+          {
+            "fr": "Préparation à la suite du parcours SAP",
+            "en": "Preparation for the next steps in your SAP path"
+          }
+        ],
+        "cta": {
+          "fr": "Recevoir les informations",
+          "en": "Request the details"
+        },
+        "tone": "orange"
+      },
+      {
+        "title": {
+          "fr": "Établissements & entreprises",
+          "en": "Institutions & companies"
+        },
+        "subtitle": {
+          "fr": "Organiser une cohorte dédiée",
+          "en": "Run a dedicated cohort"
+        },
+        "items": [
+          {
+            "fr": "Programme adaptable",
+            "en": "Adaptable programme"
+          },
+          {
+            "fr": "Calendrier adapté",
+            "en": "Schedule to suit you"
+          },
+          {
+            "fr": "À distance ou dans votre établissement",
+            "en": "Remote or on your premises"
+          },
+          {
+            "fr": "Groupe dédié",
+            "en": "Dedicated group"
+          },
+          {
+            "fr": "Support pédagogique",
+            "en": "Teaching support"
+          }
+        ],
+        "cta": {
+          "fr": "Discuter d’un partenariat",
+          "en": "Discuss a partnership"
+        },
+        "tone": "blue"
+      }
+    ]
+  },
+  "testimonials": {
+    "title": {
+      "fr": "Ils nous font confiance",
+      "en": "What participants say"
+    }
+  },
+  "faqHelp": {
+    "title": {
+      "fr": "Une question avant de vous inscrire ?",
+      "en": "A question before you sign up?"
+    },
+    "body": {
+      "fr": "Écrivez-nous : nous répondons aux demandes professionnelles dans un délai de 1 à 2 jours ouvrables.",
+      "en": "Write to us — we reply to professional enquiries within one to two business days."
+    },
+    "cta": {
+      "fr": "Poser ma question",
+      "en": "Ask your question"
+    }
+  },
+  "faq": {
+    "eyebrow": {
+      "fr": "FAQ",
+      "en": "FAQ"
+    },
+    "lead": {
+      "fr": "Les réponses aux questions les plus fréquentes sur le parcours, l’accès à SAP et la certification.",
+      "en": "Answers to the most common questions about the programme, SAP access and certification."
+    },
+    "title": {
+      "fr": "Vos questions, nos réponses",
+      "en": "Your questions, answered"
+    }
+  },
+  "finalCta": {
+    "title": {
+      "fr": "Votre parcours SAP PP peut commencer ici.",
+      "en": "Your SAP PP path can start here."
+    },
+    "body": {
+      "fr": "Développez une compréhension pratique de SAP S/4HANA Production Planning et bénéficiez d’un accompagnement structuré dans votre progression.",
+      "en": "Build a practical understanding of SAP S/4HANA Production Planning with structured support along the way."
+    },
+    "ctaPrimary": {
+      "fr": "Recevoir le programme complet",
+      "en": "Request the full syllabus"
+    },
+    "ctaSecondary": {
+      "fr": "Parler à Lagni Consulting",
+      "en": "Talk to Lagni Consulting"
+    },
+    "script": {
+      "fr": "Former aujourd’hui. Bâtir demain.",
+      "en": "Train today. Build tomorrow."
+    }
+  }
+}

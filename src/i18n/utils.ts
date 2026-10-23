@@ -1,38 +1,21 @@
 import type { Lang } from './routes';
-import { fr, type FrDict, type Widen } from './fr';
-import { en } from './en';
-import { pagesFr } from './pages/fr';
-import { pagesEn } from './pages/en';
-import { fillDeep } from '../lib/settings';
+import { pagesFor, sharedFor, type Pages, type Shared } from '../lib/copy';
 
 /**
- * Figures are interpolated once per language, not per component: `usePages` is
- * called from almost every frontmatter block, and the dictionaries are large.
+ * Shared strings: nav, footer, forms, credentials.
+ * The copy itself lives in src/content/copy/ so it can be edited from
+ * /admin/contenu/; src/lib/copy.ts validates it and picks the language.
  */
-const cache = new Map<string, unknown>();
-function filled<T>(key: string, dict: T): T {
-  let hit = cache.get(key);
-  if (!hit) {
-    hit = fillDeep(dict);
-    cache.set(key, hit);
-  }
-  return hit as T;
+export function useTranslations(lang: Lang): Shared {
+  return sharedFor(lang);
 }
 
-/** Shared strings: nav, footer, forms, proof blocks. */
-export function useTranslations(lang: Lang): FrDict {
-  return filled(`t-${lang}`, (lang === 'fr' ? fr : en) as FrDict);
-}
-
-/**
- * Page-specific copy, one module per page.
- * The return type widens string literals so FR and EN share one shape.
- */
-export type Pages = Widen<typeof pagesFr>;
-
+/** Page-specific copy, one entry per route. */
 export function usePages(lang: Lang): Pages {
-  return filled(`p-${lang}`, (lang === 'fr' ? pagesFr : pagesEn) as Pages);
+  return pagesFor(lang);
 }
+
+export type { Pages, Shared };
 
 export function otherLang(lang: Lang): Lang {
   return lang === 'fr' ? 'en' : 'fr';

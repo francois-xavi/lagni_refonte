@@ -1,0 +1,951 @@
+{
+  "seo": {
+    "title": {
+      "fr": "ERP & Solutions — conseil SAP, JD Edwards, Odoo et CRM | Lagni Consulting",
+      "en": "ERP & Solutions — SAP, JD Edwards, Odoo and CRM consulting | Lagni Consulting"
+    },
+    "description": {
+      "fr": "De l’analyse des besoins à l’adoption par les utilisateurs : expertise ERP, CRM et SaaS, avec une spécialisation en processus de production.",
+      "en": "From needs analysis to user adoption: ERP, CRM and SaaS expertise, with a specialization in production processes."
+    }
+  },
+  "hero": {
+    "eyebrow": {
+      "fr": "ERP, CRM & applications d’entreprise",
+      "en": "ERP, CRM & enterprise applications"
+    },
+    "title": {
+      "fr": "Conseil ERP et CRM, de l’analyse à l’adoption.",
+      "en": "ERP and CRM consulting, from analysis to adoption."
+    },
+    "lead": {
+      "fr": "Vos systèmes doivent servir vos processus, pas l’inverse. Lagni Consulting accompagne les organisations dans leurs projets SAP, JD Edwards, Odoo et CRM, en combinant compréhension des processus métiers, gestion de projet et accompagnement du changement.",
+      "en": "Your systems should serve your processes, not the other way round. Lagni Consulting supports organizations through SAP, JD Edwards, Odoo and CRM projects, combining an understanding of business processes with project management and change support."
+    },
+    "ctaPrimary": {
+      "fr": "Parler de votre projet",
+      "en": "Discuss your project"
+    },
+    "ctaSecondary": {
+      "fr": "Découvrir notre expertise",
+      "en": "Explore our expertise"
+    },
+    "imageAlt": {
+      "fr": "Ingénieur consultant des écrans de supervision de production en usine",
+      "en": "Engineer reviewing production monitoring screens in a plant"
+    },
+    "panel": [
+      {
+        "fr": "Processus métiers",
+        "en": "Business processes"
+      },
+      {
+        "fr": "Technologies ERP & CRM",
+        "en": "ERP & CRM technology"
+      },
+      {
+        "fr": "Gestion de projet",
+        "en": "Project management"
+      },
+      {
+        "fr": "Adoption par les utilisateurs",
+        "en": "User adoption"
+      },
+      {
+        "fr": "Résultats concrets",
+        "en": "Concrete results"
+      }
+    ],
+    "script": {
+      "fr": "Des processus plus efficaces. Des équipes plus performantes.",
+      "en": "Sharper processes. Stronger teams."
+    },
+    "trustItems": [
+      {
+        "icon": "layers",
+        "label": {
+          "fr": "Processus métiers",
+          "en": "Business processes"
+        }
+      },
+      {
+        "icon": "database",
+        "label": {
+          "fr": "ERP & CRM",
+          "en": "ERP & CRM"
+        }
+      },
+      {
+        "icon": "people",
+        "label": {
+          "fr": "Adoption",
+          "en": "Adoption"
+        }
+      }
+    ],
+    "matchLabel": {
+      "fr": "Notre méthode",
+      "en": "Our method"
+    },
+    "matchTitle": {
+      "fr": "Comprendre · Concevoir · Déployer · Adopter",
+      "en": "Understand · Design · Deploy · Adopt"
+    },
+    "matchPills": [
+      {
+        "fr": "Fit-Gap",
+        "en": "Fit-Gap"
+      },
+      {
+        "fr": "SIT / UAT",
+        "en": "SIT / UAT"
+      },
+      {
+        "fr": "Cutover",
+        "en": "Cutover"
+      }
+    ],
+    "profileBadge": {
+      "fr": "ERP",
+      "en": "ERP"
+    },
+    "profileLabel": {
+      "fr": "Expertise",
+      "en": "Expertise"
+    },
+    "profileTitle": {
+      "fr": "SAP · JD Edwards · Odoo",
+      "en": "SAP · JD Edwards · Odoo"
+    },
+    "profileStatus": {
+      "fr": "Implantations end-to-end",
+      "en": "End-to-end implementations"
+    }
+  },
+  "proof": {
+    "label": {
+      "fr": "Pourquoi Lagni Consulting ?",
+      "en": "Why Lagni Consulting?"
+    },
+    "items": [
+      {
+        "figure": {
+          "fr": "15+",
+          "en": "15+"
+        },
+        "label": {
+          "fr": "ans d’expérience ERP",
+          "en": "years of ERP experience"
+        },
+        "lord": "experience",
+        "count": true
+      },
+      {
+        "figure": {
+          "fr": "End-to-end",
+          "en": "End-to-end"
+        },
+        "label": {
+          "fr": "implantations",
+          "en": "implementations"
+        },
+        "lord": "tools"
+      },
+      {
+        "figure": {
+          "fr": "Métier + Tech",
+          "en": "Business + Tech"
+        },
+        "label": {
+          "fr": "double expertise",
+          "en": "dual expertise"
+        },
+        "lord": "network"
+      },
+      {
+        "figure": {
+          "fr": "PMP®",
+          "en": "PMP®"
+        },
+        "label": {
+          "fr": "et certifications SAP",
+          "en": "and SAP certifications"
+        },
+        "lord": "medal"
+      }
+    ]
+  },
+  "method": {
+    "eyebrow": {
+      "fr": "Notre approche",
+      "en": "Our approach"
+    },
+    "title": {
+      "fr": "De la technologie aux résultats opérationnels",
+      "en": "From technology to operational results"
+    },
+    "lead": {
+      "fr": "Une méthodologie structurée pour des projets mieux maîtrisés et une adoption durable.",
+      "en": "A structured method for better-controlled projects and durable adoption."
+    },
+    "steps": [
+      {
+        "n": "01",
+        "title": {
+          "fr": "Comprendre",
+          "en": "Understand"
+        },
+        "icon": "search",
+        "items": [
+          {
+            "fr": "Processus actuels",
+            "en": "Current processes"
+          },
+          {
+            "fr": "Besoins métiers",
+            "en": "Business needs"
+          },
+          {
+            "fr": "Points de friction",
+            "en": "Friction points"
+          },
+          {
+            "fr": "Objectifs",
+            "en": "Objectives"
+          }
+        ]
+      },
+      {
+        "n": "02",
+        "title": {
+          "fr": "Concevoir",
+          "en": "Design"
+        },
+        "icon": "bulb",
+        "items": [
+          {
+            "fr": "Processus cibles",
+            "en": "Target processes"
+          },
+          {
+            "fr": "Fit-to-Standard / Fit-Gap",
+            "en": "Fit-to-Standard / Fit-Gap"
+          },
+          {
+            "fr": "Solution fonctionnelle",
+            "en": "Functional solution"
+          },
+          {
+            "fr": "Plan d’implantation",
+            "en": "Implementation plan"
+          }
+        ]
+      },
+      {
+        "n": "03",
+        "title": {
+          "fr": "Déployer",
+          "en": "Deploy"
+        },
+        "icon": "gear",
+        "items": [
+          {
+            "fr": "Configuration",
+            "en": "Configuration"
+          },
+          {
+            "fr": "Tests (SIT / UAT)",
+            "en": "Testing (SIT / UAT)"
+          },
+          {
+            "fr": "Migration",
+            "en": "Migration"
+          },
+          {
+            "fr": "Cutover",
+            "en": "Cutover"
+          }
+        ]
+      },
+      {
+        "n": "04",
+        "title": {
+          "fr": "Adopter",
+          "en": "Adopt"
+        },
+        "icon": "people",
+        "items": [
+          {
+            "fr": "Formation",
+            "en": "Training"
+          },
+          {
+            "fr": "Support",
+            "en": "Support"
+          },
+          {
+            "fr": "Documentation",
+            "en": "Documentation"
+          },
+          {
+            "fr": "Amélioration continue",
+            "en": "Continuous improvement"
+          }
+        ]
+      }
+    ],
+    "quote": {
+      "fr": "La technologie crée de la valeur lorsqu’elle est réellement utilisée par les équipes.",
+      "en": "Technology creates value when teams actually use it."
+    }
+  },
+  "portfolio": {
+    "eyebrow": {
+      "fr": "Nos solutions",
+      "en": "Our solutions"
+    },
+    "title": {
+      "fr": "Un portefeuille de solutions adapté à vos besoins",
+      "en": "A portfolio of solutions shaped around your needs"
+    },
+    "lead": {
+      "fr": "Nous combinons une expertise ERP approfondie avec des solutions complémentaires pour répondre à vos enjeux d’affaires.",
+      "en": "We combine deep ERP expertise with complementary solutions to answer your business challenges."
+    },
+    "families": [
+      {
+        "label": {
+          "fr": "Notre expertise ERP",
+          "en": "Our ERP expertise"
+        },
+        "sub": {
+          "fr": "Des années d’expérience sur des projets concrets.",
+          "en": "Years of experience on real projects."
+        }
+      },
+      {
+        "label": {
+          "fr": "CRM & automatisation",
+          "en": "CRM & automation"
+        },
+        "sub": {
+          "fr": "Développer votre relation client.",
+          "en": "Grow your customer relationships."
+        }
+      },
+      {
+        "label": {
+          "fr": "SaaS & applications",
+          "en": "SaaS & applications"
+        },
+        "sub": {
+          "fr": "Des solutions innovantes.",
+          "en": "Innovative solutions."
+        }
+      }
+    ],
+    "items": [
+      {
+        "slug": "sap",
+        "name": {
+          "fr": "SAP S/4HANA",
+          "en": "SAP S/4HANA"
+        },
+        "family": 0,
+        "title": {
+          "fr": "Production Planning & Manufacturing",
+          "en": "Production Planning & Manufacturing"
+        },
+        "body": {
+          "fr": "Planification et exécution de la production, données de base, MRP, capacité, ordres de production et intégration avec les processus connexes.",
+          "en": "Production planning and execution, master data, MRP, capacity, production orders and integration with adjacent processes."
+        },
+        "tags": [
+          {
+            "fr": "PP",
+            "en": "PP"
+          },
+          {
+            "fr": "Manufacturing",
+            "en": "Manufacturing"
+          },
+          {
+            "fr": "QM",
+            "en": "QM"
+          },
+          {
+            "fr": "Données de base (Master Data)",
+            "en": "Master data"
+          },
+          {
+            "fr": "Tests",
+            "en": "Testing"
+          },
+          {
+            "fr": "Migration",
+            "en": "Migration"
+          }
+        ],
+        "cta": {
+          "fr": "Discuter d’un projet SAP",
+          "en": "Discuss an SAP project"
+        }
+      },
+      {
+        "slug": "jde",
+        "name": {
+          "fr": "Oracle JD Edwards",
+          "en": "Oracle JD Edwards"
+        },
+        "family": 0,
+        "title": {
+          "fr": "Une expertise ERP éprouvée",
+          "en": "Proven ERP expertise"
+        },
+        "body": {
+          "fr": "Une solide expérience sur plusieurs cycles d’implantation, notamment dans les domaines de la distribution et de la fabrication.",
+          "en": "Solid experience across several implementation cycles, particularly in distribution and manufacturing."
+        },
+        "tags": [
+          {
+            "fr": "Distribution",
+            "en": "Distribution"
+          },
+          {
+            "fr": "Manufacturing",
+            "en": "Manufacturing"
+          },
+          {
+            "fr": "Processus métiers",
+            "en": "Business processes"
+          },
+          {
+            "fr": "Implémentation",
+            "en": "Implementation"
+          },
+          {
+            "fr": "Tests",
+            "en": "Testing"
+          },
+          {
+            "fr": "Formation",
+            "en": "Training"
+          },
+          {
+            "fr": "Support",
+            "en": "Support"
+          }
+        ],
+        "cta": {
+          "fr": "Discuter d’un projet JD Edwards",
+          "en": "Discuss a JD Edwards project"
+        }
+      },
+      {
+        "slug": "odoo",
+        "name": {
+          "fr": "Odoo",
+          "en": "Odoo"
+        },
+        "family": 0,
+        "title": {
+          "fr": "Un ERP modulaire et intégré",
+          "en": "A modular, integrated ERP"
+        },
+        "body": {
+          "fr": "Une solution flexible pour gérer l’ensemble de vos processus d’entreprise : ventes, achats, inventaire, fabrication, comptabilité, projets.",
+          "en": "A flexible solution covering your business end to end: sales, purchasing, inventory, manufacturing, accounting and projects."
+        },
+        "tags": [
+          {
+            "fr": "Ventes",
+            "en": "Sales"
+          },
+          {
+            "fr": "Inventaire",
+            "en": "Inventory"
+          },
+          {
+            "fr": "Fabrication",
+            "en": "Manufacturing"
+          },
+          {
+            "fr": "Comptabilité",
+            "en": "Accounting"
+          },
+          {
+            "fr": "Projets",
+            "en": "Projects"
+          }
+        ],
+        "cta": {
+          "fr": "Discuter d’un projet Odoo",
+          "en": "Discuss an Odoo project"
+        }
+      },
+      {
+        "slug": "gohighlevel",
+        "name": {
+          "fr": "GoHighLevel",
+          "en": "GoHighLevel"
+        },
+        "family": 1,
+        "title": {
+          "fr": "CRM et automatisation marketing",
+          "en": "CRM and marketing automation"
+        },
+        "body": {
+          "fr": "Une plateforme tout-en-un pour gérer vos prospects, vos communications et vos processus marketing.",
+          "en": "An all-in-one platform to manage your leads, your communications and your marketing processes."
+        },
+        "tags": [
+          {
+            "fr": "CRM",
+            "en": "CRM"
+          },
+          {
+            "fr": "Pipelines de vente",
+            "en": "Sales pipelines"
+          },
+          {
+            "fr": "Conversations unifiées",
+            "en": "Unified conversations"
+          },
+          {
+            "fr": "Automatisation",
+            "en": "Automation"
+          },
+          {
+            "fr": "Suivi des leads",
+            "en": "Lead tracking"
+          }
+        ],
+        "cta": {
+          "fr": "Discuter d’un projet GoHighLevel",
+          "en": "Discuss a GoHighLevel project"
+        }
+      },
+      {
+        "slug": "chataap",
+        "name": {
+          "fr": "Chataap",
+          "en": "Chataap"
+        },
+        "family": 2,
+        "title": {
+          "fr": "L’IA au service de votre entreprise",
+          "en": "AI at the service of your business"
+        },
+        "body": {
+          "fr": "Solution SaaS centrée sur WhatsApp pour automatiser vos conversations professionnelles, répondre avec l’IA et assurer un suivi structuré.",
+          "en": "A WhatsApp-centred SaaS solution to automate professional conversations, respond with AI and keep follow-up structured."
+        },
+        "tags": [
+          {
+            "fr": "Boîte de réception partagée",
+            "en": "Shared inbox"
+          },
+          {
+            "fr": "Réponses IA",
+            "en": "AI replies"
+          },
+          {
+            "fr": "Suivi programmé",
+            "en": "Scheduled follow-up"
+          },
+          {
+            "fr": "API / Webhooks",
+            "en": "API / Webhooks"
+          }
+        ],
+        "cta": {
+          "fr": "Discuter d’un projet Chataap",
+          "en": "Discuss a Chataap project"
+        }
+      }
+    ]
+  },
+  "services": {
+    "eyebrow": {
+      "fr": "Nos services",
+      "en": "Our services"
+    },
+    "title": {
+      "fr": "Des services sur tout le cycle du projet",
+      "en": "Services across the whole project cycle"
+    },
+    "lead": {
+      "fr": "De l’analyse des besoins au support après le déploiement, une présence à chaque étape.",
+      "en": "From needs analysis to post-go-live support, we are there at every step."
+    },
+    "imageAlt": {
+      "fr": "Équipe projet cartographiant un processus métier sur un mur vitré",
+      "en": "Project team mapping a business process on a glass wall"
+    },
+    "items": [
+      {
+        "icon": "doc",
+        "title": {
+          "fr": "Analyse fonctionnelle",
+          "en": "Functional analysis"
+        },
+        "body": {
+          "fr": "Comprendre les besoins métiers et les traduire en exigences fonctionnelles.",
+          "en": "Understand business needs and translate them into functional requirements."
+        }
+      },
+      {
+        "icon": "network",
+        "title": {
+          "fr": "Processus & Fit-Gap",
+          "en": "Process & Fit-Gap"
+        },
+        "body": {
+          "fr": "Comparer les processus existants aux capacités de la solution et identifier les écarts.",
+          "en": "Compare existing processes against the solution’s capabilities and identify the gaps."
+        }
+      },
+      {
+        "icon": "clipboard",
+        "title": {
+          "fr": "Tests (SIT / UAT)",
+          "en": "Testing (SIT / UAT)"
+        },
+        "body": {
+          "fr": "Préparer et coordonner les scénarios de tests, SIT et UAT.",
+          "en": "Prepare and coordinate test scenarios, SIT and UAT."
+        }
+      },
+      {
+        "icon": "database",
+        "title": {
+          "fr": "Migration & Cutover",
+          "en": "Migration & cutover"
+        },
+        "body": {
+          "fr": "Participer à la préparation des données, aux validations et au passage en production.",
+          "en": "Support data preparation, validation and the move into production."
+        }
+      },
+      {
+        "icon": "cap",
+        "title": {
+          "fr": "Formation & Adoption",
+          "en": "Training & adoption"
+        },
+        "body": {
+          "fr": "Préparer les utilisateurs et faciliter l’adoption de la nouvelle solution.",
+          "en": "Prepare users and make adoption of the new solution easier."
+        }
+      },
+      {
+        "icon": "chart",
+        "title": {
+          "fr": "Support & amélioration continue",
+          "en": "Support & continuous improvement"
+        },
+        "body": {
+          "fr": "Accompagner la stabilisation et l’évolution des processus après déploiement.",
+          "en": "Support stabilization and the evolution of processes after go-live."
+        }
+      }
+    ]
+  },
+  "specialisation": {
+    "eyebrow": {
+      "fr": "Spécialisation",
+      "en": "Specialization"
+    },
+    "title": {
+      "fr": "Une spécialisation : les processus de production",
+      "en": "One specialization: production processes"
+    },
+    "lead": {
+      "fr": "Une compréhension approfondie des processus de planification et d’exécution de la production.",
+      "en": "A deep understanding of production planning and execution."
+    },
+    "chain": [
+      {
+        "fr": "Demande",
+        "en": "Demand"
+      },
+      {
+        "fr": "Planification",
+        "en": "Planning"
+      },
+      {
+        "fr": "MRP",
+        "en": "MRP"
+      },
+      {
+        "fr": "Capacité",
+        "en": "Capacity"
+      },
+      {
+        "fr": "Ordre de production",
+        "en": "Production order"
+      },
+      {
+        "fr": "Exécution",
+        "en": "Execution"
+      },
+      {
+        "fr": "Qualité",
+        "en": "Quality"
+      },
+      {
+        "fr": "Réception",
+        "en": "Receipt"
+      }
+    ],
+    "systems": [
+      {
+        "fr": "SAP S/4HANA — PP / QM",
+        "en": "SAP S/4HANA — PP / QM"
+      },
+      {
+        "fr": "Oracle JD Edwards — Manufacturing",
+        "en": "Oracle JD Edwards — Manufacturing"
+      }
+    ]
+  },
+  "engagement": {
+    "eyebrow": {
+      "fr": "Modes d’intervention",
+      "en": "Engagement models"
+    },
+    "title": {
+      "fr": "Comment pouvons-nous intervenir ?",
+      "en": "How can we step in?"
+    },
+    "lead": {
+      "fr": "Des modèles d’intervention flexibles selon vos besoins.",
+      "en": "Flexible engagement models, depending on what you need."
+    },
+    "items": [
+      {
+        "icon": "person",
+        "title": {
+          "fr": "Expertise fonctionnelle",
+          "en": "Functional expertise"
+        },
+        "body": {
+          "fr": "Besoin ponctuel d’un analyste ou d’une expertise ERP.",
+          "en": "A targeted need for an analyst or ERP expertise."
+        },
+        "cta": {
+          "fr": "Discuter du besoin",
+          "en": "Discuss the need"
+        }
+      },
+      {
+        "icon": "sliders",
+        "title": {
+          "fr": "Projet",
+          "en": "Project"
+        },
+        "body": {
+          "fr": "Accompagnement d’une phase ou d’un chantier ERP.",
+          "en": "Support on a phase or a workstream of an ERP project."
+        },
+        "cta": {
+          "fr": "Parler du projet",
+          "en": "Discuss the project"
+        }
+      },
+      {
+        "icon": "cap",
+        "title": {
+          "fr": "Formation",
+          "en": "Training"
+        },
+        "body": {
+          "fr": "Développement des compétences des utilisateurs ou équipes projet.",
+          "en": "Building skills for users or project teams."
+        },
+        "cta": {
+          "fr": "Former vos équipes",
+          "en": "Train your teams"
+        }
+      }
+    ]
+  },
+  "why": {
+    "title": {
+      "fr": "Pourquoi Lagni Consulting ?",
+      "en": "Why Lagni Consulting?"
+    },
+    "items": [
+      {
+        "icon": "trophy",
+        "label": {
+          "fr": "15+ ans d’expérience ERP",
+          "en": "15+ years of ERP experience"
+        }
+      },
+      {
+        "icon": "check",
+        "label": {
+          "fr": "Implantations end-to-end",
+          "en": "End-to-end implementations"
+        }
+      },
+      {
+        "icon": "people",
+        "label": {
+          "fr": "Expertise métier + technologie",
+          "en": "Business expertise + technology"
+        }
+      },
+      {
+        "icon": "badge",
+        "label": {
+          "fr": "PMP® + certifications SAP",
+          "en": "PMP® + SAP certifications"
+        }
+      }
+    ],
+    "quote": {
+      "fr": "Notre approche ne commence pas par le logiciel. Elle commence par le processus métier.",
+      "en": "Our approach does not start with the software. It starts with the business process."
+    }
+  },
+  "cases": {
+    "eyebrow": {
+      "fr": "Expériences",
+      "en": "Experience"
+    },
+    "title": {
+      "fr": "Exemples d’expériences (anonymisées)",
+      "en": "Examples of past work (anonymized)"
+    },
+    "lead": {
+      "fr": "Des projets réalisés dans différents secteurs et contextes.",
+      "en": "Projects delivered across different sectors and contexts."
+    },
+    "disclaimer": {
+      "fr": "Ces exemples décrivent des types de mandats et ne divulguent aucune information confidentielle. Des études de cas nominatives seront publiées uniquement avec l’autorisation des organisations concernées.",
+      "en": "These examples describe types of engagement and disclose no confidential information. Named case studies will be published only with the permission of the organizations concerned."
+    },
+    "items": [
+      {
+        "icon": "factory",
+        "title": {
+          "fr": "Fabrication & distribution",
+          "en": "Manufacturing & distribution"
+        },
+        "subtitle": {
+          "fr": "SAP S/4HANA Public Cloud",
+          "en": "SAP S/4HANA Public Cloud"
+        },
+        "tags": [
+          {
+            "fr": "MTS",
+            "en": "MTS"
+          },
+          {
+            "fr": "MTO",
+            "en": "MTO"
+          },
+          {
+            "fr": "MRP",
+            "en": "MRP"
+          },
+          {
+            "fr": "Production",
+            "en": "Production"
+          },
+          {
+            "fr": "QM",
+            "en": "QM"
+          },
+          {
+            "fr": "Migration",
+            "en": "Migration"
+          },
+          {
+            "fr": "Tests",
+            "en": "Testing"
+          },
+          {
+            "fr": "Adoption",
+            "en": "Adoption"
+          }
+        ]
+      },
+      {
+        "icon": "box",
+        "title": {
+          "fr": "Projet ERP",
+          "en": "ERP project"
+        },
+        "subtitle": {
+          "fr": "Oracle JD Edwards",
+          "en": "Oracle JD Edwards"
+        },
+        "tags": [
+          {
+            "fr": "Analyse fonctionnelle",
+            "en": "Functional analysis"
+          },
+          {
+            "fr": "Implantation",
+            "en": "Implementation"
+          },
+          {
+            "fr": "Tests",
+            "en": "Testing"
+          },
+          {
+            "fr": "Formation",
+            "en": "Training"
+          },
+          {
+            "fr": "Support",
+            "en": "Support"
+          }
+        ]
+      }
+    ]
+  },
+  "crossSell": {
+    "eyebrow": {
+      "fr": "Recrutement spécialisé",
+      "en": "Specialized recruitment"
+    },
+    "imageAlt": {
+      "fr": "Recruteuse en échange avec un candidat autour d’une table de réunion",
+      "en": "Recruiter in conversation with a candidate at a meeting table"
+    },
+    "title": {
+      "fr": "Vous cherchez plutôt un professionnel ERP ?",
+      "en": "Looking for an ERP professional instead?"
+    },
+    "body": {
+      "fr": "Lagni Consulting accompagne également les organisations dans l’identification de profils spécialisés ERP, CRM et transformation numérique.",
+      "en": "Lagni Consulting also helps organizations identify specialized ERP, CRM and digital transformation profiles."
+    },
+    "cta": {
+      "fr": "Découvrir le recrutement spécialisé",
+      "en": "Explore specialized recruitment"
+    }
+  },
+  "finalCta": {
+    "title": {
+      "fr": "Parlons de vos processus avant de parler de technologie.",
+      "en": "Let’s talk about your processes before we talk about technology."
+    },
+    "body": {
+      "fr": "Vous préparez une implantation, une migration, une amélioration de processus ou vous avez besoin d’une expertise ERP, CRM ou d’une solution SaaS ?",
+      "en": "Planning an implementation, a migration or a process improvement — or do you need ERP, CRM or SaaS expertise?"
+    },
+    "cta": {
+      "fr": "Parler de votre projet",
+      "en": "Discuss your project"
+    },
+    "script": {
+      "fr": "Des solutions au service d’un avenir meilleur.",
+      "en": "Solutions in the service of a better future."
+    }
+  }
+}

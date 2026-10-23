@@ -1,0 +1,297 @@
+{
+  "seo": {
+    "title": {
+      "fr": "Contact — Lagni Consulting",
+      "en": "Contact Lagni Consulting — training, ERP and recruitment enquiries"
+    },
+    "description": {
+      "fr": "Formation, ERP & Solutions, recrutement ou partenariat avec un établissement : sélectionnez votre besoin et échangeons sur vos objectifs.",
+      "en": "Training, ERP & Solutions, recruitment or an institutional partnership: choose what you need and let’s talk about your objectives."
+    }
+  },
+  "hero": {
+    "eyebrow": {
+      "fr": "Contact",
+      "en": "Contact"
+    },
+    "title": {
+      "fr": "Parlons de votre projet.",
+      "en": "Let’s talk about your project."
+    },
+    "lead": {
+      "fr": "Formation, ERP & Solutions, recrutement ou partenariat avec un établissement : sélectionnez votre besoin et échangeons sur vos objectifs.",
+      "en": "Training, ERP & Solutions, recruitment or a partnership with an institution: choose what you need and let’s talk about your objectives."
+    },
+    "markets": [
+      {
+        "fr": "Canada",
+        "en": "Canada"
+      },
+      {
+        "fr": "Europe",
+        "en": "Europe"
+      },
+      {
+        "fr": "Afrique",
+        "en": "Africa"
+      }
+    ],
+    "imageAlt": {
+      "fr": "Bureau professionnel avec ordinateur portable et carnet",
+      "en": "Professional desk with a laptop and a notebook"
+    },
+    "script": {
+      "fr": "Des échanges d’aujourd’hui aux opportunités de demain.",
+      "en": "From today’s conversations to tomorrow’s opportunities."
+    },
+    "ctaPrimary": {
+      "fr": "Choisir ma demande",
+      "en": "Choose my request"
+    },
+    "matchLabel": {
+      "fr": "Votre demande",
+      "en": "Your request"
+    },
+    "matchTitle": {
+      "fr": "Un seul point de contact",
+      "en": "One point of contact"
+    },
+    "profileBadge": {
+      "fr": "1–2",
+      "en": "1–2"
+    },
+    "profileLabel": {
+      "fr": "Délai de réponse",
+      "en": "Response time"
+    },
+    "profileTitle": {
+      "fr": "jours ouvrables",
+      "en": "business days"
+    }
+  },
+  "chooser": {
+    "eyebrow": {
+      "fr": "Votre besoin",
+      "en": "Your need"
+    },
+    "title": {
+      "fr": "Comment pouvons-nous vous aider ?",
+      "en": "How can we help?"
+    },
+    "lead": {
+      "fr": "Sélectionnez le type de demande qui correspond le mieux à votre besoin.",
+      "en": "Choose the type of request that best matches your need."
+    },
+    "options": [
+      {
+        "id": "formation",
+        "icon": "cap",
+        "lord": "cap",
+        "label": {
+          "fr": "Formation",
+          "en": "Training"
+        },
+        "body": {
+          "fr": "Je souhaite me former ou obtenir des informations sur une formation.",
+          "en": "I would like to train, or to get information about a programme."
+        },
+        "formTitle": {
+          "fr": "Formulaire de contact — Formation",
+          "en": "Contact form — Training"
+        }
+      },
+      {
+        "id": "formation-entreprise",
+        "icon": "people",
+        "lord": "mentor",
+        "label": {
+          "fr": "Formation entreprise",
+          "en": "Corporate training"
+        },
+        "body": {
+          "fr": "Nous souhaitons développer les compétences de nos équipes.",
+          "en": "We want to build our teams’ skills."
+        },
+        "formTitle": {
+          "fr": "Formulaire de contact — Formation entreprise",
+          "en": "Contact form — Corporate training"
+        }
+      },
+      {
+        "id": "erp",
+        "icon": "gear",
+        "lord": "server",
+        "label": {
+          "fr": "ERP & Solutions",
+          "en": "ERP & Solutions"
+        },
+        "body": {
+          "fr": "Nous avons un besoin concernant SAP, JDE, Odoo, GoHighLevel, Chataap ou un projet de transformation.",
+          "en": "We have a need around SAP, JDE, Odoo, GoHighLevel, Chataap or a transformation project."
+        },
+        "formTitle": {
+          "fr": "Formulaire de contact — ERP & Solutions",
+          "en": "Contact form — ERP & Solutions"
+        }
+      },
+      {
+        "id": "recrutement",
+        "icon": "search",
+        "lord": "search",
+        "label": {
+          "fr": "Recrutement",
+          "en": "Recruitment"
+        },
+        "body": {
+          "fr": "Nous recherchons un professionnel spécialisé.",
+          "en": "We are looking for a specialized professional."
+        },
+        "formTitle": {
+          "fr": "Formulaire de contact — Recrutement",
+          "en": "Contact form — Recruitment"
+        }
+      },
+      {
+        "id": "etablissement",
+        "icon": "school",
+        "lord": "school",
+        "label": {
+          "fr": "Établissement d’enseignement",
+          "en": "Educational institution"
+        },
+        "body": {
+          "fr": "Nous souhaitons discuter d’une formation ou d’un partenariat.",
+          "en": "We would like to discuss training or a partnership."
+        },
+        "formTitle": {
+          "fr": "Formulaire de contact — Établissement d’enseignement",
+          "en": "Contact form — Educational institution"
+        }
+      },
+      {
+        "id": "autre",
+        "icon": "doc",
+        "lord": "conversation",
+        "label": {
+          "fr": "Autre",
+          "en": "Something else"
+        },
+        "body": {
+          "fr": "Ma demande ne correspond à aucune des catégories ci-dessus.",
+          "en": "My request does not fit any of the categories above."
+        },
+        "formTitle": {
+          "fr": "Formulaire de contact",
+          "en": "Contact form"
+        }
+      }
+    ],
+    "legend": {
+      "fr": "Type de demande",
+      "en": "Type of request"
+    },
+    "formEyebrow": {
+      "fr": "Formulaire",
+      "en": "Form"
+    },
+    "noScriptNote": {
+      "fr": "Votre navigateur n’exécute pas JavaScript : tous les champs sont affichés. Remplissez uniquement ceux qui correspondent à votre demande, les autres peuvent rester vides.",
+      "en": "Your browser is not running JavaScript, so every field is shown. Fill in only those that match your request — the others can stay empty."
+    },
+    "formIntro": {
+      "fr": "Remplissez les informations ci-dessous afin que nous puissions mieux comprendre votre demande.",
+      "en": "Fill in the details below so we can understand your request properly."
+    }
+  },
+  "cvCallout": {
+    "title": {
+      "fr": "Vous souhaitez déposer votre CV ?",
+      "en": "Would you like to submit your résumé?"
+    },
+    "body": {
+      "fr": "Rejoignez notre réseau de professionnels ERP, CRM, gestion de projet, Supply Chain et transformation numérique.",
+      "en": "Join our network of professionals in ERP, CRM, project management, supply chain and digital transformation."
+    },
+    "cta": {
+      "fr": "Déposer ma candidature",
+      "en": "Submit my application"
+    }
+  },
+  "details": {
+    "title": {
+      "fr": "Nos coordonnées",
+      "en": "Our details"
+    },
+    "responseTitle": {
+      "fr": "Délais de réponse",
+      "en": "Response times"
+    },
+    "responseBody": {
+      "fr": "Nous répondons généralement aux demandes professionnelles dans un délai de 1 à 2 jours ouvrables.",
+      "en": "We usually reply to professional enquiries within one to two business days."
+    },
+    "linkedinLabel": {
+      "fr": "Suivez-nous sur LinkedIn",
+      "en": "Follow us on LinkedIn"
+    }
+  },
+  "faq": {
+    "eyebrow": {
+      "fr": "FAQ",
+      "en": "FAQ"
+    },
+    "title": {
+      "fr": "Questions fréquentes",
+      "en": "Frequently asked questions"
+    },
+    "lead": {
+      "fr": "Trouvez rapidement des réponses aux questions les plus courantes.",
+      "en": "Quick answers to the questions we hear most often."
+    }
+  },
+  "quote": {
+    "fr": "Des projets concrets commencent souvent par une simple conversation.",
+    "en": "Concrete projects often start with a simple conversation."
+  },
+  "pillars": [
+    {
+      "icon": "cap",
+      "label": {
+        "fr": "Compétences",
+        "en": "Skills"
+      }
+    },
+    {
+      "icon": "people",
+      "label": {
+        "fr": "Opportunités",
+        "en": "Opportunities"
+      }
+    },
+    {
+      "icon": "chart",
+      "label": {
+        "fr": "Avenir",
+        "en": "Future"
+      }
+    }
+  ],
+  "finalCta": {
+    "title": {
+      "fr": "Commençons par comprendre votre besoin.",
+      "en": "Let’s start by understanding what you need."
+    },
+    "body": {
+      "fr": "Formation, ERP, recrutement ou partenariat : contactez Lagni Consulting.",
+      "en": "Training, ERP, recruitment or partnership — get in touch with Lagni Consulting."
+    },
+    "cta": {
+      "fr": "Parler de votre projet",
+      "en": "Discuss your project"
+    },
+    "script": {
+      "fr": "Former. Accompagner. Connecter.",
+      "en": "Train. Support. Connect."
+    }
+  }
+}
