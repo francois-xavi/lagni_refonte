@@ -7,6 +7,8 @@ const __filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(__filename)
 
 const nextConfig: NextConfig = {
+  // Required by cms/Dockerfile: it copies .next/standalone and runs server.js.
+  output: 'standalone',
   images: {
     localPatterns: [
       {
